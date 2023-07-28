@@ -10,7 +10,10 @@ function SideNav() {
         <nav>
           <ul>
             <li>
-              <Link to="group">그룹</Link>
+            <div className="Rectangle313 w-36 h-10 bg-white rounded-2xl border border-black border-opacity-90 ">
+            <Link to="group">그룹</Link>
+        </div>
+              
             </li>
             <li>
               <Link to="calendar">캘린더</Link>
