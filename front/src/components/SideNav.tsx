@@ -1,29 +1,33 @@
 // import { Route, Routes } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
+import { Button, Nav } from "react-bootstrap";
 
 function SideNav() {
   // sidebar & inner header
   //Nav.link li 반복 menu title[]. menu[]
+  // const navlinkCss = ({isActive}:{isActive:boolean}):string=>{
+  //   return ``
+  // }
   return (
     <>
       <div>
         <Nav className="flex-column">
-          <Nav.Link as={Link} to="group">
-            <div className="items-center">
-              그룹
-            </div>
+          <Nav.Link
+            as={NavLink}
+            to="group"
+          >
+            <Button className="items-center" variant="outline-secondary" style={{color:'#E8E8E8'}}>그룹</Button>
           </Nav.Link>
 
-          <Nav.Link as={Link} to="calendar">
+          <Nav.Link as={NavLink} to="calendar">
             캘린더
           </Nav.Link>
 
-          <Nav.Link as={Link} to="meeting">
+          <Nav.Link as={NavLink} to="meeting">
             회의
           </Nav.Link>
 
-          <Nav.Link as={Link} to="item">
+          <Nav.Link as={NavLink} to="item">
             뽑기
           </Nav.Link>
         </Nav>
