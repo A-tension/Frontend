@@ -4,9 +4,11 @@ import SideNav from "../components/SideNav";
 function Dash() {
   return (
     <>
-      <h1>DASHBOARD</h1>
-      <SideNav></SideNav>
+    <div  style={{background:'#ECF3FC'}}>
+    <SideNav></SideNav>
       <Outlet></Outlet>
+    </div>
+
     </>
   );
 }

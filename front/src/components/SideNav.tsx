@@ -1,31 +1,32 @@
 // import { Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 
 function SideNav() {
   // sidebar & inner header
-  //link li 반복 menu title[]. menu[]
+  //Nav.link li 반복 menu title[]. menu[]
   return (
     <>
       <div>
-        <nav>
-          <ul>
-            <li>
-            <div className="Rectangle313 w-36 h-10 bg-white rounded-2xl border border-black border-opacity-90 ">
-            <Link to="group">그룹</Link>
-        </div>
-              
-            </li>
-            <li>
-              <Link to="calendar">캘린더</Link>
-            </li>
-            <li>
-              <Link to="meeting">회의</Link>
-            </li>
-            <li>
-              <Link to="item">뽑기</Link>
-            </li>
-          </ul>
-        </nav>
+        <Nav className="flex-column">
+          <Nav.Link as={Link} to="group">
+            <div className="items-center">
+              그룹
+            </div>
+          </Nav.Link>
+
+          <Nav.Link as={Link} to="calendar">
+            캘린더
+          </Nav.Link>
+
+          <Nav.Link as={Link} to="meeting">
+            회의
+          </Nav.Link>
+
+          <Nav.Link as={Link} to="item">
+            뽑기
+          </Nav.Link>
+        </Nav>
         <div>선택된 메뉴 selected?</div>
       </div>
     </>
