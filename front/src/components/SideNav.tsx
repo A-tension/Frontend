@@ -1,37 +1,40 @@
 // import { Route, Routes } from "react-router-dom";
-import { NavLink, Link } from "react-router-dom";
-import { Button, Nav } from "react-bootstrap";
-
-function SideNav() {
+import {  Nav } from "react-bootstrap";
+import { NavTab } from "./atoms/tab/NavTab";
+interface Props {
+  label: Array<string>;
+  linkto: Array<string>;
+  style?: string;
+} // 적용해서 수정해야 함
+//지금 하려고 하는 것 dash에서 usestate로 현재 어느 탭에 있는지 표시
+const SideNav=(props:Props)=> {
+  //style={{color:'#8C8C8C'}}
   // sidebar & inner header
-  //Nav.link li 반복 menu title[]. menu[]
-  // const navlinkCss = ({isActive}:{isActive:boolean}):string=>{
-  //   return ``
-  // }
+
+  const menu =props.linkto;// ["group", "calendar", "meeting", "item"];//props.linkto
+  const label = props.label;// ["그룹", "캘린더", " 회의", "뽑기"];//props.label
+
+  const navlinks = menu.map((eng, index) => (
+    <NavTab
+      label={label[index]}
+      linkto={eng}
+      linktype="NavLink"
+      button={true}
+      className="items-center"
+      width="210px"
+      height="60px"
+      bround="20px"
+      variant="outline-primary"
+    ></NavTab>
+  ));
+
   return (
     <>
-      <div>
-        <Nav className="flex-column">
-          <Nav.Link
-            as={NavLink}
-            to="group"
-          >
-            <Button className="items-center" variant="outline-secondary" style={{color:'#E8E8E8'}}>그룹</Button>
-          </Nav.Link>
+      <div className="" style={{ height: "100vh" }}>
+        <Nav className="flex-column pt-5">
+{navlinks}          
 
-          <Nav.Link as={NavLink} to="calendar">
-            캘린더
-          </Nav.Link>
-
-          <Nav.Link as={NavLink} to="meeting">
-            회의
-          </Nav.Link>
-
-          <Nav.Link as={NavLink} to="item">
-            뽑기
-          </Nav.Link>
         </Nav>
-        <div>선택된 메뉴 selected?</div>
       </div>
     </>
   );

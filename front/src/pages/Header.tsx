@@ -37,7 +37,7 @@ onClick={checkLogin}
           </Navbar.Brand>
 
           <Nav.Link className="">소개</Nav.Link>
-          <Nav.Link>기능</Nav.Link>
+          <Nav.Link href="#features">기능</Nav.Link>
         </Nav>
         <Nav className="justify-content-end">
           {!loggedIn && <Loginheader></Loginheader>}
@@ -46,17 +46,7 @@ onClick={checkLogin}
           {/* <Nav.Link as={Link} to="/dash/meeting/join">
             회의 참여
           </Nav.Link> */}
-          {loggedIn && (
-            <Nav.Link as={Link} to="/#login">
-              <Button
-                onClick={() => {
-                  checkLogin(!loggedIn);
-                }}
-              >
-                로그아웃
-              </Button>
-            </Nav.Link>
-          )}
+          
           {!loggedIn && (
             <Nav.Link as={Link} to="/#logout">
               <Button

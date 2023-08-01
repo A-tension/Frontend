@@ -5,7 +5,7 @@
 
 import Carousel from "react-bootstrap/Carousel";
 import banner from "../assets/banner_noborder.png";
-import { Accordion, Container } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 // import { useState } from "react";
 
 function Landing() {
@@ -21,6 +21,7 @@ function Landing() {
         {/* <h1>Landing carousel</h1> */}
         {/* <div className="fixed top-40 bg-sky-400">carousel place holder</div> */}
         {/* <h2>Landing card group</h2> */}
+        {/* <Header></Header> */}
         <Carousel>
           <Carousel.Item>
             <img src={banner} />
@@ -30,9 +31,9 @@ function Landing() {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <div style={{ width: '200x' }}>
+        <div  id="features">
           <Accordion defaultActiveKey="0" flush>
-            <Accordion.Item eventKey="0">
+            <Accordion.Item  style={{ width: '200x' }}eventKey="0">
               <Accordion.Header>기능 소개 map 으로 </Accordion.Header>
               <Accordion.Body>소개를 전부,,, 그냥 html로?</Accordion.Body>
             </Accordion.Item>

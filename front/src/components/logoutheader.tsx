@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
-import { Nav, OverlayTrigger, Button, Popover } from "react-bootstrap";
+import {
+  Nav,
+  NavDropdown,
+  OverlayTrigger,
+  Button,
+  Popover,
+} from "react-bootstrap";
 function Logoutheader() {
+  const user = {
+    name: "Ssafy",
+  };
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">알림</Popover.Header>
@@ -25,9 +34,14 @@ function Logoutheader() {
       <Nav.Link as={Link} to="/dash/meeting/join">
         회의 참여
       </Nav.Link>
-      <Nav.Link as={Link} to="/info" className="">
-        프로필모달
-      </Nav.Link>
+
+      <NavDropdown title={user.name} id="basic-nav-dropdown">
+        <NavDropdown.Item as={Link} to="/info" className="">
+          마이페이지
+        </NavDropdown.Item>
+        <NavDropdown.Item>
+          로그아웃</NavDropdown.Item>
+      </NavDropdown>
     </>
   );
 }
