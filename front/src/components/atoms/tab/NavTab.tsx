@@ -1,5 +1,6 @@
-import { Nav ,Button} from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
+import SidebarButton from "../button/SidebarButton";
 
 interface Props {
   linkto: string;
@@ -8,10 +9,11 @@ interface Props {
   button?: boolean;
   height?: string;
   width?: string;
-  bround?:string;
+  bround?: string;
   disabled?: boolean;
-  variant?:string;
-  className?:string;
+  variant?: string;
+  className?: string;
+  onClick?: () => void;
 }
 //button을 props로 받았다면
 //{props.Button && }
@@ -31,38 +33,27 @@ export const NavTab = (props: Props) => {
       </>
     );
   } else {
-    // button 유무
+    // button 유무, CSS 완전 동일하게 할지 옵션 두개
     return (
       <>
-        <Nav.Link as={props.linktype == "Nav" ? Link : NavLink} to={props.linkto}>
-          <Button
+        <Nav.Link
+          as={props.linktype == "Nav" ? Link : NavLink}
+          to={props.linkto}
+          onClick={props.onClick}
+        >
+          {/* <Button
             className={props.className}
             style={{ width: props.width, height: props.height, borderRadius: props.bround }}
             variant={props.variant} aria-selected
           >
             {props.label}
-          </Button>
+          </Button> */}
+          <SidebarButton
+            elabel={props.linkto}
+            klabel={props.label}
+          ></SidebarButton>
         </Nav.Link>
       </>
     );
   }
-
-  // return (
-  <>
-    {/* <Nav.Item>
-          <Nav.Link as={linktype} to={props.linkto}>{props.label}</Nav.Link>
-        </Nav.Item> */}
-    {/* <Nav variant="underline" defaultActiveKey="/home">
-
-        <Nav.Item>
-          <Nav.Link eventKey="link-1">Option 2</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="" disabled>
-            Disabled
-          </Nav.Link>
-        </Nav.Item>
-      </Nav> */}
-  </>;
-  // );
 };

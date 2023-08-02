@@ -8,13 +8,13 @@ function Start() {
       <a>
         회의 시작 시간, 제목, 구성원 입력
       </a> */}
-      <Form>
-      <Form.Group as={Row} className="mb-3" controlId="formHorizontalText">
+      <Form >
+      <Form.Group  as={Row} className="mb-3" controlId="formHorizontalText">
         <Form.Label column sm={2}>
           제목
         </Form.Label>
         <Col sm={10}>
-          <Form.Control type="email" placeholder="방 제목을 입력하세요" />
+          <Form.Control size="lg" style={{borderRadius:"20px"}}  type="email" placeholder="방 제목을 입력하세요" />
         </Col>
       </Form.Group>
 
@@ -23,13 +23,13 @@ function Start() {
           날짜
         </Form.Label>
         <Col sm={4}>
-          <Form.Control type="date" placeholder="" className="input-border-radius-lg" form="rounded"/>
+          <Form.Control  size="lg" style={{borderRadius:"20px"}}  type="date" placeholder="" className="input-border-radius-lg" form="rounded"/>
         </Col>
         <Form.Label column sm={2}>
           시간
         </Form.Label>
         <Col sm={4}>
-          <Form.Control type="time" placeholder="" className="rounded-9"/>
+          <Form.Control  size="lg" style={{borderRadius:"20px"}}  type="time" placeholder="" className="rounded-9"/>
         </Col>
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -37,7 +37,7 @@ function Start() {
           초대
         </Form.Label>
         <Col sm={10}>
-          <Form.Control type="email" accept="multiple" placeholder="" />
+          <Form.Control size="lg" style={{borderRadius:"20px"}}  type="email" accept="multiple" placeholder="" />
         </Col>
       </Form.Group>
 

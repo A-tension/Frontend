@@ -25,7 +25,7 @@ function Group() {
       as={Nav.Link}
       eventKey={index}
       onClick={() => selectGroup(groupname)}
-      key={groupname}
+      key={index}
     >
       {groupname}
     </Nav.Item>
@@ -35,11 +35,11 @@ function Group() {
   // const selectGroup=()=>
   return (
     <>
-      <p>
+      {/* <p>
         sidebar(group list), group tab menu- group chat, group sidebar list
         모듈??? 그룹이 없을때? list에서 어떤 그룹을 골랐는지 표시 "group
         selection flex-column pt-5"
-      </p>
+      </p> */}
       <div>
         <Tab.Container defaultActiveKey="first">
           <Row>

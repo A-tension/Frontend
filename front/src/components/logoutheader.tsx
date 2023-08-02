@@ -6,10 +6,16 @@ import {
   Button,
   Popover,
 } from "react-bootstrap";
-function Logoutheader() {
+interface Props {
+  checkLogin:React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Logoutheader = (props: Props) => {
   const user = {
     name: "Ssafy",
   };
+  const handleLogout = ()=>{
+    props.checkLogin(false);
+  }
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">알림</Popover.Header>
@@ -39,10 +45,9 @@ function Logoutheader() {
         <NavDropdown.Item as={Link} to="/info" className="">
           마이페이지
         </NavDropdown.Item>
-        <NavDropdown.Item>
-          로그아웃</NavDropdown.Item>
+        <NavDropdown.Item onClick={handleLogout}>로그아웃</NavDropdown.Item>
       </NavDropdown>
     </>
   );
-}
+};
 export default Logoutheader;

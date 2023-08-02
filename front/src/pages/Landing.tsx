@@ -22,7 +22,7 @@ function Landing() {
         {/* <div className="fixed top-40 bg-sky-400">carousel place holder</div> */}
         {/* <h2>Landing card group</h2> */}
         {/* <Header></Header> */}
-        <Carousel>
+        <Carousel id="intro">
           <Carousel.Item>
             <img src={banner} />
             <Carousel.Caption className="text-dark-emphasis">
