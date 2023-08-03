@@ -1,5 +1,5 @@
 import { Nav } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link,  } from "react-router-dom";
 import SidebarButton from "../button/SidebarButton";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
   variant?: string;
   className?: string;
   onClick?: () => void;
+  navProps?: string;
 }
 //button을 props로 받았다면
 //{props.Button && }
@@ -26,6 +27,8 @@ export const NavTab = (props: Props) => {
             disabled={props.disabled}
             as={props.linktype == "Nav" ? Link : NavLink}
             to={props.linkto}
+            onClick={props.onClick}
+            state={props.navProps}
           >
             {props.label}
           </Nav.Link>

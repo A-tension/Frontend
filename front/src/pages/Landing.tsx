@@ -44,6 +44,8 @@ function Landing() {
           </Accordion>
         </div>
       </div>
+
+     
     </>
   );
 }

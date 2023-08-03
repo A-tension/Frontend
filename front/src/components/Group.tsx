@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Tab, Nav, Row, Col, Button,  } from "react-bootstrap";
-import { useState } from "react";
+import { Tab, Nav, Row, Col, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import { NavTab } from "./atoms/tab/NavTab";
 
 function Group() {
@@ -24,15 +24,24 @@ function Group() {
     <Nav.Item
       as={Nav.Link}
       eventKey={index}
-      onClick={() => selectGroup(groupname)}
+      onClick={() => {selectGroup(groupname)}}
       key={index}
     >
       {groupname}
     </Nav.Item>
   ));
-
   const [selectedGroup, selectGroup] = useState("");
+  const [isCreate, setMenu] = useState(false);
+  useEffect(() => {
+    const escapeCreate = () => {
+      setMenu(false);
+    };
+
+    escapeCreate();
+
+  }, [selectedGroup]);
   // const selectGroup=()=>
+  const dataObject =selectedGroup;
   return (
     <>
       {/* <p>
@@ -40,31 +49,42 @@ function Group() {
         모듈??? 그룹이 없을때? list에서 어떤 그룹을 골랐는지 표시 "group
         selection flex-column pt-5"
       </p> */}
-      <div>
+      <div>z
         <Tab.Container defaultActiveKey="first">
           <Row>
-            <Col
-              sm={3}
-              
-            >
-              <div style={{ flex: "none", maxHeight: "400px", overflowY: "auto" }}>
+            <Col sm={3}>
+              <div
+                style={{ flex: "none", maxHeight: "400px", overflowY: "auto" }}
+              >
                 <Nav variant="pills" className="flex-column">
-                {grouplist}
-              </Nav>
+                  {grouplist}
+                </Nav>
               </div>
-              
-              <Button>그룹 추가</Button>
-            </Col>
-            <Col>
-              {/* <h1>Group {selectedGroup}</h1> */}
-              <Nav variant="underline" defaultActiveKey="list">
-                <NavTab disabled={true} label={selectedGroup} linkto="#" />
-                <NavTab label="채팅" linkto="chat" linktype="NavLink" />
-                <NavTab label="일정" linkto="plans" linktype="NavLink" />
-                <NavTab label="관리" linkto="members" linktype="NavLink" />
-              </Nav>
-              <Outlet></Outlet>
-            </Col>
+
+              <NavTab
+                label="그룹추가"
+                linkto="create"
+                linktype="Nav"
+                onClick={() => setMenu(true)}
+              ></NavTab>
+            </Col>{" "}
+            {isCreate && (
+              <Col>
+                <Outlet></Outlet>
+              </Col>
+            )}
+            {!isCreate && (
+              <Col>
+                {/* <h1>Group {selectedGroup}</h1> */}
+                <Nav variant="underline" defaultActiveKey="list">
+                  <NavTab disabled={true} label={selectedGroup} linkto="#" />
+                  <NavTab label="채팅" linkto="chat" linktype="NavLink" navProps={dataObject} />
+                  <NavTab label="일정" linkto="plans" linktype="NavLink" />
+                  <NavTab label="관리" linkto="members" linktype="NavLink"  />
+                </Nav>
+                <Outlet></Outlet>
+              </Col>
+            )}
           </Row>
         </Tab.Container>
       </div>

@@ -5,7 +5,7 @@
 //   }
 // import fillerImg from "../../assets/bwink_edu_04_single_04.jpg";
 // 이 컴포넌트는 파란배경에 둥근모서리 사각형카드 정중앙 정렬
-import {Card,Row} from 'react-bootstrap'
+import { Card, Row } from "react-bootstrap";
 interface Props {
   width?: string | "1000px";
   height?: string | "550px";
@@ -25,10 +25,7 @@ const RoundCard: React.FC<Props> = (props: Props) => {
           className="mx-auto "
           style={{ height: props.height, width: props.width, borderRadius: 20 }}
         >
-            <Row style={{ height: props.height }}>
-            {props.children}
-          </Row>
-            
+          <Row style={{ height: props.height }}>{props.children}</Row>
         </Card>
       </div>
     </>

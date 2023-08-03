@@ -7,15 +7,15 @@ import {
   Popover,
 } from "react-bootstrap";
 interface Props {
-  checkLogin:React.Dispatch<React.SetStateAction<boolean>>;
+  checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Logoutheader = (props: Props) => {
   const user = {
     name: "Ssafy",
   };
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     props.checkLogin(false);
-  }
+  };
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">알림</Popover.Header>

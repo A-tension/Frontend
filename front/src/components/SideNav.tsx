@@ -1,4 +1,3 @@
-// import { Route, Routes } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { NavTab } from "./atoms/tab/NavTab";
 import React from "react";
@@ -14,7 +13,8 @@ const SideNav: React.FC<Props> = (props: Props) => {
   //style={{color:'#8C8C8C'}}
   // sidebar & inner header
   const { label, linkto, selectMenu } = props;
-  const menu = linkto; // ["group", "calendar", "meeting", "item"];//props.linkto
+  const menu = linkto;
+  // ["group", "calendar", "meeting", "item"];//props.linkto
   // ["그룹", "캘린더", " 회의", "뽑기"];//props.label
 
   const handleSelect = (menuname: string) => {

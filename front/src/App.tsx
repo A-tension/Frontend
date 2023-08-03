@@ -23,6 +23,7 @@ import Header from "./pages/Header";
 import "./App.css";
 import Waiting from "./pages/Waiting";
 import JoinMeeting from "./components/JoinMeeting";
+import Gcreate from "./components/group/Gcreate";
 function App() {
   return (
     <>
@@ -33,6 +34,8 @@ function App() {
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}>
+            {/* <Route path="" element={<GChat />}></Route> */}
+              <Route path="create" element={<Gcreate/>}></Route>
               <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
               <Route path="members" element={<Members />}></Route>

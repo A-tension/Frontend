@@ -18,10 +18,10 @@ function Header() {
     <>
       {/* <header className="bg-white outline-dotted"> */}
 
-      <Navbar className="me-auto p-2" >
+      <Navbar className="me-auto p-2">
         <Nav className="me-auto p-2">
           <Navbar.Brand as={Link} to="/" className="">
-            <img src={logo} height={"26px"}/>
+            <img src={logo} height={"26px"} />
           </Navbar.Brand>
 
           <Nav.Link className="" as={NavLink} to="/#intro">
@@ -32,14 +32,22 @@ function Header() {
           </Nav.Link>
         </Nav>
         {/* <Nav className="justify-content-end"> */}
-          {!loggedIn && <Nav className="justify-content-end"><Loginheader checkLogin={checkLogin}></Loginheader>  </Nav>}
-          {loggedIn && <Nav className="justify-content-end"><Logoutheader checkLogin={checkLogin}></Logoutheader>  </Nav>}
+        {!loggedIn && (
+          <Nav className="justify-content-end">
+            <Loginheader checkLogin={checkLogin}></Loginheader>{" "}
+          </Nav>
+        )}
+        {loggedIn && (
+          <Nav className="justify-content-end">
+            <Logoutheader checkLogin={checkLogin}></Logoutheader>{" "}
+          </Nav>
+        )}
 
-          {/* <Nav.Link as={Link} to="/dash/meeting/join">
+        {/* <Nav.Link as={Link} to="/dash/meeting/join">
             회의 참여
           </Nav.Link> */}
 
-          {/* {!loggedIn && (
+        {/* {!loggedIn && (
             <Nav.Link as={Link} to="login">
               <Button
                 onClick={() => {
