@@ -12,7 +12,7 @@ function Meeting() {
       </a> */}
 
       <Nav variant="underline" className="pb-5" defaultActiveKey="/dash/meeting/manage">
-        <NavTab label="개설" linkto="/dash/meeting/start" linktype="Nav"></NavTab>
+        <NavTab label="개설" linkto="/dash/meeting/start" linktype="Nav" ></NavTab>
         <NavTab label="참여" linkto="/dash/meeting/join" linktype="Nav"></NavTab>
         <NavTab label="관리" linkto="/dash/meeting/manage" linktype="Nav"></NavTab>
       </Nav> 

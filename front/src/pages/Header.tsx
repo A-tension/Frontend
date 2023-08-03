@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import "./Header.css";
 import logo from "../assets/LOGO.png";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import Loginheader from "../components/loginheader";
 import Logoutheader from "../components/logoutheader";
 function Header() {
@@ -31,15 +31,15 @@ function Header() {
             기능
           </Nav.Link>
         </Nav>
-        <Nav className="justify-content-end">
-          {!loggedIn && <Loginheader></Loginheader>}
-          {loggedIn && <Logoutheader checkLogin={checkLogin}></Logoutheader>}
+        {/* <Nav className="justify-content-end"> */}
+          {!loggedIn && <Nav className="justify-content-end"><Loginheader checkLogin={checkLogin}></Loginheader>  </Nav>}
+          {loggedIn && <Nav className="justify-content-end"><Logoutheader checkLogin={checkLogin}></Logoutheader>  </Nav>}
 
           {/* <Nav.Link as={Link} to="/dash/meeting/join">
             회의 참여
           </Nav.Link> */}
 
-          {!loggedIn && (
+          {/* {!loggedIn && (
             <Nav.Link as={Link} to="login">
               <Button
                 onClick={() => {
@@ -49,8 +49,8 @@ function Header() {
                 로그인
               </Button>
             </Nav.Link>
-          )}
-        </Nav>
+          )} */}
+        {/* </Nav> */}
       </Navbar>
     </>
   );

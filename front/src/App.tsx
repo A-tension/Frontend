@@ -22,6 +22,7 @@ import Header from "./pages/Header";
 // import Month from "./components/plan/Month";
 import "./App.css";
 import Waiting from "./pages/Waiting";
+import JoinMeeting from "./components/JoinMeeting";
 function App() {
   return (
     <>
@@ -31,8 +32,8 @@ function App() {
           <Route path="/" element={<Landing />}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
-            <Route  path="group" element={<Group />}>
-              <Route  path="chat" element={<GChat />}></Route>
+            <Route path="group" element={<Group />}>
+              <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
               <Route path="members" element={<Members />}></Route>
             </Route>
@@ -42,21 +43,23 @@ function App() {
               {/* <Route path="month" element={<Month />}></Route> */}
             </Route>
             <Route path="meeting" element={<Meeting />}>
-            <Route path="" element={<Navigate to="join" />}></Route>
-              <Route path="join" element={<Join />}>
-
-              </Route>
+              <Route path="" element={<Navigate to="join" />}></Route>
+              <Route path="join" element={<Join />}></Route>
               <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>
             </Route>
             <Route path="item" element={<Item />}>
-            <Route path="" element={<Navigate to="list" />}></Route>
+              <Route path="" element={<Navigate to="list" />}></Route>
               <Route path="list" element={<List />}></Route>
               <Route path="draw" element={<Draw />}></Route>
             </Route>
           </Route>
-          <Route path="wait" element={<Waiting/>}></Route>
-          <Route path="/conference" element={<Conference />}></Route>
+          <Route path="join" element={<JoinMeeting />}></Route>
+          <Route path="wait" element={<Waiting />}></Route>
+          <Route
+            path="conference"
+            element={<Conference sessionId="" myUserName="" />}
+          ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
