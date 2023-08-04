@@ -1,9 +1,11 @@
 import { Nav } from "react-bootstrap";
 import { NavTab } from "./atoms/tab/NavTab";
-import React from "react";
+
 interface Props {
   label: Array<string>;
   linkto: Array<string>;
+  icons: Array<string>;
+
   style?: string;
   selectMenu: React.Dispatch<React.SetStateAction<string>>;
   selectedMenu: string;
@@ -12,7 +14,8 @@ interface Props {
 const SideNav: React.FC<Props> = (props: Props) => {
   //style={{color:'#8C8C8C'}}
   // sidebar & inner header
-  const { label, linkto, selectMenu } = props;
+  const { label, linkto, selectMenu, icons } = props;
+
   const menu = linkto;
   // ["group", "calendar", "meeting", "item"];//props.linkto
   // ["그룹", "캘린더", " 회의", "뽑기"];//props.label
@@ -31,8 +34,10 @@ const SideNav: React.FC<Props> = (props: Props) => {
       height="60px"
       bround="20px"
       variant="outline-primary"
+      icon={icons[index]}
       onClick={() => handleSelect(label[index])}
-      key={index}
+      selectedMenu={props.selectedMenu}
+            key={index}
     ></NavTab>
   ));
 

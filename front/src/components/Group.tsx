@@ -12,13 +12,8 @@ function Group() {
     "G3",
     "G1",
     "G2",
-    "G3",
     "G1",
-    "G2",
-    "G3",
-    "G1",
-    "G2",
-    "G3",
+    
   ];
   const grouplist = groups.map((groupname, index) => (
     <Nav.Item
@@ -49,22 +44,25 @@ function Group() {
         모듈??? 그룹이 없을때? list에서 어떤 그룹을 골랐는지 표시 "group
         selection flex-column pt-5"
       </p> */}
-      <div>z
+      <div>
         <Tab.Container defaultActiveKey="first">
           <Row>
-            <Col sm={3}>
+            <Col sm={3} style={{height:"400px"}}>
               <div
-                style={{ flex: "none", maxHeight: "400px", overflowY: "auto" }}
+                style={{ flex: "none", height: "300px", overflowY: "auto" }}
               >
                 <Nav variant="pills" className="flex-column">
                   {grouplist}
                 </Nav>
               </div>
 
-              <NavTab
+              <NavTab 
                 label="그룹추가"
                 linkto="create"
                 linktype="Nav"
+                button={true}
+                children={<Button style={{borderRadius:"20px", width:
+              "100%"}}>그룹추가</Button>}
                 onClick={() => setMenu(true)}
               ></NavTab>
             </Col>{" "}
