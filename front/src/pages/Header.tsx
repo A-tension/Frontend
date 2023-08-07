@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import "./Header.css";
+import "../App.css";
 import logo from "../assets/LOGO.png";
 import { Navbar, Nav } from "react-bootstrap";
 import Loginheader from "../components/loginheader";
@@ -24,10 +25,10 @@ function Header() {
             <img src={logo} height={"26px"} />
           </Navbar.Brand>
 
-          <Nav.Link className="" as={NavLink} to="/#intro">
+          <Nav.Link className="font-extrabold" as={NavLink} to="/#intro">
             소개
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/#features">
+          <Nav.Link className="" as={NavLink} to="/#features">
             기능
           </Nav.Link>
         </Nav>
