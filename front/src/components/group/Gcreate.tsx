@@ -1,31 +1,29 @@
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
-interface GroupCreateData {
-  // groupId:string;
+import { useAppDispatch } from "../../store/hooks";
+import { Team, groupCreateTest } from "../../store/group";
+interface GroupCreateData extends Team {
   members: string[];
-  description:string;
+  description: string;
   // id:string;
   name: string;
   // profileimg?:string;
 }
-
-
 const Gcreate = () => {
-
   const [groupData, setGroupData] = useState<GroupCreateData>({
-    name:"",
-    members:[""],
-    description:"",
-    
+    name: "",
+    members: [""],
+    description: "",
   });
+  const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = event.target;
-  setGroupData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-};
+    const { name, value } = event.target;
+    setGroupData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   const handleCreate = () => {
     // axios.post("http://your-api-endpoint", groupData)
     // .then((response) => {
@@ -36,9 +34,9 @@ const Gcreate = () => {
     //   console.error("Error creating group:", error);
     //   // Handle errors if needed
     // });
-    
-    console.log(groupData)
-    // 생성시 그룹 조회 호출/ 특정그룹 정보 호출 
+    dispatch(groupCreateTest(groupData));
+    console.log(groupData);
+    // 생성시 그룹 조회 호출/ 특정그룹 정보 호출
     // e.preventDefault();
     // const formData = new FormDataEvent(e.target);
     // const dataObject = Object.fromEntries(formData);
@@ -51,13 +49,17 @@ const Gcreate = () => {
       <h1>이미지 업로드</h1>
       <Form onSubmit={handleCreate} style={{ width: "100%" }}>
         <FloatingLabel label="그룹명">
-          <Form.Control name="name" type="text" />
+          <Form.Control
+            name="name"
+            type="text"
+            value={groupData.name}
+            onChange={handleInputChange}
+          />
         </FloatingLabel>
         <FloatingLabel label="그룹원">
           <Form.Control
             name="members"
             type="text"
-            
             value={groupData.members}
             onChange={handleInputChange}
           />

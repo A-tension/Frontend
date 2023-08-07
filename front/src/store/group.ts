@@ -2,9 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 export interface Team {
-  teamId: number;
+  teamId?: number; // axios에서 생성 요청시 자동반환
   name: string;
-  profileImg: string;
+  profileImg?: string;
+  dsecription?: string;
 }
 const initialState: Team[] = [];
 export const groupSlice = createSlice({
@@ -27,14 +28,14 @@ export const groupSlice = createSlice({
       const { teamId, name, profileImg } = action.payload;
       state.push({
         name: name,
-        teamId:  teamId,
-        profileImg:profileImg,
+        teamId: teamId,
+        profileImg: profileImg,
       });
     },
   },
 });
-export const {groupCreateTest,loadListTest} = groupSlice.actions;
+export const { groupCreateTest, loadListTest } = groupSlice.actions;
 //getters
-export const getGrouplist = (state: RootState) => state;
+export const getGrouplist = (state: RootState) => state.groups;
 //
 export default groupSlice.reducer;

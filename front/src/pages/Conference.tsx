@@ -20,7 +20,7 @@ const Conference = (props: Props) => {
   //open vidu 적용되는 부분이라 집중적으로 공부하고 구조 고민하기
   return (
     <>
-      <RoundCard width="1000px">
+      <RoundCard width="1000px" height="400">
         회의실 세션ID: {sessionId}
         사용자: {myUserName}
         <h1>회의 탭 pages 말고 component로 보내야 함</h1>

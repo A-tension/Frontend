@@ -1,7 +1,10 @@
 import { Col, FloatingLabel, Button, Form, Image } from "react-bootstrap";
 import RoundCard from "../components/atoms/RoundCard";
 import fillerImg from "../assets/Memoji.png";
+import { useAppSelector } from "../store/hooks";
+import { selectUser } from "../store/user";
 function Info() {
+  const loginUser = useAppSelector(selectUser);
   return (
     <>
       <RoundCard width="900px" height="400px">
@@ -27,17 +30,21 @@ function Info() {
         <Col className="position-relative py-2 px-4 d-flex flex-column align-items-center justify-content-center">
           <Form style={{ width: "100%" }}>
             <FloatingLabel label="이름">
-              <Form.Control readOnly defaultValue="김싸피" />
+              <Form.Control readOnly defaultValue={loginUser.name} />
             </FloatingLabel>
             <FloatingLabel label="대화명">
-              <Form.Control readOnly type="text" defaultValue="싸피" />
+              <Form.Control readOnly type="text" defaultValue={loginUser.userId} />
             </FloatingLabel>
+            <FloatingLabel label="meetingURL">
+              <Form.Control readOnly type="text" defaultValue={loginUser.meetingUrl} />
+            </FloatingLabel>
+            
             <FloatingLabel label="이메일">
               <Form.Control
                 readOnly
                 disabled
                 type="email"
-                defaultValue="kimssafy@ssafy.com"
+                defaultValue={loginUser.email}
               />
             </FloatingLabel>
             <Button variant="danger">회원탈퇴</Button>

@@ -9,7 +9,6 @@ function Group() {
   //dummy data to test scroll
   // const loadGroups =()=>{
   //   axios.get({
-
   //   })
   // }
   // const groups:Team[] = [
@@ -19,24 +18,24 @@ function Group() {
   //   // "G1",
   //   // "G2",
   //   // "G1",
-
-    
   // ];
-  const groups:Team[] = useAppSelector(getGrouplist);
+  const groups: Team[] = useAppSelector(getGrouplist);
   const grouplist = groups.map((group, index) => (
-    <Nav.Item 
+    <Nav.Item
       as={Nav.Link}
       eventKey={index}
-      onClick={() => {selectGroup(group)}}
+      onClick={() => {
+        selectGroup(group);
+      }}
       key={index}
     >
       {group.name}
     </Nav.Item>
   ));
   const [selectedGroup, selectGroup] = useState<Team>({
-    teamId:0,
-    name:"",
-    profileImg:"",
+    teamId: 0,
+    name: "",
+    profileImg: "",
   });
   const [isCreate, setMenu] = useState(false);
 
@@ -47,7 +46,7 @@ function Group() {
     escapeCreate();
   }, [selectedGroup]);
   // const selectGroup=()=>
-  const dataObject =selectedGroup;
+  const dataObject = selectedGroup;
   return (
     <>
       {/* <p>
@@ -58,22 +57,23 @@ function Group() {
       <div>
         <Tab.Container defaultActiveKey="first">
           <Row>
-            <Col sm={3} style={{height:"400px"}}>
-              <div
-                style={{ flex: "none", height: "300px", overflowY: "auto" }}
-              >
+            <Col sm={3} style={{ height: "400px" }}>
+              <div style={{ flex: "none", height: "300px", overflowY: "auto" }}>
                 <Nav variant="pills" className="flex-column">
                   {grouplist}
                 </Nav>
               </div>
 
-              <NavTab 
+              <NavTab
                 label="그룹추가"
                 linkto="create"
                 linktype="Nav"
                 button={true}
-                children={<Button style={{borderRadius:"20px", width:
-              "100%"}}>그룹추가</Button>}
+                children={
+                  <Button style={{ borderRadius: "20px", width: "100%" }}>
+                    그룹추가
+                  </Button>
+                }
                 onClick={() => setMenu(true)}
               ></NavTab>
             </Col>{" "}
@@ -86,10 +86,19 @@ function Group() {
               <Col>
                 {/* <h1>Group {selectedGroup}</h1> */}
                 <Nav variant="underline" defaultActiveKey="list">
-                  <NavTab disabled={true} label={selectedGroup.name} linkto="#" />
-                  <NavTab label="채팅" linkto="chat" linktype="NavLink" navProps={dataObject} />
+                  <NavTab
+                    disabled={true}
+                    label={selectedGroup.name}
+                    linkto="#"
+                  />
+                  <NavTab
+                    label="채팅"
+                    linkto="chat"
+                    linktype="NavLink"
+                    navProps={dataObject}
+                  />
                   <NavTab label="일정" linkto="plans" linktype="NavLink" />
-                  <NavTab label="관리" linkto="members" linktype="NavLink"  />
+                  <NavTab label="관리" linkto="members" linktype="NavLink" />
                 </Nav>
                 <Outlet></Outlet>
               </Col>
