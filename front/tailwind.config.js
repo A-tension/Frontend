@@ -14,6 +14,7 @@ export default {
       "grey5": "#818A98",
       "grey6": "#67707E",
       "grey7": "#505762",
+      "nero":"#1A1A1A"
     },
     extend: {
       fontFamily: {

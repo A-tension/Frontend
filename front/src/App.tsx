@@ -24,6 +24,7 @@ import "./App.css";
 import Waiting from "./pages/Waiting";
 import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
+import Month from "./components/plan/Month";
 function App() {
   return (
     <>
@@ -41,6 +42,7 @@ function App() {
               <Route path="members" element={<Members />}></Route>
             </Route>
             <Route path="calendar" element={<Calendar />}>
+              <Route index element={<Month/>}></Route>
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<Plan />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}

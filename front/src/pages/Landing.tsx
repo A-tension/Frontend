@@ -35,8 +35,8 @@ function Landing() {
         <div  id="features">
           <Accordion defaultActiveKey="0" flush>
             <Accordion.Item  style={{ width: '200x' }}eventKey="0">
-              <Accordion.Header className="font-pretendard ">기능 소개 map 으로 </Accordion.Header>
-              <Accordion.Body className="font-sans text-grey5">hello my name is harvey</Accordion.Body>
+              <Accordion.Header className="font-SUIT text-blue">기능 소개 map 으로 </Accordion.Header>
+              <Accordion.Body className="font-sans text-blue p-">hello my name is harvey</Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
               <Accordion.Header>기능 소개 map 으로 </Accordion.Header>
