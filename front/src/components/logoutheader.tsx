@@ -6,13 +6,16 @@ import {
   Button,
   Popover,
 } from "react-bootstrap";
+import { useAppSelector } from "../store/hooks";
+import { selectUser } from "../store/user";
 interface Props {
   checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Logoutheader = (props: Props) => {
-  const user = {
-    name: "Ssafy",
-  };
+  const loginUser = useAppSelector(selectUser);
+  // const user = {
+  //   name: "Ssafy",
+  // };
   const handleLogout = () => {
     props.checkLogin(false);
   };
@@ -41,7 +44,7 @@ const Logoutheader = (props: Props) => {
         회의 참여
       </Nav.Link>
 
-      <NavDropdown title={user.name} id="basic-nav-dropdown">
+      <NavDropdown title={loginUser.name} id="basic-nav-dropdown">
         <NavDropdown.Item as={Link} to="/info" className="">
           마이페이지
         </NavDropdown.Item>

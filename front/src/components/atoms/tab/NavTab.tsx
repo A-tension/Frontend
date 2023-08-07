@@ -1,6 +1,7 @@
 import { Nav } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import SidebarButton from "../button/SidebarButton";
+import { Team } from "../../../store/group";
 
 interface Props {
   linkto: string;
@@ -14,7 +15,7 @@ interface Props {
   variant?: string;
   className?: string;
   onClick?: () => void;
-  navProps?: string;
+  navProps?: Team;
   children?: React.ReactNode;
   icon?: string;
   style?: React.CSSProperties;

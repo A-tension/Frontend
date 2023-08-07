@@ -2,38 +2,49 @@ import { Outlet } from "react-router-dom";
 import { Tab, Nav, Row, Col, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { NavTab } from "./atoms/tab/NavTab";
-
+import { Team, getGrouplist } from "../store/group";
+import { useAppSelector } from "../store/hooks";
 function Group() {
   //api get groups
   //dummy data to test scroll
-  const groups = [
-    "G1",
-    "G2",
-    "G3",
-    "G1",
-    "G2",
-    "G1",
+  // const loadGroups =()=>{
+  //   axios.get({
+
+  //   })
+  // }
+  // const groups:Team[] = [
+  //   // "G1",
+  //   // "G2",
+  //   // "G3",
+  //   // "G1",
+  //   // "G2",
+  //   // "G1",
+
     
-  ];
-  const grouplist = groups.map((groupname, index) => (
-    <Nav.Item
+  // ];
+  const groups:Team[] = useAppSelector(getGrouplist);
+  const grouplist = groups.map((group, index) => (
+    <Nav.Item 
       as={Nav.Link}
       eventKey={index}
-      onClick={() => {selectGroup(groupname)}}
+      onClick={() => {selectGroup(group)}}
       key={index}
     >
-      {groupname}
+      {group.name}
     </Nav.Item>
   ));
-  const [selectedGroup, selectGroup] = useState("");
+  const [selectedGroup, selectGroup] = useState<Team>({
+    teamId:0,
+    name:"",
+    profileImg:"",
+  });
   const [isCreate, setMenu] = useState(false);
+
   useEffect(() => {
     const escapeCreate = () => {
       setMenu(false);
     };
-
     escapeCreate();
-
   }, [selectedGroup]);
   // const selectGroup=()=>
   const dataObject =selectedGroup;
@@ -75,7 +86,7 @@ function Group() {
               <Col>
                 {/* <h1>Group {selectedGroup}</h1> */}
                 <Nav variant="underline" defaultActiveKey="list">
-                  <NavTab disabled={true} label={selectedGroup} linkto="#" />
+                  <NavTab disabled={true} label={selectedGroup.name} linkto="#" />
                   <NavTab label="채팅" linkto="chat" linktype="NavLink" navProps={dataObject} />
                   <NavTab label="일정" linkto="plans" linktype="NavLink" />
                   <NavTab label="관리" linkto="members" linktype="NavLink"  />
