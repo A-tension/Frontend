@@ -19,7 +19,6 @@ import Manage from "./components/meeting/Manage";
 import Draw from "./components/item/Draw";
 import List from "./components/item/List";
 import Header from "./pages/Header";
-
 // import Month from "./components/plan/Month";
 import "./App.css";
 import Waiting from "./pages/Waiting";

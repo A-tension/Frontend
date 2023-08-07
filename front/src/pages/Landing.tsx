@@ -6,6 +6,7 @@
 import Carousel from "react-bootstrap/Carousel";
 import banner from "../assets/banner_noborder.png";
 import { Accordion } from "react-bootstrap";
+import "../App.css";
 // import { useState } from "react";
 
 function Landing() {
@@ -34,8 +35,8 @@ function Landing() {
         <div  id="features">
           <Accordion defaultActiveKey="0" flush>
             <Accordion.Item  style={{ width: '200x' }}eventKey="0">
-              <Accordion.Header>기능 소개 map 으로 </Accordion.Header>
-              <Accordion.Body>소개를 전부,,, 그냥 html로?</Accordion.Body>
+              <Accordion.Header className="font-pretendard ">기능 소개 map 으로 </Accordion.Header>
+              <Accordion.Body className="font-sans text-grey5">hello my name is harvey</Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
               <Accordion.Header>기능 소개 map 으로 </Accordion.Header>
