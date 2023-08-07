@@ -19,47 +19,32 @@ function Header() {
     <>
       {/* <header className="bg-white outline-dotted"> */}
 
-      <Navbar className="me-auto p-2">
-        <Nav className="me-auto p-2">
+      <Navbar className="me-auto flex p-2" style={{height:"53px"}}>
+        {/* <Nav className="me-auto p-2"> */}
           <Navbar.Brand as={Link} to="/" className="">
             <img src={logo} height={"26px"} />
           </Navbar.Brand>
 
-          <Nav.Link className="font-extrabold" as={NavLink} to="/#intro">
+          <Nav.Link className="justify-start p-2" as={NavLink} to="/#intro">
             소개
           </Nav.Link>
-          <Nav.Link className="" as={NavLink} to="/#features">
+          <Nav.Link className="justify-start p-2" as={NavLink} to="/#features">
             기능
           </Nav.Link>
-        </Nav>
+        {/* </Nav> */}
         {/* <Nav className="justify-content-end"> */}
-        {!loggedIn && (
-          <Nav className="justify-content-end">
+          {loggedIn && (
+          <Nav className="ms-auto">
+            <Logoutheader checkLogin={checkLogin}></Logoutheader>{" "}
+          </Nav>
+        )}{!loggedIn && (
+          <Nav className="ms-auto">
             <Loginheader checkLogin={checkLogin}></Loginheader>{" "}
           </Nav>
         )}
-        {loggedIn && (
-          <Nav className="justify-content-end">
-            <Logoutheader checkLogin={checkLogin}></Logoutheader>{" "}
-          </Nav>
-        )}
+      
 
-        {/* <Nav.Link as={Link} to="/dash/meeting/join">
-            회의 참여
-          </Nav.Link> */}
 
-        {/* {!loggedIn && (
-            <Nav.Link as={Link} to="login">
-              <Button
-                onClick={() => {
-                  checkLogin(!loggedIn);
-                }}
-              >
-                로그인
-              </Button>
-            </Nav.Link>
-          )} */}
-        {/* </Nav> */}
       </Navbar>
     </>
   );

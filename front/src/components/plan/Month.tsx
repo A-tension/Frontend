@@ -33,9 +33,9 @@
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: '',
+                center: 'prev,title,next',
+                left: 'dayGridMonth,timeGridWeek,timeGridDay'
               }}
               initialView='dayGridMonth'
               editable={true}
@@ -62,26 +62,26 @@
     renderSidebar() {
       return (
         <div className='demo-app-sidebar'>
-          <div className='demo-app-sidebar-section'>
+          {/* <div className='demo-app-sidebar-section'>
             <h2>Instructions</h2>
             <ul>
               <li>Select dates and you will be prompted to create a new event</li>
               <li>Drag, drop, and resize events</li>
               <li>Click an event to delete it</li>
             </ul>
-          </div>
+          </div> */}
           <div className='demo-app-sidebar-section'>
-            <label>
+            {/* <label>
               <input
                 type='checkbox'
                 checked={this.state.weekendsVisible}
                 onChange={this.handleWeekendsToggle}
               ></input>
               toggle weekends
-            </label>
+            </label> */}
           </div>
           <div className='demo-app-sidebar-section'>
-            <h2>All Events ({this.state.currentEvents.length})</h2>
+            <h5>All Events ({this.state.currentEvents.length})</h5>
             <ul>
               {this.state.currentEvents.map(renderSidebarEvent)}
             </ul>
@@ -112,7 +112,10 @@
         })
       }
     }
-  
+    
+    handleHover =(clickInfo:EventHoveringArg)=>{
+
+    }
     handleEventClick = (clickInfo: EventClickArg) => {
       if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
         clickInfo.event.remove()

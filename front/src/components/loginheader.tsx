@@ -9,10 +9,10 @@ const Loginheader = (props: Props) => {
   };
   return (
     <>
-      <Nav.Link as={Link} to="/join">
+      <Nav.Link as={Link} to="/join" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         회의 참여
       </Nav.Link>
-      <Nav.Link as={Link} to="login" className="">
+      <Nav.Link as={Link} to="login">
         <Button onClick={() => handleLogin(true)}>로그인</Button>
       </Nav.Link>
     </>

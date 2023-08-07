@@ -5,6 +5,7 @@ export const store =configureStore({
     reducer:{
         user: userReducer,
         groups:groupReducer,
+        meeting:meetingReducer,
     },
 })
 export type RootState = ReturnType<typeof store.getState>

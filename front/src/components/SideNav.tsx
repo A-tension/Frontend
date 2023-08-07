@@ -43,7 +43,7 @@ const SideNav: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <div className="">
+      <div >
         <Nav className="flex-column pt-5">{navlinks}</Nav>
       </div>
     </>
