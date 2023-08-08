@@ -17,12 +17,27 @@ const Gcreate = () => {
     description: "",
   });
   const dispatch = useAppDispatch();
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setGroupData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setGroupData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === 'members') {
+      const memberArray = value.split(',').map(member => member.trim());
+      setGroupData((prevData) => ({
+        ...prevData,
+        [name]: memberArray,
+      }));
+    } else {
+      setGroupData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
   const handleCreate = () => {
     // axios.post("http://your-api-endpoint", groupData)
