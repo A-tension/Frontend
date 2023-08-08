@@ -44,7 +44,7 @@ const Dash = () => {
               >
                 <SidebarButton notButton={true} klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
                 <div
-                  className=" pt-4 px-5 pb-5"
+                  className=" pt-2 px-5 pb-5"
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",

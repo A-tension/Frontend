@@ -23,7 +23,6 @@ export const meetingSlice = createSlice({
   reducers: {
     meetingModeTest: (state) => {
         state.joined=!state.joined;
-        return state.joined;
 
     },
     // planCreateTest: (state, action: PayloadAction<Plan>) => {

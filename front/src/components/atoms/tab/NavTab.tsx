@@ -80,7 +80,7 @@ export const NavTab = (props: Props) => {
           as={props.linktype == "Nav" ? Link : NavLink}
           to={props.linkto}
           onClick={props.onClick}
-          eventKey={props.key}
+          // eventKey={props.key}
         >
           <SidebarButton
             selected={props.selectedMenu == props.label}
