@@ -10,7 +10,7 @@ import SidebarButton from "../components/atoms/button/SidebarButton";
 const Dash = () => {
   // sidenav selected 받아와서
 
-  const headerHeight = 74; // Change this value to match your actual header height
+  const headerHeight = 53; // Change this value to match your actual header height
   const colHeight = `calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
 
