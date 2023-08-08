@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Tab, Nav, Row, Col, Button, Card, Form } from "react-bootstrap";
 import { NavTab } from "./atoms/tab/NavTab";
+import Plans from "./group/Plans.tsx";
+import Members from "./group/Members.tsx";
 
 function Group() {
   const groups = [
@@ -37,8 +39,14 @@ function Group() {
         <div>
           <Tab.Container defaultActiveKey="first">
             <Row>
-              <Col sm={3} style={{ height: "450px"}}>
-                <div style={{ flex: "none", height: "300px", overflowY: "auto" }}>
+              <Col sm={3} style={{ height: "450px" }}>
+                <div
+                    style={{
+                      flex: "none",
+                      height: "300px",
+                      overflowY: "auto"
+                    }}
+                >
                   <Nav variant="pills" className="flex-column">
                     {grouplist}
                   </Nav>
@@ -48,7 +56,16 @@ function Group() {
                     linkto="create"
                     linktype="Nav"
                     button={true}
-                    children={<Button style={{ borderRadius: "20px", width: "100%" }}>그룹생성</Button>}
+                    children={
+                      <Button
+                          style={{
+                            borderRadius: "20px",
+                            width: "100%"
+                          }}
+                      >
+                        그룹생성
+                      </Button>
+                    }
                     onClick={() => setMenu(true)}
                 ></NavTab>
               </Col>
@@ -84,7 +101,17 @@ function Group() {
                           onClick={() => handleTabClick("members")}
                       />
                     </Nav>
-                    <Card style={{ borderLeft: "none", borderRight: "none", borderTop: "1px solid #ccc", borderBottom: "none", marginTop: "20px", padding: "10px", borderRadius: 0 }}>
+                    <Card
+                        style={{
+                          borderLeft: "none",
+                          borderRight: "none",
+                          borderTop: "1px solid #ccc",
+                          borderBottom: "none",
+                          marginTop: "20px",
+                          padding: "10px",
+                          borderRadius: 0
+                        }}
+                    >
                       {selectedTab === "info" && (
                           <div>
                             {/* 그룹 정보 컴포넌트를 렌더링 */}
@@ -99,24 +126,47 @@ function Group() {
                       )}
                       {selectedTab === "plans" && (
                           <div>
-                            {/* 일정 컴포넌트를 렌더링 */}
-                            <h1>Plans Component</h1>
+                            <Plans />
                           </div>
                       )}
                       {selectedTab === "members" && (
                           <div>
                             {/* 관리 컴포넌트를 렌더링 */}
-                            <h1>Members Component</h1>
+                              <Members />
                           </div>
                       )}
                       {selectedTab === "chat" && (
                           <div style={{ marginTop: "20px" }}>
                             {/* 채팅상자를 렌더링 */}
-                            <Form style={{ backgroundColor: "white", borderRadius: "10px", padding: "10px" }}>
-                              <Form.Group controlId="exampleForm.ControlTextarea1" style={{ marginBottom: "0" }}>
-                                <Form.Control as="textarea" rows={3} placeholder="메시지 입력..." style={{backgroundColor: "#f7f7f7", borderRadius: "10px", border: "none", resize: "none" }} />
+                            <Form
+                                style={{
+                                  backgroundColor: "white",
+                                  borderRadius: "10px",
+                                  padding: "10px"
+                                }}
+                            >
+                              <Form.Group
+                                  controlId="exampleForm.ControlTextarea1"
+                                  style={{ marginBottom: "0" }}
+                              >
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder="메시지 입력..."
+                                    style={{
+                                      backgroundColor: "#f7f7f7",
+                                      borderRadius: "10px",
+                                      border: "none",
+                                      resize: "none"
+                                    }}
+                                />
                               </Form.Group>
-                              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                              <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end"
+                                  }}
+                              >
                                 <Button variant="primary" type="submit">
                                   전송
                                 </Button>
