@@ -48,6 +48,7 @@ const Dash = () => {
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",
+                    minHeight: "500px",
                   }}
                 >
                   <Outlet></Outlet>
