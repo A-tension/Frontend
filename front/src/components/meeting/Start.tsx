@@ -12,7 +12,7 @@ interface MeetCreateData extends Plan {
   startdate: string;
   starttime: string;
   // end?: string;
-  isPrivate:string;
+  isPrivate:boolean;
 }
 function Start() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Start() {
     startdate: "",
     starttime: "",
     start:"",
-    isPrivate:""
+    isPrivate:false
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +124,7 @@ e.preventDefault();
 
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Form.Check type="checkbox" label="대기실" onChange={handleInputChange} name="private" value={meetData.isPrivate}/>
+            <Form.Check type="checkbox" checked={meetData.isPrivate} label="대기실" onChange={handleInputChange} name="isPrivate"/>
           </Col>
         </Form.Group>
 

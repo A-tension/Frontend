@@ -1,11 +1,13 @@
-import { Col, Row, Image, Button } from "react-bootstrap";
+import { Col, Row, Image } from "react-bootstrap";
 import loginG from "../assets/btn_google_signin_light_normal_web@2x.png";
 import loginN from "../assets/btnW_완성형.png";
 import loginK from "../assets/kakao_login_medium_narrow.png";
 import fillerImg from "../assets/bwink_edu_04_single_04.jpg";
 import RoundCard from "../components/atoms/RoundCard";
 import { useAppDispatch } from "../store/hooks";
-import { User, userLogin } from "../store/user";
+import { User, getUserGroups, userLogin } from "../store/user";
+import { loginload } from "../store/group";
+import { store } from "../store/store";
 
 function Login() {
   // const headerHeight = 78; // Change this value to match your actual header height
@@ -16,9 +18,13 @@ function Login() {
     userId: "김싸피",
   };
   const dispatch = useAppDispatch();
+  
   const handleTest = () => {
     //api 요청으로
-    dispatch(userLogin(trytologin));
+    dispatch(userLogin(trytologin));//axios에서 처리
+    const usergroups = getUserGroups(store.getState());
+    dispatch(loginload(usergroups))
+    
   };
   return (
     <>

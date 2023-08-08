@@ -6,9 +6,11 @@ import { User } from "./user";
 export interface Plan {
   members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
   name: string;
-  start?: string;
+  start?: string;// 하루종일
+  startdate?:string;
+  starttime?:string;
   end?: string;
-  private?:boolean|false;
+  isPrivate?:boolean|false;
 }
 const initialState: Plan[]=[];
 //  = {
@@ -40,11 +42,14 @@ export const planSlice = createSlice({
       });
     },
     planCreateTest: (state, action: PayloadAction<Plan>) => {
-      const { members, name,start  } = action.payload;
+      const { members, name,start,starttime, startdate, isPrivate} = action.payload;
       state.push({
         name: name,
         members: members,
         start: start,
+        starttime:starttime,
+        startdate:startdate,
+        isPrivate:isPrivate,
       });
     },
   },

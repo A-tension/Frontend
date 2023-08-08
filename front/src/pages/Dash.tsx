@@ -24,7 +24,7 @@ const Dash = () => {
       <div style={{ height: colHeight }}>
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" lg={3} style={{minWidth:"290px"}} >
+            <Col className="pt-5" lg={2} style={{minWidth:"290px"}} >
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}
@@ -33,7 +33,7 @@ const Dash = () => {
                 linkto={menu}
               ></SideNav>
             </Col>
-            <Col lgm={9} style={{ padding: "0" }}>
+            <Col  style={{ padding: "0" }}>
               <div
                 className="interpadding pt-5 px-5"
                 style={{
@@ -42,12 +42,13 @@ const Dash = () => {
                   borderRadius: "40px 0px 0px 0px",
                 }}
               >
-                <SidebarButton notButton={true}  klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
+                <SidebarButton notButton={true} klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
                 <div
                   className=" pt-4 px-5 pb-5"
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",
+                    minHeight:"500px"
                   }}
                 >
                   <Outlet></Outlet>
