@@ -11,7 +11,7 @@ export interface User {
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
-    isLoggedIn?:boolean;
+    isLoggedIn?:boolean|false;
 }
 export interface Item {
   itemId: number;
@@ -71,13 +71,17 @@ export const userSlice = createSlice({
     },
     isLoggedIn: (state) => {
       return { ...state, isLoggedIn: state.email !== "" };
-    }
+    },
+    // hasAuthority: (state)=>{//  해당 그룹에 
+    //   return state.isLoggedIn;
+    // }
   },
 });
 //action - dispatch
 export const { userLoginTest, userLogin, userLogout,isLoggedIn } = userSlice.actions;
 //getters
 export const selectUser = (state: RootState) => state.user;
+export const checkAuthority = (state: RootState)=> state.user.isLoggedIn;
 export const getUserGroups = (state: RootState) => state.user.myGroups;
 //
 export default userSlice.reducer;

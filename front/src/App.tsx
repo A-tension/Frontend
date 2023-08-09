@@ -25,8 +25,7 @@ import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
 import Month from "./components/plan/Month";
-
-import Welcome from "./components/group/Welcome";
+import ManageGroup from "./components/group/ManageGroup";
 import Waiting from "./pages/Waiting";
 
 function App() {
@@ -39,12 +38,11 @@ function App() {
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}>
-              <Route path="none" element={<Welcome />}></Route>
-              {/* <Route path="" element={<GChat />}></Route> */}
               <Route path="create" element={<Gcreate />}></Route>
               <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
               <Route path="members" element={<Members />}></Route>
+              <Route path="manage" element={<ManageGroup />}></Route>
             </Route>
             <Route path="calendar" element={<Calendar />}>
               <Route index element={<Month />}></Route>

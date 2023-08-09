@@ -20,12 +20,14 @@ interface Props {
   children?: React.ReactNode;
   icon?: string;
   key?: string|number;
+  // hasAuth?: boolean|false;
   // style?: React.CSSProperties;
   selectedMenu?: string;
 }
 //button을 props로 받았다면
 //{props.Button && }
 export const NavTab = (props: Props) => {
+  // const isLoggedIn
   if (!props.button) {
     return (
       <>

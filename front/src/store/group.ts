@@ -8,8 +8,8 @@ export interface Team {
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
-  dsecription?: string;
-  members: string[] | User[];
+  description?: string;
+  members?: string[] | User[];
 }
 const initialState: Team[] = [];
 export const groupSlice = createSlice({
@@ -52,12 +52,13 @@ export const groupSlice = createSlice({
       });
     },
     groupCreateTest: (state, action: PayloadAction<Team>) => {
-      const { teamId, name, profileImg, members } = action.payload;
+      const { teamId, name, profileImg, members,description } = action.payload;
       state.push({
         name: name,
         teamId: teamId,
         profileImg: profileImg,
         members: members,
+        description:description,
       });
     },
     // getGroupwithId:(state, action:PayloadAction<number>)=>{

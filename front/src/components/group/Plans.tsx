@@ -30,7 +30,7 @@ function Plans(props: Props) {
     ))
   return (
     <>
-      <h1> prop test {props.teamProp?.name}</h1>
+      {/* <h1> prop test {props.teamProp?.name}</h1> */}
       <Card
         style={{
           border: "none",
@@ -61,7 +61,7 @@ function Plans(props: Props) {
 
         {/* ... 이전 내용 ... */}
         <div>
-        |{planList}
+        {planList}
           <div
             style={{
               backgroundColor: "#f7f7f7",
@@ -74,42 +74,7 @@ function Plans(props: Props) {
             {/* 일정 추가 내용 1 */}
             추가 내용 1
           </div>
-          <div
-            style={{
-              backgroundColor: "#f7f7f7",
-              borderRadius: "6px",
-              padding: "10px",
-              marginBottom: "10px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {/* 일정 추가 내용 2 */}
-            추가 내용 2
-          </div>
-          <div
-            style={{
-              backgroundColor: "#f7f7f7",
-              borderRadius: "6px",
-              padding: "10px",
-              marginBottom: "10px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {/* 일정 추가 내용 3 */}
-            추가 내용 3
-          </div>
-          <div
-            style={{
-              backgroundColor: "#f7f7f7",
-              borderRadius: "6px",
-              padding: "10px",
-              marginBottom: "10px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {/* 일정 추가 내용 4 */}
-            추가 내용 4
-          </div>
+          
         </div>
       </Card>
     </>
