@@ -4,7 +4,6 @@ import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import OpenVidu from "./openvidu/App";
-import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
 import Item from "./components/Item";
@@ -55,7 +54,6 @@ function App() {
               <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
-              {/*<Route path="wait" element={<Waiting />}></Route>*/}
               <Route
                 path="conference"
                 element={<Conference sessionId="" myUserName="" />}
