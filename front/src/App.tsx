@@ -3,6 +3,7 @@ import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
+import OpenVidu from "./openvidu/App";
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -21,7 +22,6 @@ import List from "./components/item/List";
 import Header from "./pages/Header";
 // import Month from "./components/plan/Month";
 import "./App.css";
-import Waiting from "./pages/Waiting";
 import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
 import Month from "./components/plan/Month";
@@ -37,6 +37,7 @@ function App() {
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}>
               <Route path="none" element={<Welcome />}></Route>
+              {/* <Route path="" element={<GChat />}></Route> */}
               <Route path="create" element={<Gcreate />}></Route>
               <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
@@ -66,7 +67,12 @@ function App() {
               <Route path="draw" element={<Draw />}></Route>
             </Route>
           </Route>
-
+          <Route path="join" element={<JoinMeeting />}></Route>
+          <Route path="/wait" element={<OpenVidu />} />
+          <Route
+            path="conference"
+            element={<Conference sessionId="" myUserName="" />}
+          ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>

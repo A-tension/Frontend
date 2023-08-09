@@ -39,13 +39,15 @@ function Waiting() {
             justifyContent: "space-around",
           }}
         >
-          <Button size="lg"
+          <Button
+            size="lg"
             onClick={() => setAudio((preValue) => !preValue)}
             style={{ borderRadius: "20" }}
           >
             마이크 {audioSetting ? "끄기" : "켜기"}
           </Button>
-          <Button size="lg"
+          <Button
+            size="lg"
             onClick={() => setVideo((preValue) => !preValue)}
             style={{ borderRadius: "20" }}
           >
@@ -54,6 +56,7 @@ function Waiting() {
 
           <Link to={"/dash/meeting/conference"}>
             <Button  size="lg" style={{ borderRadius: "20" }} onClick={handleJoining}>회의 참여</Button>
+
           </Link>
         </div>
       {/* </RoundCard> */}

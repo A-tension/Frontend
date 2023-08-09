@@ -35,7 +35,7 @@ const Dash = () => {
             </Col>
             <Col  style={{ padding: "0" }}>
               <div
-                className="interpadding pt-5 px-5"
+                className="interpadding pt-5 px-5 pb-4"
                 style={{
                   height: "100%",
                   background: "#ECF3FC",
