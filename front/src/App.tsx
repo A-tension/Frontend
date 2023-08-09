@@ -4,6 +4,7 @@ import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import OpenVidu from "./openvidu/App";
+import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
 import Item from "./components/Item";
@@ -34,8 +35,8 @@ function App() {
           <Route path="/" element={<Landing />}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
-            <Route path="group">
-              <Route path="none" element={<Welcome />}></Route>
+            <Route path="group" element={<Group />}>
+            <Route path="none" element={<Welcome />}></Route>
               {/* <Route path="" element={<GChat />}></Route> */}
               <Route path="create" element={<Gcreate />}></Route>
               <Route path="chat" element={<GChat />}></Route>
