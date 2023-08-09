@@ -13,7 +13,7 @@ interface Props {
   color?: string | "white";
 }
 const RoundCard: React.FC<Props> = (props: Props) => {
-  const headerHeight = 78; // Change this value to match your actual header height
+  const headerHeight = 53; // Change this value to match your actual header height
   const colHeight = `calc(100vh - ${headerHeight}px)`;
   return (
     <>

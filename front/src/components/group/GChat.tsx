@@ -1,8 +1,8 @@
 import {useLocation} from 'react-router-dom'
-interface Props{
-  groupId?:number;
-  groupname?: string;
-}
+// interface Props{
+//   groupId?:number;
+//   groupname?: string;
+// }
 
 const GChat=()=> {
 const location = useLocation();
