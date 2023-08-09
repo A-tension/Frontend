@@ -35,7 +35,7 @@ const Dash = () => {
             </Col>
             <Col lgm={9} style={{ padding: "0" }}>
               <div
-                className="interpadding pt-5 px-5"
+                className="interpadding pt-5 px-5 pb-4"
                 style={{
                   height: "100%",
                   background: "#ECF3FC",
@@ -44,10 +44,11 @@ const Dash = () => {
               >
                 <SidebarButton notButton={true}  klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
                 <div
-                  className="mx-5 pt-4 px-5 pb-5"
+                  className="mx-5 pt-4 px-5 pb-6"
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",
+                    minHeight: "500px",
                   }}
                 >
                   <Outlet></Outlet>
