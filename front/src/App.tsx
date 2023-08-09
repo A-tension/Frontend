@@ -19,6 +19,7 @@ import Manage from "./components/meeting/Manage";
 import Draw from "./components/item/Draw";
 import List from "./components/item/List";
 import Header from "./pages/Header";
+import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
 import "./App.css";
 import Waiting from "./pages/Waiting";
@@ -65,6 +66,7 @@ function App() {
           ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />}></Route>
         </Routes>
       </div>
     </>
