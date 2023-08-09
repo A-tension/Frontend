@@ -8,6 +8,7 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+// isLocalhost: 로컬호스트 확인 함수
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -18,6 +19,7 @@ const isLocalhost = Boolean(
     )
 );
 
+// register: 서비스워커를 등록하는 함수
 export default function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -52,6 +54,7 @@ export default function register() {
   }
 }
 
+// registerValidSW: 유효한 SW인지 확인하는 함수
 function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
@@ -81,6 +84,7 @@ function registerValidSW(swUrl) {
     });
 }
 
+// checkValidServiceWorker: 유효한 서비스워커인지 확인하는 함수
 function checkValidServiceWorker(swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl)
@@ -108,6 +112,7 @@ function checkValidServiceWorker(swUrl) {
     });
 }
 
+// unregister: 서비스워커 해제 함수
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {

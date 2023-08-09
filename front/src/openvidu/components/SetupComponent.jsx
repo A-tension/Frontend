@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Loading from "./Loading";
 import "./SetupComponent.css";
 import useUpdateStream from "./utils/useUpdateStream";
 import {
@@ -14,9 +15,22 @@ import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
+import Switch from "@material-ui/core/Switch";
+import InterceptedAxios from "../../utils/iAxios";
 
 const SetupComponent = (props) => {
-  const { setTap, setDevices, userId } = props;
+  const {
+    teacherName,
+    classTitle,
+    classId,
+    setTap,
+    setDevices,
+    whoami,
+    canUseDoublePongpong,
+    isUsedDoublePongpong,
+    setIsUsedDoublePongpong,
+    userId,
+  } = props;
 
   const {
     videos,
@@ -39,6 +53,7 @@ const SetupComponent = (props) => {
     setIsAudioOn,
   } = setDevices;
 
+  const [isLoading, setIsLoading] = useState(true);
   const effectCnt = useRef(0); // 최초 마운트에 특정 useEffect가 동작하지 않게 하기 위한 트릭
   const previewFace = useRef(null);
   const stream = useRef(new MediaStream());
@@ -64,7 +79,9 @@ const SetupComponent = (props) => {
       stream.current.getTracks().forEach((track) => (track.enabled = false));
       previewFace.current.srcObject = stream.current ?? null;
     };
-    getMyDevices().then(() => {});
+    getMyDevices().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -142,8 +159,40 @@ const SetupComponent = (props) => {
       .forEach((track) => (track.enabled = !isAudioOn));
   };
 
+  const goNext = async () => {
+    if (isUsedDoublePongpong) {
+      try {
+        await InterceptedAxios.delete(`/items/${userId}/4`);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    setTap("class");
+  };
+
+  const goBack = async () => {
+    if (whoami === "teacher") {
+      try {
+        const result = await InterceptedAxios.patch(
+          `/classes/${classId}/close`,
+          {
+            classId: classId,
+          }
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    window.location.href = `/${whoami}`;
+  };
+
+  const onClickDoublePongpong = () => {
+    setIsUsedDoublePongpong(!isUsedDoublePongpong);
+  };
+
   return (
     <div className="totalContainer">
+      {isLoading && <Loading whoami={whoami} />}
       <div className="triangles">
         <div className="triangle1" />
         <div className="triangle2" />
@@ -158,7 +207,10 @@ const SetupComponent = (props) => {
           <hr />
           <div className="sideContainer">
             <div className="main">
-              <div className="RoomName title"></div>
+              <div className="RoomName title">
+                [{classTitle} 수업]{" "}
+                <span className="teacher-span">{teacherName}선생님</span>
+              </div>
 
               <div className="preview">
                 <video
@@ -223,9 +275,27 @@ const SetupComponent = (props) => {
                   </select>
                 </div>
               </div>
+              {canUseDoublePongpong && (
+                <div className="double-pongpong-toggle">
+                  {isUsedDoublePongpong ? (
+                    <span>더블퐁퐁권 사용O</span>
+                  ) : (
+                    <span>더블퐁퐁권 사용X</span>
+                  )}
+                  <Switch
+                    checked={isUsedDoublePongpong}
+                    onClick={onClickDoublePongpong}
+                    color="error"
+                  />
+                </div>
+              )}
               <div className="next">
-                <button className="nextBtn">입장하기</button>
-                <button className="backBtn">돌아가기</button>
+                <button className="nextBtn" onClick={goNext}>
+                  입장하기
+                </button>
+                <button className="backBtn" onClick={goBack}>
+                  돌아가기
+                </button>
               </div>
             </div>
           </div>
