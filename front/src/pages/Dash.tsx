@@ -24,7 +24,7 @@ const Dash = () => {
       <div style={{ height: colHeight }}>
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" lg={2} style={{minWidth:"290px"}} >
+            <Col className="pt-5" sm={1} style={{minWidth:"290px"}} >
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}

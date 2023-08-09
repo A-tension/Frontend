@@ -1,9 +1,12 @@
-import React from "react";
 import { Button, Card } from "react-bootstrap";
-
-function Plans() {
+import { Team } from "../Group";
+interface Props{
+    teamProp?: Team;
+}
+function Plans(props:Props) {
     return (
         <>
+        <h1> prop test {props.teamProp?.name}</h1>
             <Card
                 style={{
                     border: "none",

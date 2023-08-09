@@ -2,11 +2,12 @@ import "./toolbar.scss";
 import ScreenPlaceholder from "../../assets/screenfiller.png";
 import groupIcon from "../../assets/icons/icon_group.svg";
 import IconComp from "../atoms/IconComp";
-import { Button, OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover, Ratio } from "react-bootstrap";
 import ModalOverlay from "./ModalOverlay";
 import { useAppDispatch } from "../../store/hooks";
 import { meetingModeTest } from "../../store/meeting";
 import { useNavigate } from "react-router-dom";
+import Screen from "./Screen";
 interface Tool {
   title: string;
   modal: boolean | false;
@@ -72,7 +73,10 @@ const Toolbar = () => {
   return (
     <>
       <div className="media-container">
-        <img src={ScreenPlaceholder} alt="Media" />
+        {/* <Ratio aspectRatio={"16x9"} style={{ maxWidth: "600px" }}> */}
+            <Screen audio={true} video={true}></Screen>
+          {/* </Ratio> */}
+   
         <div className="overlay inset-x-0 left- bottom-0 rounded-3xl backdrop-blur-md">
           {/* <div className="OpaqueToolbar w-96 h-12 justify-center items-center inline-flex"></div> */}
           {/* <div className="w-96 h-12 bg-white bg-opacity-70 md:bg-opacity-50 rounded-3xl backdrop-blur-md"></div> */}

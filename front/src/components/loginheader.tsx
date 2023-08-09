@@ -9,7 +9,7 @@ const Loginheader = (props: Props) => {
   };
   return (
     <>
-      <Nav.Link as={Link} to="/join" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <Nav.Link as={Link} to="/dash/meeting/join" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         회의 참여
       </Nav.Link>
       <Nav.Link as={Link} to="login">

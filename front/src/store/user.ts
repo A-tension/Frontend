@@ -11,6 +11,7 @@ export interface User {
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
+    isLoggedIn?:boolean;
 }
 export interface Item {
   itemId: number;
@@ -27,6 +28,7 @@ const initialState: User = {
   meetingUrl: "",
   myItems: [],
   myGroups: [],
+  isLoggedIn:false
 };
 
 export const userSlice = createSlice({
@@ -58,6 +60,7 @@ export const userSlice = createSlice({
       state.meetingUrl = meetingUrl;
       state.myItems = myItems;
       state.myGroups = myGroups;
+      state.isLoggedIn = true;
     },
     userLogout: () => {
       console.log("log out call");
@@ -66,10 +69,13 @@ export const userSlice = createSlice({
     userRefresh: () => {
       //refresh token 혹은 상태 정보 업데이트시?
     },
+    isLoggedIn: (state) => {
+      return { ...state, isLoggedIn: state.email !== "" };
+    }
   },
 });
 //action - dispatch
-export const { userLoginTest, userLogin, userLogout } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn } = userSlice.actions;
 //getters
 export const selectUser = (state: RootState) => state.user;
 export const getUserGroups = (state: RootState) => state.user.myGroups;
