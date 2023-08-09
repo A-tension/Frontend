@@ -30,7 +30,7 @@ const SideNav: React.FC<Props> = (props: Props) => {
       linktype="NavLink"
       button={true}
       className="items-center"
-      width="210px"
+      width="200px"
       height="60px"
       bround="20px"
       variant="outline-primary"

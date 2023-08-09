@@ -9,9 +9,9 @@ interface Props {
   label: string;
   linktype?: "NavLink" | "Nav";
   button?: boolean;
-  // height?: string;
-  // width?: string;
-  // bround?: string;
+  height?: string;
+  width?: string;
+  bround?: string;
   disabled?: boolean;
   variant?: string;
   className?: string;
@@ -19,7 +19,7 @@ interface Props {
   navProps?: Team | Group;
   children?: React.ReactNode;
   icon?: string;
-  key?: string;
+  key?: string|number;
   // style?: React.CSSProperties;
   selectedMenu?: string;
 }
@@ -85,7 +85,7 @@ export const NavTab = (props: Props) => {
           <SidebarButton
             selected={props.selectedMenu == props.label}
             icon={props.icon}
-            elabel={props.linkto}
+            // elabel={props.linkto}
             klabel={props.label}
           ></SidebarButton>
         </Nav.Link>

@@ -40,7 +40,7 @@ function Start() {
       }));
     }
   };
-  const handleSubmitForm =(e)=>{
+  const handleSubmitForm =(e: { preventDefault: () => void; })=>{
 e.preventDefault();
     console.log(meetData);
     dispatch(planCreateTest(meetData));

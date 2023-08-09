@@ -1,5 +1,5 @@
 import { Form, Button, FloatingLabel } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Team, groupCreateTest } from "../../store/group";
@@ -15,6 +15,7 @@ const Gcreate = () => {
     name: "",
     members: [""],
     description: "",
+    teamId:714,
   });
   const dispatch = useAppDispatch();
   // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +50,7 @@ const Gcreate = () => {
     //   console.error("Error creating group:", error);
     //   // Handle errors if needed
     // });
+
     dispatch(groupCreateTest(groupData));
     console.log(groupData);
     // 생성시 그룹 조회 호출/ 특정그룹 정보 호출
