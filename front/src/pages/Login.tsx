@@ -43,22 +43,15 @@ function Login() {
           </Col>
 
           <Col className="position-relative py-2 px-4 d-flex flex-column align-items-center justify-content-center">
-            <div className="mb-4">
-              {/* <Button  > */}
-              <img
-                onClick={handleTest}
-                src={loginN}
-                alt="naver login "
-                width={183}
-              />
-              {/* </Button> */}
-            </div>
-            <div className="mb-4">
+            <a className="mb-4" href={import.meta.env.VITE_NAVER_AUTH_URL}>
+              <img src={loginN} alt="naver login " width={183}/>
+            </a>
+            <a className="mb-4" href={import.meta.env.VITE_KAKAO_AUTH_URL}>
               <img src={loginK} alt="kakao login" />
-            </div>
-            <div className="mb-4">
-              <img src={loginG} alt="google login" width={184} />
-            </div>
+            </a>
+            <a className="mb-4" href={import.meta.env.VITE_GOOGLE_AUTH_URL}>
+              <img src={loginG} alt="google login" width={184}/>
+            </a>
           </Col>
         </Row>
       </RoundCard>
