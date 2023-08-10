@@ -13,10 +13,10 @@ function Waiting() {
   return (
     <>
       {/* <RoundCard width="1000px"> */}
-        <div style={{ padding: "1rem" }}>
+        {/* <div style={{ padding: "1rem" }}>
           {" "}
           <a>{JSON.stringify(dataObject, null, 2)}</a>
-        </div>
+        </div> */}
         {/* <h1>회의 들어가기 전 비디오 마이크 점검 페이지</h1>   여기는 사이드 바로 내부 컴포넌트간 전환 이루어질 예정, 이 화면에서
           바로 회의 컴포넌트 로 넘어가기? to conference */}
         <div
@@ -27,7 +27,7 @@ function Waiting() {
             padding: "2rem",
           }}
         >
-          <Ratio aspectRatio={"16x9"} style={{ maxWidth: "600px" }}>
+          <Ratio aspectRatio={"16x9"} style={{ minWidth: "600px" }}>
             <Screen audio={audioSetting} video={videoSetting}></Screen>
           </Ratio>
         </div>

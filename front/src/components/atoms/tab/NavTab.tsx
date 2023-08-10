@@ -12,7 +12,7 @@ interface Props {
   height?: string;
   width?: string;
   bround?: string;
-  disabled?: boolean;
+  disabled?: boolean|false;
   variant?: string;
   className?: string;
   onClick?: () => void;
@@ -81,6 +81,7 @@ export const NavTab = (props: Props) => {
         <Nav.Link
           as={props.linktype == "Nav" ? Link : NavLink}
           to={props.linkto}
+          disabled={props.disabled}
           onClick={props.onClick}
           // eventKey={props.key}
         >

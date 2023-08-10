@@ -12,11 +12,11 @@ interface Props {
 
 export const Members = (props: Props) => {
   // const location = useLocation();
-  const [hasAuth, getAuth] = useState(false);
+  // const [hasAuth, getAuth] = useState(false);
   let memberList;
-  const auth= useAppSelector(checkAuthority);
-  if(auth)
-  getAuth(true);
+  // const auth= useAppSelector(checkAuthority);
+  // if(auth)
+  // getAuth(true);
     // getAuth(auth);
   if (props.teamProp !== undefined) {
   const group: Team| undefined = props.teamProp;
@@ -24,11 +24,11 @@ export const Members = (props: Props) => {
   
 
 const handleMember=()=>{
-if(hasAuth){
+// if(hasAuth){
   console.log("let it pop up with options or accordion with buttons if auth, ban or authorize")
-}else{
+// }else{
   console.log("display info? or do nothing")
-}
+// }
 }
   // const [members, setMembers] = useState<string[]>([]);
 
@@ -43,7 +43,7 @@ if(hasAuth){
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
-        onClick={handleMember}
+        // onClick={handleMember}
       >
         {member.name}/
       </ListGroup.Item>
@@ -59,7 +59,7 @@ if(hasAuth){
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
-        onClick={handleMember}
+        // onClick={handleMember}
       >
         {value}
       </ListGroup.Item>

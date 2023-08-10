@@ -32,21 +32,37 @@ function Landing() {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <div  id="features">
-          <Accordion defaultActiveKey="0" flush>
-            <Accordion.Item  style={{ width: '200x' }}eventKey="0">
-              <Accordion.Header className="font-SUIT text-blue">기능 소개 map 으로 </Accordion.Header>
-              <Accordion.Body className="font-sans text-blue p-">hello my name is harvey</Accordion.Body>
+        <div id="features">
+          <Accordion defaultActiveKey="0" flush className="font-SUIT text-blue" style={{width:"50%"}}>
+            <Accordion.Item style={{ width: "200x" }} eventKey="0">
+              <Accordion.Header>집중도</Accordion.Header>
+              <Accordion.Body>
+                참여자들이 회의에 집중하고 있는지 모르겠나요? <br /> AI가
+                체크해주는 참여자들의 집중도와 텐션을 확인하며 회의를
+                이끌어보세요!
+              </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>기능 소개 map 으로 </Accordion.Header>
-              <Accordion.Body>CSS 너비 조절, 해당 이미지 같이 전환 되게 </Accordion.Body>
+              <Accordion.Header>개선된 UI</Accordion.Header>
+              <Accordion.Body>
+              화면 공유시 신경쓰기 어려웠던 채팅과 질문을 개선된 툴바로 동시에 확인할 수 있습니다.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>그룹</Accordion.Header>
+              <Accordion.Body>
+                그룹 단위로 미팅 관련 업무를 한 번에 해결하세요.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="3">
+              <Accordion.Header>게임</Accordion.Header>
+              <Accordion.Body>
+                다양한 오락 컨텐츠로 더 높은 참여도를 이끌어보세요!
+              </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </div>
       </div>
-
-     
     </>
   );
 }

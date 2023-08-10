@@ -60,9 +60,9 @@ function Planner(props: Props) {
     console.log(planData);
     dispatch(planCreateTest(planData));
     if(props.group){
-      navigate("/dash/group/plans",{state:props.group})
+      navigate("/dash/group",{state:props.group})
     }else{
-       navigate("/dash/plan/");
+       navigate("/dash/calendar/plan");
     }
    
   };

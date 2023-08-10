@@ -35,7 +35,7 @@ function Join() {
     <>
       {/* <h1>회의 참여</h1>
       <a>회의 링크 입력</a> */}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="mt-5">
         <Form.Group lg as={Row} className="mb-3" controlId="meetinglink">
           <Form.Label column sm={2}>
             회의 링크

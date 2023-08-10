@@ -12,10 +12,14 @@ interface Props {
   icon?: string;
   notButton?: boolean | false;
   selected?: boolean | false;
+  show?:boolean | true;
 }
 
 const SidebarButton = (props: Props) => {
   if (props.notButton) {
+    if(!props.show){
+      return ;
+    }else{
     return (
       <>
         <div
@@ -41,7 +45,7 @@ const SidebarButton = (props: Props) => {
           {props.elabel && <p className={styles.elabel}>{props.elabel}</p>}
         </div>
       </>
-    );
+    );}
   } else {
     return (
       <Button
