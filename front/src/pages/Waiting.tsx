@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Ratio, Button } from "react-bootstrap";
-import RoundCard from "../components/atoms/RoundCard";
+// import RoundCard from "../components/atoms/RoundCard";
 import Screen from "../components/stream/Screen";
 import { useState } from "react";
 function Waiting() {
