@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
 import { Team } from "../../store/group";
+import back from "../../assets/arrow-left.svg";
 interface PlanCreateData extends Plan {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
@@ -28,6 +29,7 @@ function Planner(props: Props) {
 
   //     }
   const location = useLocation();
+  
   const propgroup = location.state;
   const navigate = useNavigate();
   const [planData, setPlanData] = useState<PlanCreateData>({
@@ -66,10 +68,15 @@ function Planner(props: Props) {
     }
    
   };
+  const handleBack=()=>{
+    navigate(-1);
+  }
   return (
     <>
-      <h1>Planner 일정추가</h1>
+
+    <img src={back} style={{width:"30px",marginBottom:"1rem"}} onClick={handleBack}></img>
       <Form>
+      <i className="bi bi-arrow-left"></i>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
           <Form.Label
             column
@@ -78,6 +85,7 @@ function Planner(props: Props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              fontSize:"20px"
             }}
           >
             <div>제목</div>
@@ -100,7 +108,12 @@ function Planner(props: Props) {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalMembers">
-          <Form.Label column sm={1}>
+          <Form.Label column sm={1} style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px"
+            }}>
             초대
           </Form.Label>
           <Col sm={11}>
@@ -122,7 +135,12 @@ function Planner(props: Props) {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalDate">
-          <Form.Label column sm={1}>
+          <Form.Label column sm={1} style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px"
+            }}>
             날짜
           </Form.Label>
           <Col sm={5}>
@@ -148,8 +166,9 @@ function Planner(props: Props) {
             sm={1}
             style={{
               display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
+              justifyContent: "center",
+              alignItems: "center", 
+              fontSize:"20px"
             }}
           >
             시간
@@ -180,6 +199,7 @@ function Planner(props: Props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "baseline",
+              fontSize:"20px"
             }}
           >
             <div>내용</div>

@@ -54,7 +54,7 @@ function PlanView() {
   };
   return (
     <>
-      <h1>일정 상세조회, 받아온 데이터를 value로 두고 고침</h1>
+      {/* <h1>일정 상세조회, 받아온 데이터를 value로 두고 고침</h1> */}
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
           <Form.Label
