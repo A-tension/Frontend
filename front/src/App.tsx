@@ -11,41 +11,29 @@ import Item from "./components/Item";
 import Info from "./pages/Info";
 import Join from "./components/meeting/Join";
 import Start from "./components/meeting/Start";
-import GChat from "./components/group/GChat";
-import Plans from "./components/group/Plans";
-import Members from "./components/group/Members";
 import Planner from "./components/plan/Planner";
 import PlanView from "./components/plan/PlanView";
 import Manage from "./components/meeting/Manage";
-import Draw from "./components/item/Draw";
-import List from "./components/item/List";
 import Header from "./pages/Header";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
-import Gcreate from "./components/group/Gcreate";
 import Month from "./components/plan/Month";
-import ManageGroup from "./components/group/ManageGroup";
 import Waiting from "./pages/Waiting";
 
 function App() {
   return (
     <>
-      <div className="font-Pretendard" >
+      <div className="font-SUIT">
         <Header></Header>
         <Routes>
           <Route path="/" element={<Landing />}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
-            <Route path="group" element={<Group />}>
-              <Route path="create" element={<Gcreate />}></Route>
-              <Route path="chat" element={<GChat />}></Route>
-              <Route path="plans" element={<Plans />}></Route>
-              <Route path="members" element={<Members />}></Route>
-              <Route path="manage" element={<ManageGroup />}></Route>
-            </Route>
+            <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
+              //일정 추가는 그룹일정에서 추가하러 옴,,
               <Route index element={<Month />}></Route>
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<PlanView />}></Route>
@@ -58,18 +46,14 @@ function App() {
               <Route path="manage" element={<Manage />}></Route>{" "}
               <Route path="wait" element={<Waiting />}></Route>
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
-              <Route
-                path="conference"
-                element={<Conference sessionId="" myUserName="" />}
-              ></Route>
             </Route>
-            <Route path="item" element={<Item />}>
-              <Route path="" element={<Navigate to="list" />}></Route>
-              <Route path="list" element={<List />}></Route>
-              <Route path="draw" element={<Draw />}></Route>
-            </Route>
+            <Route path="item" element={<Item />}></Route>
+            <Route
+              path="conference"
+              element={<Conference sessionId="" myUserName="" />}
+            ></Route>
           </Route>
-          <Route path="join" element={<JoinMeeting />}></Route>
+          <Route path="join" element={<JoinMeeting />}></Route>//굳이?
           {/* <Route path="/wait" element={<OpenVidu />} /> */}
           <Route
             path="conference"
@@ -77,7 +61,10 @@ function App() {
           ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />}></Route>
+          <Route
+            path="/oauth2/redirect"
+            element={<OAuth2RedirectHandler />}
+          ></Route>
         </Routes>
       </div>
     </>

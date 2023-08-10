@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { Team } from "./group";
+import { UUID } from "crypto";
 
 export interface User {
-  userId?: string | "";
+  userId: UUID | "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
+  nickname?:string |"";
   email?: string | "";
   name?: string | "";
   profileImage?: string;
@@ -36,7 +38,7 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     userLoginTest: (state) => {
-      state.userId = "testuser";
+      state.userId = "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
     },
@@ -81,6 +83,7 @@ export const userSlice = createSlice({
 export const { userLoginTest, userLogin, userLogout,isLoggedIn } = userSlice.actions;
 //getters
 export const checkTickets = (state:RootState)=> state.user.tickets;
+export const getUserId = (state:RootState)=>state.user.userId;
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState)=> state.user.isLoggedIn;
 export const getUserGroups = (state: RootState) => state.user.myGroups;

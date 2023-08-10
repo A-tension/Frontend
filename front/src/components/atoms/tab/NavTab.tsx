@@ -20,7 +20,7 @@ interface Props {
   icon?: string;
   key?: string|number;
   // hasAuth?: boolean|false;
-  // style?: React.CSSProperties;
+  style?: React.CSSProperties;
   selectedMenu?: string;
 }
 //button을 props로 받았다면
@@ -42,7 +42,8 @@ export const NavTab = (props: Props) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontSize:"20px"
+              fontSize:"20px",
+              ...props.style
             }}
           >
             {props.label}

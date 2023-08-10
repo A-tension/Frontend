@@ -1,7 +1,7 @@
 import {UUID} from "crypto";
 
 export interface myTeams{
-    id : number,
+    id : number |bigint,
     name : string,
     profileImage : string,
     description : string,
@@ -14,7 +14,7 @@ export interface teamDetail{
     name : string,
     profileImage : string,
     description : string,
-    userProfileDtoList : object,
+    userProfileDtoList : userProfileDto[],
 }
 
 export interface createTeamRequestBody{

@@ -58,7 +58,7 @@ function Waiting() {
             비디오 설정
           </Button>
         </div>
-        <Link to={"/dash/meeting/conference"}>
+        <Link to={"/dash/conference"}>
           <Button
             size="lg"
             style={{ borderRadius: "30px" }}

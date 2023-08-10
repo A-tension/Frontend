@@ -30,11 +30,12 @@ function Planner(props: Props) {
   //     }
   const location = useLocation();
   
-  const propgroup = location.state;
+  const propgroup = location.state?.group;
+  console.log(propgroup);
   const navigate = useNavigate();
   const [planData, setPlanData] = useState<PlanCreateData>({
     name: "",
-    members: props.group ? [propgroup.members.toString()] : [""],
+    members: propgroup ? [propgroup.members.toString()] : [""],
     startdate: "",
     starttime: "",
     start: "",
@@ -61,8 +62,8 @@ function Planner(props: Props) {
     e.preventDefault();
     console.log(planData);
     dispatch(planCreateTest(planData));
-    if(props.group){
-      navigate("/dash/group",{state:props.group})
+    if(propgroup){
+      navigate("/dash/group",{state:{group:propgroup}})
     }else{
        navigate("/dash/calendar/plan");
     }

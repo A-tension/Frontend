@@ -17,46 +17,43 @@ const Dash = () => {
   const colHeight = `calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
   const inMeeting = useAppSelector(getMode);
-  const isLoggedIn =useAppSelector(checkAuthority);
+  const isLoggedIn = useAppSelector(checkAuthority);
+
   const icons = [group, calendar, meeting, item];
   const menu = ["group", "calendar", "meeting", "item"];
-  const label = ["그룹", "캘린더", " 회의", "뽑기"];
-  //지금 하려고 하는 것 dash에서 usestate로 현재 어느 탭에 있는지 표시
-  // const []
-  // const isLoggedIn = useAppSelector(checkAuthority);
+  const label = ["그룹", "캘린더", "회의", "뽑기"];
   const location = useLocation();
-  const prevPage =location.state?.prevPath;
+
+  const prevPage = location.state?.prevPath;
   const toMeeting = location.state?.toMeeting;
-  // console.log(prevPage);
-  // if(prevPage=='/'){
 
-  // }
-   let firstMenu =toMeeting? "뽑기":"";
-   if(isLoggedIn){
-    firstMenu = "그룹";
-   
-    if(toMeeting) {
-     firstMenu = "회의";
-    } 
-   }else{
-    firstMenu ="";
-   }
-   console.log(firstMenu);
-   
+  let firstMenu = toMeeting ? "" : "뽑기";
 
- 
   const [selectedMenu, selectMenu] = useState(firstMenu);
-  // useEffect(() => {
-  //   const handleChange = () => {};
-  //   handleChange();
-  //   return () => {};
-  // }, [inMeeting]);
+  useEffect(() => {
+    const checkMenu = () => {
+      if (isLoggedIn) {
+        firstMenu = "그룹";
+        if (toMeeting) {
+          firstMenu = "회의";
+        }
+        if (prevPage) {
+          firstMenu = "그룹";
+        }
+      } else {
+        firstMenu = "회의";
+      }
+      selectMenu(firstMenu);
+    };
+
+    checkMenu();
+  }, [location.state]);
   //대시보드 화면 구성
   // 왼쪽 오른쪽으로 나뉨
   // 왼쪽은 SideNav 우측은 화면 표시
   return (
     <>
-      <div style={{ height: colHeight }} className="font-SUIT" >
+      <div style={{ height: colHeight }} className="font-SUIT">
         <Container fluid>
           <Row style={{ height: colHeight }}>
             <Col className="pt-5" sm={1} style={{ minWidth: "200px" }}>
@@ -77,7 +74,6 @@ const Dash = () => {
                   borderRadius: "40px 0px 0px 0px",
                 }}
               >
-                
                 {/* SidebarButton이라고 이름지었지만 사실 우측 흰 상자 안 아이콘+라벨있는 메뉴 이름표시  */}
                 <SidebarButton
                   show={!inMeeting}
@@ -88,7 +84,6 @@ const Dash = () => {
 
                 {/* 회의 창에는 흰 부분 없이  */}
                 {inMeeting && <Outlet></Outlet>}
-
 
                 {!inMeeting && (
                   <div
@@ -103,18 +98,6 @@ const Dash = () => {
                   </div>
                 )}
 
-
-
-                {/* <div
-                  className="white pt-2 px-5 pb-5"
-                  style={{
-                    background: "#FFF",
-                    borderRadius: "20px",
-                    minHeight: "500px",
-                  }}
-                >
-                  <Outlet></Outlet>
-                </div> */}
               </div>
             </Col>
           </Row>

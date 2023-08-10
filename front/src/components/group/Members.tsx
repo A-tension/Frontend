@@ -3,11 +3,12 @@ import { ListGroup, Col, Row } from "react-bootstrap";
 import { Team, User } from "../Group";
 import { useAppSelector } from "../../store/hooks";
 import { checkAuthority } from "../../store/user";
+import { teamDetail, userProfileDto } from "../../api/team/types";
 
 interface Props {
   groupId?: number;
   groupName?: string;
-  teamProp?: Team;
+  teamProp?: Team | teamDetail;
 }
 
 export const Members = (props: Props) => {
@@ -19,8 +20,8 @@ export const Members = (props: Props) => {
   // getAuth(true);
     // getAuth(auth);
   if (props.teamProp !== undefined) {
-  const group: Team| undefined = props.teamProp;
-  const members: User[] | string[] = group.members;
+  const group: Team| teamDetail = props.teamProp;
+  const members: User[] | string[] |userProfileDto[] = group.members ? group.members : group.userProfileDtoList;
   
 
 const handleMember=()=>{
@@ -32,8 +33,10 @@ const handleMember=()=>{
 }
   // const [members, setMembers] = useState<string[]>([]);
 
-  if (typeof members[0] === "object") {
-    memberList = (members as User[]).map((member: User, index: number) => (
+  // if (typeof members[0] === "object") {
+    //|userProfileDto[] |userProfileDto
+
+   memberList = (members as User[]|string[]).map((member: User|string, index: number) => (
       <ListGroup.Item
         key={index}
         style={{
@@ -43,28 +46,11 @@ const handleMember=()=>{
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
-        // onClick={handleMember}
-      >
-        {member.name}/
+        onClick={handleMember}
+      >{typeof member==typeof "g" && member}
+        {member.name}
       </ListGroup.Item>
     ));
-  } else if (typeof members[0] === "string") {
-    memberList = (members as string[]).map((value: string, index: number) => (
-      <ListGroup.Item
-        key={index}
-        style={{
-          backgroundColor: "#f7f7f7",
-          borderRadius: "6px",
-          padding: "10px",
-          marginBottom: "10px",
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-        }}
-        // onClick={handleMember}
-      >
-        {value}
-      </ListGroup.Item>
-    ));
-  }
 }
   useEffect(() => {
     // 여기에 그룹원 정보를 가져오는 axios.get 또는 다른 로직을 추가

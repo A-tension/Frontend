@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
 
@@ -18,6 +18,8 @@ interface PlanCreateData extends Plan {
 function PlanView() {
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const getGroup = location.state.propgroup;
   // navigate('/dash/meeting/wait', { state: { data: dataObject } });
 
   const [planData, setPlanData] = useState<PlanCreateData>({
