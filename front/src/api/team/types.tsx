@@ -15,9 +15,15 @@ export interface teamDetail{
     userProfileDtoList : object,
 }
 
-export interface createTeamReqeustBody{
+export interface createTeamRequestBody{
     name : string,
     userIdList : object,
+}
+
+export interface teamResponseDto {
+    teamId : bigint,
+    name : string,
+    profileImage : string,
 }
 
 

@@ -8,6 +8,9 @@ import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { getGrouplist } from "../store/group.ts";
 import { User, checkAuthority, hasAuthority, isLoggedIn } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
+import { findMyTeam } from "../api/team/teamApi.tsx";
+import {teamResponseDto} from "../api/team/types.tsx";
+
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
   teamId?: number; // axios에서 생성 요청시 자동반환
@@ -122,7 +125,11 @@ function Group() {
                     그룹 추가 
                   </Button>
                 }
-                onClick={() => setMenu(true)}
+                onClick={async () => {
+                  const promise = await findMyTeam<teamResponseDto>("/team");
+                  console.log(promise.data);
+                }}
+                // onClick={() => setMenu(true)}
               ></NavTab>
             </Col>
             {isCreate && (
