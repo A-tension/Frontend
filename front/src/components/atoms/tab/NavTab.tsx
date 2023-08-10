@@ -2,7 +2,6 @@ import { Nav } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import SidebarButton from "../button/SidebarButton";
 import { Team } from "../../../store/group";
-import { Group } from "../../group/Members";
 
 interface Props {
   linkto: string;
@@ -16,7 +15,7 @@ interface Props {
   variant?: string;
   className?: string;
   onClick?: () => void;
-  navProps?: Team | Group;
+  navProps?: Team;
   children?: React.ReactNode;
   icon?: string;
   key?: string|number;
@@ -39,13 +38,19 @@ export const NavTab = (props: Props) => {
             to={props.linkto}
             onClick={props.onClick}
             state={props.navProps}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px"
+            }}
           >
             {props.label}
           </Nav.Link>
         </Nav.Item>
       </>
     );
-  } else if (props.children) {
+  } else if (props.children) {// 내부에 버튼을 별개로 만들 
     if (props.button) {
       return (
         <>
@@ -76,6 +81,7 @@ export const NavTab = (props: Props) => {
     }
   } else {
     // button 유무, CSS 완전 동일하게 할지 옵션 두개
+    //icon있는 버튼
     return (
       <>
         <Nav.Link

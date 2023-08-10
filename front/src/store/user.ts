@@ -80,6 +80,7 @@ export const userSlice = createSlice({
 //action - dispatch
 export const { userLoginTest, userLogin, userLogout,isLoggedIn } = userSlice.actions;
 //getters
+export const checkTickets = (state:RootState)=> state.user.tickets;
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState)=> state.user.isLoggedIn;
 export const getUserGroups = (state: RootState) => state.user.myGroups;

@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
-import RoundCard from "../components/atoms/RoundCard";
-import { Card, CardImg, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Toolbar from "../components/stream/Toolbar";
-import ScreenPlaceholder from "../assets/screenfiller.png"
+import { useAppDispatch } from "../store/hooks";
+import { hideBackground } from "../store/meeting";
 /*
 this.state = {
     mySessionId: 'SessionA',
@@ -21,6 +20,8 @@ interface Props {
 
 const Conference = (props: Props) => {
   const { sessionId, myUserName } = props;
+  const dispatch = useAppDispatch();
+  dispatch(hideBackground(true));
   //open vidu 적용되는 부분이라 집중적으로 공부하고 구조 고민하기
   return (
     <>

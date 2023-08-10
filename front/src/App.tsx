@@ -31,7 +31,7 @@ import Waiting from "./pages/Waiting";
 function App() {
   return (
     <>
-      <div>
+      <div className="font-Pretendard" >
         <Header></Header>
         <Routes>
           <Route path="/" element={<Landing />}></Route>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Nav,
   NavDropdown,
@@ -18,6 +18,10 @@ const Logoutheader = (props: Props) => {
   // };
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const pathname =location.pathname;
+  // console.log()
   const handleLogout = () => {
     props.checkLogin(false);
     console.log("logout button clicked");
@@ -38,14 +42,22 @@ const Logoutheader = (props: Props) => {
         <Button variant="success">알림</Button>
       </OverlayTrigger>
 
-      <Nav.Link as={Link} to="/dash" className="">
+      <Nav.Link as={Link} to="/dash" state={{ prevPath: pathname }} className="">
         대시보드
       </Nav.Link>
 
-      <Nav.Link as={Link} to="/dash/meeting/start" className="">
+      <Nav.Link
+        as={Link}
+        to="/dash/meeting/start"
+        state={{ toMeeting: pathname }}
+      >
         회의 개설
       </Nav.Link>
-      <Nav.Link as={Link} to="/dash/meeting/join">
+      <Nav.Link
+        as={Link}
+        to="/dash/meeting/join"
+        state={{ toMeeting: pathname }}
+      >
         회의 참여
       </Nav.Link>
 
