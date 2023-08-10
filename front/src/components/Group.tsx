@@ -139,9 +139,9 @@ function Group() {
                   </Button>
                 }
                 onClick={async () => {
-                  // 내 팀 조회
-                  // const promise = await findMyTeam<teamResponseDto>();
-                  // console.log(promise.data);
+                  //내 팀 조회
+                  const promise = await findMyTeam<teamResponseDto>();
+                  console.log(promise.data);
 
                   // 팀 생성
                   // const createTeamTestDto : createTeamRequestBody = {

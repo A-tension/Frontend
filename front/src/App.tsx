@@ -29,7 +29,7 @@ import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
 import Month from "./components/plan/Month";
 import ManageGroup from "./components/group/ManageGroup";
-import Waiting from "./pages/Waiting";
+// import Waiting from "./pages/Waiting";
 
 function App() {
   return (
