@@ -8,8 +8,21 @@ import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
 import { getGrouplist } from "../store/group.ts";
 import { User, checkAuthority, hasAuthority, isLoggedIn } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
-import { findMyTeam } from "../api/team/teamApi.tsx";
-import {teamResponseDto} from "../api/team/types.tsx";
+import {
+  acceptTeam,
+  createTeam,
+  deleteTeam,
+  findMyTeam,
+  getTeamDetail,
+  inviteTeam,
+  updateTeam
+} from "../api/team/teamApi.tsx";
+import {
+  teamResponseDto,
+  createTeamRequestBody,
+  teamUpdateRequestDto,
+  teamInviteRequestDto
+} from "../api/team/types.tsx";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
@@ -126,8 +139,51 @@ function Group() {
                   </Button>
                 }
                 onClick={async () => {
-                  const promise = await findMyTeam<teamResponseDto>("/team");
+                  // 내 팀 조회
+                  // const promise = await findMyTeam<teamResponseDto>();
+                  // console.log(promise.data);
+
+                  // 팀 생성
+                  // const createTeamTestDto : createTeamRequestBody = {
+                  //   name: "teamTest",
+                  //   userIdList: ['1f2c21f4-530f-4f0b-95e6-a6e74b174ce9', '3347e816-494d-4e27-83a0-f55865873cd9']
+                  // }
+                  // const promise = await createTeam(createTeamTestDto);
+                  // console.log(promise.data)
+
+                  // 특정 팀 조회
+                  // const teamId : bigint = BigInt(350);
+                  // const promise = await getTeamDetail(teamId);
+                  // console.log(promise);
+
+                  // 팀 업데이트
+                  const teamId : bigint = BigInt(350);
+                  const teamUpdateRequestDto : teamUpdateRequestDto = {
+                    name : "updateTest",
+                    profileImage : "updateImage",
+                    description : "updateDescription"
+                  }
+                  const promise = await updateTeam(teamId, teamUpdateRequestDto)
                   console.log(promise.data);
+
+                  // 팀 삭제
+                  // const teamId : bigint = BigInt(350);
+                  // const promise = await deleteTeam(teamId);
+                  // console.log(promise.data);
+
+                  // 팀 초대
+                  // const teamInviteRequestDto: teamInviteRequestDto = {
+                  //   teamId: 349,
+                  //   userIdList: ['3347e816-494d-4e27-83a0-f55865873cd9']
+                  // }
+                  // const promise= await inviteTeam(teamInviteRequestDto);
+                  // console.log(promise.data);
+
+                  // 팀 수락
+                  // const teamId : bigint = BigInt(349);
+                  //
+                  // const promise = await acceptTeam(teamId);
+                  // console.log(promise.data);
                 }}
                 // onClick={() => setMenu(true)}
               ></NavTab>
