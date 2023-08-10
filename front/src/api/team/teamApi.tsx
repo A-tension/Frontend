@@ -3,7 +3,7 @@ import {AxiosResponse} from "axios";
 import {
     createTeamRequestBody,
     teamDetailResponseDto,
-    teamInviteRequestDto,
+    teamInviteRequestDto, teamParticipantAuthorityDto,
     teamResponseDto,
     teamUpdateRequestDto
 } from "./types.tsx";
@@ -63,12 +63,39 @@ export const inviteTeam = async <T = void, R = AxiosResponse<T>>(data? : teamInv
         throw new Error('Failed to invite Team')
     }
 }
-export const acceptTeam = async <T = void, R = AxiosResponse<T>>(teamId? : bigint):Promise<R> => {
+export const acceptTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
     try {
         console.log(teamId)
         return await api.post<T, R>(`/team/accept/${teamId}`);
     } catch (err) {
         console.log(err)
         throw new Error('Failed to accept Team')
+    }
+}
+
+export const refuseTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
+    try {
+        return await api.delete<T, R>(`/team/refuse/${teamId}`);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to refuse Team')
+    }
+}
+
+export const leaveTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
+    try {
+        return await api.delete(`/team/leave/${teamId}`);
+    } catch (err) {
+        console.log(err);
+        throw new Error('Failed to leave Team')
+    }
+}
+
+export const updateTeamParticipantAuthority = async <T = void, R = AxiosResponse<T>>(data? : teamParticipantAuthorityDto):Promise<R> => {
+    try {
+        return await api.put('team/authority', data);
+    } catch (err) {
+        console.log(err);
+        throw new Error('Failed to update Authority')
     }
 }
