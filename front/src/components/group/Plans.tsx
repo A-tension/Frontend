@@ -1,16 +1,87 @@
-function Plans() {
+import { Button, Card } from "react-bootstrap";
+import { Team } from "../Group";
+interface Props{
+    teamProp?: Team;
+}
+function Plans(props:Props) {
+    return (
+        <>
+        <h1> prop test {props.teamProp?.name}</h1>
+            <Card
+                style={{
+                    border: "none",
+                    marginTop: "-5px",
+                    padding: "10px",
+                    borderRadius: 0,
+                }}
+            >
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
+                    <Button
+                        variant="primary"
+                        style={{
+                            backgroundColor: "#007bff",
+                            color: "#fff",
+                            borderRadius: "8px",
+                        }}
+                    >
+                        일정 추가
+                    </Button>
+                </div>
 
-  return (
-    <>
-      <h1>
-        그룹일정
-      </h1>
-      <a>
-        심플 리스트로 일정 데이터 받아온거 보여주기
-        일정추가 버튼 : 만들수 있게 props 주면서 plan/planner 모듈 콜
-      </a>
-    </>
-  )
+                {/* ... 이전 내용 ... */}
+                <div>
+                    <div
+                        style={{
+                            backgroundColor: "#f7f7f7",
+                            borderRadius: "6px",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                        {/* 일정 추가 내용 1 */}
+                        추가 내용 1
+                    </div>
+                    <div
+                        style={{
+                            backgroundColor: "#f7f7f7",
+                            borderRadius: "6px",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                        {/* 일정 추가 내용 2 */}
+                        추가 내용 2
+                    </div>
+                    <div
+                        style={{
+                            backgroundColor: "#f7f7f7",
+                            borderRadius: "6px",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                        {/* 일정 추가 내용 3 */}
+                        추가 내용 3
+                    </div>
+                    <div
+                        style={{
+                            backgroundColor: "#f7f7f7",
+                            borderRadius: "6px",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                        {/* 일정 추가 내용 4 */}
+                        추가 내용 4
+                    </div>
+                </div>
+            </Card>
+        </>
+    );
 }
 
-export default Plans
+export default Plans;

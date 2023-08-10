@@ -10,7 +10,7 @@ import SidebarButton from "../components/atoms/button/SidebarButton";
 const Dash = () => {
   // sidenav selected 받아와서
 
-  const headerHeight = 74; // Change this value to match your actual header height
+  const headerHeight = 53; // Change this value to match your actual header height
   const colHeight = `calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
 
@@ -24,7 +24,7 @@ const Dash = () => {
       <div style={{ height: colHeight }}>
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" lg={3} style={{minWidth:"290px"}} >
+            <Col className="pt-5" sm={1} style={{minWidth:"290px"}} >
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}
@@ -33,21 +33,22 @@ const Dash = () => {
                 linkto={menu}
               ></SideNav>
             </Col>
-            <Col lgm={9} style={{ padding: "0" }}>
+            <Col  style={{ padding: "0" }}>
               <div
-                className="interpadding pt-5 px-5"
+                className="interpadding pt-5 px-5 pb-4"
                 style={{
                   height: "100%",
                   background: "#ECF3FC",
                   borderRadius: "40px 0px 0px 0px",
                 }}
               >
-                <SidebarButton notButton={true}  klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
+                <SidebarButton notButton={true} klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
                 <div
-                  className="mx-5 pt-4 px-5 pb-5"
+                  className=" pt-2 px-5 pb-5"
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",
+                    minHeight:"500px"
                   }}
                 >
                   <Outlet></Outlet>

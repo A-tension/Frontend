@@ -1,31 +1,35 @@
 import { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks";
+import { meetingModeTest } from "../../store/meeting";
 interface MeetingData {
   meetingLink: string;
   nickname: string;
 }
 function Join() {
-  const [meetData, setMeetData] = useState<MeetingData>({
+  const [meetJoinData, setMeetJoinData] = useState<MeetingData>({
     meetingLink: "",
     nickname: "",
   });
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setMeetData((prevData) => ({
+    setMeetJoinData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    console.log(meetData);
+    console.log(meetJoinData);
   };
 
   // const history = useHistory
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const dataObject = Object.fromEntries(formData);
-    navigate('/wait', { state: { data: dataObject } });
+    dispatch(meetingModeTest());
+    navigate('/dash/meeting/wait', { state: { data: dataObject } });
   };
   return (
     <>
@@ -42,7 +46,7 @@ function Join() {
               style={{ borderRadius: "20px" }}
               placeholder="회의 링크를 입력하세요"
               name="meetingLink"
-              value={meetData.meetingLink}
+              value={meetJoinData.meetingLink}
               onChange={handleInputChange}
             />
           </Col>
@@ -57,7 +61,7 @@ function Join() {
               style={{ borderRadius: "20px" }}
               placeholder="대화명을 입력하세요"
               name="nickname"
-              value={meetData.nickname}
+              value={meetJoinData.nickname}
               onChange={handleInputChange}
             />
           </Col>

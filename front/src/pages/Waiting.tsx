@@ -9,9 +9,10 @@ function Waiting() {
   const dataObject = location.state?.data;
   const [audioSetting, setAudio] = useState(true);
   const [videoSetting, setVideo] = useState(true);
+  const handleJoining = ()=>{}
   return (
     <>
-      <RoundCard width="1000px">
+      {/* <RoundCard width="1000px"> */}
         <div style={{ padding: "1rem" }}>
           {" "}
           <a>{JSON.stringify(dataObject, null, 2)}</a>
@@ -38,24 +39,27 @@ function Waiting() {
             justifyContent: "space-around",
           }}
         >
-          <Button size="lg"
+          <Button
+            size="lg"
             onClick={() => setAudio((preValue) => !preValue)}
             style={{ borderRadius: "20" }}
           >
             마이크 {audioSetting ? "끄기" : "켜기"}
           </Button>
-          <Button size="lg"
+          <Button
+            size="lg"
             onClick={() => setVideo((preValue) => !preValue)}
             style={{ borderRadius: "20" }}
           >
             비디오 {videoSetting ? "끄기" : "켜기"}
           </Button>
 
-          <Link to={"/conference"}>
-            <Button  size="lg" style={{ borderRadius: "20" }}>회의 참여</Button>
+          <Link to={"/dash/meeting/conference"}>
+            <Button  size="lg" style={{ borderRadius: "20" }} onClick={handleJoining}>회의 참여</Button>
+
           </Link>
         </div>
-      </RoundCard>
+      {/* </RoundCard> */}
     </>
   );
 }

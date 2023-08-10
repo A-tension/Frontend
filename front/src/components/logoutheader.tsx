@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Nav,
   NavDropdown,
@@ -6,15 +6,23 @@ import {
   Button,
   Popover,
 } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectUser, userLogout } from "../store/user";
 interface Props {
   checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Logoutheader = (props: Props) => {
-  const user = {
-    name: "Ssafy",
-  };
+  const loginUser = useAppSelector(selectUser);
+  // const user = {
+  //   name: "Ssafy",
+  // };
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleLogout = () => {
     props.checkLogin(false);
+    console.log("logout button clicked");
+    dispatch(userLogout());
+    navigate("/login");
   };
   const popover = (
     <Popover id="popover-basic">
@@ -41,7 +49,7 @@ const Logoutheader = (props: Props) => {
         회의 참여
       </Nav.Link>
 
-      <NavDropdown title={user.name} id="basic-nav-dropdown">
+      <NavDropdown title={loginUser.name} id="basic-nav-dropdown">
         <NavDropdown.Item as={Link} to="/info" className="">
           마이페이지
         </NavDropdown.Item>

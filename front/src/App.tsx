@@ -3,6 +3,7 @@ import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
+import OpenVidu from "./openvidu/App";
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -22,9 +23,10 @@ import Header from "./pages/Header";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
 import "./App.css";
-import Waiting from "./pages/Waiting";
 import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
+import Month from "./components/plan/Month";
+import Welcome from "./components/group/Welcome";
 function App() {
   return (
     <>
@@ -35,13 +37,15 @@ function App() {
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}>
-            {/* <Route path="" element={<GChat />}></Route> */}
-              <Route path="create" element={<Gcreate/>}></Route>
+            <Route path="none" element={<Welcome />}></Route>
+              {/* <Route path="" element={<GChat />}></Route> */}
+              <Route path="create" element={<Gcreate />}></Route>
               <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
               <Route path="members" element={<Members />}></Route>
             </Route>
             <Route path="calendar" element={<Calendar />}>
+              <Route index element={<Month />}></Route>
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<Plan />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}
@@ -50,7 +54,12 @@ function App() {
               <Route path="" element={<Navigate to="join" />}></Route>
               <Route path="join" element={<Join />}></Route>
               <Route path="start" element={<Start />}></Route>
-              <Route path="manage" element={<Manage />}></Route>
+              <Route path="manage" element={<Manage />}></Route>{" "}
+              <Route path="joinmeeting" element={<JoinMeeting />}></Route>
+              <Route
+                path="conference"
+                element={<Conference sessionId="" myUserName="" />}
+              ></Route>
             </Route>
             <Route path="item" element={<Item />}>
               <Route path="" element={<Navigate to="list" />}></Route>
@@ -59,7 +68,7 @@ function App() {
             </Route>
           </Route>
           <Route path="join" element={<JoinMeeting />}></Route>
-          <Route path="wait" element={<Waiting />}></Route>
+          <Route path="/wait" element={<OpenVidu />} />
           <Route
             path="conference"
             element={<Conference sessionId="" myUserName="" />}

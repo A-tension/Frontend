@@ -29,13 +29,13 @@ const SidebarButton = (props: Props) => {
         >
           <div className={styles.iconBlock}>
             <img
-              style={{transform:"scale(2)"}}
+              // style={{transform:"scale(2)"}}
               alt={props.klabel}
               className={styles.sidebarButtonIcon}
               src={props.icon}
             />
           </div>
-          <p className={styles.klabel} style={{ fontSize: "40px" }}>
+          <p className={styles.klabel} style={{ fontSize: "26px" }}>
             {props.klabel}
           </p>
           {props.elabel && <p className={styles.elabel}>{props.elabel}</p>}
@@ -47,7 +47,7 @@ const SidebarButton = (props: Props) => {
       <Button
         active={props.selected}
         variant="outline-primary"
-        style={{ width: "100%", accentColor: "#006BE5", borderRadius: "20px" }}
+        style={{ width: "100%",height:"53px", accentColor: "#006BE5", borderRadius: "13px" }}
       >
         <div className={styles.dot}>
           <div className={styles.iconBlock}>
