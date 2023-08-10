@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { ListGroup, Col, Row } from "react-bootstrap";
 import { Team, User } from "../Group";
+import { useAppSelector } from "../../store/hooks";
+import { checkAuthority } from "../../store/user";
 
 interface Props {
   groupId?: number;
@@ -10,11 +12,24 @@ interface Props {
 
 export const Members = (props: Props) => {
   // const location = useLocation();
+  // const [hasAuth, getAuth] = useState(false);
   let memberList;
+  // const auth= useAppSelector(checkAuthority);
+  // if(auth)
+  // getAuth(true);
+    // getAuth(auth);
   if (props.teamProp !== undefined) {
   const group: Team| undefined = props.teamProp;
   const members: User[] | string[] = group.members;
+  
 
+const handleMember=()=>{
+// if(hasAuth){
+  console.log("let it pop up with options or accordion with buttons if auth, ban or authorize")
+// }else{
+  console.log("display info? or do nothing")
+// }
+}
   // const [members, setMembers] = useState<string[]>([]);
 
   if (typeof members[0] === "object") {
@@ -28,6 +43,7 @@ export const Members = (props: Props) => {
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
+        // onClick={handleMember}
       >
         {member.name}/
       </ListGroup.Item>
@@ -43,6 +59,7 @@ export const Members = (props: Props) => {
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
+        // onClick={handleMember}
       >
         {value}
       </ListGroup.Item>
@@ -69,7 +86,8 @@ export const Members = (props: Props) => {
           style={{
             backgroundColor: "#f7f7f7",
             borderRadius: "10px",
-            padding: "70px",
+            width:"100%",
+            padding: "10px",
             marginTop: "10px",
             marginBottom: "10px",
             border: "0.5px solid black",
@@ -79,7 +97,8 @@ export const Members = (props: Props) => {
           <p>
             <strong>그룹 정보</strong>
             <br />
-            그룹에 대한 정보 담기
+            그룹에 대한 정보 
+            {props.teamProp?.description}
           </p>
         </div>
       </Col>

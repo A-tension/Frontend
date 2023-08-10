@@ -1,9 +1,9 @@
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
-import { Team } from "../../store/group";
+
 interface PlanCreateData extends Plan {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
@@ -11,34 +11,25 @@ interface PlanCreateData extends Plan {
   members?: string[]; //email 목록으로 일단 진행
   startdate: string;
   starttime: string;
-  // end?: string;
+  end?: string;
   allDay: boolean;
   description: string;
 }
-interface Props {
-  // isGroup?:boolean|false;
-  // teamId?:number;
-  group?: Team;
-}
-function Planner(props: Props) {
-  // function Start() {
-  //     if(props.isGroup){
-  // //axios로 그룹이면 groupId로 특정조회-?? 혹은 이미 받아온 특정조회 정보 가져오기
-  // //사용례 생각하면 대시보드 그룹상세에서 가져오는 거니까 이미 저장되어있음
+function PlanView() {
 
-  //     }
-  const location = useLocation();
-  const propgroup = location.state;
   const navigate = useNavigate();
+  // navigate('/dash/meeting/wait', { state: { data: dataObject } });
+
   const [planData, setPlanData] = useState<PlanCreateData>({
-    name: "",
-    members: props.group ? [propgroup.members.toString()] : [""],
-    startdate: "",
-    starttime: "",
+    name: "받아온일정이라는 설정",
+    members: ["ssafy@ssafy,ssafy@naver"],
+    startdate: "2023-08-08",
+    starttime: "18:00",
     start: "",
     description: "",
     allDay: false,
   });
+  
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -55,20 +46,15 @@ function Planner(props: Props) {
       }));
     }
   };
-  const handleSubmitForm = (e: { preventDefault: () => void }) => {
+  const handleSubmitForm = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log(planData);
     dispatch(planCreateTest(planData));
-    if(props.group){
-      navigate("/dash/group",{state:props.group})
-    }else{
-       navigate("/dash/calendar/plan");
-    }
-   
+    navigate("/dash/calendar");
   };
   return (
     <>
-      <h1>Planner 일정추가</h1>
+      <h1>일정 상세조회, 받아온 데이터를 value로 두고 고침</h1>
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
           <Form.Label
@@ -94,7 +80,7 @@ function Planner(props: Props) {
                 resize: "none",
               }}
               type="text"
-              placeholder="일정 제목을 입력하세요"
+              placeholder={planData.name}
               onChange={handleInputChange}
             />
           </Col>
@@ -198,7 +184,7 @@ function Planner(props: Props) {
               }}
               as="textarea"
               rows={5}
-              placeholder="내용을 입력하세요"
+              placeholder={planData.description}
               onChange={handleInputChange}
             />
           </Col>
@@ -233,9 +219,9 @@ function Planner(props: Props) {
               height: "40px",
             }}
             type="reset"
-            variant="outline-primary"
+            variant="danger"
           >
-            취소
+            삭제
           </Button>
         </Col>
       </Form>
@@ -250,4 +236,4 @@ function Planner(props: Props) {
   );
 }
 
-export default Planner;
+export default PlanView;

@@ -21,6 +21,7 @@
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
     "file-loader": "^6.2.0",
     "fullcalendar": "^6.1.8",
     "jquery": "^3.7.0",

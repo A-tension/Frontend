@@ -9,23 +9,25 @@ interface Props {
   label: string;
   linktype?: "NavLink" | "Nav";
   button?: boolean;
-  // height?: string;
-  // width?: string;
-  // bround?: string;
-  disabled?: boolean;
+  height?: string;
+  width?: string;
+  bround?: string;
+  disabled?: boolean|false;
   variant?: string;
   className?: string;
   onClick?: () => void;
   navProps?: Team | Group;
   children?: React.ReactNode;
   icon?: string;
-  key?: string;
+  key?: string|number;
+  // hasAuth?: boolean|false;
   // style?: React.CSSProperties;
   selectedMenu?: string;
 }
 //button을 props로 받았다면
 //{props.Button && }
 export const NavTab = (props: Props) => {
+  // const isLoggedIn
   if (!props.button) {
     return (
       <>
@@ -79,13 +81,14 @@ export const NavTab = (props: Props) => {
         <Nav.Link
           as={props.linktype == "Nav" ? Link : NavLink}
           to={props.linkto}
+          disabled={props.disabled}
           onClick={props.onClick}
           // eventKey={props.key}
         >
           <SidebarButton
             selected={props.selectedMenu == props.label}
             icon={props.icon}
-            elabel={props.linkto}
+            // elabel={props.linkto}
             klabel={props.label}
           ></SidebarButton>
         </Nav.Link>

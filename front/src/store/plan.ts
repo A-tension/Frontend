@@ -5,6 +5,7 @@ import { User } from "./user";
 
 export interface Plan {
   members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
+  teamId?:number;
   name: string;
   start?: string;// 하루종일
   startdate?:string;

@@ -23,14 +23,14 @@ function Meeting() {
         참여(비회원 가능이라 모달처럼? greyout이랑 뒤로가기)
       </a> */}
       {!joinedMeeting && (
-        
+        <div>
         <Nav
           variant="underline"
-          className="pb-5"
+          className="pb-0"
           // defaultActiveKey="/dash/meeting/manage"
         >
           <NavTab
-            label="개설"
+            label="생성"
             linkto="/dash/meeting/start"
             linktype="Nav"
           ></NavTab>
@@ -44,7 +44,10 @@ function Meeting() {
             linkto="/dash/meeting/manage"
             linktype="Nav"
           ></NavTab>
-        </Nav>
+          
+        </Nav><hr className="solid"/>
+        {/* <div class="border-top my-2"></div> */}
+        </div>
       )}
       <Outlet></Outlet>
     </>

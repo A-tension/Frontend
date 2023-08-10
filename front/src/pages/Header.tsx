@@ -17,34 +17,27 @@ function Header() {
   // if(navBar)
   return (
     <>
-      {/* <header className="bg-white outline-dotted"> */}
+      <Navbar className="me-auto flex p-2" style={{ height: "53px" }}>
+        <Navbar.Brand as={Link} to="/" className="">
+          <img src={logo} height={"26px"} />
+        </Navbar.Brand>
 
-      <Navbar className="me-auto flex p-2" style={{height:"53px"}}>
-        {/* <Nav className="me-auto p-2"> */}
-          <Navbar.Brand as={Link} to="/" className="">
-            <img src={logo} height={"26px"} />
-          </Navbar.Brand>
-
-          <Nav.Link className="justify-start p-2" as={NavLink} to="/#intro">
-            소개
-          </Nav.Link>
-          <Nav.Link className="justify-start p-2" as={NavLink} to="/#features">
-            기능
-          </Nav.Link>
-        {/* </Nav> */}
-        {/* <Nav className="justify-content-end"> */}
-          {loggedIn && (
+        <Nav.Link className="justify-start p-2" as={NavLink} to="/#intro">
+          소개
+        </Nav.Link>
+        <Nav.Link className="justify-start p-2" as={NavLink} to="/#features">
+          기능
+        </Nav.Link>
+        {loggedIn && (
           <Nav className="ms-auto">
             <Logoutheader checkLogin={checkLogin}></Logoutheader>{" "}
           </Nav>
-        )}{!loggedIn && (
+        )}
+        {!loggedIn && (
           <Nav className="ms-auto">
             <Loginheader checkLogin={checkLogin}></Loginheader>{" "}
           </Nav>
         )}
-      
-
-
       </Navbar>
     </>
   );

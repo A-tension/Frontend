@@ -3,7 +3,7 @@ import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-import OpenVidu from "./openvidu/App";
+// import OpenVidu from "./openvidu/App";
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -15,7 +15,7 @@ import GChat from "./components/group/GChat";
 import Plans from "./components/group/Plans";
 import Members from "./components/group/Members";
 import Planner from "./components/plan/Planner";
-import Plan from "./components/plan/Plan";
+import PlanView from "./components/plan/PlanView";
 import Manage from "./components/meeting/Manage";
 import Draw from "./components/item/Draw";
 import List from "./components/item/List";
@@ -26,7 +26,9 @@ import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
 import Gcreate from "./components/group/Gcreate";
 import Month from "./components/plan/Month";
-import Welcome from "./components/group/Welcome";
+import ManageGroup from "./components/group/ManageGroup";
+import Waiting from "./pages/Waiting";
+
 function App() {
   return (
     <>
@@ -37,17 +39,16 @@ function App() {
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}>
-            <Route path="none" element={<Welcome />}></Route>
-              {/* <Route path="" element={<GChat />}></Route> */}
               <Route path="create" element={<Gcreate />}></Route>
               <Route path="chat" element={<GChat />}></Route>
               <Route path="plans" element={<Plans />}></Route>
               <Route path="members" element={<Members />}></Route>
+              <Route path="manage" element={<ManageGroup />}></Route>
             </Route>
             <Route path="calendar" element={<Calendar />}>
               <Route index element={<Month />}></Route>
               <Route path="add" element={<Planner />}></Route>
-              <Route path="plan" element={<Plan />}></Route>
+              <Route path="plan" element={<PlanView />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}
             </Route>
             <Route path="meeting" element={<Meeting />}>
@@ -55,6 +56,7 @@ function App() {
               <Route path="join" element={<Join />}></Route>
               <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
+              <Route path="wait" element={<Waiting />}></Route>
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               <Route
                 path="conference"
@@ -68,7 +70,7 @@ function App() {
             </Route>
           </Route>
           <Route path="join" element={<JoinMeeting />}></Route>
-          <Route path="/wait" element={<OpenVidu />} />
+          {/* <Route path="/wait" element={<OpenVidu />} /> */}
           <Route
             path="conference"
             element={<Conference sessionId="" myUserName="" />}

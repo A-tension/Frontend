@@ -24,7 +24,7 @@ const Dash = () => {
       <div style={{ height: colHeight }}>
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" sm={1} style={{minWidth:"290px"}} >
+            <Col className="pt-5" sm={1} style={{minWidth:"200px"}} >
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}
@@ -44,7 +44,7 @@ const Dash = () => {
               >
                 <SidebarButton notButton={true} klabel={selectedMenu} icon={icons[label.indexOf(selectedMenu)]}></SidebarButton>
                 <div
-                  className=" pt-2 px-5 pb-5"
+                  className="white pt-2 px-5 pb-5"
                   style={{
                     background: "#FFF",
                     borderRadius: "20px",
