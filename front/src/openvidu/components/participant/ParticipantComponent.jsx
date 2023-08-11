@@ -97,7 +97,7 @@ export default class ParticipantComponent extends Component {
           {/* 디스플레이 요소 체크박스 */}
           <div className="display-box">
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <Select
+              <MenuItem
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
                 value={this.props.type}
@@ -110,7 +110,7 @@ export default class ParticipantComponent extends Component {
                 <MenuItem value="join">접속순보기</MenuItem>
                 <MenuItem value="pongpong">퐁퐁순보기</MenuItem>
                 <MenuItem value="number">번호순보기</MenuItem>
-              </Select>
+              </MenuItem>
             </FormControl>
             {/* <select value={this.props.type} onChange={this.partsSortChange}>
               <option value="all">전체보기</option>

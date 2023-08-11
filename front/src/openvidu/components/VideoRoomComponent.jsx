@@ -7,7 +7,7 @@ import { OpenVidu } from "openvidu-browser";
 import StreamComponent from "./stream/StreamComponent";
 import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import ChatComponent from "./chat/ChatComponent";
-import ParticipantComponent from "./participant/ParticipantComponent";
+// import ParticipantComponent from "./participant/ParticipantComponent";
 import QuestionComponent from "./question/QuestionComponent";
 // import FaceDetection from '../FaceDetection';
 import EmojiFilter from "./items/EmojiFilter";
@@ -35,13 +35,13 @@ class VideoRoomComponent extends Component {
     // this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
     //     ? this.props.openviduServerUrl
     //     : 'https://' + window.location.hostname + ':4443';
-    this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
-      ? this.props.openviduServerUrl
-      : import.meta.env.REACT_APP_OPENVIDU_SERVER_URL;
-    // OPENVIDU_SERVER_SECRET: 서버 비밀번호 - 변경할 필요 없음
-    this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret
-      ? this.props.openviduSecret
-      : import.meta.env.REACT_APP_OPENVIDU_SERVER_SECRET;
+
+    this.OPENVIDU_SERVER_URL = "https://i9a306.p.ssafy.io";
+    // ? this.props.openviduServerUrl
+    // : process.env.REACT_APP_OPENVIDU_SERVER_URL;
+    // 서버 비밀번호 (이것도 env에서 끌어 써도 될 듯)
+    this.OPENVIDU_SERVER_SECRET = "ssafya306";
+
     // hasBeenUpdated: 업데이트 여부 판단하는 변수
     this.hasBeenUpdated = false;
     // layout: 현재 레이아웃 (openvidu-layout.js와 연결)
@@ -60,8 +60,7 @@ class VideoRoomComponent extends Component {
       )}${String(this.props.studentNum).padStart(2, "0")}]${
         this.props.memberStore.name
       }`;
-    if (this.props.whoami === "teacher")
-      userName = "[선생님]" + this.props.memberStore.name;
+    if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
 
     // remotes:
     this.remotes = [];
@@ -184,7 +183,7 @@ class VideoRoomComponent extends Component {
     this.setAudio = this.setAudio.bind(this);
     this.setSpeaker = this.setSpeaker.bind(this);
     // 결석학생 잡기
-    this.whoAbsent = this.whoAbsent.bind(this);
+    // this.whoAbsent = this.whoAbsent.bind(this);
     this.whoTeacherOrStudent = this.whoTeacherOrStudent.bind(this);
     // 이모지
     this.toggleEmoji = this.toggleEmoji.bind(this);
@@ -262,29 +261,32 @@ class VideoRoomComponent extends Component {
   connectToSession() {
     if (this.props.token !== undefined) {
       // console.log("token received: ", this.props.token);
+      console.log("세션 연결 직전");
       this.connect(this.props.token);
+      console.log("세션 연결 직후");
     } else {
-      this.getToken()
-        .then((token) => {
-          // console.log(token);
-          this.connect(token);
-        })
-        .catch((error) => {
-          if (this.props.error) {
-            this.props.error({
-              error: error.error,
-              messgae: error.message,
-              code: error.code,
-              status: error.status,
-            });
-          }
-          console.log(
-            "There was an error getting the token:",
-            error.code,
-            error.message
-          );
-          alert("There was an error getting the token:", error.message);
-        });
+      console.log("세션 연결 직전 엘스");
+      this.getToken().then((token) => {
+        // console.log(token);
+        this.connect(token);
+        console.log("세션 연결 직후 엘스");
+      });
+      // .catch((error) => {
+      //   if (this.props.error) {
+      //     this.props.error({
+      //       error: error.error,
+      //       messgae: error.message,
+      //       code: error.code,
+      //       status: error.status,
+      //     });
+      //   }
+      //   console.log(
+      //     "There was an error getting the token:",
+      //     error.code,
+      //     error.message
+      //   );
+      //   alert("There was an error getting the token:", error.message);
+      // });
     }
   }
 
@@ -315,125 +317,125 @@ class VideoRoomComponent extends Component {
     localUser.setAudioActive(this.props.setDevices.isAudioOn);
     localUser.setVideoActive(this.props.setDevices.isVideoOn);
 
-    if (this.props.memberStore.borderColor === 1) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #ebacff, #9899dd, #abe8f0)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 1) {
+    const frameColor = {
+      type: "style",
+      value: {
+        border: "10px solid transparent",
+        borderRadius: "15px",
+        backgroundImage:
+          "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #ebacff, #9899dd, #abe8f0)",
+        backgroundOrigin: "border-box",
+        backgroundClip: "content-box, border-box",
+      },
+    };
+    localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 2) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #f87f93, #eba448, #f2e286)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 2) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #f87f93, #eba448, #f2e286)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 3) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #bfd596, #52deea, #a687e3)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 3) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #bfd596, #52deea, #a687e3)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 4) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #573dd5, #9b5aeb)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 4) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #573dd5, #9b5aeb)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 5) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #79c3d6, #5a94eb)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 5) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #79c3d6, #5a94eb)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 6) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #cbce67, #de9931)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 6) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #cbce67, #de9931)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 7) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #43c8c7, #3fb15d)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 7) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #43c8c7, #3fb15d)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
-    if (this.props.memberStore.borderColor === 8) {
-      const frameColor = {
-        type: "style",
-        value: {
-          border: "10px solid transparent",
-          borderRadius: "15px",
-          backgroundImage:
-            "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #464646, #14002c)",
-          backgroundOrigin: "border-box",
-          backgroundClip: "content-box, border-box",
-        },
-      };
-      localUser.setFrameColor(frameColor);
-    }
+    // if (this.props.memberStore.borderColor === 8) {
+    //   const frameColor = {
+    //     type: "style",
+    //     value: {
+    //       border: "10px solid transparent",
+    //       borderRadius: "15px",
+    //       backgroundImage:
+    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #464646, #14002c)",
+    //       backgroundOrigin: "border-box",
+    //       backgroundClip: "content-box, border-box",
+    //     },
+    //   };
+    //   localUser.setFrameColor(frameColor);
+    // }
 
     // 유저끼리 데이터 교환
     this.state.session
@@ -450,7 +452,7 @@ class VideoRoomComponent extends Component {
         this.connectWebCam();
       })
       .then(() => {
-        this.whoAbsent();
+        // this.whoAbsent();
         this.whoTeacherOrStudent();
       })
       .catch((error) => {
@@ -491,18 +493,18 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  whoAbsent() {
-    let students = this.props.studentList.filter(
-      (elem) => elem !== this.state.myUserName
-    );
-    this.state.subscribers.forEach((elem) => {
-      if (students.includes(elem.nickname))
-        students = students.filter((stu) => stu !== elem.nickname);
-    });
-    this.setState({
-      absentStudents: students,
-    });
-  }
+  // whoAbsent() {
+  //   let students = this.props.studentList.filter(
+  //     (elem) => elem !== this.state.myUserName
+  //   );
+  //   this.state.subscribers.forEach((elem) => {
+  //     if (students.includes(elem.nickname))
+  //       students = students.filter((stu) => stu !== elem.nickname);
+  //   });
+  //   this.setState({
+  //     absentStudents: students,
+  //   });
+  // }
 
   // connectWebCam: 웹캠을 연결하는 함수 (실제 WebRTC와 연관된 내부 메서드들과 유사)
   async connectWebCam() {
@@ -586,7 +588,7 @@ class VideoRoomComponent extends Component {
           });
         }
         this.updateLayout();
-        this.whoAbsent();
+        // this.whoAbsent();
         this.whoTeacherOrStudent();
       }
     );
@@ -764,7 +766,7 @@ class VideoRoomComponent extends Component {
         subscribers: remoteUsers,
       });
     }
-    this.whoAbsent();
+    // this.whoAbsent();
     this.whoTeacherOrStudent();
   }
 
@@ -804,7 +806,7 @@ class VideoRoomComponent extends Component {
         this.props.setTeacherData(newUser);
       if (this.localUserAccessAllowed) {
         this.updateSubscribers();
-        this.whoAbsent();
+        // this.whoAbsent();
       }
     });
   }
@@ -1802,7 +1804,7 @@ class VideoRoomComponent extends Component {
                   }
                   style={participantDisplay}
                 >
-                  <ParticipantComponent
+                  {/* <ParticipantComponent
                     whoami={this.props.whoami}
                     user={localUser}
                     subscribers={subscribers}
@@ -1815,7 +1817,7 @@ class VideoRoomComponent extends Component {
                     student={this.state.students}
                     partsSortChange={this.partsSortChange}
                     type={this.state.sortType}
-                  />
+                  /> */}
                 </div>
               )}
             {localUser !== undefined &&
@@ -1836,8 +1838,8 @@ class VideoRoomComponent extends Component {
                     chatDisplay={this.state.chatDisplay}
                     close={this.toggleChat}
                     messageReceived={this.checkNotification}
-                    levelPng={this.props.levelPng}
-                    profile={this.props.memberStore.profileFullPath}
+                    // levelPng={this.props.levelPng}
+                    // profile={this.props.memberStore.profileFullPath}
                   />
                 </div>
               )}
@@ -1900,6 +1902,7 @@ class VideoRoomComponent extends Component {
 
   // createSession: 세션 생성 함수 (주의! promise를 반환!!) - 서버에 세션아이디를 요청해서 세션을 생성해서 id값을 받아오는 함수
   createSession(sessionId) {
+    console.log("세션 만들기");
     return new Promise((resolve, reject) => {
       var data = JSON.stringify({ customSessionId: sessionId });
       axios
@@ -1944,6 +1947,7 @@ class VideoRoomComponent extends Component {
 
   // createToken: 특정 sessionId에 대해서 오픈비두 서버에 토큰을 요청해서 받아오는 함수 (주의! Promise 반환!)
   createToken(sessionId) {
+    console.log("토큰 만들기");
     return new Promise((resolve, reject) => {
       var data = JSON.stringify({});
       axios

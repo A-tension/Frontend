@@ -4,7 +4,6 @@ import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import OpenVidu from "./openvidu/App";
-import Waiting from "./pages/Waiting"; // 회의 참여 대기
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -47,7 +46,7 @@ function App() {
               <Route path="join" element={<Join />}></Route>
               <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              <Route path="wait" element={<Waiting />}></Route>
+              <Route path="wait" element={<OpenVidu />}></Route>
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
 
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
