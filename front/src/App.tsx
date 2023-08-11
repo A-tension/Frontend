@@ -22,8 +22,10 @@ import VideoRoomComponent from "./openvidu/components/VideoRoomComponent";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
 import Month from "./components/plan/Month";
-import Waiting from "./pages/Waiting";
+// import Waiting from "./pages/Waiting";#
 import ManageGroup from "./components/group/ManageGroup";
+import List from "./components/item/List.tsx";
+import Draw from "./components/item/Draw.tsx";
 
 function App() {
   return (
