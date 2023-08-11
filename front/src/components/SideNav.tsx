@@ -17,7 +17,6 @@ const SideNav: React.FC<Props> = (props: Props) => {
   //style={{color:'#8C8C8C'}}
   // sidebar & inner header
   const { label, linkto, selectMenu, icons } = props;
-  const isLoggedIn = useAppSelector(checkAuthority);
   const menu = linkto;
   // ["group", "calendar", "meeting", "item"];//props.linkto
   // ["그룹", "캘린더", " 회의", "뽑기"];//props.label
@@ -30,7 +29,6 @@ const SideNav: React.FC<Props> = (props: Props) => {
       label={label[index]}
       linkto={eng}
       linktype="NavLink"
-      disabled={!isLoggedIn}
       button={true}
       className="items-center"
       width="200px"
