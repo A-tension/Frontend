@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { Team } from "./group";
+import {teamResponseDto} from "../api/team/types.tsx";
 
 export interface User {
   userId?: string | "";
@@ -45,6 +46,23 @@ export const userSlice = createSlice({
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
     },
+    // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
+    //   const {
+    //     teamId,
+    //     name,
+    //     profileImage,
+    //   } = action.payload
+    //   const teamTest : Team = {
+    //     teamId : 349,
+    //     name : name,
+    //     profileImg : profileImage
+    //   }
+    //   state.push(teamTest);
+    //   console.log("name")
+    //   console.log(name);
+    //   console.log("state")
+    //   console.log(state)
+    // },
     userLogin: (state, action: PayloadAction<User>) => {
       //axios
       const {
@@ -83,7 +101,7 @@ export const userSlice = createSlice({
   },
 });
 //action - dispatch
-export const { userLoginTest, userLogin, userLogout,isLoggedIn } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, getTeam } = userSlice.actions;
 //getters
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState)=> state.user.isLoggedIn;

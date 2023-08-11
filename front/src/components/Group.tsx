@@ -139,13 +139,13 @@ function Group() {
                   </Button>
                 }
                 onClick={async () => {
-                  //내 팀 조회
-                  const promise = await findMyTeam<teamResponseDto>();
-                  console.log(promise.data);
+                  // 내 팀 조회
+                  // const promise = await findMyTeam<teamResponseDto>();
+                  // console.log(promise.data.data[0].teamId);
 
                   // 팀 생성
                   // const createTeamTestDto : createTeamRequestBody = {
-                  //   name: "teamTest",
+                  //   name: "테스트 ",
                   //   userIdList: ['1f2c21f4-530f-4f0b-95e6-a6e74b174ce9', '3347e816-494d-4e27-83a0-f55865873cd9']
                   // }
                   // const promise = await createTeam(createTeamTestDto);
@@ -206,7 +206,7 @@ function Group() {
                 //   const promise = await updateTeamParticipantAuthority(teamParticipantAuthorityDto);
                 //   console.log(promise.data)
                 }}
-                // onClick={() => setMenu(true)}
+                onClick={() => setMenu(true)}
               ></NavTab>
             </Col>
             {isCreate && (
