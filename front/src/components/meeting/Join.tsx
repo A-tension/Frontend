@@ -24,12 +24,18 @@ function Join() {
   // const history = useHistory
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const dataObject = Object.fromEntries(formData);
-    dispatch(meetingModeTest());
-    navigate('/dash/meeting/wait', { state: { data: dataObject } });
+    // dispatch(meetingModeTest());
+    navigate("/dash/meeting/wait", {
+      state: {
+        classId: 4,
+        classTitle: "회의 테스트",
+        teacherName: "김싸피",
+      },
+    });
   };
   return (
     <>

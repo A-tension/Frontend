@@ -255,7 +255,7 @@ export default class ToolbarComponent extends Component {
                 onClick={this.toggleTeacherMenu}
               >
                 <div className="buttonStyle">
-                  <AutoAwesomeMotionIcon />
+                  <EmojiEmotionsIcon />
                   <p>선생님 메뉴</p>
                 </div>
               </IconButton>

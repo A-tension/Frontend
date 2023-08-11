@@ -46,14 +46,14 @@ const App = () => {
   const { state } = useLocation();
 
   const memberStore = useAppSelector((state) => state.member);
-  const whoami = whoru(memberStore.userId);
+  // const whoami = whoru(memberStore.userId);
+  const whoami = whoru(4444);
 
   // 더블퐁퐁권 사용 가능 여부 판단
   useEffect(() => {
     const getUserItems = async () => {
-      const result = await InterceptedAxios.get(`/items/${memberStore.userId}`);
-      if (result.data.filter((elem) => elem.itemId === 4)[0].cnt > 0)
-        setCanUseDoublePongpong(true);
+      // const result = await InterceptedAxios.get(`/items/${memberStore.userId}`);
+      // if (result.data.filter((elem) => elem.itemId === 4)[0].cnt > 0)
     };
     if (whoami !== "teacher") getUserItems();
   });
@@ -61,27 +61,31 @@ const App = () => {
   // 학생셋 만들기
   useEffect(() => {
     const getMyLevel = async () => {
-      const myPoint = await InterceptedAxios.get(
-        `/items/totalsticker/${memberStore.userId}`
-      );
-      const pngUrl = levelFunction(myPoint.data);
-      setLevelPng(pngUrl);
+      // const myPoint = await InterceptedAxios.get(
+      //   `/items/totalsticker/${memberStore.userId}`
+      // );
+      // const pngUrl = levelFunction(myPoint.data);
+      // setLevelPng(pngUrl);
     };
     const getStudentList = async () => {
-      const classStudents = await InterceptedAxios.get(
-        `/classes/student/${state.classId}`
-      );
-      const nameList = classStudents.data.participantsList.map(
-        (elem) => elem.studentNickname
-      );
-      const studentSets = {};
-      classStudents.data.participantsList.forEach((elem) => {
-        studentSets[elem.studentNickname] = elem.studentid;
-      });
+      // const classStudents = await InterceptedAxios.get(
+      //   `/classes/student/${state.classId}`
+      // );
+      // const nameList = classStudents.data.participantsList.map(
+      //   (elem) => elem.studentNickname
+      // );
+      const nameList = { studentNickname: "싸피1", studentNickname: "싸피2" };
+      const studentSets = {
+        싸피1: "123",
+        싸피2: "456",
+      };
+      // classStudents.data.participantsList.forEach((elem) => {
+      //   studentSets[elem.studentNickname] = elem.studentid;
+      // });
       setStudentList(nameList);
       setStudentInfo(studentSets);
     };
-    if (whoami !== "teacher") getMyLevel();
+    // if (whoami !== "teacher") getMyLevel();
     getStudentList();
   }, []);
 
@@ -125,7 +129,7 @@ const App = () => {
           canUseDoublePongpong={canUseDoublePongpong}
           isUsedDoublePongpong={isUsedDoublePongpong}
           setIsUsedDoublePongpong={setIsUsedDoublePongpong}
-          userId={memberStore.userId}
+          userId={4444}
         />
       )}
       {tap === "class" && (
@@ -141,12 +145,12 @@ const App = () => {
           navigate={navigate}
           teacherName={state.teacherName}
           classTitle={state.classTitle}
-          userId={memberStore.userId}
-          grade={memberStore.grade}
-          classNum={memberStore.classNum}
-          studentNum={memberStore.studentNum}
+          userId={4444}
+          grade={4}
+          classNum={4}
+          studentNum={2}
           studentList={studentList}
-          levelPng={levelPng}
+          // levelPng={levelPng}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}
           isUsedDoublePongpong={isUsedDoublePongpong}

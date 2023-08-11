@@ -3,7 +3,7 @@ import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-// import OpenVidu from "./openvidu/App";
+import OpenVidu from "./openvidu/App";
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -56,7 +56,7 @@ function App() {
               <Route path="join" element={<Join />}></Route>
               <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              <Route path="wait" element={<Waiting />}></Route>
+              <Route path="wait" element={<OpenVidu />}></Route>
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               <Route
                 path="conference"
@@ -77,7 +77,10 @@ function App() {
           ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />}></Route>
+          <Route
+            path="/oauth2/redirect"
+            element={<OAuth2RedirectHandler />}
+          ></Route>
         </Routes>
       </div>
     </>
