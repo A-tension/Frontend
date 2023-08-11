@@ -1,9 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import {useEffect} from "react";
-
+import {useEffect, useState} from "react";
+import {findMyItemList} from "../api/item/itemApi"
+import { FindMyItemResponseDto } from '../api/item/types';
 function OAuth2RedirectHandler() {
     const navigate = useNavigate();
     const location = useLocation();
+    
+    // 내 아이템 
+  
+
 
     const getUrlParameter = (name:string) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -23,6 +28,18 @@ function OAuth2RedirectHandler() {
             console.log("refreshToken : " + refreshToken)
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
+            // 내 아이템 조회 
+            findMyItemList<FindMyItemResponseDto>()
+            .then(response => {
+                console.log(response.data); // 출력하고자 하는 데이터
+                const myItem = response.data.data; 
+                console.log(myItem);               
+                navigate('/');
+            })
+            .catch(error => {
+                console.error(error);
+                // 에러 처리 로직 추가
+            });
             navigate('/');
             console.log("test")
         } else {

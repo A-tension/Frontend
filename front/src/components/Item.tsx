@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import { NavTab } from "./atoms/tab/NavTab";
+import {findAllItems, createMyItem, findMyItemList, deleteMyItem} from "../api/item/itemApi.txt";
 
 function Item() {
     return (

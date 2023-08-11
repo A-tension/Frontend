@@ -13,11 +13,16 @@ export interface User {
   myGroups?: Team[];
     isLoggedIn?:boolean|false;
 }
+
 export interface Item {
-  itemId: number;
-  name: string;
-  image: string;
+  itemId? : number;
+  name : string;
+  image : string;
+  itemTypeId? : bigint;
+  itemTypeName? : string;
+  description? : string; 
 }
+
 
 const initialState: User = {
   userId: "",

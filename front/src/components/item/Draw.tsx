@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import
 import {findAllItems, getRandomItem, findMyItemList, deleteMyItem} from "../../api/item/itemApi";
-import { FindAllItemsDto } from "../../api/item/types";
+import { FindAllItemsDto, CreateMyItemResponseDto } from "../../api/item/types";
 function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -28,7 +28,7 @@ function Draw() {
                         }}
                         onClick={async () => {
                             //내 팀 조회
-                            const promise = await findAllItems<FindAllItemsDto[]>();
+                            const promise = await getRandomItem<CreateMyItemResponseDto[]>();
                             console.log(promise);}}
                     >
                         <img src={draw} alt="아이템 뽑기" style={{ maxWidth: "300px", maxHeight: "300px" }} />
