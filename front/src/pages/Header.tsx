@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import "./Header.css";
 import "../App.css";
-import logo from "../assets/LogoSVG.svg"//../assets/LOGO.png";
+import logo from "../assets/logo_white.svg"; //../assets/LOGO.png";
 import { Navbar, Nav } from "react-bootstrap";
 import Loginheader from "../components/loginheader";
 import Logoutheader from "../components/logoutheader";
@@ -15,39 +15,55 @@ function Header() {
 
   // 화면 전환해서 회의 참여시에 헤더 어떻게 숨길지 생각해보기? if true else return?
   const dispatch = useAppDispatch();
- 
-  const handleMain=()=>{
-     dispatch(hideBackground(false))
 
-  }
+  const handleMain = () => {
+    dispatch(hideBackground(false));
+  };
   // const loggedin =true;
   // if(navBar)
   return (
-    <><div className="font-SUIT ml-2">
+    <>
+      <div
+        className="font-SUIT ml-2 text-white"
+        style={{ backgroundColor: "#176DEE" }}
+      >
+        <Navbar className="me-auto flex p-2" style={{ height: "53px" }}>
+          <Navbar.Brand as={Link} to="/" className="" onClick={handleMain}>
+            <img src={logo} height={"26px"} />
+          </Navbar.Brand>
 
-  
-      <Navbar className="me-auto flex p-2" style={{ height: "53px" }}>
-        <Navbar.Brand as={Link} to="/" className="" onClick={handleMain}>
-          <img src={logo} height={"26px"} />
-        </Navbar.Brand>
-
-        <Nav.Link className="justify-start p-2" as={NavLink} to="/#intro"  onClick={handleMain}>
-          소개
-        </Nav.Link>
-        <Nav.Link className="justify-start p-2" as={NavLink} to="/#features"  onClick={handleMain}>
-          기능
-        </Nav.Link>
-        {loggedIn && (
-          <Nav className="ms-auto">
-            <Logoutheader checkLogin={checkLogin}></Logoutheader>{" "}
-          </Nav>
-        )}
-        {!loggedIn && (
-          <Nav className="ms-auto">
-            <Loginheader checkLogin={checkLogin}></Loginheader>{" "}
-          </Nav>
-        )}
-      </Navbar>  </div>
+          <Nav.Link
+            className="justify-start p-2"
+            as={NavLink}
+            to="/#intro"
+            onClick={handleMain}
+          >
+            소개
+          </Nav.Link>
+          <Nav.Link
+            className="justify-start p-2"
+            as={NavLink}
+            to="/#features"
+            onClick={handleMain}
+          >
+            기능
+          </Nav.Link>
+          {/* , marginRight: "80px"  */}
+          {loggedIn && (
+            <Nav
+              className="ms-auto text-white"
+              style={{ color: "white"}}
+            >
+              <Logoutheader checkLogin={checkLogin}></Logoutheader>
+            </Nav>
+          )}
+          {!loggedIn && (
+            <Nav className="ms-auto text-white">
+              <Loginheader checkLogin={checkLogin}></Loginheader>
+            </Nav>
+          )}
+        </Navbar>
+      </div>
     </>
   );
 }

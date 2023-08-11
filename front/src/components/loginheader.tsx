@@ -16,6 +16,7 @@ const Loginheader = (props: Props) => {
       {!inMeeting && (
         <>
           <Nav.Link
+            className="text-white"
             as={Link}
             to="/dash/meeting/join"
             style={{ display: "flex", alignItems: "center", gap: "10px" }}

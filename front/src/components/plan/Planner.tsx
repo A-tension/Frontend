@@ -13,7 +13,7 @@ interface PlanCreateData extends Plan {
   startdate: string;
   starttime: string;
   // end?: string;
-  allDay: boolean;
+  // allDay: boolean;
   description: string;
 }
 interface Props {
@@ -35,12 +35,12 @@ function Planner(props: Props) {
   const navigate = useNavigate();
   const [planData, setPlanData] = useState<PlanCreateData>({
     name: "",
-    members: propgroup ? [propgroup.members.toString()] : [""],
+    members: propgroup ? [propgroup.members.toString()] : [""],// 그룹일정추가라면 여기서 그룹멤버 정보를 받아옴
     startdate: "",
     starttime: "",
     start: "",
     description: "",
-    allDay: false,
+    // allDay: false,
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,9 +63,10 @@ function Planner(props: Props) {
     console.log(planData);
     dispatch(planCreateTest(planData));
     if(propgroup){
-      navigate("/dash/group",{state:{group:propgroup}})
+      // navigate("/dash/group",{state:{group:propgroup}})
+      navigate("/dash/calendar/plan",{state:{plan:planData}});
     }else{
-       navigate("/dash/calendar/plan");
+       navigate("/dash/calendar/plan",{state:{plan:planData}});
     }
    
   };
@@ -224,6 +225,12 @@ function Planner(props: Props) {
             />
           </Col>
         </Form.Group>
+        
+        {/* <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Form.Check type="checkbox" checked={planData.allDay} label="" onChange={handleInputChange} name="isPrivate"/>
+          </Col>
+        </Form.Group> */}
 
         {/* <Form.Group as={Row} className="mb-3"> */}
         <Col

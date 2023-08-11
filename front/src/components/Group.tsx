@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Tab, Nav, Row, Col, Button, Card, Form } from "react-bootstrap";
-import { NavTab } from "./atoms/tab/NavTab";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Tab, Nav, Row, Col, Button, Form } from "react-bootstrap";
 import Plans from "./group/Plans.tsx";
 import Members from "./group/Members.tsx";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
@@ -9,37 +8,14 @@ import { getGrouplist } from "../store/group.ts";
 import {
   User,
   checkAuthority,
-  getUserId,
-  hasAuthority,
-  isLoggedIn,
 } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
-import {
-  acceptTeam,
-  createTeam,
-  deleteTeam,
-  findMyTeam,
-  getTeamDetail,
-  inviteTeam,
-  leaveTeam,
-  refuseTeam,
-  updateTeam,
-  updateTeamParticipantAuthority,
-} from "../api/team/teamApi.tsx";
-import {
-  teamResponseDto,
-  createTeamRequestBody,
-  teamUpdateRequestDto,
-  teamInviteRequestDto,
-  userAuthDto,
-  teamParticipantAuthorityDto,
-  teamDetail,
-} from "../api/team/types.tsx";
 import Gcreate from "./group/Gcreate.tsx";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
-  teamId?: bigint; // axios에서 생성 요청시 자동반환
+  // id?:bigint|number;
+  teamId?: bigint|number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
@@ -75,26 +51,41 @@ function Group() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const transfer = location.state.group;
+  const transfer = location.state?.group;
+
+
+  // const [selectedGroup, selectGroup] = useState<Team>({
+  //   teamId: transfer.id? transfer.id: 0,
+  //   name: transfer.name? transfer.name : " ",
+  //   profileImg: "",//transfer.profileImage? transfer.profileImage:"",
+  //   // userProfileDtoList: [],
+  //   description: "",
+  //   members:transfer.members? transfer.members: [],
+  // });
 
   const [selectedGroup, selectGroup] = useState<Team>({
-    id: transfer.id|0,
-    name: transfer.name| " ",
-    profileImage: trasfer.profileImgage? trasfer.profileImgage:"",
-    // userProfileDtoList: [],
+    teamId: transfer? transfer.teamId : 0,
+    name: "",
+    profileImg: "",
+    members: [],
     description: "",
   });
+  
   const [isCreate, setMenu] = useState(false); //그룹생성창 여부
-  const [selectedTab, setSelectedTab] = useState("chat"); // 기본값은 "chat"으로 설정
-  const [hasAuth, getAuth] = useState(false); //그룹짱의 권한 체크,,//teamParticipantAuthorityDto 에 해당하나?
+  const [selectedTab, setSelectedTab] = useState("info"); // 기본값은 "chat"으로 설정
+  const [hasAuth, getAuth] = useState<boolean>(false); //그룹짱의 권한 체크,,//teamParticipantAuthorityDto 에 해당하나?
   // const curUserId = useAppSelector(getUserId);
   // const teamAuth:teamParticipantAuthorityDto = {teamId:BigInt(selectedGroup.id) ,userAuthDtoList:[{userId:curUserId, hasAuthority:true}]};
 
   const TF = useAppSelector(checkAuthority);
+ 
   const handleGroupSelect = (group: Team) => {
     selectGroup(group);
-    //dispatch(hasAuthority());
-    console.log(getAuth(TF)); // 실제로는 team participant has auth?
+    //dispatch(hasAuthority()); 
+    if(TF)
+   getAuth(TF); // 실제로는 team participant has auth?
+  else
+  getAuth(false);
     console.log(hasAuth);
   };
 
