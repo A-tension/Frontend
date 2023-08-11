@@ -2,7 +2,7 @@ import { Col, Row, Image } from "react-bootstrap";
 import loginG from "../assets/btn_google_signin_light_normal_web@2x.png";
 import loginN from "../assets/btnW_완성형.png";
 import loginK from "../assets/kakao_login_medium_narrow.png";
-import fillerImg from "../assets/bwink_edu_04_single_04.jpg";
+import fillerImg from "../assets/welcome.png";
 import RoundCard from "../components/atoms/RoundCard";
 import { useAppDispatch } from "../store/hooks";
 import { User, getUserGroups, userLogin } from "../store/user";
