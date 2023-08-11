@@ -7,12 +7,13 @@ import { Plan, planCreateTest } from "../../store/plan";
 interface PlanCreateData extends Plan {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
-  // name: string;
+  name: string;
   members?: string[]; //email 목록으로 일단 진행
-  startdate: string;
-  starttime: string;
-  end?: string;
-  // allDay: boolean;
+  // startdate: string;
+  startTime: string;
+  endTime: string;
+  // end?: string;
+  allDay: boolean;
   description: string;
 }
 function PlanView() {
@@ -129,7 +130,7 @@ function PlanView() {
               disabled={!isEdit}
               readOnly={!isEdit}
               name="startdate"
-              value={planData.startdate}
+              value={planData.startTime}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",
@@ -160,7 +161,7 @@ function PlanView() {
           <Col sm={5}>
             <Form.Control
               name="starttime"
-              value={planData.starttime}
+              value={planData.startTime}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",

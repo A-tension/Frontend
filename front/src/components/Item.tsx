@@ -2,6 +2,9 @@ import { Nav } from "react-bootstrap";
 import List from "./item/List";
 import Draw from "./item/Draw";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import { NavTab } from "./atoms/tab/NavTab";
+import {findAllItems, createMyItem, findMyItemList, deleteMyItem} from "../api/item/itemApi.txt";
 
 function Item() {
   const [selectedTab, setSelectedTab] = useState("items");

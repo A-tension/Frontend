@@ -3,7 +3,8 @@ import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
-// import OpenVidu from "./openvidu/App";
+import OpenVidu from "./openvidu/App";
+import Waiting from "./pages/Waiting"; // 회의 참여 대기
 import Group from "./components/Group";
 import Calendar from "./components/Calendar";
 import Meeting from "./components/Meeting";
@@ -17,10 +18,12 @@ import Manage from "./components/meeting/Manage";
 import Header from "./pages/Header";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
+import VideoRoomComponent from "./openvidu/components/VideoRoomComponent";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
 import Month from "./components/plan/Month";
 import Waiting from "./pages/Waiting";
+import ManageGroup from "./components/group/ManageGroup";
 
 function App() {
   return (
@@ -46,6 +49,20 @@ function App() {
               <Route path="manage" element={<Manage />}></Route>{" "}
               <Route path="wait" element={<Waiting />}></Route>
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
+
+              {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
+              <Route path="conference" element={<VideoRoomComponent />}></Route>
+
+              <Route
+                path="conference1"
+                element={<Conference sessionId="" myUserName="" />}
+                ></Route>
+            </Route>
+            <Route path="item" element={<Item />}>
+              <Route path="" element={<Navigate to="list" />}></Route>
+              <Route path="list" element={<List />}></Route>
+              <Route path="draw" element={<Draw />}></Route>
+
             </Route>
             <Route path="item" element={<Item />}></Route>
             <Route

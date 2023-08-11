@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { Team } from "./group";
 import { UUID } from "crypto";
+import {teamResponseDto} from "../api/team/types.tsx";
+
 
 export interface User {
   userId: UUID | "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
@@ -15,11 +17,16 @@ export interface User {
   myGroups?: Team[];
   isLoggedIn?: boolean | false;
 }
+
 export interface Item {
-  itemId: number;
-  name: string;
-  image: string;
+  itemId? : number;
+  name : string;
+  image : string;
+  itemTypeId? : bigint;
+  itemTypeName? : string;
+  description? : string; 
 }
+
 
 const initialState: User = {
   userId: " - - - - ",
@@ -42,6 +49,23 @@ export const userSlice = createSlice({
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
     },
+    // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
+    //   const {
+    //     teamId,
+    //     name,
+    //     profileImage,
+    //   } = action.payload
+    //   const teamTest : Team = {
+    //     teamId : 349,
+    //     name : name,
+    //     profileImg : profileImage
+    //   }
+    //   state.push(teamTest);
+    //   console.log("name")
+    //   console.log(name);
+    //   console.log("state")
+    //   console.log(state)
+    // },
     userLogin: (state, action: PayloadAction<User>) => {
       //axios
       const {
@@ -80,8 +104,9 @@ export const userSlice = createSlice({
   },
 });
 //action - dispatch
-export const { userLoginTest, userLogin, userLogout, isLoggedIn } =
-  userSlice.actions;
+
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, getTeam } = userSlice.actions;
+
 //getters
 export const checkTickets = (state: RootState) => state.user.tickets;
 export const getUserId = (state: RootState) => state.user.userId;
