@@ -21,8 +21,9 @@ import VideoRoomComponent from "./openvidu/components/VideoRoomComponent";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
 import Month from "./components/plan/Month";
-import Waiting from "./pages/Waiting";
-import ManageGroup from "./components/group/ManageGroup";
+import List from "./components/item/List.tsx";
+import Draw from "./components/item/Draw.tsx";
+// import ManageGroup from "./components/group/ManageGroup";
 
 function App() {
   return (
@@ -64,10 +65,10 @@ function App() {
 
             </Route>
             <Route path="item" element={<Item />}></Route>
-            <Route
-              path="conference"
-              element={<Conference sessionId="" myUserName="" />}
-            ></Route>
+            {/*<Route*/}
+            {/*  path="conference"*/}
+            {/*  element={<Conference sessionId="" myUserName="" />}*/}
+            {/*></Route>*/}
           </Route>
           <Route path="join" element={<JoinMeeting />}></Route>//굳이?
           {/* <Route path="/wait" element={<OpenVidu />} /> */}
