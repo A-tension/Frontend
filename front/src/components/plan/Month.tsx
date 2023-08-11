@@ -3,7 +3,7 @@
   import timeGridPlugin from '@fullcalendar/timegrid'
   import interactionPlugin from '@fullcalendar/interaction'
   import { INITIAL_EVENTS, createEventId } from './event-utils'
-  
+  import './cal.css';
   import React from 'react'
   import {
     EventApi,
@@ -13,27 +13,58 @@
     formatDate,
   } from '@fullcalendar/core'
 
+import newPlanIcon from '../../assets/icons/newPlansButton.svg'
+import { useNavigate } from 'react-router-dom'
+
   interface DemoAppState {
     weekendsVisible: boolean
     currentEvents: EventApi[]
   }
-  
+  interface CustomButtonInput {
+    text?: string;
+    hint?: string;
+    icon?: string;
+    themeIcon?: string;
+    bootstrapFontAwesome?: string;
+    click?(ev: MouseEvent, element: HTMLElement): void;
+}
+interface ButtonIconsInput {
+  prev?: string;
+  next?: string;
+  prevYear?: string;
+  nextYear?: string;
+  today?: string;
+  [viewOrCustomButton: string]: string | undefined;
+}
   export default class Month extends React.Component<{}, DemoAppState> {
   
     state: DemoAppState = {
       weekendsVisible: true,
       currentEvents: []
     }
+
+    
   
     render() {
+      
+      // const navigate = useNavigate();
       return (
         <div className='demo-app'>
           {/* {this.renderSidebar()} */}
           <div className='demo-app-main'>
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              customButtons={{
+                newPlan:{
+                  themeIcon:newPlanIcon,
+                  text:"일정추가"
+                  // click:()=>{
+                  //     navigate("/dash/calendar/add")
+                  // }
+                },
+              }}
               headerToolbar={{
-                right: '',
+                right: 'newPlan',
                 center: 'prev,title,next',
                 left: 'dayGridMonth,timeGridWeek,timeGridDay'
               }}
