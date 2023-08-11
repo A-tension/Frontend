@@ -23,9 +23,14 @@ const Loginheader = (props: Props) => {
           >
             회의 참여
           </Nav.Link>
-          <Nav.Link as={Link} to="login">
-            <Button onClick={() => handleLogin(true)}>로그인</Button>
-          </Nav.Link>{" "}
+          <Nav.Link
+            className="text-white"
+            as={Link}
+            to="login"
+            onClick={() => handleLogin(true)}
+          >
+            로그인
+          </Nav.Link>
         </>
       )}
     </>

@@ -24,7 +24,7 @@ function Header() {
   return (
     <>
       <div
-        className="font-SUIT ml-2 text-white"
+        className="font-SUIT text-white"
         style={{ backgroundColor: "#176DEE" }}
       >
         <Navbar className="me-auto flex p-2" style={{ height: "53px" }}>
