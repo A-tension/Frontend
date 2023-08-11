@@ -53,7 +53,7 @@ function App() {
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
 
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
-              <Route path="conference" element={<VideoRoomComponent />}></Route>
+              {/* <Route path="conference" element={<VideoRoomComponent />}></Route> */}
 
               <Route
                 path="conference1"
