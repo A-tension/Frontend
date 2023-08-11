@@ -10,4 +10,3 @@ export interface UserResponseDTO {
     ticket: number;
     meetingUrl: string;
 }
-
