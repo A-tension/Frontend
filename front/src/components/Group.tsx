@@ -14,14 +14,14 @@ import {
   deleteTeam,
   findMyTeam,
   getTeamDetail,
-  inviteTeam,
-  updateTeam
+  inviteTeam, leaveTeam, refuseTeam,
+  updateTeam, updateTeamParticipantAuthority
 } from "../api/team/teamApi.tsx";
 import {
   teamResponseDto,
   createTeamRequestBody,
   teamUpdateRequestDto,
-  teamInviteRequestDto
+  teamInviteRequestDto, userAuthDto, teamParticipantAuthorityDto
 } from "../api/team/types.tsx";
 
 export interface Team {
@@ -139,9 +139,9 @@ function Group() {
                   </Button>
                 }
                 onClick={async () => {
-                  // 내 팀 조회
-                  // const promise = await findMyTeam<teamResponseDto>();
-                  // console.log(promise.data);
+                  //내 팀 조회
+                  const promise = await findMyTeam<teamResponseDto>();
+                  console.log(promise.data);
 
                   // 팀 생성
                   // const createTeamTestDto : createTeamRequestBody = {
@@ -157,14 +157,14 @@ function Group() {
                   // console.log(promise);
 
                   // 팀 업데이트
-                  const teamId : bigint = BigInt(350);
-                  const teamUpdateRequestDto : teamUpdateRequestDto = {
-                    name : "updateTest",
-                    profileImage : "updateImage",
-                    description : "updateDescription"
-                  }
-                  const promise = await updateTeam(teamId, teamUpdateRequestDto)
-                  console.log(promise.data);
+                  // const teamId : bigint = BigInt(350);
+                  // const teamUpdateRequestDto : teamUpdateRequestDto = {
+                  //   name : "updateTest",
+                  //   profileImage : "updateImage",
+                  //   description : "updateDescription"
+                  // }
+                  // const promise = await updateTeam(teamId, teamUpdateRequestDto)
+                  // console.log(promise.data);
 
                   // 팀 삭제
                   // const teamId : bigint = BigInt(350);
@@ -181,9 +181,30 @@ function Group() {
 
                   // 팀 수락
                   // const teamId : bigint = BigInt(349);
-                  //
                   // const promise = await acceptTeam(teamId);
                   // console.log(promise.data);
+
+                  // 팀 거절
+                  // const teamId : bigint = BigInt(349);
+                  // const promise = await refuseTeam(teamId);
+                  // console.log(promise.data);
+
+                  // 팀 탈퇴
+                  // const teamId : bigint = BigInt(349);
+                  // const promise = await leaveTeam(teamId);
+                  // console.log(promise.data);
+
+                  // 팀 내 권한 변경
+                //   const userAuthDto : userAuthDto = {
+                //     userId : '488b52c7-8ce8-44b2-8d58-c79bb15e154c',
+                //     hasAuthority : true
+                //   }
+                //   const teamParticipantAuthorityDto : teamParticipantAuthorityDto = {
+                //     teamId: 349,
+                //     userAuthDtoList: [userAuthDto]
+                //   }
+                //   const promise = await updateTeamParticipantAuthority(teamParticipantAuthorityDto);
+                //   console.log(promise.data)
                 }}
                 // onClick={() => setMenu(true)}
               ></NavTab>

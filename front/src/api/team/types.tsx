@@ -53,3 +53,12 @@ export interface teamInviteRequestDto {
     teamId : bigint,
     userIdList : UUID[],
 }
+
+export interface userAuthDto {
+    userId : UUID,
+    hasAuthority : boolean
+}
+export interface teamParticipantAuthorityDto {
+    teamId : bigint,
+    userAuthDtoList : userAuthDto[]
+}
