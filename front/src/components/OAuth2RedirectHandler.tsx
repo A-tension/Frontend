@@ -1,5 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import {useEffect} from "react";
+import {findMyTeam} from "../api/team/teamApi.tsx";
+import {teamResponseDto} from "../api/team/types.tsx";
+import {groupCreateTest} from "../store/group.ts";
+import {useAppDispatch} from "../store/hooks.ts";
+import {forEach} from "react-bootstrap/ElementChildren";
+import {Team} from "./Group.tsx";
 
 function OAuth2RedirectHandler() {
     const navigate = useNavigate();
@@ -16,6 +22,7 @@ function OAuth2RedirectHandler() {
     const refreshToken = getUrlParameter('refreshToken');
 
     const error = getUrlParameter('error');
+    const dispatch = useAppDispatch();
 
     useEffect(()=>{
         if (accessToken != null && refreshToken != null ) {
@@ -24,7 +31,26 @@ function OAuth2RedirectHandler() {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
             navigate('/');
-            console.log("test")
+
+            const myTeam =  findMyTeam<teamResponseDto>();
+            myTeam.then(function (result) {
+                console.log(result.data);
+                for (const teamResponseDto of result.data.data) {
+                    const team : Team = {
+                        teamId : teamResponseDto.teamId,
+                        name : teamResponseDto.name,
+                        profileImg : teamResponseDto.profileImg,
+                    }
+                    dispatch(groupCreateTest(team))
+                }
+                // const team : Team = {
+                //     members: ["멤버 객체로", "변경 필요"],
+                //     teamId : result.data.data[0].teamId,
+                //     name : result.data.data[0].name,
+                //     profileImg : result.data.data[0].profileImg
+                // }
+                // dispatch(groupCreateTest(team));
+            })
         } else {
             navigate('/login', { state: { from: location, error: error } });
         }
