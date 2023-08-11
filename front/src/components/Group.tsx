@@ -11,6 +11,7 @@ import {
 } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
+import {NavTab} from "./atoms/tab/NavTab.tsx";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
