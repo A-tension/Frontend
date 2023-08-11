@@ -4,7 +4,7 @@ import { User, userLoginTest } from "./user";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
-  teamId?: number; // axios에서 생성 요청시 자동반환
+  teamId?: bigint|number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보

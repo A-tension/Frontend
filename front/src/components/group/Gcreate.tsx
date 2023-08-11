@@ -23,6 +23,14 @@ const Gcreate = (props: Props) => {
     teamId: 714,
   });
   const dispatch = useAppDispatch();
+
+  // const [groupData, setGroupData] = useState({
+  //   name:"",
+  //   members: [""],
+  //   description: "",
+  //   teamId:"",
+  // });
+  // <Form.Control onChange={handleInputChange}  value={groupData.name}></Form.Control>
   // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const { name, value } = event.target;
   //   setGroupData((prevData) => ({
@@ -111,7 +119,7 @@ const handleEdit=()=>{
           <FloatingLabel label="그룹 설명" className="mb-3">
             <Form.Control
               name="description"
-              type="textarea"
+              as="textarea"
               style={{
                 backgroundColor: "#f7f7f7",
                 borderRadius: "10px",
@@ -120,6 +128,7 @@ const handleEdit=()=>{
               }}
               value={groupData.description}
               onChange={handleInputChange}
+              cols={10}
             />
           </FloatingLabel>
         

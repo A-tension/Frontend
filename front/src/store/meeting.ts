@@ -23,8 +23,10 @@ export const meetingSlice = createSlice({
   reducers: {
     meetingModeTest: (state) => {
         state.joined=!state.joined;
-
     },
+    hideBackground: (state, action: PayloadAction<boolean>)=>{
+      state.joined=action.payload;
+    }
     // planCreateTest: (state, action: PayloadAction<Plan>) => {
     //   const { members, name,start,starttime, startdate, isPrivate} = action.payload;
     //   state.push({
@@ -38,7 +40,7 @@ export const meetingSlice = createSlice({
     // },
   },
 });
-export const { meetingModeTest } = meetingSlice.actions;
+export const { meetingModeTest,  hideBackground } = meetingSlice.actions;
 //getters
 export const getMode = (state: RootState) => state.meeting.joined;
 //

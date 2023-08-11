@@ -10,6 +10,7 @@ import {UserProfileUpdateDTO, UserResponseDTO} from "../api/user/types.tsx";
 interface Edit {
   name: string;
   profileImage: string;
+
 }
 function Info() {
   const loginUser = useAppSelector(selectUser);
@@ -20,7 +21,6 @@ function Info() {
     profileImage: loginUser.profileImage || "",
   });
 
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setData((prevData) => ({
@@ -28,6 +28,7 @@ function Info() {
       [name]: value,
     }));
   };
+
   const handleEdit = async () => {
     try {
       const userProfileUpdateDto : UserProfileUpdateDTO = {
@@ -67,9 +68,6 @@ function Info() {
     }
     fetchUserData();
   }, []);
-
-
-
 
   return (
       <>

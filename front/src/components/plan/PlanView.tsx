@@ -1,35 +1,39 @@
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
 
 interface PlanCreateData extends Plan {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
-  // name: string;
+  name: string;
   members?: string[]; //email 목록으로 일단 진행
-  startdate: string;
-  starttime: string;
-  end?: string;
+  // startdate: string;
+  startTime: string;
+  endTime: string;
+  // end?: string;
   allDay: boolean;
   description: string;
 }
 function PlanView() {
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const getGroup = location.state.propgroup;
+  const getPlan = location.state.plan;
   // navigate('/dash/meeting/wait', { state: { data: dataObject } });
 
   const [planData, setPlanData] = useState<PlanCreateData>({
-    name: "받아온일정이라는 설정",
-    members: ["ssafy@ssafy,ssafy@naver"],
-    startdate: "2023-08-08",
-    starttime: "18:00",
-    start: "",
-    description: "",
-    allDay: false,
+    name: getPlan ? getPlan.name : "받아온일정이라는 설정",
+    members: getPlan ? getPlan.member : ["ssafy@ssafy,ssafy@naver"],
+    startdate: getPlan ? getPlan.startdate : "2023-08-08",
+    starttime: getPlan ? getPlan.starttime : "18:00",
+    start: getPlan ? getPlan.start : "",
+    description: getPlan ? getPlan.description : "",
+    // allDay: getPlan? getPlan.allDay:false,
   });
-  
+  const [isEdit, setMode] = useState(false);
+
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -46,15 +50,21 @@ function PlanView() {
       }));
     }
   };
-  const handleSubmitForm = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  const handlePlanEdit = () => {
+    // 여기에 data 를 가지고
+    setMode(false);
     console.log(planData);
-    dispatch(planCreateTest(planData));
-    navigate("/dash/calendar");
   };
+  const handlePlanDelete = () => {
+    // 여기에 data 를 가지고
+    setMode(false);
+    console.log(planData);
+  };
+  
+
   return (
     <>
-      <h1>일정 상세조회, 받아온 데이터를 value로 두고 고침</h1>
+      {/* <h1>일정 상세조회, 받아온 데이터를 value로 두고 고침</h1> */}
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
           <Form.Label
@@ -72,6 +82,8 @@ function PlanView() {
             <Form.Control
               name="name"
               value={planData.name}
+              disabled={!isEdit}
+              readOnly={!isEdit}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",
@@ -91,6 +103,8 @@ function PlanView() {
           </Form.Label>
           <Col sm={11}>
             <Form.Control
+               disabled={!isEdit}
+               readOnly={!isEdit}
               name="members"
               value={planData.members?.join(",")}
               size="lg"
@@ -113,8 +127,10 @@ function PlanView() {
           </Form.Label>
           <Col sm={5}>
             <Form.Control
+              disabled={!isEdit}
+              readOnly={!isEdit}
               name="startdate"
-              value={planData.startdate}
+              value={planData.startTime}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",
@@ -130,6 +146,8 @@ function PlanView() {
             />
           </Col>
           <Form.Label
+                disabled={!isEdit}
+                readOnly={!isEdit}
             column
             sm={1}
             style={{
@@ -143,7 +161,7 @@ function PlanView() {
           <Col sm={5}>
             <Form.Control
               name="starttime"
-              value={planData.starttime}
+              value={planData.startTime}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",
@@ -155,6 +173,8 @@ function PlanView() {
               placeholder=""
               className="rounded-9"
               onChange={handleInputChange}
+              disabled={!isEdit}
+              readOnly={!isEdit}
             />
           </Col>
         </Form.Group>
@@ -186,6 +206,8 @@ function PlanView() {
               rows={5}
               placeholder={planData.description}
               onChange={handleInputChange}
+              disabled={!isEdit}
+              readOnly={!isEdit}
             />
           </Col>
         </Form.Group>
@@ -201,17 +223,32 @@ function PlanView() {
             gap: "6.6px",
           }}
         >
-          <Button
-            style={{
-              borderRadius: "20px",
-              width: "100px",
-              height: "40px",
-            }}
-            type="submit"
-            onClick={handleSubmitForm}
-          >
-            생성
-          </Button>
+          {isEdit && (
+            <Button
+              variant="primary"
+              style={{
+                borderRadius: "20px",
+                width: "100px",
+                height: "40px",
+              }}
+              onClick={handlePlanEdit}
+            >
+              확인
+            </Button>
+          )}
+          {!isEdit && (
+            <Button
+              variant="outline-primary"
+              style={{
+                borderRadius: "20px",
+                width: "100px",
+                height: "40px",
+              }}
+              onClick={() => setMode(true)}
+            >
+            수정
+            </Button>
+          )}
           <Button
             style={{
               borderRadius: "20px",
@@ -220,6 +257,7 @@ function PlanView() {
             }}
             type="reset"
             variant="danger"
+            onClick={handlePlanDelete}
           >
             삭제
           </Button>

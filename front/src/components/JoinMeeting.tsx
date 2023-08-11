@@ -1,4 +1,3 @@
-import RoundCard from "./atoms/RoundCard";
 import Join from "./meeting/Join";
 const JoinMeeting = () => {
   return (

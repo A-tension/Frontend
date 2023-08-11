@@ -1,5 +1,7 @@
+import {UUID} from "crypto";
+
 export interface myTeams{
-    id : number,
+    id : number |bigint,
     name : string,
     profileImage : string,
     description : string,
@@ -12,12 +14,12 @@ export interface teamDetail{
     name : string,
     profileImage : string,
     description : string,
-    userProfileDtoList : object,
+    userProfileDtoList : userProfileDto[],
 }
 
 export interface createTeamRequestBody{
     name : string,
-    userIdList : object,
+    userIdList : UUID[],
 }
 
 export interface teamResponseDto {
@@ -27,3 +29,36 @@ export interface teamResponseDto {
 }
 
 
+export interface teamDetailResponseDto {
+    teamId : bigint,
+    name : string,
+    profileImage : string,
+    description : string,
+    userProfileDtoList : userProfileDto[],
+}
+
+export interface userProfileDto {
+    userId : UUID,
+    name : string,
+    profileImage : string,
+}
+
+export interface teamUpdateRequestDto {
+    name : string,
+    profileImage : string,
+    description : string,
+}
+
+export interface teamInviteRequestDto {
+    teamId : bigint,
+    userIdList : UUID[],
+}
+
+export interface userAuthDto {
+    userId : UUID,
+    hasAuthority : boolean
+}
+export interface teamParticipantAuthorityDto {
+    teamId : bigint,
+    userAuthDtoList : userAuthDto[]
+}

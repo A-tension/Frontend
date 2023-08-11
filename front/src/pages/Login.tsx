@@ -2,7 +2,7 @@ import { Col, Row, Image } from "react-bootstrap";
 import loginG from "../assets/btn_google_signin_light_normal_web@2x.png";
 import loginN from "../assets/btnW_완성형.png";
 import loginK from "../assets/kakao_login_medium_narrow.png";
-import fillerImg from "../assets/bwink_edu_04_single_04.jpg";
+import fillerImg from "../assets/welcome.png";
 import RoundCard from "../components/atoms/RoundCard";
 import { useAppDispatch } from "../store/hooks";
 import { User, getUserGroups, userLogin } from "../store/user";
@@ -21,6 +21,9 @@ function Login() {
   
   const handleTest = () => {
     //api 요청으로
+    //auth?
+    sessionStorage.setItem("loginUser",JSON.stringify(trytologin));
+
     dispatch(userLogin(trytologin));//axios에서 처리
     const usergroups = getUserGroups(store.getState());
     dispatch(loginload(usergroups))
@@ -43,7 +46,7 @@ function Login() {
           </Col>
 
           <Col className="position-relative py-2 px-4 d-flex flex-column align-items-center justify-content-center">
-            <a className="mb-4" href={import.meta.env.VITE_NAVER_AUTH_URL}>
+            <a className="mb-4" href={import.meta.env.VITE_NAVER_AUTH_URL} onClick={handleTest}>
               <img src={loginN} alt="naver login " width={183}/>
             </a>
             <a className="mb-4" href={import.meta.env.VITE_KAKAO_AUTH_URL}>
