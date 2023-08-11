@@ -2,7 +2,6 @@ import { Nav } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import SidebarButton from "../button/SidebarButton";
 import { Team } from "../../../store/group";
-import { Group } from "../../group/Members";
 
 interface Props {
   linkto: string;
@@ -12,16 +11,15 @@ interface Props {
   height?: string;
   width?: string;
   bround?: string;
-  disabled?: boolean|false;
   variant?: string;
   className?: string;
   onClick?: () => void;
-  navProps?: Team | Group;
+  navProps?: Team;
   children?: React.ReactNode;
   icon?: string;
   key?: string|number;
   // hasAuth?: boolean|false;
-  // style?: React.CSSProperties;
+  style?: React.CSSProperties;
   selectedMenu?: string;
 }
 //button을 props로 받았다면
@@ -34,24 +32,29 @@ export const NavTab = (props: Props) => {
         <Nav.Item>
           <Nav.Link
             eventKey={props.key}
-            disabled={props.disabled}
             as={props.linktype == "Nav" ? Link : NavLink}
             to={props.linkto}
             onClick={props.onClick}
             state={props.navProps}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px",
+              ...props.style
+            }}
           >
             {props.label}
           </Nav.Link>
         </Nav.Item>
       </>
     );
-  } else if (props.children) {
+  } else if (props.children) {// 내부에 버튼을 별개로 만들 
     if (props.button) {
       return (
         <>
           <Nav.Link
             eventKey={props.key}
-            disabled={props.disabled}
             as={props.linktype == "Nav" ? Link : NavLink}
             to={props.linkto}
             onClick={props.onClick}
@@ -76,12 +79,12 @@ export const NavTab = (props: Props) => {
     }
   } else {
     // button 유무, CSS 완전 동일하게 할지 옵션 두개
+    //icon있는 버튼
     return (
       <>
         <Nav.Link
           as={props.linktype == "Nav" ? Link : NavLink}
           to={props.linkto}
-          disabled={props.disabled}
           onClick={props.onClick}
           // eventKey={props.key}
         >

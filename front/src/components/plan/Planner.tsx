@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
 import { Team } from "../../store/group";
+import back from "../../assets/arrow-left.svg";
+
 interface PlanCreateData extends Plan {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
@@ -12,7 +14,7 @@ interface PlanCreateData extends Plan {
   startdate: string;
   starttime: string;
   // end?: string;
-  allDay: boolean;
+  // allDay: boolean;
   description: string;
 }
 interface Props {
@@ -28,16 +30,18 @@ function Planner(props: Props) {
 
   //     }
   const location = useLocation();
-  const propgroup = location.state;
+  
+  const propgroup = location.state?.group;
+  console.log(propgroup);
   const navigate = useNavigate();
   const [planData, setPlanData] = useState<PlanCreateData>({
     name: "",
-    members: props.group ? [propgroup.members.toString()] : [""],
+    members: propgroup ? [propgroup.members.toString()] : [""],// 그룹일정추가라면 여기서 그룹멤버 정보를 받아옴
     startdate: "",
     starttime: "",
     start: "",
     description: "",
-    allDay: false,
+    // allDay: false,
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,17 +63,23 @@ function Planner(props: Props) {
     e.preventDefault();
     console.log(planData);
     dispatch(planCreateTest(planData));
-    if(props.group){
-      navigate("/dash/group",{state:props.group})
+    if(propgroup){
+      // navigate("/dash/group",{state:{group:propgroup}})
+      navigate("/dash/calendar/plan",{state:{plan:planData}});
     }else{
-       navigate("/dash/calendar/plan");
+       navigate("/dash/calendar/plan",{state:{plan:planData}});
     }
    
   };
+  const handleBack=()=>{
+    navigate(-1);
+  }
   return (
     <>
-      <h1>Planner 일정추가</h1>
+
+    <img src={back} style={{width:"30px",marginBottom:"1rem"}} onClick={handleBack}></img>
       <Form>
+      <i className="bi bi-arrow-left"></i>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
           <Form.Label
             column
@@ -78,6 +88,7 @@ function Planner(props: Props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              fontSize:"20px"
             }}
           >
             <div>제목</div>
@@ -100,7 +111,12 @@ function Planner(props: Props) {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalMembers">
-          <Form.Label column sm={1}>
+          <Form.Label column sm={1} style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px"
+            }}>
             초대
           </Form.Label>
           <Col sm={11}>
@@ -122,7 +138,12 @@ function Planner(props: Props) {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalDate">
-          <Form.Label column sm={1}>
+          <Form.Label column sm={1} style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize:"20px"
+            }}>
             날짜
           </Form.Label>
           <Col sm={5}>
@@ -148,8 +169,9 @@ function Planner(props: Props) {
             sm={1}
             style={{
               display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
+              justifyContent: "center",
+              alignItems: "center", 
+              fontSize:"20px"
             }}
           >
             시간
@@ -180,6 +202,7 @@ function Planner(props: Props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "baseline",
+              fontSize:"20px"
             }}
           >
             <div>내용</div>
@@ -203,6 +226,12 @@ function Planner(props: Props) {
             />
           </Col>
         </Form.Group>
+        
+        {/* <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Form.Check type="checkbox" checked={planData.allDay} label="" onChange={handleInputChange} name="isPrivate"/>
+          </Col>
+        </Form.Group> */}
 
         {/* <Form.Group as={Row} className="mb-3"> */}
         <Col

@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { Team } from "./group";
+import { UUID } from "crypto";
 import {teamResponseDto} from "../api/team/types.tsx";
 
+
 export interface User {
-  userId?: string | "";
+  userId: UUID | "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
+  nickname?: string | "";
   email?: string | "";
   name?: string | "";
   profileImage?: string;
@@ -12,7 +15,7 @@ export interface User {
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
-    isLoggedIn?:boolean|false;
+  isLoggedIn?: boolean | false;
 }
 
 export interface Item {
@@ -26,7 +29,7 @@ export interface Item {
 
 
 const initialState: User = {
-  userId: "",
+  userId: " - - - - ",
   email: "",
   name: "",
   profileImage: "",
@@ -34,7 +37,7 @@ const initialState: User = {
   meetingUrl: "",
   myItems: [],
   myGroups: [],
-  isLoggedIn:false
+  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -42,7 +45,7 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     userLoginTest: (state) => {
-      state.userId = "testuser";
+      state.userId = "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
     },
@@ -95,16 +98,20 @@ export const userSlice = createSlice({
     isLoggedIn: (state) => {
       return { ...state, isLoggedIn: state.email !== "" };
     },
-    // hasAuthority: (state)=>{//  해당 그룹에 
+    // hasAuthority: (state)=>{//  해당 그룹에
     //   return state.isLoggedIn;
     // }
   },
 });
 //action - dispatch
+
 export const { userLoginTest, userLogin, userLogout,isLoggedIn, getTeam } = userSlice.actions;
+
 //getters
+export const checkTickets = (state: RootState) => state.user.tickets;
+export const getUserId = (state: RootState) => state.user.userId;
 export const selectUser = (state: RootState) => state.user;
-export const checkAuthority = (state: RootState)=> state.user.isLoggedIn;
+export const checkAuthority = (state: RootState) => state.user.isLoggedIn;
 export const getUserGroups = (state: RootState) => state.user.myGroups;
 //
 export default userSlice.reducer;
