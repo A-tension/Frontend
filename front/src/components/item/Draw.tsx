@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import
-
+import {findAllItems, getRandomItem, findMyItemList, deleteMyItem} from "../../api/item/itemApi";
+import { FindAllItemsDto, CreateMyItemResponseDto } from "../../api/item/types";
 function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -8,6 +9,7 @@ function Draw() {
         // 버튼을 누르면 함수 실행
         setButtonClicked(true);
         // 여기에 추가적인 동작을 수행
+        
     };
 
     return (
@@ -24,18 +26,25 @@ function Draw() {
                             cursor: "pointer",
                             outline: "none",
                         }}
-                        onClick={handleButtonClick}
+                        onClick={async () => {
+                            //내 팀 조회
+                            const promise = await getRandomItem<CreateMyItemResponseDto[]>();
+                            console.log(promise);}}
                     >
                         <img src={draw} alt="아이템 뽑기" style={{ maxWidth: "300px", maxHeight: "300px" }} />
                     </button>
                 </div>
             </div>
+
+
             {buttonClicked && (
                 <div style={{ marginTop: "20px", textAlign: "center" }}>
                     <p>아이템 뽑기 성공!</p>
                     {/* 추가적인 내용을 여기에 추가가능 */}
                 </div>
             )}
+
+
         </>
     );
 }
