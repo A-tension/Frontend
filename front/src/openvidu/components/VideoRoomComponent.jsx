@@ -35,11 +35,13 @@ class VideoRoomComponent extends Component {
     // this.OPENVIDU_SERVER_URL = this.props.openviduServerUrl
     //     ? this.props.openviduServerUrl
     //     : 'https://' + window.location.hostname + ':4443';
+
     this.OPENVIDU_SERVER_URL = "https://i9a306.p.ssafy.io";
     // ? this.props.openviduServerUrl
     // : process.env.REACT_APP_OPENVIDU_SERVER_URL;
     // 서버 비밀번호 (이것도 env에서 끌어 써도 될 듯)
     this.OPENVIDU_SERVER_SECRET = "ssafya306";
+
     // hasBeenUpdated: 업데이트 여부 판단하는 변수
     this.hasBeenUpdated = false;
     // layout: 현재 레이아웃 (openvidu-layout.js와 연결)

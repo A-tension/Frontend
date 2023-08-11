@@ -7,27 +7,28 @@ interface Props {
   teamProp?: Team;
 }
 function Plans(props: Props) {
-    const navigate = useNavigate();
-    
-    const goCreate=()=>{
-        navigate("/dash/calendar/add",{state:props.teamProp});
-    }
-    const plans = useAppSelector(getPlanlist);
-    const planList = plans.map((plan,index)=>(
-        <div key={index}
-        style={{
-          backgroundColor: "#f7f7f7",
-          borderRadius: "6px",
-          padding: "10px",
-          marginBottom: "10px",
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        {/* 일정 추가 내용 1 */}
-        {plan.name} | {plan.start} |{plan.startdate}|{plan.starttime}|{plan.isPrivate}
-      </div>
+  const navigate = useNavigate();
 
-    ))
+  const goCreate = () => {
+    navigate("/dash/calendar/add", { state: { group: props.teamProp } });
+  };
+  const plans = useAppSelector(getPlanlist);
+  const planList = plans.map((plan, index) => (
+    <div
+      key={index}
+      style={{
+        backgroundColor: "#f7f7f7",
+        borderRadius: "6px",
+        padding: "10px",
+        marginBottom: "10px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      {/* 일정 추가 내용 1 */}
+      {plan.name} | {plan.start} |{plan.startdate}|{plan.starttime}|
+      {plan.isPrivate}
+    </div>
+  ));
   return (
     <>
       {/* <h1> prop test {props.teamProp?.name}</h1> */}
@@ -61,20 +62,21 @@ function Plans(props: Props) {
 
         {/* ... 이전 내용 ... */}
         <div>
-        {planList}
-          <div
-            style={{
-              backgroundColor: "#f7f7f7",
-              borderRadius: "6px",
-              padding: "10px",
-              marginBottom: "10px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            {/* 일정 추가 내용 1 */}
-            추가 내용 1
-          </div>
-          
+          {planList}
+          {plans.length == 0 && (
+            <div
+              style={{
+                backgroundColor: "#f7f7f7",
+                borderRadius: "6px",
+                padding: "10px",
+                marginBottom: "10px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              {/* 일정 추가 내용 1 */}
+              일정이 없습니다.
+            </div>
+          )}
         </div>
       </Card>
     </>

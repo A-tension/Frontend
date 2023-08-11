@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
-import { meetingModeTest } from "../../store/meeting";
+import { hideBackground } from "../../store/meeting";
 interface MeetingData {
   meetingLink: string;
   nickname: string;
@@ -23,6 +23,7 @@ function Join() {
 
   // const history = useHistory
   const dispatch = useAppDispatch();
+  dispatch(hideBackground(false));
   const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
