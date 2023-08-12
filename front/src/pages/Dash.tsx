@@ -9,7 +9,7 @@ import item from "../assets/icons/icon_item.svg";
 import SidebarButton from "../components/atoms/button/SidebarButton";
 import { useAppSelector } from "../store/hooks";
 import { checkAuthority, isLoggedIn } from "../store/user";
-import { getMode } from "../store/meeting";
+import { getMode } from "../store/test";
 const Dash = () => {
   // sidenav selected 받아와서
 

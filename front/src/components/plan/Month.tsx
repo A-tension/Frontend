@@ -12,9 +12,11 @@ import {
   EventClickArg,
   EventContentArg,
   formatDate,
+  EventInput,
 } from "@fullcalendar/core";
 
 import newPlanIcon from "../../assets/icons/newPlansButton.svg";
+import { Modal } from "react-bootstrap";
 
 interface DemoAppState {
   weekendsVisible: boolean;
@@ -49,7 +51,7 @@ interface Test {
 }
 interface Props {
   navigate?: () => void;
-  // planData:string|Array<string>|PlanData;
+  planData: EventInput[]; //string|Array<string>|PlanData|EventInput[];
 }
 export default class Month extends React.Component<Props, DemoAppState> {
   state: DemoAppState = {
@@ -66,9 +68,9 @@ export default class Month extends React.Component<Props, DemoAppState> {
   render() {
     // const navigate = useNavigate();
     return (
-      <div className="demo-app">
+      <div className="demo-app font-SUIT">
         {/* {this.renderSidebar()} */}
-        <div className="demo-app-main">
+        <div className="demo-app-main font-SUIT">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             customButtons={{
@@ -85,6 +87,9 @@ export default class Month extends React.Component<Props, DemoAppState> {
             }}
             buttonText={{
               today: "오늘",
+              month: "월",
+              week: "주",
+              day: "일",
             }}
             buttonIcons={{
               prev: "chevron-left",
@@ -95,9 +100,11 @@ export default class Month extends React.Component<Props, DemoAppState> {
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
+            locale={"kr"}
             weekends={this.state.weekendsVisible}
-            // events={this.props.planData} //type EventSourceInput = EventSourceInputObject | // object in extended form EventInput[] | EventSourceFunc | // just a function string;
-            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+            // events={} //type EventSourceInput = EventSourceInputObject | // object in extended form EventInput[] | EventSourceFunc | // just a function string;
+            events={this.props.planData}
+            initialEvents={this.props.planData} // alternatively, use the `events` setting to fetch from a feed
             select={this.handleDateSelect}
             eventContent={renderEventContent} // custom render function
             eventClick={this.handleEventClick}
@@ -167,12 +174,18 @@ export default class Month extends React.Component<Props, DemoAppState> {
 
   handleHover = (clickInfo: EventHoveringArg) => {};
   handleEventClick = (clickInfo: EventClickArg) => {
+    // clickInfo.event.
     if (
       confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+        `'${clickInfo.event.title}'\n
+        ${clickInfo.event.extendedProps.description}\n
+        시작: ${clickInfo.event.start}'\n
+        종료: ${clickInfo.event.end}'\n
+        그룸명: ${clickInfo.event.extendedProps.teamName}'\n
+                `
       )
     ) {
-      clickInfo.event.remove();
+      // clickInfo.event.remove();
     }
   };
 

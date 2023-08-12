@@ -2,7 +2,7 @@ import { Nav } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import { NavTab } from "./atoms/tab/NavTab";
 import { useAppSelector } from "../store/hooks";
-import { getMode } from "../store/meeting";
+import { getMode } from "../store/test";
 import { checkAuthority } from "../store/user";
 function Meeting() {
   // const [joinedMeeting, setJoin]= useState(false);

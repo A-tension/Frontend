@@ -19,8 +19,8 @@ interface PlanCreateData extends Plan {
 function PlanView() {
   const navigate = useNavigate();
   const location = useLocation();
-  const getGroup = location.state.propgroup;
-  const getPlan = location.state.plan;
+  const getGroup = location.state?.propgroup;
+  const getPlan = location.state?.plan;
   // navigate('/dash/meeting/wait', { state: { data: dataObject } });
 
   const [planData, setPlanData] = useState<PlanCreateData>({
