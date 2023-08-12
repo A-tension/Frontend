@@ -6,15 +6,10 @@ import {
   Button,
   Popover,
   Dropdown,
-  DropdownButton,
-  NavItem,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
-interface Props {
-  checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Logoutheader = (props: Props) => {
+const Logoutheader = () => {
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -26,7 +21,6 @@ const Logoutheader = (props: Props) => {
   const pathname = location.pathname;
   // console.log()
   const handleLogout = () => {
-    props.checkLogin(false);
     console.log("logout button clicked");
     dispatch(userLogout());
     navigate("/login");
@@ -84,7 +78,7 @@ const Logoutheader = (props: Props) => {
             {loginUser.name}</div> style={{ maxWidth: "10px" }}
         </Dropdown.Toggle> */}
         {/* <Dropdown.Menu> */}
-        <Dropdown.Item as={Link} to="/info" >
+        <Dropdown.Item as={Link} to="/info">
           마이페이지
         </Dropdown.Item>
         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
