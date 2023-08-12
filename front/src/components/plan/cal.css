@@ -1,4 +1,63 @@
+.fc .fc-button {
+  background-color: #add8e6!important;
+  border: 1px solid lightblue!important;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.4em 0.65em;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+}
+.fc .fc-button-primary {/* blue; */
+  background-color: var(--fc-button-bg-color);
+  border-color: var(--fc-button-border-color);
+  color: var(--fc-button-text-color);
+}
+.fc-toolbar-chunk{ /*월 주 일*/
+  border-radius: 80px;
+  
+}
+.fc-newPlan-button fc-button fc-button-primary{
+  color: #6efd6e;
+}
+.fc-scrollgrid  .fc-scrollgrid-liquid{
 
+}
+
+/* fc-view-harness fc-view-harness-active */
+.fc .fc-view-harness {
+  flex-grow: 1;
+  position: relative;
+  border-radius: 80px;
+  
+}
+th {
+  border-radius: 10px 10px 0px 0px;
+  background: rgba(236, 243, 252, 0.80);
+  margin-bottom: 10px;
+}
+.fc-view-harness .fc-view-harness-active > div > table > thead > tr > th > div > div {
+
+}
+.fc .fc-scrollgrid-section, .fc .fc-scrollgrid-section table, .fc .fc-scrollgrid-section > td {
+  height: 36px;
+}
+/* .fc .fc-button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.4em 0.65em;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+} */
 html,
 body,
 body > div { /* the react root */
