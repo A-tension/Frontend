@@ -1,7 +1,7 @@
 import { Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
-import { getMode } from "../store/meeting";
+import { getMode } from "../store/test";
 interface Props {
   checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
