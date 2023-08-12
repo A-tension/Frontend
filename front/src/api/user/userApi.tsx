@@ -1,6 +1,6 @@
 import { apiInstance } from "../index.tsx";
 import { AxiosResponse } from "axios";
-import { UserProfileUpdateDTO, UserResponseDTO } from "./types.tsx";
+import { UserProfileUpdateDTO, UserResponseDTO, UserSearchResponseDto } from "./types.tsx";
 
 const api = apiInstance();
 
@@ -32,5 +32,14 @@ export const deleteUser = async <T = void, R = AxiosResponse<T>>(): Promise<R> =
     } catch (err) {
         console.log(err);
         throw new Error('Failed to delete user');
+    }
+}
+
+export const searchUser = async <T = UserSearchResponseDto[], R = AxiosResponse<T>>(keyword: string): Promise<R> => {
+    try {
+        return await api.get<T, R>(`/user/${keyword}`);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to search user')
     }
 }

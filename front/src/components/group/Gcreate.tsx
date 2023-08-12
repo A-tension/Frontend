@@ -4,6 +4,11 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Team, groupCreateTest } from "../../store/group";
 import { User } from "../../store/user";
+import { searchUser } from "../../api/user/userApi.tsx";
+import { UserSearchResponseDto } from "../../api/user/types.tsx";
+import {UUID} from "crypto";
+
+
 interface GroupCreateData extends Team {
   members: string[] | User[];
   description: string;
@@ -15,8 +20,31 @@ interface Props {
   teamProp?: Team;
 }
 
+function UserListComponent({ userList }: { userList: UserSearchResponseDto[] }) {
+    return (
+        <div>
+            {userList.length > 0 ? (
+                <ul>
+                    {userList.map((user) => (
+                        <li key={user.userId}
+                            style={{display : 'flex'}}
+                            onClick={() => console.log(user.userId)}
+                        >
+                            <img src={user.profileImage} style={{width: '30px', marginRight: '10px'}}/>
+                            {user.name}
+                            {/*<button style={{alignItems: 'center'}}>추가</button>*/}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p></p>
+            )}
+        </div>
+    );
+}
 const Gcreate = (props: Props) => {
-  const [groupData, setGroupData] = useState<GroupCreateData>({
+  const [userList, setUserList] = useState<UserSearchResponseDto[]>([])
+    const [groupData, setGroupData] = useState<GroupCreateData>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
     description: props.teamProp?.description ? props.teamProp.description : "",
@@ -42,6 +70,17 @@ const Gcreate = (props: Props) => {
     const { name, value } = event.target;
     if (name === "members") {
       const memberArray = value.split(",").map((member) => member.trim());
+      const search = searchUser<UserSearchResponseDto[]>(value);
+      search.then(function (result) {
+          // for (const userSearchResponseDto of result.data.data) {
+          //     console.log(userSearchResponseDto.name)
+          // }
+          if (result.data.data !== undefined) {
+              setUserList(result.data.data);
+              console.log(userList)
+          }
+          // console.log(userList.length)
+      })
       setGroupData((prevData) => ({
         ...prevData,
         [name]: memberArray,
@@ -115,6 +154,7 @@ const handleEdit=()=>{
               value={groupData.members}
               onChange={handleInputChange}
             />
+              <UserListComponent userList={userList}></UserListComponent>
           </FloatingLabel>
           <FloatingLabel label="그룹 설명" className="mb-3">
             <Form.Control
@@ -131,7 +171,7 @@ const handleEdit=()=>{
               cols={10}
             />
           </FloatingLabel>
-        
+
             {props.teamProp && (
                 <div style={{ display: "flex", width:"100%" }}>
               {/* <div style={{display:"flex"}}> */}
@@ -174,7 +214,7 @@ const handleEdit=()=>{
                 그룹 생성
               </Button> </div>
             )}
-         
+
           {/* <Form.Control type="button"readOnly defaultValue="" /> */}
         </Form>
       </div>
