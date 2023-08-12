@@ -7,6 +7,8 @@ import { User } from "../../store/user";
 import { searchUser } from "../../api/user/userApi.tsx";
 import { UserSearchResponseDto } from "../../api/user/types.tsx";
 import {UUID} from "crypto";
+import {createTeam} from "../../api/team/teamApi.tsx";
+import {createTeamRequestBody} from "../../api/team/types.tsx";
 
 
 interface GroupCreateData extends Team {
@@ -20,17 +22,35 @@ interface Props {
   teamProp?: Team;
 }
 
-function UserListComponent({ userList }: { userList: UserSearchResponseDto[] }) {
+function UserListComponent({
+                               userList,
+                               selectedUsers,
+                               onUserSelect, // 새로 추가된 prop
+                           }: {
+    userList: UserSearchResponseDto[];
+    selectedUsers: UserSearchResponseDto[]; // 선택한 유저 목록 전달
+    onUserSelect: (user: UserSearchResponseDto) => void; // 유저 선택 이벤트 핸들러 전달
+}) {
+    const handleItemClick = (user: UserSearchResponseDto) => {
+        console.log(`${user.userId}`);
+        onUserSelect(user); // 선택한 유저를 부모 컴포넌트로 전달
+    };
     return (
         <div>
             {userList.length > 0 ? (
                 <ul>
                     {userList.map((user) => (
                         <li key={user.userId}
-                            style={{display : 'flex'}}
-                            onClick={() => console.log(user.userId)}
+                            onClick={() => handleItemClick(user)}
+                            // onMouseOver={() => console.log(user.userId)}
+                            style={{display : 'flex',
+                                borderRadius: '5px',
+                            }}
                         >
-                            <img src={user.profileImage} style={{width: '30px', marginRight: '10px'}}/>
+                            <img src={user.profileImage} style={
+                                {width: '30px',
+                                height: '30px',
+                                marginRight: '10px'}}/>
                             {user.name}
                             {/*<button style={{alignItems: 'center'}}>추가</button>*/}
                         </li>
@@ -44,6 +64,13 @@ function UserListComponent({ userList }: { userList: UserSearchResponseDto[] }) 
 }
 const Gcreate = (props: Props) => {
   const [userList, setUserList] = useState<UserSearchResponseDto[]>([])
+  const [selectedUsers, setSelectedUsers] = useState<UserSearchResponseDto[]>([]);
+
+    const handleItemClick = (user: UserSearchResponseDto) => {
+        setSelectedUsers((prevSelectedUsers) => [...prevSelectedUsers, user]);
+        setUserList([]); // userList 초기화
+        console.log(selectedUsers)
+    };
     const [groupData, setGroupData] = useState<GroupCreateData>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
@@ -52,34 +79,16 @@ const Gcreate = (props: Props) => {
   });
   const dispatch = useAppDispatch();
 
-  // const [groupData, setGroupData] = useState({
-  //   name:"",
-  //   members: [""],
-  //   description: "",
-  //   teamId:"",
-  // });
-  // <Form.Control onChange={handleInputChange}  value={groupData.name}></Form.Control>
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-  //   setGroupData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "members") {
       const memberArray = value.split(",").map((member) => member.trim());
       const search = searchUser<UserSearchResponseDto[]>(value);
       search.then(function (result) {
-          // for (const userSearchResponseDto of result.data.data) {
-          //     console.log(userSearchResponseDto.name)
-          // }
           if (result.data.data !== undefined) {
               setUserList(result.data.data);
               console.log(userList)
           }
-          // console.log(userList.length)
       })
       setGroupData((prevData) => ({
         ...prevData,
@@ -93,18 +102,21 @@ const Gcreate = (props: Props) => {
     }
   };
   const handleCreate = () => {
-    // axios.post("http://your-api-endpoint", groupData)
-    // .then((response) => {
-    //   console.log("Response:", response.data);
-    //   // Do something with the response if needed
-    // })
-    // .catch((error) => {
-    //   console.error("Error creating group:", error);
-    //   // Handle errors if needed
-    // });
     if (props.teamProp) {
       console.log("edit");
     } else {
+        const userIdList : UUID[] = [];
+        for (const user of selectedUsers) {
+            userIdList.push(user.userId);
+        }
+        const createTeamRequestBody : createTeamRequestBody = {
+            name : groupData.name,
+            userIdList : userIdList,
+        }
+        createTeam(createTeamRequestBody);
+
+        // TODO
+        //  groupData 변경 필요
       dispatch(groupCreateTest(groupData));
     }
 
@@ -154,7 +166,11 @@ const handleEdit=()=>{
               value={groupData.members}
               onChange={handleInputChange}
             />
-              <UserListComponent userList={userList}></UserListComponent>
+              <UserListComponent
+                  userList={userList}
+                  selectedUsers={selectedUsers} // 선택한 유저 목록 전달
+                  onUserSelect={handleItemClick} // 유저 선택 이벤트 핸들러 전달
+              />
           </FloatingLabel>
           <FloatingLabel label="그룹 설명" className="mb-3">
             <Form.Control
