@@ -11,6 +11,7 @@ interface Props {
   height?: string;
   width?: string;
   bround?: string;
+  disabled?: boolean;
   variant?: string;
   className?: string;
   onClick?: () => void;
@@ -91,6 +92,7 @@ export const NavTab = (props: Props) => {
           <SidebarButton
             selected={props.selectedMenu == props.label}
             icon={props.icon}
+            // elabel={props.linkto}
             // elabel={props.linkto}
             klabel={props.label}
           ></SidebarButton>
