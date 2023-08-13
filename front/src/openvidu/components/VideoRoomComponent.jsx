@@ -1169,22 +1169,16 @@ class VideoRoomComponent extends Component {
   }
 
   // toggleChat: 채팅 토글 버튼, none면 채팅창 꺼짐, block이면 채팅창 켜짐
-  toggleChat(property) {
-    let display = property;
-
-    if (display === undefined) {
-      display = this.state.chatDisplay === "none" ? "block" : "none";
-    }
-
-    if (display === "block") {
+  toggleChat() {
+    if (this.state.chatDisplay === "none") {
       // notify도 여기서 관리
       this.setState({
-        chatDisplay: display,
+        chatDisplay: "block",
         questionDisplay: "none",
         messageReceived: false,
       });
-    } else {
-      this.setState({ chatDisplay: display });
+    } else if (this.state.chatDisplay === "block") {
+      this.setState({ chatDisplay: "none" });
     }
     this.updateLayout();
   }
