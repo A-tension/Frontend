@@ -3,6 +3,7 @@ import type { RootState } from "./store";
 import { Team } from "./group";
 import { UUID } from "crypto";
 import {teamResponseDto} from "../api/team/types.tsx";
+import { Item } from "./item.ts";
 
 
 export interface User {
@@ -17,16 +18,6 @@ export interface User {
   myGroups?: Team[];
   isLoggedIn?: boolean | false;
 }
-
-export interface Item {
-  itemId? : number;
-  name : string;
-  image : string;
-  itemTypeId? : bigint;
-  itemTypeName? : string;
-  description? : string; 
-}
-
 
 const initialState: User = {
   userId: " - - - - ",
