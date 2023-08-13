@@ -40,6 +40,10 @@ export const userSlice = createSlice({
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
     },
+
+    addItem: (state, action: PayloadAction<Item>) => {
+      state.user.myItems.push(action.payload); // myItems 배열에 아이템 추가
+    },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
     //     teamId,
@@ -96,7 +100,7 @@ export const userSlice = createSlice({
 });
 //action - dispatch
 
-export const { userLoginTest, userLogin, userLogout,isLoggedIn, getTeam } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
 
 //getters
 export const checkTickets = (state: RootState) => state.user.tickets;
