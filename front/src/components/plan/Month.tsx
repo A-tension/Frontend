@@ -50,7 +50,7 @@ interface Test {
   title: string;
 }
 interface Props {
-  navigate?: () => void;
+  navigate: () => void;
   planData: EventInput[]; //string|Array<string>|PlanData|EventInput[];
 }
 export default class Month extends React.Component<Props, DemoAppState> {
@@ -62,7 +62,7 @@ export default class Month extends React.Component<Props, DemoAppState> {
   handleButtonClick = () => {
     // Call the onClick prop when the button is clicked
     console.log("inside button");
-    // this.props.navigate();
+    this.props.navigate();
   };
 
   render() {
@@ -95,12 +95,21 @@ export default class Month extends React.Component<Props, DemoAppState> {
               prev: "chevron-left",
               newPlan: "plus-square",
             }}
+            views={{
+              dayGridMonth: {
+                titleFormat: {
+                  month: 'numeric',
+                },
+
+              }
+            }}
+
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
-            locale={"kr"}
+            locale={"ko"}
             weekends={this.state.weekendsVisible}
             // events={} //type EventSourceInput = EventSourceInputObject | // object in extended form EventInput[] | EventSourceFunc | // just a function string;
             events={this.props.planData}
@@ -199,9 +208,12 @@ export default class Month extends React.Component<Props, DemoAppState> {
 
 function renderEventContent(eventContent: EventContentArg) {
   return (
-    <>
+    <><div className="">
+
+    
       <b>{eventContent.timeText}</b>
       <i>{eventContent.event.title}</i>
+      </div>
     </>
   );
 }

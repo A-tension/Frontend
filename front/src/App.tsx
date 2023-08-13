@@ -35,34 +35,7 @@ import { EventInput } from "@fullcalendar/core/index.js";
 function App() {
   //임시 props 테스트
 
-  const planData = useAppSelector(getPlanlist);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const addPlan = () => {
-    console.log("outside function call");
-    navigate("/dash/calendar/add");
-    // selectTab("add");
-  };
-  // This is where you process the data from Redux into EventInput format
-  const eventData: EventInput[] = planData.map((plan) => ({
-    id: plan.id || createEventId(), // Assuming plan.id is optional
-    title: plan.name,
-    start: plan.startTime,
-    startTime: plan.startTime,
-    groupId: plan.teamId,
-
-    end: plan.endTime, // Use the appropriate property from your data
-    // ...other properties you need to set
-    extendedProps: {
-      description: plan.description,
-      teamName: plan.teamName,
-      profileImage: plan.profileImage,
-    },
-  }));
-
-  useEffect(() => {
-    dispatch(loadListTest());
-  }, [dispatch]);
+  
   return (
     <>
       <div className="font-SUIT">
@@ -70,23 +43,23 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />}></Route>
           {/* 캘린더 테스트 용 */}
-          <Route
+          {/* <Route
             path="/test"
             element={<Month navigate={addPlan} planData={eventData} />}
-          ></Route>
+          ></Route> */}
           {/* 여기까지  */}
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
               {/* 캘린더 테스트  */}
-              <Route
+              {/* <Route
                 index
                 element={<Month navigate={addPlan} planData={eventData} />}
-              ></Route>
+              ></Route> */}
                {/* 캘린더 테스트 여기까지 */}
-              <Route path="add" element={<Planner />}></Route>
-              <Route path="plan" element={<PlanView />}></Route>
+              {/* <Route path="add" element={<Planner />}></Route>
+              <Route path="plan" element={<PlanView />}></Route> */}
             </Route>
 
             <Route path="meeting" element={<Meeting />}>

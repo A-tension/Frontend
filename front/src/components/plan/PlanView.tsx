@@ -13,7 +13,6 @@ interface PlanCreateData extends Plan {
   startTime: string;
   endTime: string;
   // end?: string;
-  allDay: boolean;
   description: string;
 }
 function PlanView() {
@@ -26,10 +25,10 @@ function PlanView() {
   const [planData, setPlanData] = useState<PlanCreateData>({
     name: getPlan ? getPlan.name : "받아온일정이라는 설정",
     members: getPlan ? getPlan.member : ["ssafy@ssafy,ssafy@naver"],
-    startdate: getPlan ? getPlan.startdate : "2023-08-08",
-    starttime: getPlan ? getPlan.starttime : "18:00",
-    start: getPlan ? getPlan.start : "",
+    startTime: getPlan ? getPlan.startTime : "09:00",
+    endTime: getPlan ? getPlan.endTime: "18:00",
     description: getPlan ? getPlan.description : "",
+
     // allDay: getPlan? getPlan.allDay:false,
   });
   const [isEdit, setMode] = useState(false);
@@ -74,6 +73,7 @@ function PlanView() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              fontSize: "20px",
             }}
           >
             <div>제목</div>
@@ -98,7 +98,12 @@ function PlanView() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalMembers">
-          <Form.Label column sm={1}>
+          <Form.Label column sm={1}             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}>
             초대
           </Form.Label>
           <Col sm={11}>
@@ -122,8 +127,13 @@ function PlanView() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalDate">
-          <Form.Label column sm={1}>
-            날짜
+          <Form.Label column sm={1}             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}>
+            시작
           </Form.Label>
           <Col sm={5}>
             <Form.Control
@@ -138,7 +148,7 @@ function PlanView() {
                 border: "none",
                 resize: "none",
               }}
-              type="date"
+              type="dateTime-local"
               placeholder=""
               className="input-border-radius-lg"
               form="rounded"
@@ -152,16 +162,17 @@ function PlanView() {
             sm={1}
             style={{
               display: "flex",
-              justifyContent: "left",
+              justifyContent: "center",
               alignItems: "center",
+              fontSize: "20px",
             }}
           >
-            시간
+            종료
           </Form.Label>
           <Col sm={5}>
             <Form.Control
               name="starttime"
-              value={planData.startTime}
+              value={planData.endTime}
               size="lg"
               style={{
                 backgroundColor: "#f7f7f7",
@@ -169,7 +180,7 @@ function PlanView() {
                 border: "none",
                 resize: "none",
               }}
-              type="time"
+              type="dateTime-local"
               placeholder=""
               className="rounded-9"
               onChange={handleInputChange}
@@ -186,6 +197,7 @@ function PlanView() {
               display: "flex",
               justifyContent: "center",
               alignItems: "baseline",
+              fontSize: "20px",
             }}
           >
             <div>내용</div>
