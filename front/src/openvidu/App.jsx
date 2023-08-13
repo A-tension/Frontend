@@ -90,7 +90,7 @@ const App = () => {
   }, []);
 
   // 만약 state 없이 한번에 url에 접근하려고 했다면
-  if (!state) window.location.href = "/";
+  // if (!state) window.location.href = "/";
 
   const setDevices = {
     videos,
@@ -119,38 +119,38 @@ const App = () => {
     <>
       {tap === "setup" && (
         <SetupComponent
-          teacherName={state.teacherName}
-          classTitle={state.classTitle}
-          classId={state.classId}
+          teacherName={"kimkijeong"}
+          classTitle={"java"}
+          classId={"1234"}
           setTap={setTap}
           setDevices={setDevices}
           code={code}
           whoami={whoami}
-          canUseDoublePongpong={canUseDoublePongpong}
-          isUsedDoublePongpong={isUsedDoublePongpong}
-          setIsUsedDoublePongpong={setIsUsedDoublePongpong}
-          userId={4444}
+          canUseDoublePongpong={true}
+          isUsedDoublePongpong={true}
+          setIsUsedDoublePongpong={true}
+          userId={"fiqwieoasd"}
         />
       )}
       {tap === "class" && (
         <VideoRoomComponent
           setDevices={setDevices}
           code={code}
-          memberStore={memberStore}
+          memberStore={"memberStore"}
           whoami={whoami}
           setTap={setTap}
-          classId={state.classId}
+          classId={"1234"}
           setMyData={setMyData}
           setOthersData={setOthersData}
           navigate={navigate}
-          teacherName={state.teacherName}
-          classTitle={state.classTitle}
-          userId={4444}
-          grade={4}
-          classNum={4}
-          studentNum={2}
+          teacherName={"김기정"}
+          classTitle={"자바 스프링"}
+          userId={"fiqwieoasd"}
+          grade={"memberStore.grade"}
+          classNum={"memberStore.classNum"}
+          studentNum={"memberStore.studentNum"}
           studentList={studentList}
-          // levelPng={levelPng}
+          levelPng={levelPng}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}
           isUsedDoublePongpong={isUsedDoublePongpong}
