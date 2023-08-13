@@ -1612,6 +1612,98 @@ class VideoRoomComponent extends Component {
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
 
+  /**
+   * --------------------------
+   * SERVER-SIDE RESPONSIBILITY
+   * --------------------------
+   * These methods retrieve the mandatory user token from OpenVidu Server.
+   * This behaviour MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
+   * the API REST, openvidu-java-client or openvidu-node-client):
+   *   1) Initialize a session in OpenVidu Server	(POST /api/sessions)
+   *   2) Generate a token in OpenVidu Server		(POST /api/tokens)
+   *   3) The token must be consumed in Session.connect() method
+   */
+
+  // getToken: 현재 내 세션아이디를 이용해서 세션을 생성하고 토큰을 발급하는 함수
+  getToken() {
+    return this.createSession(this.state.mySessionId).then((sessionId) =>
+      this.createToken(sessionId),
+    );
+  }
+
+  // createSession: 세션 생성 함수 (주의! promise를 반환!!) - 서버에 세션아이디를 요청해서 세션을 생성해서 id값을 받아오는 함수
+  createSession(sessionId) {
+    console.log("세션 만들기");
+    return new Promise((resolve, reject) => {
+      var data = JSON.stringify({ customSessionId: sessionId });
+      axios
+        .post(this.OPENVIDU_SERVER_URL + "/openvidu/api/sessions", data, {
+          headers: {
+            Authorization:
+              "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          resolve(response.data.id);
+        })
+        .catch((response) => {
+          var error = Object.assign({}, response);
+          if (error.response && error.response.status === 409) {
+            resolve(sessionId);
+          } else {
+            console.log(error);
+            console.warn(
+              "No connection to OpenVidu Server. This may be a certificate error at " +
+                this.OPENVIDU_SERVER_URL,
+            );
+            if (
+              window.confirm(
+                'No connection to OpenVidu Server. This may be a certificate error at "' +
+                  this.OPENVIDU_SERVER_URL +
+                  '"\n\nClick OK to navigate and accept it. ' +
+                  'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
+                  this.OPENVIDU_SERVER_URL +
+                  '"',
+              )
+            ) {
+              window.location.assign(
+                this.OPENVIDU_SERVER_URL + "/accept-certificate",
+              );
+            }
+          }
+        });
+    });
+  }
+
+  // createToken: 특정 sessionId에 대해서 오픈비두 서버에 토큰을 요청해서 받아오는 함수 (주의! Promise 반환!)
+  createToken(sessionId) {
+    console.log("토큰 만들기");
+    return new Promise((resolve, reject) => {
+      var data = JSON.stringify({});
+      axios
+        .post(
+          this.OPENVIDU_SERVER_URL +
+            "/openvidu/api/sessions/" +
+            sessionId +
+            "/connection",
+          data,
+          {
+            headers: {
+              Authorization:
+                "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then((response) => {
+          console.log("TOKEN", response);
+          resolve(response.data.token);
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
   // render: 렌더링을 담당하는 함수
   render() {
     const mySessionId = this.state.mySessionId;
@@ -1872,98 +1964,6 @@ class VideoRoomComponent extends Component {
         </div>
       </>
     );
-  }
-
-  /**
-   * --------------------------
-   * SERVER-SIDE RESPONSIBILITY
-   * --------------------------
-   * These methods retrieve the mandatory user token from OpenVidu Server.
-   * This behaviour MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-   * the API REST, openvidu-java-client or openvidu-node-client):
-   *   1) Initialize a session in OpenVidu Server	(POST /api/sessions)
-   *   2) Generate a token in OpenVidu Server		(POST /api/tokens)
-   *   3) The token must be consumed in Session.connect() method
-   */
-
-  // getToken: 현재 내 세션아이디를 이용해서 세션을 생성하고 토큰을 발급하는 함수
-  getToken() {
-    return this.createSession(this.state.mySessionId).then((sessionId) =>
-      this.createToken(sessionId),
-    );
-  }
-
-  // createSession: 세션 생성 함수 (주의! promise를 반환!!) - 서버에 세션아이디를 요청해서 세션을 생성해서 id값을 받아오는 함수
-  createSession(sessionId) {
-    console.log("세션 만들기");
-    return new Promise((resolve, reject) => {
-      var data = JSON.stringify({ customSessionId: sessionId });
-      axios
-        .post(this.OPENVIDU_SERVER_URL + "/openvidu/api/sessions", data, {
-          headers: {
-            Authorization:
-              "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          resolve(response.data.id);
-        })
-        .catch((response) => {
-          var error = Object.assign({}, response);
-          if (error.response && error.response.status === 409) {
-            resolve(sessionId);
-          } else {
-            console.log(error);
-            console.warn(
-              "No connection to OpenVidu Server. This may be a certificate error at " +
-                this.OPENVIDU_SERVER_URL,
-            );
-            if (
-              window.confirm(
-                'No connection to OpenVidu Server. This may be a certificate error at "' +
-                  this.OPENVIDU_SERVER_URL +
-                  '"\n\nClick OK to navigate and accept it. ' +
-                  'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
-                  this.OPENVIDU_SERVER_URL +
-                  '"',
-              )
-            ) {
-              window.location.assign(
-                this.OPENVIDU_SERVER_URL + "/accept-certificate",
-              );
-            }
-          }
-        });
-    });
-  }
-
-  // createToken: 특정 sessionId에 대해서 오픈비두 서버에 토큰을 요청해서 받아오는 함수 (주의! Promise 반환!)
-  createToken(sessionId) {
-    console.log("토큰 만들기");
-    return new Promise((resolve, reject) => {
-      var data = JSON.stringify({});
-      axios
-        .post(
-          this.OPENVIDU_SERVER_URL +
-            "/openvidu/api/sessions/" +
-            sessionId +
-            "/connection",
-          data,
-          {
-            headers: {
-              Authorization:
-                "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
-              "Content-Type": "application/json",
-            },
-          },
-        )
-        .then((response) => {
-          console.log("TOKEN", response);
-          resolve(response.data.token);
-        })
-        .catch((error) => reject(error));
-    });
   }
 }
 
