@@ -12,6 +12,11 @@ import { findMyPlan } from "../api/plan/planApi.tsx";
 import { planResponseDto } from "../api/plan/types.tsx";
 import { Plan, planCreateTest } from "../store/plan.ts";
 
+import { Item, itemLoginTest } from '../store/item.ts';
+
+import {addItem} from "../store/item.ts";
+
+
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +55,8 @@ function OAuth2RedirectHandler() {
 
         findMyTeam<teamResponseDto>().then(function (result) {
           console.log(result.data);
-          for (const teamResponseDto of result.data.data) {
+          
+            (const teamResponseDto of result.data.data) {
             const team: Team = {
               teamId: teamResponseDto.teamId,
               name: teamResponseDto.name,
@@ -81,6 +87,7 @@ function OAuth2RedirectHandler() {
       navigate("/");
     });
   }, []);
+
 
   return null; // Since we're doing redirects, there's nothing to render
 }

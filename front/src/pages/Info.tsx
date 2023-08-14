@@ -15,7 +15,6 @@ interface Edit {
 function Info() {
   const loginUser = useAppSelector(selectUser);
   const [isEdit, setMode] = useState(false);
-
   const [data, setData] = useState<Edit>({
     name: loginUser.name || "",
     profileImage: loginUser.profileImage || "",

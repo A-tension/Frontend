@@ -5,7 +5,7 @@ import { Ratio, Button } from "react-bootstrap";
 import Screen from "../components/stream/Screen";
 import { useState } from "react";
 import { useAppDispatch } from "../store/hooks";
-import { hideBackground, meetingModeTest } from "../store/meeting";
+import { hideBackground, meetingModeTest } from "../store/test";
 function Waiting() {
   const dispatch = useAppDispatch();
   const location = useLocation();

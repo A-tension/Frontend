@@ -23,7 +23,6 @@ const TeacherResult = ({
   othersData,
   absentData,
   finTime,
-  classId,
   studentList,
   studentInfo,
 }) => {
@@ -52,7 +51,7 @@ const TeacherResult = ({
   };
 
   const logApplyToDB = async () => {
-    const logs = { classId: classId, logList: [] };
+    const logs = { classId: 1, logList: [] };
     // 출석자 로그
     for (const student of othersData) {
       if (student.isPointDouble)

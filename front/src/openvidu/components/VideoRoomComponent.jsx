@@ -10,12 +10,15 @@ import ChatComponent from "./chat/ChatComponent";
 // import ParticipantComponent from "./participant/ParticipantComponent";
 import QuestionComponent from "./question/QuestionComponent";
 // import FaceDetection from '../FaceDetection';
+import getCode from "../../utils/getCode";
 import EmojiFilter from "./items/EmojiFilter";
 import QuizModal from "./quiz/QuizModal";
 import QuizModalStudent from "./quiz/QuizModalStudent";
 import ShieldModal from "./items/ShieldModal";
 import ShieldModalLoading from "./items/ShieldModalLoading";
 import Sticker from "./pointClickEvent/PointSticker";
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
@@ -47,12 +50,24 @@ class VideoRoomComponent extends Component {
     // layout: 현재 레이아웃 (openvidu-layout.js와 연결)
     this.layout = new OpenViduLayout();
     // sessionName: 세션 이름을 담은 변수 (기본값 SessionA)
-    let sessionName = this.props.code;
+    // let sessionName = this.props.code;
+    const { conferenceJoinData, conferenceCreateData } = this.props;
+    let sessionName;
     // userName: 유저의 이름 (기본 OpenVidu_User + 0부터 99까지의 랜덤한 숫자)
+    // let userName = this.props.nickname;
     let userName;
+    if (conferenceCreateData) {
+      sessionName = this.props.code;
+      userName = conferenceCreateData.nickname;
+    } else if (conferenceJoinData !== "none" && conferenceJoinData) {
+      sessionName = conferenceJoinData.conferenceUrl;
+      userName = conferenceJoinData.nickname;
+    }
+
     // String(time.getMinutes()).padStart(2, '0') +
     //   ':' +
     //   String(time.getSeconds()).padStart(2, '0');
+
     if (this.props.whoami === "student")
       userName = `[${this.props.grade}${String(this.props.classNum).padStart(
         2,
@@ -61,6 +76,7 @@ class VideoRoomComponent extends Component {
         this.props.memberStore.name
       }`;
     if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
+
 
     // remotes:
     this.remotes = [];
@@ -114,6 +130,7 @@ class VideoRoomComponent extends Component {
       isEmojiOn: false,
       isPointDouble: this.props.isUsedDoublePongpong,
       teacherMenuDisplay: false,
+      isCodeModalOpen: false,
     };
 
     // 메서드 바인딩 과정
@@ -1257,7 +1274,7 @@ class VideoRoomComponent extends Component {
     if (list.length > 0) {
       let studentList = [];
       list.forEach((elem) => {
-        if (!elem.nickname.includes("[선생님]")) studentList.push(elem);
+        studentList.push(elem);
       });
       if (studentList.length > 0) {
         let pickedStudent =
@@ -1597,8 +1614,278 @@ class VideoRoomComponent extends Component {
   };
 
   toggleTeacherMenu() {
+
     console.log(
       "this.state.teacherMenuDisplay : " + this.state.teacherMenuDisplay,
+
+    this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
+  }
+
+  openCodeModal = () => {
+    this.setState({ isCodeModalOpen: true });
+  };
+
+  closeCodeModal = () => {
+    this.setState({ isCodeModalOpen: false });
+  };
+
+  // render: 렌더링을 담당하는 함수
+  render() {
+    const mySessionId = this.state.mySessionId;
+    const localUser = this.state.localUser;
+    const subscribers = this.state.subscribers;
+    const chatDisplay = { display: this.state.chatDisplay };
+    const participantDisplay = { display: this.state.participantDisplay };
+    const questionDisplay = { display: this.state.questionDisplay };
+
+    return (
+      <>
+        <div className="container" id="container">
+          <Setting
+            display={this.state.settingDisplay}
+            toggleSetting={this.toggleSetting}
+            header="Setting"
+            setMyVideos={this.setMyVideos}
+            setMyAudios={this.setMyAudios}
+            setMySpeakers={this.setMySpeakers}
+            videos={this.state.videos}
+            audios={this.state.audios}
+            speakers={this.state.speakers}
+            setVideo={this.setVideo}
+            setAudio={this.setAudio}
+            setSpeaker={this.setSpeaker}
+            currentVideoDeviceId={this.state.currentVideoDeviceId}
+            currentAudioDeviceId={this.state.currentAudioDeviceId}
+            currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+          />
+
+          <Emoji
+            display={this.state.emojiDisplay}
+            toggleEmoji={this.toggleEmoji}
+            sendEmoji={this.sendEmoji}
+            header="Emoji"
+            emoji={this.state.emoji}
+            whoami={this.props.whoami}
+            id={this.props.userId}
+          />
+
+          <QuizModal
+            display={this.state.quizDisplay}
+            toggleQuiz={this.toggleQuiz}
+            toggleQuizStudent={this.toggleQuizStudent}
+            header="퀴즈"
+            quiz={this.state.quiz}
+            quizHistory={this.state.quizHistory}
+          />
+          <QuizModalStudent
+            display={this.state.quizDisplayStudent}
+            toggleQuizStudent={this.toggleQuizStudent}
+            header="퀴즈"
+            quiz={this.state.quiz}
+          />
+          <ShieldModalLoading
+            display={this.state.shieldLoadingDisplay}
+            toggleShieldLoading={this.toggleShieldLoading}
+            timeOut={2.5}
+            header="발표 프리패스 대기중"
+          />
+          <ShieldModal
+            display={this.state.shieldDisplay}
+            user={localUser}
+            toggleShield={this.toggleShield}
+            alertToChat={this.alertToChat}
+            useItem={this.useItem}
+            checkUserHasItem={this.checkUserHasItem}
+            pickRandomStudent={this.pickRandomStudent}
+            tempFrameChange={this.tempFrameChange}
+            subscribers={subscribers}
+            timeOut={3}
+            header="발표 프리패스 사용"
+            upPresentationCnt={this.upPresentationCnt}
+            downPresentationCnt={this.downPresentationCnt}
+          />
+
+          {/* 다이얼로그 */}
+          <DialogExtensionComponent
+            showDialog={this.state.showExtensionDialog}
+            cancelClicked={this.closeDialogExtension}
+          />
+
+          {/* 칭찬스티커 */}
+          {this.state.stickers.map((stickerKey) => (
+            <Sticker
+              key={stickerKey.key}
+              stikerKey={stickerKey.key}
+              top={stickerKey.top}
+              left={stickerKey.left}
+              removeSticker={this.removeSticker}
+              localUser={localUser}
+            ></Sticker>
+          ))}
+
+          {/* 유저 카메라 화면 */}
+          <div
+            id="layout"
+            className={
+              (this.state.chatDisplay === "block" ||
+              this.state.participantDisplay === "block" ||
+              this.state.questionDisplay === "block"
+                ? "sth_on_bounds"
+                : "bounds") +
+              (this.props.whoami === "teacher" ? " teacher-layout" : "")
+            }
+          >
+            {localUser !== undefined &&
+            localUser.getStreamManager() !== undefined ? (
+              <div id="localUser">
+                <StreamComponent
+                  user={this.state.localUser}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+                  emoji={this.state.emoji}
+                />
+                {/* <FaceDetection
+                  autoPlay={localUser.isScreenShareActive() ? false : true}
+                  camera={localUser.isVideoActive() ? false : true}
+                  smile={this.smile}
+                  outAngle={this.outAngle}
+                /> */}
+              </div>
+            ) : null}
+            {this.state.subscribers.map((sub, i) => (
+              <div
+                key={i}
+                className={
+                  (this.state.videoLayout === "bigTeacher" &&
+                    sub.nickname.includes("[선생님]")) ||
+                  (this.state.videoLayout === "screenShareOn" &&
+                    sub.isScreenShareActive() === true)
+                    ? "OT_root OT_publisher custom-class OV_big"
+                    : "OT_root OT_publisher custom-class"
+                }
+                id="remoteUsers"
+              >
+                <StreamComponent
+                  user={sub}
+                  streamId={sub.streamManager.stream.streamId}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+                />
+                <EmojiFilter user={sub} whoami={this.props.whoami} />
+              </div>
+            ))}
+          </div>
+          <div
+            className={
+              "sth_component " +
+              (this.state.chatDisplay === "none" &&
+              this.state.participantDisplay === "none" &&
+              this.state.questionDisplay === "none"
+                ? "display_none"
+                : "")
+            }
+          >
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className="OT_root custom-class quest"
+                  style={questionDisplay}
+                >
+                  <QuestionComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    questionDisplay={this.state.questionDisplay}
+                    close={this.toggleQuestion}
+                    messageReceived={this.checkQuestionNotification}
+                    whoami={this.props.whoami}
+                  />
+                </div>
+              )}
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className={
+                    "OT_root custom-class " +
+                    (this.state.chatDisplay === "block" &&
+                    this.state.participantDisplay === "block"
+                      ? "double_parti"
+                      : "parti")
+                  }
+                  style={participantDisplay}
+                >
+                  {/* <ParticipantComponent
+                    whoami={this.props.whoami}
+                    user={localUser}
+                    subscribers={subscribers}
+                    participantDisplay={this.state.participantDisplay}
+                    close={this.toggleParticipant}
+                    upPointChanged={this.upPointChanged}
+                    downPointChanged={this.downPointChanged}
+                    absentStudents={this.state.absentStudents}
+                    teacher={this.state.teacher}
+                    student={this.state.students}
+                    partsSortChange={this.partsSortChange}
+                    type={this.state.sortType}
+                  /> */}
+                </div>
+              )}
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className={
+                    "OT_root custom-class " +
+                    (this.state.participantDisplay === "block" &&
+                    this.state.chatDisplay === "block"
+                      ? "double_chat"
+                      : "chat")
+                  }
+                  style={chatDisplay}
+                >
+                  <ChatComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    chatDisplay={this.state.chatDisplay}
+                    close={this.toggleChat}
+                    messageReceived={this.checkNotification}
+                    // levelPng={this.props.levelPng}
+                    // profile={this.props.memberStore.profileFullPath}
+                  />
+                </div>
+              )}
+          </div>
+          {/* 하단 툴바 */}
+          <div className="toolbar">
+            <ToolbarComponent
+              teacherName={this.props.teacherName}
+              classTitle={this.props.classTitle}
+              whoami={this.props.whoami}
+              sessionId={mySessionId}
+              user={localUser}
+              showNotification={this.state.messageReceived}
+              showQuestionNotification={this.state.questionReceived}
+              camStatusChanged={this.camStatusChanged}
+              micStatusChanged={this.micStatusChanged}
+              pickRandomStudent={this.pickRandomStudent}
+              subscribers={subscribers}
+              screenShare={this.screenShare}
+              stopScreenShare={this.stopScreenShare}
+              toggleFullscreen={this.toggleFullscreen}
+              leaveSession={this.leaveSession}
+              selfLeaveSession={this.selfLeaveSession}
+              toggleChat={this.toggleChat}
+              toggleParticipant={this.toggleParticipant}
+              toggleQuestion={this.toggleQuestion}
+              toggleQuiz={this.toggleQuiz}
+              toggleSetting={this.toggleSetting}
+              startStickerEvent={this.startStickerEvent}
+              videoLayout={this.state.videoLayout}
+              toggleVideoLayout={this.toggleVideoLayout}
+              toggleEmoji={this.toggleEmoji}
+              toggleTeacherMenu={this.toggleTeacherMenu}
+              teacherMenuDisplay={this.state.teacherMenuDisplay}
+            />
+          </div>
+        </div>
+      </>
+
     );
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }

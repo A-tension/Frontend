@@ -9,7 +9,7 @@ import item from "../assets/icons/icon_item.svg";
 import SidebarButton from "../components/atoms/button/SidebarButton";
 import { useAppSelector } from "../store/hooks";
 import { checkAuthority, isLoggedIn } from "../store/user";
-import { getMode } from "../store/meeting";
+import { getMode } from "../store/test";
 const Dash = () => {
   // sidenav selected 받아와서
 
@@ -56,7 +56,7 @@ const Dash = () => {
       <div style={{ height: colHeight }} className="font-SUIT">
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" sm={1} style={{ minWidth: "200px" }}>
+            <Col className="pt-5" sm={1} style={{minWidth:"200px"}} >
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}

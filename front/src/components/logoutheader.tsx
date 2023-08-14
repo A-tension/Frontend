@@ -6,10 +6,12 @@ import {
   Button,
   Popover,
   Dropdown,
+
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
 const Logoutheader = () => {
+
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -25,8 +27,16 @@ const Logoutheader = () => {
     dispatch(userLogout());
     navigate("/login");
   };
+
+  const dropStyle: React.CSSProperties = {
+    right: 0,
+    // left: "auto", // Commented out since it's not being used
+    marginTop: "var(--bs-dropdown-spacer)", // Make sure to provide the actual value here
+    color: "white",
+  };
+
   const popover = (
-    <Popover id="popover-basic" className="text-white">
+    <Popover id="notification-popover" className="text-white">
       <Popover.Header as="h3">알림</Popover.Header>
       <Popover.Body>
         알림도 원자 컴포넌트로 map 써서 현재 유저가 갖고있는 것 불러오기?
@@ -64,15 +74,18 @@ const Logoutheader = () => {
       >
         회의 참여
       </Nav.Link>
-
-      <Dropdown
-        as={NavDropdown}
-        drop="down-centered"
-        style={{ color: "white" }}
-        title={loginUser.name}
-        id="basic-nav-dropdown"
-        className="text-white"
+      <NavDropdown
+      as={Dropdown}
+      content="none"
+        title={
+          <div className="flex items-center  text-white gap-2">
+            {loginUser.name}
+            <Image src={filler} roundedCircle width="40px" />
+          </div>
+        }
+        style={{ borderRadius: "20px" }}
       >
+
         {/* <Dropdown.Toggle style={{ color: "white" }}>
           <div className="text-white">
             {loginUser.name}</div> style={{ maxWidth: "10px" }}
@@ -84,6 +97,7 @@ const Logoutheader = () => {
         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
         {/* </Dropdown.Menu> */}
       </Dropdown>
+
     </>
   );
 };
