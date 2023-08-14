@@ -1,7 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import Toolbar from "../components/stream/Toolbar";
 import { useAppDispatch } from "../store/hooks";
-import { hideBackground } from "../store/meeting";
+import { hideBackground } from "../store/test";
 /*
 this.state = {
     mySessionId: 'SessionA',

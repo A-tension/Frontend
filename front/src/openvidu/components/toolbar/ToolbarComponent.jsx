@@ -27,6 +27,7 @@ import Share from "@material-ui/icons/Share";
 import SearchIcon from "@material-ui/icons/Search";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 // import AutoAwesomeMotionIcon from "@material-ui/icons/AutoAwesome";
+import Tooltip from "@material-ui/core/Tooltip";
 import TeachersToolbar from "./TeachersToolbar";
 
 export default class ToolbarComponent extends Component {
@@ -191,7 +192,7 @@ export default class ToolbarComponent extends Component {
 
   // render: 렌더링 함수
   render() {
-    // const mySessionId = this.props.sessionId;
+    const mySessionId = this.props.sessionId;
     const localUser = this.props.user;
     return (
       <AppBar
@@ -201,7 +202,7 @@ export default class ToolbarComponent extends Component {
         <Toolbar className="toolbar">
           {this.props.sessionId && (
             <div id="titleContent">
-              {/* <span id="session-title">{mySessionId}</span> */}
+              <span id="session-title">{mySessionId}</span>
               <span id="session-title">
                 {this.props.classTitle} - {this.props.teacherName}
               </span>
@@ -357,7 +358,19 @@ export default class ToolbarComponent extends Component {
                   ))
                 : null}
             </IconButton>
-
+            <Tooltip title={mySessionId} placement="bottom">
+              <IconButton
+                color="inherit"
+                onClick={this.openModal}
+                className="navButton"
+                id="navShareCodeButton"
+              >
+                <div className="buttonStyle">
+                  <Share />
+                  <p>{mySessionId}</p>
+                </div>
+              </IconButton>
+            </Tooltip>
             {this.props.whoami !== "teacher" ? (
               <IconButton
                 color="secondary"

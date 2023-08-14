@@ -4,19 +4,19 @@ import { Tab, Nav, Row, Col, Button, Form } from "react-bootstrap";
 import Plans from "./group/Plans.tsx";
 import Members from "./group/Members.tsx";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { getGrouplist } from "../store/group.ts";
-import {
-  User,
-  checkAuthority,
-} from "../store/user.ts";
+import { addDetail, getGrouplist, loadListTest } from "../store/group.ts";
+import { User, checkAuthority } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
-import {NavTab} from "./atoms/tab/NavTab.tsx";
+import { NavTab } from "./atoms/tab/NavTab.tsx";
+import { getTeamDetail } from "../api/team/teamApi.tsx";
+import { teamDetailResponseDto } from "../api/team/types.tsx";
+import { AxiosResponse } from "axios";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
   // id?:bigint|number;
-  teamId?: bigint|number; // axios에서 생성 요청시 자동반환
+  teamId: bigint|number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
@@ -41,37 +41,19 @@ interface LoginUser extends User {
 }
 
 function Group() {
-  // const groups = [
-  //   "G1",
-  //   "G2",
-  //   "G3",
-  //   "G1",
-  //   "G2",
-  //   "G1"
-  // ];
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const transfer = location.state?.group;
-
-
-  // const [selectedGroup, selectGroup] = useState<Team>({
-  //   teamId: transfer.id? transfer.id: 0,
-  //   name: transfer.name? transfer.name : " ",
-  //   profileImg: "",//transfer.profileImage? transfer.profileImage:"",
-  //   // userProfileDtoList: [],
-  //   description: "",
-  //   members:transfer.members? transfer.members: [],
-  // });
-
+  //어디서 그룹을 다시 전달받는 지?
   const [selectedGroup, selectGroup] = useState<Team>({
-    teamId: transfer? transfer.teamId : 0,
+    teamId: transfer ? transfer.teamId : 0,
     name: "",
     profileImg: "",
     members: [],
     description: "",
   });
-  
+
   const [isCreate, setMenu] = useState(false); //그룹생성창 여부
   const [selectedTab, setSelectedTab] = useState("info"); // 기본값은 "chat"으로 설정
   const [hasAuth, getAuth] = useState<boolean>(false); //그룹짱의 권한 체크,,//teamParticipantAuthorityDto 에 해당하나?
@@ -79,18 +61,18 @@ function Group() {
   // const teamAuth:teamParticipantAuthorityDto = {teamId:BigInt(selectedGroup.id) ,userAuthDtoList:[{userId:curUserId, hasAuthority:true}]};
 
   const TF = useAppSelector(checkAuthority);
- 
+
   const handleGroupSelect = (group: Team) => {
     selectGroup(group);
-    //dispatch(hasAuthority()); 
-    if(TF)
-   getAuth(TF); // 실제로는 team participant has auth?
-  else
-  getAuth(false);
-    console.log(hasAuth);
+    //dispatch(hasAuthority());
+    
+    if (TF) getAuth(TF); // 실제로는 team participant has auth?
+    else getAuth(false);
+    console.log("selected"+group.name);
   };
 
   const groups: Team[] = useAppSelector(getGrouplist);
+
   const grouplist = groups.map((group, index) => (
     <Nav.Link
       href="#"
@@ -149,15 +131,51 @@ function Group() {
     //       // return hasAuthority
     //       getAuth(hasAuthority)
     //   }
-    // }
+    // loadGroupDetail();
     setSelectedTab("chat");
     escapeCreate();
     // checkGroupAuth();,curUserId,teamAuth
-  }, [selectedGroup]);
+  }, [selectedGroup, dispatch]);
+  useEffect(() => {
+    const loadGroupDetail = () => {
+      // const groupDetail = getTeamDetail<teamDetailResponseDto, AxiosResponse<teamDetailResponseDto>>(selectedGroup.teamId);
+      // groupDetail.then(result =>{
+      //   console.log(result.data);
+      //   const detailedGroup: teamDetailResponseDto = result.data.data;
+      //   dispatch(addDetail(detailedGroup));
+      // })
+      const test = {
+        teamId: 456,
+        name: "Advanced Team",
+        profileImage: "team456.png",
+        description: "This is an advanced team with various features.",
+        userProfileDtoList: [
+          {
+            userId: "123e4567-e89b-12d3-a456-426655440000",
+            name: "John Doe",
+            profileImage: "john.jpg",
+          },
+          {
+            userId: "98765432-12ab-cdef-1234-567890abcdef",
+            name: "Jane Smith",
+            profileImage: "jane.jpg",
+          },
+        ],
+      };
+      console.log("use effect detail call by selected group dependency")
+      dispatch(addDetail(test));
+    };
+    loadGroupDetail();
+  }, [dispatch, selectedGroup]);
+  const load =(e)=>{
+    e.preventDefault();
+    console.log("불러오기")
+    dispatch(loadListTest);
+  }
   return (
     <>
       <div>
-        <Tab.Container defaultActiveKey="first">
+        <Tab.Container activeKey={selectedGroup}>
           <Row>
             <Col sm={3} style={{ height: "450px" }}>
               <div
@@ -171,91 +189,17 @@ function Group() {
                   {grouplist}
                 </Nav>
               </div>
-              <NavTab
-                label="그룹생성"
-                linkto="create"
-                linktype="Nav"
-                button={true}
-                children={
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      width: "100%",
-                    }}
-                  >
-                    그룹 추가 
-                  </Button>
-                }
-                onClick={async () => {
-                  // 내 팀 조회
-                  // const promise = await findMyTeam<teamResponseDto>();
-                  // console.log(promise.data.data[0].teamId);
-
-                  // 팀 생성
-                  // const createTeamTestDto : createTeamRequestBody = {
-                  //   name: "테스트 ",
-                  //   userIdList: ['1f2c21f4-530f-4f0b-95e6-a6e74b174ce9', '3347e816-494d-4e27-83a0-f55865873cd9']
-                  // }
-                  // const promise = await createTeam(createTeamTestDto);
-                  // console.log(promise.data)
-
-                  // 특정 팀 조회
-                  // const teamId : bigint = BigInt(350);
-                  // const promise = await getTeamDetail(teamId);
-                  // console.log(promise);
-
-                  // 팀 업데이트
-                  // const teamId : bigint = BigInt(350);
-                  // const teamUpdateRequestDto : teamUpdateRequestDto = {
-                  //   name : "updateTest",
-                  //   profileImage : "updateImage",
-                  //   description : "updateDescription"
-                  // }
-                  // const promise = await updateTeam(teamId, teamUpdateRequestDto)
-                  // console.log(promise.data);
-
-                  // 팀 삭제
-                  // const teamId : bigint = BigInt(350);
-                  // const promise = await deleteTeam(teamId);
-                  // console.log(promise.data);
-
-                  // 팀 초대
-                  // const teamInviteRequestDto: teamInviteRequestDto = {
-                  //   teamId: 349,
-                  //   userIdList: ['3347e816-494d-4e27-83a0-f55865873cd9']
-                  // }
-                  // const promise= await inviteTeam(teamInviteRequestDto);
-                  // console.log(promise.data);
-
-                  // 팀 수락
-                  // const teamId : bigint = BigInt(349);
-                  // const promise = await acceptTeam(teamId);
-                  // console.log(promise.data);
-
-                  // 팀 거절
-                  // const teamId : bigint = BigInt(349);
-                  // const promise = await refuseTeam(teamId);
-                  // console.log(promise.data);
-
-                  // 팀 탈퇴
-                  // const teamId : bigint = BigInt(349);
-                  // const promise = await leaveTeam(teamId);
-                  // console.log(promise.data);
-
-                  // 팀 내 권한 변경
-                //   const userAuthDto : userAuthDto = {
-                //     userId : '488b52c7-8ce8-44b2-8d58-c79bb15e154c',
-                //     hasAuthority : true
-                //   }
-                //   const teamParticipantAuthorityDto : teamParticipantAuthorityDto = {
-                //     teamId: 349,
-                //     userAuthDtoList: [userAuthDto]
-                //   }
-                //   const promise = await updateTeamParticipantAuthority(teamParticipantAuthorityDto);
-                //   console.log(promise.data)
-                }}
-                onClick={() => setMenu(true)}
-              ></NavTab>
+              <Nav.Item>
+                <Button
+                  style={{
+                    borderRadius: "10px",
+                    width: "100%",
+                  }}
+                  onClick={() => setMenu(true)}
+                >
+                  그룹 추가
+                </Button>
+              </Nav.Item>
             </Col>
 
             {isCreate && (
@@ -294,8 +238,9 @@ function Group() {
                 <hr className="solid" />
                 {selectedTab === "info" && (
                   <div>
+                    {/* 화면 전환 시 잔상이 보이던 건 여기 때문  */}
                     {/* 그룹 정보 컴포넌트를 렌더링 */}
-                    <h1>Group {selectedGroup.name}</h1>
+                    {/* <h1>Group {selectedGroup.name}</h1> */}
                   </div>
                 )}
                 {selectedTab === "chat" && (
@@ -352,7 +297,11 @@ function Group() {
                           justifyContent: "flex-end",
                         }}
                       >
-                        <Button variant="primary" type="submit">
+                        <Button
+                          variant="primary"
+                          
+                          onClick={load}
+                        >
                           전송
                         </Button>
                       </div>

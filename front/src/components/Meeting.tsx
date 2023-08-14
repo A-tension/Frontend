@@ -2,13 +2,13 @@ import { Nav } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import { NavTab } from "./atoms/tab/NavTab";
 import { useAppSelector } from "../store/hooks";
-import { getMode } from "../store/meeting";
+import { getMode } from "../store/test";
 import { checkAuthority } from "../store/user";
 function Meeting() {
   // const [joinedMeeting, setJoin]= useState(false);
   const isLoggedIn = useAppSelector(checkAuthority);
   const inMeeting = useAppSelector(getMode);
-  
+
   // useEffect(() => {
   //   first
 
@@ -26,29 +26,29 @@ function Meeting() {
       </a> */}
       {isLoggedIn && !inMeeting && (
         <div>
-        <Nav
-          variant="underline"
-          className="pb-0"
-          // defaultActiveKey="/dash/meeting/manage"
-        >
-          <NavTab
-            label="생성"
-            linkto="/dash/meeting/start"
-            linktype="Nav"
-          ></NavTab>
-          <NavTab
-            label="참여"
-            linkto="/dash/meeting/join"
-            linktype="Nav"
-          ></NavTab>
-          <NavTab
-            label="관리"
-            linkto="/dash/meeting/manage"
-            linktype="Nav"
-          ></NavTab>
-          
-        </Nav><hr className="solid"/>
-        {/* <div class="border-top my-2"></div> */}
+          <Nav
+            variant="underline"
+            className="pb-0"
+            // defaultActiveKey="/dash/meeting/manage"
+          >
+            <NavTab
+              label="생성"
+              linkto="/dash/meeting/create"
+              linktype="Nav"
+            ></NavTab>
+            <NavTab
+              label="참여"
+              linkto="/dash/meeting/join"
+              linktype="Nav"
+            ></NavTab>
+            <NavTab
+              label="관리"
+              linkto="/dash/meeting/manage"
+              linktype="Nav"
+            ></NavTab>
+          </Nav>
+          <hr className="solid" />
+          {/* <div class="border-top my-2"></div> */}
         </div>
       )}
       <Outlet></Outlet>
