@@ -1,14 +1,10 @@
-import { Nav, Button } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
-import { getMode } from "../store/meeting";
-interface Props {
-  checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Loginheader = (props: Props) => {
-  const handleLogin = (tf: boolean) => {
-    props.checkLogin(tf);
-  };
+
+import { getMode } from "../store/test";
+const Loginheader = () => {
+
   const inMeeting = useAppSelector(getMode);
 
   return (
@@ -23,12 +19,7 @@ const Loginheader = (props: Props) => {
           >
             회의 참여
           </Nav.Link>
-          <Nav.Link
-            className="text-white"
-            as={Link}
-            to="login"
-            onClick={() => handleLogin(true)}
-          >
+          <Nav.Link className="text-white" as={Link} to="login">
             로그인
           </Nav.Link>
         </>

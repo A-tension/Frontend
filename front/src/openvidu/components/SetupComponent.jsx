@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Loading from "./Loading";
 import "./SetupComponent.css";
 import useUpdateStream from "./utils/useUpdateStream";
+import { useLocation } from "react-router-dom";
 import {
   createStream,
   getVideoTrack,
@@ -19,10 +20,9 @@ import Switch from "@material-ui/core/Switch";
 import InterceptedAxios from "../../utils/iAxios";
 
 const SetupComponent = (props) => {
+  const location = useLocation();
+  const { conferenceCreateData, conferenceJoinData } = location.state;
   const {
-    teacherName,
-    classTitle,
-    classId,
     setTap,
     setDevices,
     whoami,
@@ -79,8 +79,10 @@ const SetupComponent = (props) => {
       stream.current.getTracks().forEach((track) => (track.enabled = false));
       previewFace.current.srcObject = stream.current ?? null;
     };
-    getMyDevices().then(() => {
-      setIsLoading(false);
+    initStream().then(() => {
+      getMyDevices().then(() => {
+        setIsLoading(false);
+      });
     });
   }, []);
 
@@ -168,6 +170,14 @@ const SetupComponent = (props) => {
       }
     }
     setTap("class");
+
+    // 여기서 필요한 데이터를 전달하고자 한다면 아래와 같이 작성
+    const dataToPass = {
+      conferenceCreateData,
+      conferenceJoinData,
+    };
+    // setTap 함수 호출 시 함께 데이터를 전달
+    props.setTap("class", dataToPass);
   };
 
   const goBack = async () => {
@@ -208,8 +218,11 @@ const SetupComponent = (props) => {
           <div className="sideContainer">
             <div className="main">
               <div className="RoomName title">
-                [{classTitle} 수업]{" "}
-                <span className="teacher-span">{teacherName}선생님</span>
+                {conferenceCreateData &&
+                  `[${conferenceCreateData.conferenceTitle}]`}{" "}
+                <span className="teacher-span">
+                  {conferenceCreateData && conferenceCreateData.nickname}
+                </span>
               </div>
 
               <div className="preview">

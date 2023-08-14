@@ -4,19 +4,19 @@ import { Tab, Nav, Row, Col, Button, Form } from "react-bootstrap";
 import Plans from "./group/Plans.tsx";
 import Members from "./group/Members.tsx";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { getGrouplist } from "../store/group.ts";
-import {
-  User,
-  checkAuthority,
-} from "../store/user.ts";
+import { addDetail, getGrouplist, loadListTest } from "../store/group.ts";
+import { User, checkAuthority } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
-import {NavTab} from "./atoms/tab/NavTab.tsx";
+import { NavTab } from "./atoms/tab/NavTab.tsx";
+import { getTeamDetail } from "../api/team/teamApi.tsx";
+import { teamDetailResponseDto } from "../api/team/types.tsx";
+import { AxiosResponse } from "axios";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
   // id?:bigint|number;
-  teamId?: bigint|number; // axios에서 생성 요청시 자동반환
+  teamId: bigint|number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
@@ -41,31 +41,13 @@ interface LoginUser extends User {
 }
 
 function Group() {
-  // const groups = [
-  //   "G1",
-  //   "G2",
-  //   "G3",
-  //   "G1",
-  //   "G2",
-  //   "G1"
-  // ];
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const transfer = location.state?.group;
-
-
-  // const [selectedGroup, selectGroup] = useState<Team>({
-  //   teamId: transfer.id? transfer.id: 0,
-  //   name: transfer.name? transfer.name : " ",
-  //   profileImg: "",//transfer.profileImage? transfer.profileImage:"",
-  //   // userProfileDtoList: [],
-  //   description: "",
-  //   members:transfer.members? transfer.members: [],
-  // });
-
+  //어디서 그룹을 다시 전달받는 지?
   const [selectedGroup, selectGroup] = useState<Team>({
-    teamId: transfer? transfer.teamId : 0,
+    teamId: transfer ? transfer.teamId : 0,
     name: "",
     profileImg: "",
     members: [],
@@ -91,6 +73,7 @@ function Group() {
   };
 
   const groups: Team[] = useAppSelector(getGrouplist);
+
   const grouplist = groups.map((group, index) => (
       <Nav.Link
           href="#"
@@ -149,12 +132,49 @@ function Group() {
     //       // return hasAuthority
     //       getAuth(hasAuthority)
     //   }
-    // }
+    // loadGroupDetail();
     setSelectedTab("chat");
     escapeCreate();
     // checkGroupAuth();,curUserId,teamAuth
-  }, [selectedGroup]);
+  }, [selectedGroup, dispatch]);
+  useEffect(() => {
+    const loadGroupDetail = () => {
+      // const groupDetail = getTeamDetail<teamDetailResponseDto, AxiosResponse<teamDetailResponseDto>>(selectedGroup.teamId);
+      // groupDetail.then(result =>{
+      //   console.log(result.data);
+      //   const detailedGroup: teamDetailResponseDto = result.data.data;
+      //   dispatch(addDetail(detailedGroup));
+      // })
+      const test = {
+        teamId: 456,
+        name: "Advanced Team",
+        profileImage: "team456.png",
+        description: "This is an advanced team with various features.",
+        userProfileDtoList: [
+          {
+            userId: "123e4567-e89b-12d3-a456-426655440000",
+            name: "John Doe",
+            profileImage: "john.jpg",
+          },
+          {
+            userId: "98765432-12ab-cdef-1234-567890abcdef",
+            name: "Jane Smith",
+            profileImage: "jane.jpg",
+          },
+        ],
+      };
+      console.log("use effect detail call by selected group dependency")
+      dispatch(addDetail(test));
+    };
+    loadGroupDetail();
+  }, [dispatch, selectedGroup]);
+  const load =(e)=>{
+    e.preventDefault();
+    console.log("불러오기")
+    dispatch(loadListTest);
+  }
   return (
+
       <>
         <div>
           <Tab.Container defaultActiveKey="first">
@@ -166,13 +186,16 @@ function Group() {
                       height: "300px",
                       overflowY: "auto",
                     }}
+
                 >
                   <Nav variant="pills" className="flex-column">
                     {grouplist}
                   </Nav>
+
                 </div>
                 <Nav.Item>
                   <Button
+
                       style={{
                         borderRadius: "10px",
                         width: "100%",
@@ -182,6 +205,7 @@ function Group() {
                     그룹 추가
                   </Button>
                 </Nav.Item>
+
               </Col>
 
               {isCreate && (
@@ -227,7 +251,7 @@ function Group() {
                     {selectedTab === "chat" && (
                         <div>
                           {/* 채팅 컴포넌트를 렌더링 */}
-                          <h1>{selectedGroup.name}야홍~~~</h1>
+                          <h1>{selectedGroup.name} 그룹입니다</h1>
                         </div>
                     )}
                     {selectedTab === "plans" && (

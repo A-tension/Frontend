@@ -6,15 +6,14 @@ import {
   Button,
   Popover,
   Dropdown,
-  DropdownButton,
-  NavItem,
+  Image
+
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
-interface Props {
-  checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Logoutheader = (props: Props) => {
+import filler from "../assets/bwink_edu_04_single_04.jpg"
+const Logoutheader = () => {
+
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -26,13 +25,20 @@ const Logoutheader = (props: Props) => {
   const pathname = location.pathname;
   // console.log()
   const handleLogout = () => {
-    props.checkLogin(false);
     console.log("logout button clicked");
     dispatch(userLogout());
     navigate("/login");
   };
+
+  const dropStyle: React.CSSProperties = {
+    right: 0,
+    // left: "auto", // Commented out since it's not being used
+    marginTop: "var(--bs-dropdown-spacer)", // Make sure to provide the actual value here
+    color: "white",
+  };
+
   const popover = (
-    <Popover id="popover-basic" className="text-white">
+    <Popover id="notification-popover" className="text-white">
       <Popover.Header as="h3">알림</Popover.Header>
       <Popover.Body>
         알림도 원자 컴포넌트로 map 써서 현재 유저가 갖고있는 것 불러오기?
@@ -70,27 +76,35 @@ const Logoutheader = (props: Props) => {
       >
         회의 참여
       </Nav.Link>
-
-      <Dropdown
-        as={NavDropdown}
-        drop="down-centered"
-        style={{ color: "white" }}
-        title={loginUser.name}
-        id="basic-nav-dropdown"
-        className="text-white"
+      <NavDropdown
+      as={Dropdown}
+      content="none"
+        title={
+          <div className="flex items-center  text-white gap-2">
+            {loginUser.name}
+            <Image src={filler} roundedCircle width="40px" />
+          </div>
+        }
+        style={{ borderRadius: "20px" }}
       >
-        {/* <Dropdown.Toggle style={{ color: "white" }}>
-          <div className="text-white">
-            {loginUser.name}</div> style={{ maxWidth: "10px" }}
-        </Dropdown.Toggle> */}
-        {/* <Dropdown.Menu> */}
-        <Dropdown.Item as={Link} to="/info" >
-          마이페이지
-        </Dropdown.Item>
-        <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-        {/* </Dropdown.Menu> */}
-      </Dropdown>
-    </>
+        <NavDropdown.ItemText as={Nav.Link} to="/info">
+          <Nav.Link as={Link} to="/info">
+            <div className="dropdown-content flex flex-col items-center text-center">
+              <Image src={filler} roundedCircle style={{ width:"40px" }}/>
+              <b>{loginUser.name}</b>
+              {loginUser.email}
+            </div>
+          </Nav.Link>
+        </NavDropdown.ItemText>
+        <NavDropdown.Divider></NavDropdown.Divider>
+        <NavDropdown.Item
+          onClick={handleLogout}
+          className="flex flex-col text-center"
+        >
+          로그아웃
+        </NavDropdown.Item>
+      </NavDropdown>
+     </>
   );
 };
 export default Logoutheader;

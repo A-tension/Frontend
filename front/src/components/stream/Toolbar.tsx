@@ -5,7 +5,7 @@ import IconComp from "../atoms/IconComp";
 import { Button, OverlayTrigger, Popover, Ratio } from "react-bootstrap";
 import ModalOverlay from "./ModalOverlay";
 import { useAppDispatch } from "../../store/hooks";
-import { meetingModeTest } from "../../store/meeting";
+import { meetingModeTest } from "../../store/test";
 import { useNavigate } from "react-router-dom";
 import Screen from "./Screen";
 interface Tool {

@@ -27,63 +27,64 @@ const TeachersToolbar = ({
     toggleQuiz();
     toggleTeacherMenu();
   };
-
   return (
     <div css={TotalComponent}>
-      <div className={display ? "openModal" : "closeModal"}>
-        <div className="buttonsContents">
-          <IconButton
-            color="inherit"
-            className="navButton"
-            id="navRandButton"
-            onClick={onClickRandomPick}
-            disabled={!randAvailable}
-          >
-            <div className="buttonStyle">
-              {randAvailable ? (
-                <Shuffle />
-              ) : (
-                <Shuffle
-                  color="secondary"
-                  style={{ animation: "cooldown 5s linear 1" }}
-                />
-              )}
-              <p>랜덤 학생 뽑기</p>
-            </div>
-          </IconButton>
+      {display && (
+        <div className="openModal">
+          <div className="buttonsContents">
+            <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickRandomPick}
+              disabled={!randAvailable}
+            >
+              <div className="buttonStyle">
+                {randAvailable ? (
+                  <Shuffle />
+                ) : (
+                  <Shuffle
+                    color="secondary"
+                    style={{ animation: "cooldown 5s linear 1" }}
+                  />
+                )}
+                <p>랜덤 학생 뽑기</p>
+              </div>
+            </IconButton>
 
-          <IconButton
-            color="inherit"
-            className="navButton"
-            id="navRandButton"
-            onClick={onClickStickerEvent}
-            disabled={!stickerAvailable}
-          >
-            <div className="buttonStyle">
-              {stickerAvailable ? (
-                <AccessTime />
-              ) : (
-                <AccessTime
-                  color="secondary"
-                  style={{ animation: "cooldown 30s linear 1" }}
-                />
-              )}
-              <p>집중 퐁퐁이</p>
-            </div>
-          </IconButton>
-          <IconButton
-            color="inherit"
-            className="navButton"
-            id="navRandButton"
-            onClick={onClickToggleQuiz}
-          >
-            <div className="buttonStyle">
-              <Quiz />
-              <p>퀴즈 열기</p>
-            </div>
-          </IconButton>
+            <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickStickerEvent}
+              disabled={!stickerAvailable}
+            >
+              <div className="buttonStyle">
+                {stickerAvailable ? (
+                  <AccessTime />
+                ) : (
+                  <AccessTime
+                    color="secondary"
+                    style={{ animation: "cooldown 30s linear 1" }}
+                  />
+                )}
+                <p>집중 퐁퐁이</p>
+              </div>
+            </IconButton>
+            <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickToggleQuiz}
+            >
+              <div className="buttonStyle">
+                <Quiz />
+                <p>퀴즈 열기</p>
+              </div>
+            </IconButton>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -106,12 +107,6 @@ const TotalComponent = css`
       grid-template-rows: 1fr 1fr 1fr;
       grid-template-columns: 1fr;
     }
-  }
-
-  .closeModal {
-    position: fixed;
-    visibility: hidden;
-    z-index: 0;
   }
 
   @keyframes modal-bg-show {
