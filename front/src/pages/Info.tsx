@@ -14,6 +14,7 @@ interface Edit {
 }
 function Info() {
   const loginUser = useAppSelector(selectUser);
+  console.log(loginUser);
   const [isEdit, setMode] = useState(false);
   const [data, setData] = useState<Edit>({
     name: loginUser.name || "",
@@ -97,15 +98,15 @@ function Info() {
                     name="name"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    value={data.name}
+                    value={loginUser.name}
                 />
               </FloatingLabel>
               <FloatingLabel label="프로필이미지">
                 <Form.Control
-                    name="profileImage"
+                     name="profileImage"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    value={data.profileImage}
+                    value={loginUser.profileImage}
                     type="text"
                 />
               </FloatingLabel>
