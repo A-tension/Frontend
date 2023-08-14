@@ -171,6 +171,22 @@ const handleEdit=()=>{
                   selectedUsers={selectedUsers} // 선택한 유저 목록 전달
                   onUserSelect={handleItemClick} // 유저 선택 이벤트 핸들러 전달
               />
+              <div>
+                  <div>초대된 유저</div>
+                  {selectedUsers.length > 0 ? (
+
+                      // {userList.map((user) => (
+                      //         <li key={user.userId}
+                      <ul>{selectedUsers.map((user => (
+                          <li key={user.userId}
+                              style={{display : 'flex',
+                              borderRadius: '5px',
+                          }}><img src={user.profileImage} style={{height: '30px'}}/>{user.name}</li>
+                      )))}</ul>
+                  ) :
+                    <ul></ul>
+                  }
+              </div>
           </FloatingLabel>
           <FloatingLabel label="그룹 설명" className="mb-3">
             <Form.Control
