@@ -6,10 +6,12 @@ import {
   Button,
   Popover,
   Dropdown,
+  Image
 
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
+import filler from "../assets/bwink_edu_04_single_04.jpg"
 const Logoutheader = () => {
 
   const loginUser = useAppSelector(selectUser);
@@ -85,20 +87,24 @@ const Logoutheader = () => {
         }
         style={{ borderRadius: "20px" }}
       >
-
-        {/* <Dropdown.Toggle style={{ color: "white" }}>
-          <div className="text-white">
-            {loginUser.name}</div> style={{ maxWidth: "10px" }}
-        </Dropdown.Toggle> */}
-        {/* <Dropdown.Menu> */}
-        <Dropdown.Item as={Link} to="/info">
-          마이페이지
-        </Dropdown.Item>
-        <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
-        {/* </Dropdown.Menu> */}
-      </Dropdown>
-
-    </>
+        <NavDropdown.ItemText as={Nav.Link} to="/info">
+          <Nav.Link as={Link} to="/info">
+            <div className="dropdown-content flex flex-col items-center text-center">
+              <Image src={filler} roundedCircle style={{ width:"40px" }}/>
+              <b>{loginUser.name}</b>
+              {loginUser.email}
+            </div>
+          </Nav.Link>
+        </NavDropdown.ItemText>
+        <NavDropdown.Divider></NavDropdown.Divider>
+        <NavDropdown.Item
+          onClick={handleLogout}
+          className="flex flex-col text-center"
+        >
+          로그아웃
+        </NavDropdown.Item>
+      </NavDropdown>
+     </>
   );
 };
 export default Logoutheader;

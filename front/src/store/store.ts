@@ -13,7 +13,7 @@ export const store =configureStore({
         groups:groupReducer,
         plan:planReducer,
         meeting:meetingReducer,
-
+        status:statusReducer,
         item:itemReducer,
 
     },

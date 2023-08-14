@@ -27,7 +27,6 @@ function Header() {
     dispatch(hideBackground(false));
   };
   // const loggedin =true;
-  // if(navBar)
   return (
     <>
       <div
@@ -48,7 +47,8 @@ function Header() {
           >
             소개
           </Nav.Link>
-          <Nav.Link to={"#features"}
+          <Nav.Link
+            to={"#features"}
             className="justify-start p-2"
             as={Link}
             href="#features"
@@ -58,24 +58,15 @@ function Header() {
           </Nav.Link>
           {/* , marginRight: "80px"  */}
 
-          {isLogin && (
-            <Nav className="ms-auto text-white" style={{ color: "white" }}>
+          {!isLogin && (
+            <Nav className="ms-auto flex items-center text-white" style={{ color: "white" }}>
               <Logoutheader />
-
-          {loggedIn && (
-            <Nav
-              className="ms-auto flex items-center text-white"
-              style={{ color: "white"}}
-            >
-              <Logoutheader checkLogin={checkLogin}></Logoutheader>
-
             </Nav>
           )}
-          {!isLogin && (
+
+          {isLogin && (
             <Nav className="ms-auto text-white">
-
               <Loginheader />
-
             </Nav>
           )}
         </Navbar>

@@ -53,14 +53,14 @@ function OAuth2RedirectHandler() {
             // 에러 처리 로직 추가
           });
 
-        findMyTeam<teamResponseDto>().then(function (result) {
+        findMyTeam<teamResponseDto[]>().then(function (result) {
           console.log(result.data);
           
-            (const teamResponseDto of result.data.data) {
+          for(const teamResponseDto of result.data.data) {
             const team: Team = {
               teamId: teamResponseDto.teamId,
               name: teamResponseDto.name,
-              profileImg: teamResponseDto.profileImg,
+              profileImage: teamResponseDto.profileImage,
             };
             dispatch(groupCreateTest(team));
           }
