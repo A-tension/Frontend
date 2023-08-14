@@ -29,6 +29,7 @@ function Info() {
     }));
   };
 
+  // 정보 수정 함수
   const handleEdit = async () => {
     try {
       const userProfileUpdateDto : UserProfileUpdateDTO = {
@@ -62,6 +63,7 @@ function Info() {
           name: userProfile.name,
           profileImage: userProfile.profileImage,
         });
+        console.log(" useEffect, userProfile = ", userProfile);
       } catch (error) {
         console.error(error);
       }
@@ -98,6 +100,7 @@ function Info() {
                     name="name"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
+                    // data로하면 받아지고 loginUser로하면 안받아짐 ㅋㅋ 킹받네
                     value={loginUser.name}
                 />
               </FloatingLabel>

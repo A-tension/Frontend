@@ -62,17 +62,18 @@ function OAuth2RedirectHandler() {
             // 에러 처리 로직 추가
           });
 
-          // 로그인 시에 user 정보 가져오기 
-          getUserProfile<UserResponseDTO>()
-          .then((response) => {
+          // 아래처럼 비동기 처리하면 다 받아와짐!!!!
+          try {
+            const response = await getUserProfile<UserResponseDTO>();
             console.log("response.data = ", response.data.data);
             const userProfile = response.data.data;
-            dispatch(userLogin(userProfile))            
-          })
-          .catch((error) => {
+            console.log(userProfile);
+            dispatch(userLogin(userProfile));
+          } catch (error) {
             console.error(error);
             // 에러 처리 로직 추가
-          });
+          }
+          
 
         findMyTeam<teamResponseDto>().then(function (result) {
           console.log(result.data);
