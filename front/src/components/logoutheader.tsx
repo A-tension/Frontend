@@ -6,20 +6,12 @@ import {
   Button,
   Popover,
   Dropdown,
-  DropdownButton,
-  NavItem,
-  Image,
+
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import profile from "../assets/Memoji.png";
-import filler from "../assets/bwink_edu_04_single_04.jpg";
-import '../pages/Header.css'
-interface Props {
-  checkLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const Logoutheader = (props: Props) => {
+const Logoutheader = () => {
+
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -31,7 +23,6 @@ const Logoutheader = (props: Props) => {
   const pathname = location.pathname;
   // console.log()
   const handleLogout = () => {
-    props.checkLogin(false);
     console.log("logout button clicked");
     dispatch(userLogout());
     navigate("/login");
@@ -94,23 +85,19 @@ const Logoutheader = (props: Props) => {
         }
         style={{ borderRadius: "20px" }}
       >
-        <NavDropdown.ItemText as={Nav.Link} to="/info">
-          <Nav.Link as={Link} to="/info">
-            <div className="dropdown-content flex flex-col items-center text-center">
-              <Image src={filler} roundedCircle width="40px" />
-              <b>{loginUser.name}</b>
-              {loginUser.email}
-            </div>
-          </Nav.Link>
-        </NavDropdown.ItemText>
-        <NavDropdown.Divider></NavDropdown.Divider>
-        <NavDropdown.Item
-          onClick={handleLogout}
-          className="flex flex-col text-center"
-        >
-          로그아웃
-        </NavDropdown.Item>
-      </NavDropdown>
+
+        {/* <Dropdown.Toggle style={{ color: "white" }}>
+          <div className="text-white">
+            {loginUser.name}</div> style={{ maxWidth: "10px" }}
+        </Dropdown.Toggle> */}
+        {/* <Dropdown.Menu> */}
+        <Dropdown.Item as={Link} to="/info">
+          마이페이지
+        </Dropdown.Item>
+        <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+        {/* </Dropdown.Menu> */}
+      </Dropdown>
+
     </>
   );
 };

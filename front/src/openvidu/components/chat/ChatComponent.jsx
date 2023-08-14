@@ -157,7 +157,7 @@ export default class ChatComponent extends Component {
     if (e.target.value === "all") this.setState({ messageTarget: "all" });
     else {
       const target = this.props.subscribers.filter(
-        (elem) => elem.nickname === e.target.value
+        (elem) => elem.nickname === e.target.value,
       );
       this.setState({ messageTarget: target[0] });
     }

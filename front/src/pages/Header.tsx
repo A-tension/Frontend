@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import "../App.css";
@@ -11,8 +11,15 @@ import { hideBackground } from "../store/test";
 function Header() {
   // NAV는 common에 들어가야 할까?
   // const [navBar, showNavBar] = useState(true);
-  const [loggedIn, checkLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [token, setToken] = useState<string | null>();
 
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [token]);
   // 화면 전환해서 회의 참여시에 헤더 어떻게 숨길지 생각해보기? if true else return?
   const dispatch = useAppDispatch();
 
@@ -50,17 +57,25 @@ function Header() {
             기능
           </Nav.Link>
           {/* , marginRight: "80px"  */}
+
+          {isLogin && (
+            <Nav className="ms-auto text-white" style={{ color: "white" }}>
+              <Logoutheader />
+
           {loggedIn && (
             <Nav
               className="ms-auto flex items-center text-white"
               style={{ color: "white"}}
             >
               <Logoutheader checkLogin={checkLogin}></Logoutheader>
+
             </Nav>
           )}
-          {!loggedIn && (
+          {!isLogin && (
             <Nav className="ms-auto text-white">
-              <Loginheader checkLogin={checkLogin} ></Loginheader>
+
+              <Loginheader />
+
             </Nav>
           )}
         </Navbar>

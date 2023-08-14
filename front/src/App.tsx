@@ -23,6 +23,8 @@ import Month from "./components/plan/Month";
 import Waiting from "./pages/Waiting";
 import List from "./components/item/List.tsx";
 import Draw from "./components/item/Draw.tsx";
+import OpenVidu from "./openvidu/App.jsx";
+
 import Create from "./components/meeting/Create.tsx";
 import OpenVidu from "./openvidu/App.jsx";
 import CalendarView from "./components/plan/CalendarView.tsx";
@@ -38,6 +40,7 @@ function App() {
   //임시 props 테스트
 
   
+
   return (
     <>
       <div className="font-SUIT">
@@ -54,15 +57,15 @@ function App() {
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<PlanView />}></Route>
 
+              {/* <Route path="month" element={<Month />}></Route> */}
             </Route>
 
             <Route path="meeting" element={<Meeting />}>
               <Route path="" element={<Navigate to="join" />}></Route>
               <Route path="join" element={<Join />}></Route>
-
-              <Route path="start" element={<Create />}></Route>
+              <Route path="start" element={<Start />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              <Route path="wait" element={<OpenVidu />}></Route>
+              <Route path="wait" element={<Waiting />}></Route>
 
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
