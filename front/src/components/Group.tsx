@@ -8,15 +8,11 @@ import { addDetail, getGrouplist, loadListTest } from "../store/group.ts";
 import { User, checkAuthority } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
-import { NavTab } from "./atoms/tab/NavTab.tsx";
-import { getTeamDetail } from "../api/team/teamApi.tsx";
-import { teamDetailResponseDto } from "../api/team/types.tsx";
-import { AxiosResponse } from "axios";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
   // id?:bigint|number;
-  teamId: bigint|number; // axios에서 생성 요청시 자동반환
+  teamId: bigint | number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
@@ -65,10 +61,10 @@ function Group() {
   const handleGroupSelect = (group: Team) => {
     selectGroup(group);
     //dispatch(hasAuthority());
-    
+
     if (TF) getAuth(TF); // 실제로는 team participant has auth?
     else getAuth(false);
-    console.log("selected"+group.name);
+    console.log("selected" + group.name);
   };
 
   const groups: Team[] = useAppSelector(getGrouplist);
@@ -162,16 +158,16 @@ function Group() {
           },
         ],
       };
-      console.log("use effect detail call by selected group dependency")
+      console.log("use effect detail call by selected group dependency");
       dispatch(addDetail(test));
     };
     loadGroupDetail();
   }, [dispatch, selectedGroup]);
-  const load =(e)=>{
+  const load = (e) => {
     e.preventDefault();
-    console.log("불러오기")
+    console.log("불러오기");
     dispatch(loadListTest);
-  }
+  };
   return (
     <>
       <div>
@@ -297,11 +293,7 @@ function Group() {
                           justifyContent: "flex-end",
                         }}
                       >
-                        <Button
-                          variant="primary"
-                          
-                          onClick={load}
-                        >
+                        <Button variant="primary" onClick={load}>
                           전송
                         </Button>
                       </div>
