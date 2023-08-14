@@ -61,7 +61,7 @@ function App() {
               <Route path="start" element={<Start />}></Route>
               <Route path="create" element={<Create />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              {/* <Route path="wait" element={<OpenVidu />} /> */}
+              <Route path="wait" element={<OpenVidu />} />
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
               {/*<Route path="conference" element={<VideoRoomComponent />}></Route>*/}
@@ -88,7 +88,7 @@ function App() {
           ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/wait" element={<OpenVidu />}></Route>
+          {/* <Route path="/wait" element={<OpenVidu />}></Route> */}
           <Route
             path="/oauth2/redirect"
             element={<OAuth2RedirectHandler />}
