@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { setupInterceptorsTo } from '@utils/AxiosInterceptor';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { setupInterceptorsTo } from "@utils/AxiosInterceptor";
 
 export interface Authorities {
   authorityName: string;
@@ -16,7 +16,6 @@ export interface Subject {
   title: string;
 }
 export interface ClassProps {
-  classId: number;
   teacherName: string;
   subjectEntity: {
     classSubjectCode: number;
@@ -28,15 +27,14 @@ export interface ClassProps {
   timetableId: number;
 }
 export const allClass = {
-  classId: -1,
-  teacherName: '',
+  teacherName: "",
   subjectEntity: {
     classSubjectCode: -1,
-    name: '',
+    name: "",
   },
-  classTitle: '전체',
+  classTitle: "전체",
   classDay: 0,
-  classDesc: '',
+  classDesc: "",
   timetableId: 0,
 };
 
@@ -82,44 +80,44 @@ export interface Items {
 
 export const allItems = {
   itemId: 1,
-  name: '',
+  name: "",
   rarity: 1,
-  category: '',
-  describe: '',
+  category: "",
+  describe: "",
   cnt: 0,
 };
 
 export interface StudentMember
-  extends Omit<Member, 'birth' | 'manageGrade' | 'authorities' | 'isAdmin'> {}
+  extends Omit<Member, "birth" | "manageGrade" | "authorities" | "isAdmin"> {}
 
 export interface TeacherMember
   extends Pick<
     Member,
-    | 'userId'
-    | 'name'
-    | 'email'
-    | 'profileFullPath'
-    | 'birth'
-    | 'manageGrade'
-    | 'authorities'
-    | 'isAdmin'
+    | "userId"
+    | "name"
+    | "email"
+    | "profileFullPath"
+    | "birth"
+    | "manageGrade"
+    | "authorities"
+    | "isAdmin"
   > {}
 
 const initialState = {
   userId: -1,
-  name: '',
-  email: '',
-  profileFullPath: '',
+  name: "",
+  email: "",
+  profileFullPath: "",
 
   // 학생만
   grade: -1,
   classNum: -1,
   studentNum: -1,
-  introduce: '소개 없음',
+  introduce: "소개 없음",
   point: 0,
   totalPoint: 0,
-  currentLevel: '',
-  nextLevel: '',
+  currentLevel: "",
+  nextLevel: "",
   levelPoint: 0,
   myRank: 0,
   jandiColor: 0,
@@ -133,25 +131,25 @@ const initialState = {
   ],
   classes: [],
   // 선생, 관리자만
-  birth: '',
+  birth: "",
   manageGrade: 0,
   authorities: [],
   isAdmin: 0,
 };
 
-export const getClasses = createAsyncThunk('getClasses', async (id: number) => {
+export const getClasses = createAsyncThunk("getClasses", async (id: number) => {
   const InterceptedAxios = setupInterceptorsTo(axios.create());
-  const response = await InterceptedAxios.get('/classes/' + id);
+  const response = await InterceptedAxios.get("/classes/" + id);
   const list = response.data.content;
   let newList: ClassProps[] = [];
   newList = [allClass, ...list];
   return newList;
 });
 
-export const saveMember = createAsyncThunk('saveMember', async () => {
+export const saveMember = createAsyncThunk("saveMember", async () => {
   const InterceptedAxios = setupInterceptorsTo(axios.create());
 
-  const uData = await InterceptedAxios.get('/users/info');
+  const uData = await InterceptedAxios.get("/users/info");
   const userData = uData.data;
 
   const { teacherId: tId, ...fUserData } = userData;
@@ -166,10 +164,10 @@ export const saveMember = createAsyncThunk('saveMember', async () => {
   return formattedUserData;
 });
 
-export const saveItem = createAsyncThunk('saveItem', async (id: number) => {
+export const saveItem = createAsyncThunk("saveItem", async (id: number) => {
   const InterceptedAxios = setupInterceptorsTo(axios.create());
 
-  const response = await InterceptedAxios.get('/items/' + id);
+  const response = await InterceptedAxios.get("/items/" + id);
 
   const list = response.data;
   let newList: Items[] = [];
@@ -187,13 +185,13 @@ const convert = (state, action: PayloadAction<any>) => {
     grade: action.payload?.grade ? action.payload?.grade : 0,
     classNum: action.payload?.classNum ? action.payload?.classNum : 0,
     studentNum: action.payload?.studentNum ? action.payload?.studentNum : 0,
-    introduce: action.payload?.introduce ? action.payload?.introduce : '',
+    introduce: action.payload?.introduce ? action.payload?.introduce : "",
     point: action.payload?.point ? action.payload?.point : 0,
     totalPoint: action.payload?.totalPoint ? action.payload?.totalPoint : 0,
     currentLevel: action.payload?.currentLevel
       ? action.payload?.currentLevel
-      : '',
-    nextLevel: action.payload?.nextLevel ? action.payload?.nextLevel : '',
+      : "",
+    nextLevel: action.payload?.nextLevel ? action.payload?.nextLevel : "",
     levelPoint: action.payload?.levelPoint ? action.payload?.levelPoint : 0,
     myRank: action.payload?.myRank ? action.payload?.myRank : 0,
     jandiColor: action.payload?.jandiColor ? action.payload?.jandiColor : 0,
@@ -202,7 +200,7 @@ const convert = (state, action: PayloadAction<any>) => {
     classes:
       action.payload?.classes === [] ? action.payload?.classes : state.classes,
     // 선생, 관리자만
-    birth: action.payload?.birth ? action.payload?.birth : '',
+    birth: action.payload?.birth ? action.payload?.birth : "",
     manageGrade: action.payload?.manageGrade ? action.payload?.manageGrade : 0,
     authorities: action.payload?.authorities ? action.payload?.authorities : [],
     isAdmin: action.payload?.isAdmin ? action.payload?.isAdmin : 0,
@@ -211,7 +209,7 @@ const convert = (state, action: PayloadAction<any>) => {
 };
 
 export const memberSlice = createSlice({
-  name: 'member',
+  name: "member",
   initialState: initialState,
   reducers: {
     logIn: (state, action: PayloadAction<any>) => {

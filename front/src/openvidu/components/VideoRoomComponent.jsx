@@ -10,12 +10,15 @@ import ChatComponent from "./chat/ChatComponent";
 // import ParticipantComponent from "./participant/ParticipantComponent";
 import QuestionComponent from "./question/QuestionComponent";
 // import FaceDetection from '../FaceDetection';
+import getCode from "../../utils/getCode";
 import EmojiFilter from "./items/EmojiFilter";
 import QuizModal from "./quiz/QuizModal";
 import QuizModalStudent from "./quiz/QuizModalStudent";
 import ShieldModal from "./items/ShieldModal";
 import ShieldModalLoading from "./items/ShieldModalLoading";
 import Sticker from "./pointClickEvent/PointSticker";
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
@@ -47,21 +50,32 @@ class VideoRoomComponent extends Component {
     // layout: 현재 레이아웃 (openvidu-layout.js와 연결)
     this.layout = new OpenViduLayout();
     // sessionName: 세션 이름을 담은 변수 (기본값 SessionA)
-    let sessionName = this.props.code;
+    // let sessionName = this.props.code;
+    const { conferenceJoinData, conferenceCreateData } = this.props;
+    let sessionName;
     // userName: 유저의 이름 (기본 OpenVidu_User + 0부터 99까지의 랜덤한 숫자)
+    // let userName = this.props.nickname;
     let userName;
+    if (conferenceCreateData) {
+      sessionName = this.props.code;
+      userName = conferenceCreateData.nickname;
+    } else if (conferenceJoinData !== "none" && conferenceJoinData) {
+      sessionName = conferenceJoinData.conferenceUrl;
+      userName = conferenceJoinData.nickname;
+    }
+
     // String(time.getMinutes()).padStart(2, '0') +
     //   ':' +
     //   String(time.getSeconds()).padStart(2, '0');
-    if (this.props.whoami === "student")
-      userName = `[${this.props.grade}${String(this.props.classNum).padStart(
-        2,
-        "0"
-      )}${String(this.props.studentNum).padStart(2, "0")}]${
-        this.props.memberStore.name
-      }`;
-    if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
-
+    // if (this.props.whoami === "student")
+    //   userName = `[${this.props.grade}${String(this.props.classNum).padStart(
+    //     2,
+    //     "0"
+    //   )}${String(this.props.studentNum).padStart(2, "0")}]${
+    //     this.props.memberStore.name
+    //   }`;
+    // if (this.props.whoami === "teacher")
+    //   userName =
     // remotes:
     this.remotes = [];
     // localUserAccessAllowed:
@@ -114,6 +128,7 @@ class VideoRoomComponent extends Component {
       isEmojiOn: false,
       isPointDouble: this.props.isUsedDoublePongpong,
       teacherMenuDisplay: false,
+      isCodeModalOpen: false,
     };
 
     // 메서드 바인딩 과정
@@ -1269,7 +1284,7 @@ class VideoRoomComponent extends Component {
     if (list.length > 0) {
       let studentList = [];
       list.forEach((elem) => {
-        if (!elem.nickname.includes("[선생님]")) studentList.push(elem);
+        studentList.push(elem);
       });
       if (studentList.length > 0) {
         let pickedStudent =
@@ -1612,6 +1627,14 @@ class VideoRoomComponent extends Component {
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
 
+  openCodeModal = () => {
+    this.setState({ isCodeModalOpen: true });
+  };
+
+  closeCodeModal = () => {
+    this.setState({ isCodeModalOpen: false });
+  };
+
   // render: 렌더링을 담당하는 함수
   render() {
     const mySessionId = this.state.mySessionId;
@@ -1720,17 +1743,7 @@ class VideoRoomComponent extends Component {
           >
             {localUser !== undefined &&
             localUser.getStreamManager() !== undefined ? (
-              <div
-                className={
-                  (this.state.videoLayout === "bigTeacher" &&
-                    localUser.nickname.includes("[선생님]")) ||
-                  (this.state.videoLayout === "screenShareOn" &&
-                    localUser.isScreenShareActive() === true)
-                    ? "OT_root OT_publisher custom-class OV_big"
-                    : "OT_root OT_publisher custom-class"
-                }
-                id="localUser"
-              >
+              <div id="localUser">
                 <StreamComponent
                   user={this.state.localUser}
                   currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}

@@ -7,7 +7,6 @@ const Result = (props) => {
   const {
     teacherName,
     classTitle,
-    classId,
     whoami,
     myData,
     othersData,
@@ -49,7 +48,6 @@ const Result = (props) => {
               studentList={studentList}
               studentInfo={studentInfo}
               absentData={absentData}
-              classId={classId}
             />
           </>
         ) : (

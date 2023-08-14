@@ -44,10 +44,21 @@ const App = () => {
   // 입장코드
   const { code } = useParams();
   const { state } = useLocation();
+  const [conferenceCreateData, setConferenceCreateData] = useState(null);
+  const [conferenceJoinData, setConferenceJoinData] = useState(null);
 
   const memberStore = useAppSelector((state) => state.member);
   // const whoami = whoru(memberStore.userId);
   const whoami = whoru(4444);
+
+  // conferenceJoinData와 conferenceCreateData를 결정하는 로직
+  useEffect(() => {
+    if (state.conferenceJoinData) {
+      setConferenceJoinData(state.conferenceJoinData);
+    } else if (state.conferenceCreateData) {
+      setConferenceCreateData(state.conferenceCreateData);
+    }
+  }, [state.conferenceJoinData, state.conferenceCreateData]);
 
   // 더블퐁퐁권 사용 가능 여부 판단
   useEffect(() => {
@@ -119,9 +130,8 @@ const App = () => {
     <>
       {tap === "setup" && (
         <SetupComponent
-          teacherName={state.teacherName}
-          classTitle={state.classTitle}
-          classId={state.classId}
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
           setTap={setTap}
           setDevices={setDevices}
           code={code}
@@ -139,12 +149,11 @@ const App = () => {
           memberStore={memberStore}
           whoami={whoami}
           setTap={setTap}
-          classId={state.classId}
           setMyData={setMyData}
           setOthersData={setOthersData}
           navigate={navigate}
-          teacherName={state.teacherName}
-          classTitle={state.classTitle}
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
           userId={4444}
           grade={4}
           classNum={4}
@@ -161,9 +170,8 @@ const App = () => {
           whoami={whoami}
           myData={myData}
           othersData={othersData}
-          teacherName={state.teacherName}
-          classTitle={state.classTitle}
-          classId={state.classId}
+          nickname={state.nickname}
+          conferenceTitle={state.conferenceTitle}
           studentList={studentList}
           studentInfo={studentInfo}
           absentData={absentData}

@@ -3,22 +3,26 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { hideBackground } from "../../store/meeting";
+
 interface MeetingData {
-  conferenceUrl: string;
+  conferenceTitle: string;
   nickname: string;
 }
-function Join() {
-  const [conferenceJoinData, setConferenceJoinData] = useState<MeetingData>({
-    conferenceUrl: "",
-    nickname: "",
-  });
+
+function Create() {
+  const [conferenceCreateData, setConferenceCreateData] = useState<MeetingData>(
+    {
+      conferenceTitle: "",
+      nickname: "",
+    }
+  );
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setConferenceJoinData((prevData) => ({
+    setConferenceCreateData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    console.log(conferenceJoinData);
+    console.log(conferenceCreateData);
   };
 
   // const history = useHistory
@@ -32,7 +36,7 @@ function Join() {
     // dispatch(meetingModeTest());
     navigate("/dash/meeting/wait", {
       state: {
-        conferenceJoinData: conferenceJoinData,
+        conferenceCreateData: conferenceCreateData,
       },
     });
   };
@@ -41,17 +45,17 @@ function Join() {
       {/* <h1>회의 참여</h1>
       <a>회의 링크 입력</a> */}
       <Form onSubmit={handleSubmit} className="mt-5">
-        <Form.Group lg as={Row} className="mb-3" controlId="conferenceUrl">
+        <Form.Group lg as={Row} className="mb-3" controlId="meetinglink">
           <Form.Label column sm={2}>
-            회의 코드
+            회의 제목
           </Form.Label>
           <Col sm={10}>
             <Form.Control
               size="lg"
               style={{ borderRadius: "20px" }}
-              placeholder="회의 코드를 입력하세요"
-              name="conferenceUrl"
-              value={conferenceJoinData.conferenceUrl}
+              placeholder="회의 제목을 입력하세요"
+              name="conferenceTitle"
+              value={conferenceCreateData.conferenceTitle}
               onChange={handleInputChange}
             />
           </Col>
@@ -66,7 +70,7 @@ function Join() {
               style={{ borderRadius: "20px" }}
               placeholder="닉네임을 입력하세요"
               name="nickname"
-              value={conferenceJoinData.nickname}
+              value={conferenceCreateData.nickname}
               onChange={handleInputChange}
             />
           </Col>
@@ -84,4 +88,4 @@ function Join() {
   );
 }
 
-export default Join;
+export default Create;
