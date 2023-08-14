@@ -27,6 +27,7 @@ const TeachersToolbar = ({
     toggleQuiz();
     toggleTeacherMenu();
   };
+
   return (
     <div css={TotalComponent}>
       {display && (
