@@ -187,7 +187,7 @@ const SetupComponent = (props) => {
           `/classes/${classId}/close`,
           {
             classId: classId,
-          }
+          },
         );
       } catch (e) {
         console.error(e);
@@ -201,20 +201,11 @@ const SetupComponent = (props) => {
   };
 
   return (
-    <div className="totalContainer">
-      {isLoading && <Loading whoami={whoami} />}
-      <div className="triangles">
-        <div className="triangle1" />
-        <div className="triangle2" />
-      </div>
-      <div className="parent">
-        <div className="child">
-          <div className="circles">
-            <div className="circle1" />
-            <div className="circle2" />
-            <div className="circle3" />
-          </div>
-          <hr />
+    <div className="">
+      {/* {isLoading && <Loading whoami={whoami} />} */}
+      <div className="">
+        <div className="">
+          {/* <hr /> */}
           <div className="sideContainer">
             <div className="main">
               <div className="RoomName title">
