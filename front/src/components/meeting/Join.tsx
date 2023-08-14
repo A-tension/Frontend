@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
-import { hideBackground } from "../../store/meeting";
+import { hideBackground } from "../../store/test";
 interface MeetingData {
   meetingLink: string;
   nickname: string;
