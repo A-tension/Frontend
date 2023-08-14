@@ -5,7 +5,7 @@ import { teamDetailResponseDto, userProfileDto } from "../api/team/types";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
-  teamId?: bigint|number; // axios에서 생성 요청시 자동반환
+  teamId: number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImage?: string;
   //이후 그룹 특정 조회시 추가되는 정보
@@ -110,7 +110,7 @@ export const groupSlice = createSlice({
     // teamId : bigint,
     // name : string,
     // profileImage : string,
-    // description : string,
+    // description : string
     // userProfileDtoList : userProfileDto[],},
 
     addDetail:(state, action:PayloadAction<teamDetailResponseDto>)=>{
@@ -130,7 +130,7 @@ export const groupSlice = createSlice({
 export const { groupCreateTest, loadListTest, addDetail,loginload} = groupSlice.actions;
 //getters
 export const getGrouplist = (state: RootState) => state.groups;
-export const selectGroupById = (teamId: bigint) =>
+export const selectGroupById = (teamId: number) =>
   createSelector(
     (state: RootState) => state.groups,
     (groups: Team[]) => groups.find(group => group.teamId === teamId)

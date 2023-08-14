@@ -16,7 +16,7 @@ import { AxiosResponse } from "axios";
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
   // id?:bigint|number;
-  teamId: bigint|number; // axios에서 생성 요청시 자동반환
+  teamId: number; // axios에서 생성 요청시 자동반환
   name: string;
   profileImg?: string;
   //이후 그룹 특정 조회시 추가되는 정보
