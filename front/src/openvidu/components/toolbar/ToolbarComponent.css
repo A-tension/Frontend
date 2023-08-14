@@ -21,16 +21,16 @@
 
 #teacher-header {
   color: #ffffff;
-  background: #8a3434; /* fallback for old browsers */
+  background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to left,
-    #8a3434,
-    #b81616,
+    #f0eded,
+    #73c0bd
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
-    #8a3434,
-    #b81616,
+    #f0eded,
+    #73c0bd
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   padding: 0 14px 0 0;
@@ -98,7 +98,7 @@
 }
 
 #session-title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 #navEmoji {

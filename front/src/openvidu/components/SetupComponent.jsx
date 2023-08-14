@@ -162,13 +162,6 @@ const SetupComponent = (props) => {
   };
 
   const goNext = async () => {
-    if (isUsedDoublePongpong) {
-      try {
-        await InterceptedAxios.delete(`/items/${userId}/4`);
-      } catch (e) {
-        console.error(e);
-      }
-    }
     setTap("class");
 
     // 여기서 필요한 데이터를 전달하고자 한다면 아래와 같이 작성
@@ -193,7 +186,7 @@ const SetupComponent = (props) => {
         console.error(e);
       }
     }
-    window.location.href = `/${whoami}`;
+    window.location.href = `/dash/meeting`;
   };
 
   const onClickDoublePongpong = () => {

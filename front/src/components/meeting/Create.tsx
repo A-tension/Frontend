@@ -80,12 +80,12 @@ function Create() {
         </Form.Group>
         {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
 
-        <Button type="submit" size="lg" variant="primary">
-          생성
-        </Button>
-        <Button type="reset" size="lg" variant="outline-secondary">
-          취소
-        </Button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button type="submit" size="lg" variant="primary">
+            생성
+          </Button>
+          <div style={{ marginLeft: "10px" }} />
+        </div>
       </Form>
     </>
   );
