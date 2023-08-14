@@ -41,22 +41,36 @@
 //   // 라우팅용
 //   const navigate = useNavigate();
 
-//   // 입장코드
-//   const { code } = useParams();
-//   const { state } = useLocation();
+
+  // 입장코드
+  const { code } = useParams();
+  const { state } = useLocation();
+  const [conferenceCreateData, setConferenceCreateData] = useState(null);
+  const [conferenceJoinData, setConferenceJoinData] = useState(null);
+
 
 //   const memberStore = useAppSelector((state) => state.member);
 //   const whoami = whoru(memberStore.userId);
 
-//   // 더블퐁퐁권 사용 가능 여부 판단
-//   useEffect(() => {
-//     const getUserItems = async () => {
-//       const result = await InterceptedAxios.get(`/items/${memberStore.userId}`);
-//       if (result.data.filter((elem) => elem.itemId === 4)[0].cnt > 0)
-//         setCanUseDoublePongpong(true);
-//     };
-//     if (whoami !== "teacher") getUserItems();
-//   });
+
+  // conferenceJoinData와 conferenceCreateData를 결정하는 로직
+  useEffect(() => {
+    if (state.conferenceJoinData) {
+      setConferenceJoinData(state.conferenceJoinData);
+    } else if (state.conferenceCreateData) {
+      setConferenceCreateData(state.conferenceCreateData);
+    }
+  }, [state.conferenceJoinData, state.conferenceCreateData]);
+
+  // 더블퐁퐁권 사용 가능 여부 판단
+  useEffect(() => {
+    const getUserItems = async () => {
+      // const result = await InterceptedAxios.get(`/items/${memberStore.userId}`);
+      // if (result.data.filter((elem) => elem.itemId === 4)[0].cnt > 0)
+    };
+    if (whoami !== "teacher") getUserItems();
+  });
+
 
 //   // 학생셋 만들기
 //   useEffect(() => {
@@ -111,63 +125,61 @@
 //     setIsAudioOn,
 //   };
 
-//   return (
-//     <>
-//       {tap === "setup" && (
-//         <SetupComponent
-//           teacherName={state.teacherName}
-//           classTitle={state.classTitle}
-//           classId={state.classId}
-//           setTap={setTap}
-//           setDevices={setDevices}
-//           code={code}
-//           whoami={whoami}
-//           canUseDoublePongpong={canUseDoublePongpong}
-//           isUsedDoublePongpong={isUsedDoublePongpong}
-//           setIsUsedDoublePongpong={setIsUsedDoublePongpong}
-//           userId={memberStore.userId}
-//         />
-//       )}
-//       {tap === "class" && (
-//         <VideoRoomComponent
-//           setDevices={setDevices}
-//           code={code}
-//           memberStore={memberStore}
-//           whoami={whoami}
-//           setTap={setTap}
-//           classId={state.classId}
-//           setMyData={setMyData}
-//           setOthersData={setOthersData}
-//           navigate={navigate}
-//           teacherName={state.teacherName}
-//           classTitle={state.classTitle}
-//           userId={memberStore.userId}
-//           grade={memberStore.grade}
-//           classNum={memberStore.classNum}
-//           studentNum={memberStore.studentNum}
-//           studentList={studentList}
-//           levelPng={levelPng}
-//           setAbsentData={setAbsentData}
-//           setTeacherData={setTeacherData}
-//           isUsedDoublePongpong={isUsedDoublePongpong}
-//         />
-//       )}
-//       {tap === "result" && (
-//         <ResultComponent
-//           whoami={whoami}
-//           myData={myData}
-//           othersData={othersData}
-//           teacherName={state.teacherName}
-//           classTitle={state.classTitle}
-//           classId={state.classId}
-//           studentList={studentList}
-//           studentInfo={studentInfo}
-//           absentData={absentData}
-//           teacherData={teacherData}
-//         />
-//       )}
-//     </>
-//   );
-// };
+
+  return (
+    <>
+      {tap === "setup" && (
+        <SetupComponent
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
+          setTap={setTap}
+          setDevices={setDevices}
+          code={code}
+          whoami={whoami}
+          canUseDoublePongpong={canUseDoublePongpong}
+          isUsedDoublePongpong={isUsedDoublePongpong}
+          setIsUsedDoublePongpong={setIsUsedDoublePongpong}
+          userId={4444}
+        />
+      )}
+      {tap === "class" && (
+        <VideoRoomComponent
+          setDevices={setDevices}
+          code={code}
+          memberStore={memberStore}
+          whoami={whoami}
+          setTap={setTap}
+          setMyData={setMyData}
+          setOthersData={setOthersData}
+          navigate={navigate}
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
+          userId={4444}
+          grade={4}
+          classNum={4}
+          studentNum={2}
+          studentList={studentList}
+          // levelPng={levelPng}
+          setAbsentData={setAbsentData}
+          setTeacherData={setTeacherData}
+          isUsedDoublePongpong={isUsedDoublePongpong}
+        />
+      )}
+      {tap === "result" && (
+        <ResultComponent
+          whoami={whoami}
+          myData={myData}
+          othersData={othersData}
+          nickname={state.nickname}
+          conferenceTitle={state.conferenceTitle}
+          studentList={studentList}
+          studentInfo={studentInfo}
+          absentData={absentData}
+          teacherData={teacherData}
+        />
+      )}
+    </>
+  );
+};
 
 // export default App;

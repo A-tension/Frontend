@@ -23,6 +23,8 @@ import Month from "./components/plan/Month";
 import Waiting from "./pages/Waiting";
 import List from "./components/item/List.tsx";
 import Draw from "./components/item/Draw.tsx";
+import Create from "./components/meeting/Create.tsx";
+import OpenVidu from "./openvidu/App.jsx";
 import CalendarView from "./components/plan/CalendarView.tsx";
 import { useAppSelector } from "./store/hooks.ts";
 import { getPlanlist, loadListTest } from "./store/plan.ts";
@@ -42,32 +44,26 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path="/" element={<Landing />}></Route>
-          {/* 캘린더 테스트 용 */}
-          {/* <Route
-            path="/test"
-            element={<Month navigate={addPlan} planData={eventData} />}
-          ></Route> */}
-          {/* 여기까지  */}
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
-              {/* 캘린더 테스트  */}
-              {/* <Route
-                index
-                element={<Month navigate={addPlan} planData={eventData} />}
-              ></Route> */}
-               {/* 캘린더 테스트 여기까지 */}
-              {/* <Route path="add" element={<Planner />}></Route>
-              <Route path="plan" element={<PlanView />}></Route> */}
+
+              //일정 추가는 그룹일정에서 추가하러 옴,,
+              <Route index element={<Month />}></Route>
+              <Route path="add" element={<Planner />}></Route>
+              <Route path="plan" element={<PlanView />}></Route>
+
             </Route>
 
             <Route path="meeting" element={<Meeting />}>
               <Route path="" element={<Navigate to="join" />}></Route>
               <Route path="join" element={<Join />}></Route>
-              <Route path="start" element={<Start />}></Route>
+
+              <Route path="start" element={<Create />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              <Route path="wait" element={<Waiting />}></Route>
+              <Route path="wait" element={<OpenVidu />}></Route>
+
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
               {/*<Route path="conference" element={<VideoRoomComponent />}></Route>*/}
@@ -88,7 +84,9 @@ function App() {
             ></Route>
           </Route>
           <Route path="join" element={<JoinMeeting />}></Route>//굳이?
-          {/* <Route path="/wait" element={<OpenVidu />} /> */}
+
+          <Route path="/wait" element={<OpenVidu />} />
+
           <Route
             path="conference"
             element={<Conference sessionId="" myUserName="" />}
