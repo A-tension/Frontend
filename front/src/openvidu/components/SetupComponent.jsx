@@ -196,25 +196,10 @@ const SetupComponent = (props) => {
     window.location.href = `/${whoami}`;
   };
 
-  const onClickDoublePongpong = () => {
-    setIsUsedDoublePongpong(!isUsedDoublePongpong);
-  };
 
   return (
-    <div className="totalContainer">
-      {isLoading && <Loading whoami={whoami} />}
-      <div className="triangles">
-        <div className="triangle1" />
-        <div className="triangle2" />
-      </div>
-      <div className="parent">
-        <div className="child">
-          <div className="circles">
-            <div className="circle1" />
-            <div className="circle2" />
-            <div className="circle3" />
-          </div>
-          <hr />
+    <div className="">
+
           <div className="sideContainer">
             <div className="main">
               <div className="RoomName title">
@@ -288,20 +273,7 @@ const SetupComponent = (props) => {
                   </select>
                 </div>
               </div>
-              {canUseDoublePongpong && (
-                <div className="double-pongpong-toggle">
-                  {isUsedDoublePongpong ? (
-                    <span>더블퐁퐁권 사용O</span>
-                  ) : (
-                    <span>더블퐁퐁권 사용X</span>
-                  )}
-                  <Switch
-                    checked={isUsedDoublePongpong}
-                    onClick={onClickDoublePongpong}
-                    color="error"
-                  />
-                </div>
-              )}
+
               <div className="next">
                 <button className="nextBtn" onClick={goNext}>
                   입장하기
@@ -312,8 +284,6 @@ const SetupComponent = (props) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
   );
 };

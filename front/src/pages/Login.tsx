@@ -12,21 +12,21 @@ import { store } from "../store/store";
 function Login() {
   // const headerHeight = 78; // Change this value to match your actual header height
   // const colHeight = `calc(100vh - ${headerHeight}px)`;
-  const trytologin: User = {
-    name: "네이버",
-    email: "ssafy@naver.com",
-    userId: "김싸피",
-  };
+  // const trytologin: User = {
+  //   name: "네이버",
+  //   email: "ssafy@naver.com",
+  //   userId: "",
+  // };
   const dispatch = useAppDispatch();
   
   const handleTest = () => {
     //api 요청으로
     //auth?
-    sessionStorage.setItem("loginUser",JSON.stringify(trytologin));
+    // sessionStorage.setItem("loginUser",JSON.stringify(trytologin));
 
-    dispatch(userLogin(trytologin));//axios에서 처리
-    const usergroups = getUserGroups(store.getState());
-    dispatch(loginload(usergroups))
+    // dispatch(userLogin(trytologin));//axios에서 처리
+    // const usergroups = getUserGroups(store.getState());
+    // dispatch(loginload(usergroups))
     
   };
   return (
@@ -44,9 +44,9 @@ function Login() {
               ></Image>
             </div>
           </Col>
-
+{/* onClick={handleTest} */}
           <Col className="position-relative py-2 px-4 d-flex flex-column align-items-center justify-content-center">
-            <a className="mb-4" href={import.meta.env.VITE_NAVER_AUTH_URL} onClick={handleTest}>
+            <a className="mb-4" href={import.meta.env.VITE_NAVER_AUTH_URL} >
               <img src={loginN} alt="naver login " width={183}/>
             </a>
             <a className="mb-4" href={import.meta.env.VITE_KAKAO_AUTH_URL}>

@@ -28,7 +28,7 @@ export const createTeam = async <T = void, R = AxiosResponse<T>>(data?: createTe
     }
 }
 
-export const getTeamDetail = async <T = teamDetailResponseDto, R = AxiosResponse<T>>(teamId: bigint):Promise<R> => {
+export const getTeamDetail = async <T = teamDetailResponseDto, R = AxiosResponse<T>>(teamId: number):Promise<R> => {
     try {
         return await api.get<T, R>(`/team/${teamId}`);
     } catch (err) {
@@ -37,7 +37,7 @@ export const getTeamDetail = async <T = teamDetailResponseDto, R = AxiosResponse
     }
 }
 
-export const updateTeam = async <T = teamUpdateRequestDto, R = AxiosResponse<T>>(teamId: bigint, data? : teamUpdateRequestDto):Promise<R> => {
+export const updateTeam = async <T = teamUpdateRequestDto, R = AxiosResponse<T>>(teamId: number, data? : teamUpdateRequestDto):Promise<R> => {
     try {
         return await api.put<T, R>(`/team/${teamId}`, data);
     } catch (err) {
@@ -46,7 +46,7 @@ export const updateTeam = async <T = teamUpdateRequestDto, R = AxiosResponse<T>>
     }
 }
 
-export const deleteTeam = async <T = void, R = AxiosResponse<T>>(teamId: bigint):Promise<R> => {
+export const deleteTeam = async <T = void, R = AxiosResponse<T>>(teamId: number):Promise<R> => {
     try {
         return await api.delete<T, R>(`/team/${teamId}`);
     } catch (err) {
@@ -63,7 +63,7 @@ export const inviteTeam = async <T = void, R = AxiosResponse<T>>(data? : teamInv
         throw new Error('Failed to invite Team')
     }
 }
-export const acceptTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
+export const acceptTeam = async <T = void, R = AxiosResponse<T>>(teamId : number):Promise<R> => {
     try {
         console.log(teamId)
         return await api.post<T, R>(`/team/accept/${teamId}`);
@@ -73,7 +73,7 @@ export const acceptTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint
     }
 }
 
-export const refuseTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
+export const refuseTeam = async <T = void, R = AxiosResponse<T>>(teamId : number):Promise<R> => {
     try {
         return await api.delete<T, R>(`/team/refuse/${teamId}`);
     } catch (err) {
@@ -82,7 +82,7 @@ export const refuseTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint
     }
 }
 
-export const leaveTeam = async <T = void, R = AxiosResponse<T>>(teamId : bigint):Promise<R> => {
+export const leaveTeam = async <T = void, R = AxiosResponse<T>>(teamId : number):Promise<R> => {
     try {
         return await api.delete(`/team/leave/${teamId}`);
     } catch (err) {

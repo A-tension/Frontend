@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Plan, planCreateTest } from "../../store/plan";
 import { Team } from "../../store/group";
@@ -59,9 +59,9 @@ function Planner(props: Props) {
     description: "",
 
     id: randomId, //사용자 입력으로 받을 수 없는 것 //extendedProps.id
-    teamId: Number(456n), //사용자 입력으로 받을 수 없는 것 //extendedProps.teamId
+    teamId:propgroup.teamId , //사용자 입력으로 받을 수 없는 것 //extendedProps.teamId
     teamName: "5B1F", //groupId
-    profileImage: "fillerImg", //extendedProps.profileImage
+    profileImage: propgroup.profileImage, //extendedProps.profileImage
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,22 +79,46 @@ function Planner(props: Props) {
       }));
     }
   };
-  const handleSubmitForm = (e: { preventDefault: () => void }) => {
+  // const handleSubmitForm = (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   console.log("now go to calendar and show planview");
+
+  //   console.log(planData);
+  //   // dispatch(planCreateTest(planData));
+  //   // props.selectTab()
+  //   // if (propgroup) {
+  //   // navigate("/dash/group",{state:{group:propgroup}})
+  //   navigate("/dash/calendar", {
+  //     state: { plan: planData, propgroup: propgroup, tab: "planView" },
+  //   });
+  //   // } else {
+  //   //  navigate("/dash/calendar/plan",{state:{plan:planData}});
+  //   // }
+  // };
+  const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("now go to calendar and show planview");
-
+  
     console.log(planData);
-    // dispatch(planCreateTest(planData));
-    // props.selectTab()
-    // if (propgroup) {
-    // navigate("/dash/group",{state:{group:propgroup}})
-    navigate("/dash/calendar", {
-      state: { plan: planData, propgroup: propgroup, tab: "planView" },
-    });
-    // } else {
-    //  navigate("/dash/calendar/plan",{state:{plan:planData}});
-    // }
+    dispatch(planCreateTest(planData));
   };
+  
+  // Use the useEffect hook to navigate after the action is completed
+  useEffect(() => {
+    const navigateAfterAction = async () => {
+      // Wait for the action to complete before navigating
+      await dispatch(planCreateTest(planData));
+  
+      // Navigate after the action is completed
+      navigate("/dash/calendar", {
+        state: { plan: planData, propgroup: propgroup, tab: "planView" },
+      });
+    };
+  
+    navigateAfterAction();
+  }, [dispatch, navigate, planData, propgroup]);
+
+
 
   const handleBack = () => {
     if (!location.state.group) {
@@ -142,7 +166,7 @@ function Planner(props: Props) {
             />
           </Col>
         </Form.Group>
-        <Form.Group as={Row} className="mb-3" controlId="formHorizontalMembers">
+        {/* <Form.Group as={Row} className="mb-3" controlId="formHorizontalMembers">
           <Form.Label
             column
             sm={1}
@@ -172,7 +196,7 @@ function Planner(props: Props) {
               onChange={handleInputChange}
             />
           </Col>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group as={Row} className="mb-3" controlId="formStartDate">
           <Form.Label
             column

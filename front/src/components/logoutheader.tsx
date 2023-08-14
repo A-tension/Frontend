@@ -21,7 +21,6 @@ const Logoutheader = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-
   const pathname = location.pathname;
   // console.log()
   const handleLogout = () => {
@@ -54,7 +53,7 @@ const Logoutheader = () => {
       <Nav.Link
         as={Link}
         to="/dash"
-        state={{ prevPath: pathname }}
+        // state={{ prevPath: pathname }}
         className="text-white"
       >
         대시보드

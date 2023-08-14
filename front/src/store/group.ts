@@ -1,7 +1,7 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { User, userLoginTest } from "./user";
-import { teamDetailResponseDto, userProfileDto } from "../api/team/types";
+import { teamDetailResponseDto, teamResponseDto, userProfileDto } from "../api/team/types";
 
 export interface Team {
   //로그인시 받아오는 유저의 그룹 목록에 있는 정보
@@ -124,10 +124,19 @@ export const groupSlice = createSlice({
           group.teamId === findId ? details : group
         );
       
+    },addList:(state, action:PayloadAction<teamResponseDto[]>)=>{
+      const myGroups = action.payload;      
+      return [
+        ...state.filter(
+          (groups) =>
+            !myGroups.some((newGroups) => newGroups.teamId  === groups.teamId)
+        ),
+        ...myGroups,
+      ];
     }
   },
 });
-export const { groupCreateTest, loadListTest, addDetail,loginload} = groupSlice.actions;
+export const { groupCreateTest, loadListTest, addDetail,addList,loginload} = groupSlice.actions;
 //getters
 export const getGrouplist = (state: RootState) => state.groups;
 export const selectGroupById = (teamId: number) =>

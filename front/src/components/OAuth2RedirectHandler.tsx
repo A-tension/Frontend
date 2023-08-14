@@ -5,7 +5,7 @@ import { findMyItemList } from "../api/item/itemApi";
 import { FindMyItemResponseDto } from "../api/item/types";
 import { findMyTeam } from "../api/team/teamApi.tsx";
 import { teamResponseDto } from "../api/team/types.tsx";
-import { groupCreateTest } from "../store/group.ts";
+import { addList, groupCreateTest } from "../store/group.ts";
 import { useAppDispatch } from "../store/hooks.ts";
 import { Team } from "../store/group.ts";
 import { findMyPlan } from "../api/plan/planApi.tsx";
@@ -53,36 +53,41 @@ function OAuth2RedirectHandler() {
             // 에러 처리 로직 추가
           });
 
-            const myTeam =  findMyTeam<teamResponseDto>();
-            myTeam.then(function (result) {
-                console.log(result.data);
-                for (const teamResponseDto of result.data.data) {
-                    const team : Team = {
-                        teamId : teamResponseDto.teamId,
-                        name : teamResponseDto.name,
-                        profileImage : teamResponseDto.profileImage,
-                    }
-                    dispatch(groupCreateTest(team))
-                }
-            })
-            const myPlan = findMyPlan<planResponseDto>();
-            myPlan.then(function (result) {
-                console.log(result.data);
-                for (const planResponseDto of result.data.data) {
-                    const plan : Plan = {
-                        id : planResponseDto.id,
-                        teamId : planResponseDto.teamId,
-                        name : planResponseDto.name,
-                        startTime : planResponseDto.startTime,
-                        endTime : planResponseDto.endTime
-                    }
-                    dispatch(planCreateTest(plan))
-                }
-            })
-        } else {
-            navigate('/login', { state: { from: location, error: error } });
-        }
-    }, [])
+        findMyTeam<teamResponseDto[]>().then(function (result) {
+          console.log(result.data);
+          dispatch(addList(result.data.data))
+          // for(const teamResponseDto of result.data.data) {
+          //   const team: Team = {
+          //     teamId: teamResponseDto.teamId,
+          //     name: teamResponseDto.name,
+          //     profileImage: teamResponseDto.profileImage,
+          //   };
+          //   // dispatch(groupCreateTest(team));
+          // }
+        });
+
+        findMyPlan<planResponseDto>().then(function (result) {
+          console.log(result.data);
+          for (const planResponseDto of result.data.data) {
+            const plan: Plan = {
+              id: planResponseDto.id,
+              teamId: planResponseDto.teamId,
+              name: planResponseDto.name,
+              startTime: planResponseDto.startTime,
+              endTime: planResponseDto.endTime,
+            };
+            dispatch(planCreateTest(plan));
+          }
+        });
+      } else {
+        navigate("/login", { state: { from: location, error: error } });
+      }
+    };
+    setTokenToLocalStorage().then(() => {
+      navigate("/");
+    });
+  }, []);
+
 
   return null; // Since we're doing redirects, there's nothing to render
 }

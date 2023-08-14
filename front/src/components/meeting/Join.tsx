@@ -30,7 +30,7 @@ function Join() {
     const formData = new FormData(e.target);
     const dataObject = Object.fromEntries(formData);
     // dispatch(meetingModeTest());
-    navigate("/dash/meeting/wait", {
+    navigate("/dash/meeting", {
       state: {
         conferenceJoinData: conferenceJoinData,
       },

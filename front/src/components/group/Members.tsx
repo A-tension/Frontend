@@ -8,7 +8,7 @@ import { teamDetail, userProfileDto } from "../../api/team/types";
 interface Props {
   groupId?: number;
   groupName?: string;
-  teamProp?: Team | teamDetail;
+  teamProp?:Team;
 }
 
 export const Members = (props: Props) => {
@@ -20,8 +20,8 @@ export const Members = (props: Props) => {
   // getAuth(true);
     // getAuth(auth);
   if (props.teamProp !== undefined) {
-  const group: Team| teamDetail = props.teamProp;
-  const members: User[] | string[] |userProfileDto[] = group.members ? group.members : group.userProfileDtoList;
+  const group: teamDetail = props.teamProp;
+  const members:userProfileDto[] = group.userProfileDtoList;
   
 
 const handleMember=()=>{
@@ -36,7 +36,7 @@ const handleMember=()=>{
   // if (typeof members[0] === "object") {
     //|userProfileDto[] |userProfileDto
 
-   memberList = (members as User[]|string[]).map((member: User|string, index: number) => (
+   memberList = (members as userProfileDto[]).map((member: userProfileDto, index: number) => (
       <ListGroup.Item
         key={index}
         style={{
@@ -47,7 +47,7 @@ const handleMember=()=>{
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
         onClick={handleMember}
-      >{typeof member==typeof "g" && member}
+      >
         {member.name}
       </ListGroup.Item>
     ));

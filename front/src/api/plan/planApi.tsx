@@ -20,7 +20,7 @@ export const findMyPlan = async <T = planResponseDto[], R = AxiosResponse<T>>() 
 //     return new ResponseEntity<>(new MessageWithData(("그룹의 일정을 가져왔습니다."), data), HttpStatus.OK);
 // }
 
-export const getTeamPlan = async <T = planResponseDto[], R = AxiosResponse<T>>(teamId:bigint):Promise<R> => {
+export const getTeamPlan = async <T = planResponseDto[], R = AxiosResponse<T>>(teamId:number):Promise<R> => {
     try {
         return await api.get<T, R>(`/plan/${teamId}`);
     } catch (err) {

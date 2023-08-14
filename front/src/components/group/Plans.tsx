@@ -18,10 +18,7 @@ function Plans(props: Props) {
     navigate("/dash/calendar", { state: { group: props.teamProp,tab:"add" } });
   };
 
-  const thisTeamId =
-    typeof props.teamProp?.teamId === typeof BigInt
-      ? props.teamProp?.teamId
-      : 0n;
+  const thisTeamId = props.teamProp?.teamId;
 
   const [groupPlan, setPlan] = useState<planResponseDto[]>([]);
   useEffect(() => {
