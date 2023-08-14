@@ -53,41 +53,36 @@ function OAuth2RedirectHandler() {
             // 에러 처리 로직 추가
           });
 
-        findMyTeam<teamResponseDto[]>().then(function (result) {
-          console.log(result.data);
-          
-          for(const teamResponseDto of result.data.data) {
-            const team: Team = {
-              teamId: teamResponseDto.teamId,
-              name: teamResponseDto.name,
-              profileImage: teamResponseDto.profileImage,
-            };
-            dispatch(groupCreateTest(team));
-          }
-        });
-
-        findMyPlan<planResponseDto>().then(function (result) {
-          console.log(result.data);
-          for (const planResponseDto of result.data.data) {
-            const plan: Plan = {
-              id: planResponseDto.id,
-              teamId: planResponseDto.teamId,
-              name: planResponseDto.name,
-              startTime: planResponseDto.startTime,
-              endTime: planResponseDto.endTime,
-            };
-            dispatch(planCreateTest(plan));
-          }
-        });
-      } else {
-        navigate("/login", { state: { from: location, error: error } });
-      }
-    };
-    setTokenToLocalStorage().then(() => {
-      navigate("/");
-    });
-  }, []);
-
+            const myTeam =  findMyTeam<teamResponseDto>();
+            myTeam.then(function (result) {
+                console.log(result.data);
+                for (const teamResponseDto of result.data.data) {
+                    const team : Team = {
+                        teamId : teamResponseDto.teamId,
+                        name : teamResponseDto.name,
+                        profileImage : teamResponseDto.profileImage,
+                    }
+                    dispatch(groupCreateTest(team))
+                }
+            })
+            const myPlan = findMyPlan<planResponseDto>();
+            myPlan.then(function (result) {
+                console.log(result.data);
+                for (const planResponseDto of result.data.data) {
+                    const plan : Plan = {
+                        id : planResponseDto.id,
+                        teamId : planResponseDto.teamId,
+                        name : planResponseDto.name,
+                        startTime : planResponseDto.startTime,
+                        endTime : planResponseDto.endTime
+                    }
+                    dispatch(planCreateTest(plan))
+                }
+            })
+        } else {
+            navigate('/login', { state: { from: location, error: error } });
+        }
+    }, [])
 
   return null; // Since we're doing redirects, there's nothing to render
 }
