@@ -71,12 +71,11 @@ class VideoRoomComponent extends Component {
     if (this.props.whoami === "student")
       userName = `[${this.props.grade}${String(this.props.classNum).padStart(
         2,
-        "0",
+        "0"
       )}${String(this.props.studentNum).padStart(2, "0")}]${
         this.props.memberStore.name
       }`;
     if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
-
 
     // remotes:
     this.remotes = [];
@@ -233,7 +232,7 @@ class VideoRoomComponent extends Component {
     // 초기 화면 설정
     this.layout.initLayoutContainer(
       document.getElementById("layout"),
-      openViduLayoutOptions,
+      openViduLayoutOptions
     );
 
     // 화면 크기 변경 및 종료시 발생하는 이벤트핸들러 달아두기
@@ -270,7 +269,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
-      },
+      }
     );
   }
 
@@ -479,7 +478,7 @@ class VideoRoomComponent extends Component {
         console.log(
           "There was an error connecting to the session:",
           error.code,
-          error.message,
+          error.message
         );
       });
   }
@@ -490,13 +489,13 @@ class VideoRoomComponent extends Component {
     if (this.props.whoami === "teacher") updateTeacher = localUser;
     else
       updateTeacher = this.remotes.filter(
-        (elem) => elem.nickname.substr(1, 3) === "선생님",
+        (elem) => elem.nickname.substr(1, 3) === "선생님"
       );
 
     if (this.props.whoami === "teacher") updateStudents = this.remotes;
     else
       updateStudents = this.remotes.filter(
-        (elem) => elem.nickname.substr(1, 3) !== "선생님",
+        (elem) => elem.nickname.substr(1, 3) !== "선생님"
       );
     this.setState({
       teacher: updateTeacher,
@@ -571,10 +570,10 @@ class VideoRoomComponent extends Component {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           this.updateLayout();
           publisher.videos[0].video.parentElement.classList.remove(
-            "custom-class",
+            "custom-class"
           );
         });
-      },
+      }
     );
   }
 
@@ -601,7 +600,7 @@ class VideoRoomComponent extends Component {
         this.updateLayout();
         // this.whoAbsent();
         this.whoTeacherOrStudent();
-      },
+      }
     );
     // console.log('하ㅔ앟멯ㅇㅎ', subscribers);
   }
@@ -647,7 +646,7 @@ class VideoRoomComponent extends Component {
           `/classes/${this.props.classId}/close`,
           {
             classId: this.props.classId,
-          },
+          }
         );
       } catch (e) {
         console.error(e);
@@ -767,7 +766,7 @@ class VideoRoomComponent extends Component {
   deleteSubscriber(stream) {
     const remoteUsers = this.state.subscribers;
     const userStream = remoteUsers.filter(
-      (user) => user.getStreamManager().stream === stream,
+      (user) => user.getStreamManager().stream === stream
     )[0];
     this.props.setTeacherData(userStream);
     let index = remoteUsers.indexOf(userStream, 0);
@@ -791,7 +790,7 @@ class VideoRoomComponent extends Component {
       subscriber.on("streamPlaying", (e) => {
         this.checkSomeoneShareScreen();
         subscriber.videos[0].video.parentElement.classList.remove(
-          "custom-class",
+          "custom-class"
         );
       });
       // 새로운 유저 껍데기를 만들어서 거기에 이벤트로 받은 stream정보를 넣은 후에 내 remotes에 등록
@@ -803,10 +802,10 @@ class VideoRoomComponent extends Component {
       newUser.setVideoActive(event.stream.videoActive);
 
       newUser.setAttendanceTime(
-        JSON.parse(event.stream.connection.data).attTime,
+        JSON.parse(event.stream.connection.data).attTime
       );
       newUser.setIsPointDouble(
-        JSON.parse(event.stream.connection.data).isPointDouble,
+        JSON.parse(event.stream.connection.data).isPointDouble
       );
       newUser.setLevelPng(JSON.parse(event.stream.connection.data).levelPng);
       newUser.setUid(JSON.parse(event.stream.connection.data).uid);
@@ -928,7 +927,7 @@ class VideoRoomComponent extends Component {
         {
           subscribers: remoteUsers,
         },
-        () => this.checkSomeoneShareScreen(),
+        () => this.checkSomeoneShareScreen()
       );
     });
   }
@@ -1009,7 +1008,7 @@ class VideoRoomComponent extends Component {
   async setVideo(deviceId, devices) {
     try {
       const newVideoDevice = devices.filter(
-        (device) => deviceId === device.deviceId,
+        (device) => deviceId === device.deviceId
       );
 
       // 새로운 디바이스가 존재한다면
@@ -1028,7 +1027,7 @@ class VideoRoomComponent extends Component {
         //newPublisher.once("accessAllowed", () => {
         // 현재 스트림매니저가 관리하는 값들을 publish 해제하고 위에서 만든 새로운 Publisher를 발행 후 localUser에 등록
         await this.state.session.unpublish(
-          this.state.localUser.getStreamManager(),
+          this.state.localUser.getStreamManager()
         );
         await this.state.session.publish(newPublisher);
         this.state.localUser.setStreamManager(newPublisher);
@@ -1047,7 +1046,7 @@ class VideoRoomComponent extends Component {
   async setAudio(deviceId, devices) {
     try {
       const newAudioDevice = devices.filter(
-        (device) => deviceId === device.deviceId,
+        (device) => deviceId === device.deviceId
       );
 
       // 새로운 디바이스가 존재한다면
@@ -1066,7 +1065,7 @@ class VideoRoomComponent extends Component {
         //newPublisher.once("accessAllowed", () => {
         // 현재 스트림매니저가 관리하는 값들을 publish 해제하고 위에서 만든 새로운 Publisher를 발행 후 localUser에 등록
         await this.state.session.unpublish(
-          this.state.localUser.getStreamManager(),
+          this.state.localUser.getStreamManager()
         );
         await this.state.session.publish(newPublisher);
         this.state.localUser.setStreamManager(newPublisher);
@@ -1113,7 +1112,7 @@ class VideoRoomComponent extends Component {
         } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
           alert("화면 공유를 취소합니다.");
         }
-      },
+      }
     );
 
     // 접근 허용이 되어있다면 스크린쉐어를 위한 상태값 변경
@@ -1365,7 +1364,7 @@ class VideoRoomComponent extends Component {
       if (itemId !== -1) {
         // 1안 axios 요청으로 아이템 정보 획득
         const result = await InterceptedAxios.get(
-          `/items/${this.props.userId}`,
+          `/items/${this.props.userId}`
         );
         const list = result.data;
         // 2안 memberStore에 저장된 정보 가져오기
@@ -1457,7 +1456,7 @@ class VideoRoomComponent extends Component {
   removeSticker = (current) => {
     this.setState({
       stickers: this.state.stickers.filter(
-        (sticker) => sticker.key !== current,
+        (sticker) => sticker.key !== current
       ),
     });
   };
@@ -1614,10 +1613,6 @@ class VideoRoomComponent extends Component {
   };
 
   toggleTeacherMenu() {
-
-    console.log(
-      "this.state.teacherMenuDisplay : " + this.state.teacherMenuDisplay,
-
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
 
@@ -1628,267 +1623,6 @@ class VideoRoomComponent extends Component {
   closeCodeModal = () => {
     this.setState({ isCodeModalOpen: false });
   };
-
-  // render: 렌더링을 담당하는 함수
-  render() {
-    const mySessionId = this.state.mySessionId;
-    const localUser = this.state.localUser;
-    const subscribers = this.state.subscribers;
-    const chatDisplay = { display: this.state.chatDisplay };
-    const participantDisplay = { display: this.state.participantDisplay };
-    const questionDisplay = { display: this.state.questionDisplay };
-
-    return (
-      <>
-        <div className="container" id="container">
-          <Setting
-            display={this.state.settingDisplay}
-            toggleSetting={this.toggleSetting}
-            header="Setting"
-            setMyVideos={this.setMyVideos}
-            setMyAudios={this.setMyAudios}
-            setMySpeakers={this.setMySpeakers}
-            videos={this.state.videos}
-            audios={this.state.audios}
-            speakers={this.state.speakers}
-            setVideo={this.setVideo}
-            setAudio={this.setAudio}
-            setSpeaker={this.setSpeaker}
-            currentVideoDeviceId={this.state.currentVideoDeviceId}
-            currentAudioDeviceId={this.state.currentAudioDeviceId}
-            currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-          />
-
-          <Emoji
-            display={this.state.emojiDisplay}
-            toggleEmoji={this.toggleEmoji}
-            sendEmoji={this.sendEmoji}
-            header="Emoji"
-            emoji={this.state.emoji}
-            whoami={this.props.whoami}
-            id={this.props.userId}
-          />
-
-          <QuizModal
-            display={this.state.quizDisplay}
-            toggleQuiz={this.toggleQuiz}
-            toggleQuizStudent={this.toggleQuizStudent}
-            header="퀴즈"
-            quiz={this.state.quiz}
-            quizHistory={this.state.quizHistory}
-          />
-          <QuizModalStudent
-            display={this.state.quizDisplayStudent}
-            toggleQuizStudent={this.toggleQuizStudent}
-            header="퀴즈"
-            quiz={this.state.quiz}
-          />
-          <ShieldModalLoading
-            display={this.state.shieldLoadingDisplay}
-            toggleShieldLoading={this.toggleShieldLoading}
-            timeOut={2.5}
-            header="발표 프리패스 대기중"
-          />
-          <ShieldModal
-            display={this.state.shieldDisplay}
-            user={localUser}
-            toggleShield={this.toggleShield}
-            alertToChat={this.alertToChat}
-            useItem={this.useItem}
-            checkUserHasItem={this.checkUserHasItem}
-            pickRandomStudent={this.pickRandomStudent}
-            tempFrameChange={this.tempFrameChange}
-            subscribers={subscribers}
-            timeOut={3}
-            header="발표 프리패스 사용"
-            upPresentationCnt={this.upPresentationCnt}
-            downPresentationCnt={this.downPresentationCnt}
-          />
-
-          {/* 다이얼로그 */}
-          <DialogExtensionComponent
-            showDialog={this.state.showExtensionDialog}
-            cancelClicked={this.closeDialogExtension}
-          />
-
-          {/* 칭찬스티커 */}
-          {this.state.stickers.map((stickerKey) => (
-            <Sticker
-              key={stickerKey.key}
-              stikerKey={stickerKey.key}
-              top={stickerKey.top}
-              left={stickerKey.left}
-              removeSticker={this.removeSticker}
-              localUser={localUser}
-            ></Sticker>
-          ))}
-
-          {/* 유저 카메라 화면 */}
-          <div
-            id="layout"
-            className={
-              (this.state.chatDisplay === "block" ||
-              this.state.participantDisplay === "block" ||
-              this.state.questionDisplay === "block"
-                ? "sth_on_bounds"
-                : "bounds") +
-              (this.props.whoami === "teacher" ? " teacher-layout" : "")
-            }
-          >
-            {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined ? (
-              <div id="localUser">
-                <StreamComponent
-                  user={this.state.localUser}
-                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-                  emoji={this.state.emoji}
-                />
-                {/* <FaceDetection
-                  autoPlay={localUser.isScreenShareActive() ? false : true}
-                  camera={localUser.isVideoActive() ? false : true}
-                  smile={this.smile}
-                  outAngle={this.outAngle}
-                /> */}
-              </div>
-            ) : null}
-            {this.state.subscribers.map((sub, i) => (
-              <div
-                key={i}
-                className={
-                  (this.state.videoLayout === "bigTeacher" &&
-                    sub.nickname.includes("[선생님]")) ||
-                  (this.state.videoLayout === "screenShareOn" &&
-                    sub.isScreenShareActive() === true)
-                    ? "OT_root OT_publisher custom-class OV_big"
-                    : "OT_root OT_publisher custom-class"
-                }
-                id="remoteUsers"
-              >
-                <StreamComponent
-                  user={sub}
-                  streamId={sub.streamManager.stream.streamId}
-                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-                />
-                <EmojiFilter user={sub} whoami={this.props.whoami} />
-              </div>
-            ))}
-          </div>
-          <div
-            className={
-              "sth_component " +
-              (this.state.chatDisplay === "none" &&
-              this.state.participantDisplay === "none" &&
-              this.state.questionDisplay === "none"
-                ? "display_none"
-                : "")
-            }
-          >
-            {localUser !== undefined &&
-              localUser.getStreamManager() !== undefined && (
-                <div
-                  className="OT_root custom-class quest"
-                  style={questionDisplay}
-                >
-                  <QuestionComponent
-                    user={localUser}
-                    subscribers={subscribers}
-                    questionDisplay={this.state.questionDisplay}
-                    close={this.toggleQuestion}
-                    messageReceived={this.checkQuestionNotification}
-                    whoami={this.props.whoami}
-                  />
-                </div>
-              )}
-            {localUser !== undefined &&
-              localUser.getStreamManager() !== undefined && (
-                <div
-                  className={
-                    "OT_root custom-class " +
-                    (this.state.chatDisplay === "block" &&
-                    this.state.participantDisplay === "block"
-                      ? "double_parti"
-                      : "parti")
-                  }
-                  style={participantDisplay}
-                >
-                  {/* <ParticipantComponent
-                    whoami={this.props.whoami}
-                    user={localUser}
-                    subscribers={subscribers}
-                    participantDisplay={this.state.participantDisplay}
-                    close={this.toggleParticipant}
-                    upPointChanged={this.upPointChanged}
-                    downPointChanged={this.downPointChanged}
-                    absentStudents={this.state.absentStudents}
-                    teacher={this.state.teacher}
-                    student={this.state.students}
-                    partsSortChange={this.partsSortChange}
-                    type={this.state.sortType}
-                  /> */}
-                </div>
-              )}
-            {localUser !== undefined &&
-              localUser.getStreamManager() !== undefined && (
-                <div
-                  className={
-                    "OT_root custom-class " +
-                    (this.state.participantDisplay === "block" &&
-                    this.state.chatDisplay === "block"
-                      ? "double_chat"
-                      : "chat")
-                  }
-                  style={chatDisplay}
-                >
-                  <ChatComponent
-                    user={localUser}
-                    subscribers={subscribers}
-                    chatDisplay={this.state.chatDisplay}
-                    close={this.toggleChat}
-                    messageReceived={this.checkNotification}
-                    // levelPng={this.props.levelPng}
-                    // profile={this.props.memberStore.profileFullPath}
-                  />
-                </div>
-              )}
-          </div>
-          {/* 하단 툴바 */}
-          <div className="toolbar">
-            <ToolbarComponent
-              teacherName={this.props.teacherName}
-              classTitle={this.props.classTitle}
-              whoami={this.props.whoami}
-              sessionId={mySessionId}
-              user={localUser}
-              showNotification={this.state.messageReceived}
-              showQuestionNotification={this.state.questionReceived}
-              camStatusChanged={this.camStatusChanged}
-              micStatusChanged={this.micStatusChanged}
-              pickRandomStudent={this.pickRandomStudent}
-              subscribers={subscribers}
-              screenShare={this.screenShare}
-              stopScreenShare={this.stopScreenShare}
-              toggleFullscreen={this.toggleFullscreen}
-              leaveSession={this.leaveSession}
-              selfLeaveSession={this.selfLeaveSession}
-              toggleChat={this.toggleChat}
-              toggleParticipant={this.toggleParticipant}
-              toggleQuestion={this.toggleQuestion}
-              toggleQuiz={this.toggleQuiz}
-              toggleSetting={this.toggleSetting}
-              startStickerEvent={this.startStickerEvent}
-              videoLayout={this.state.videoLayout}
-              toggleVideoLayout={this.toggleVideoLayout}
-              toggleEmoji={this.toggleEmoji}
-              toggleTeacherMenu={this.toggleTeacherMenu}
-              teacherMenuDisplay={this.state.teacherMenuDisplay}
-            />
-          </div>
-        </div>
-      </>
-
-    );
-    this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
-  }
 
   /**
    * --------------------------
@@ -1905,7 +1639,7 @@ class VideoRoomComponent extends Component {
   // getToken: 현재 내 세션아이디를 이용해서 세션을 생성하고 토큰을 발급하는 함수
   getToken() {
     return this.createSession(this.state.mySessionId).then((sessionId) =>
-      this.createToken(sessionId),
+      this.createToken(sessionId)
     );
   }
 
@@ -1932,7 +1666,7 @@ class VideoRoomComponent extends Component {
             console.log(error);
             console.warn(
               "No connection to OpenVidu Server. This may be a certificate error at " +
-                this.OPENVIDU_SERVER_URL,
+                this.OPENVIDU_SERVER_URL
             );
             if (
               window.confirm(
@@ -1941,11 +1675,11 @@ class VideoRoomComponent extends Component {
                   '"\n\nClick OK to navigate and accept it. ' +
                   'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
                   this.OPENVIDU_SERVER_URL +
-                  '"',
+                  '"'
               )
             ) {
               window.location.assign(
-                this.OPENVIDU_SERVER_URL + "/accept-certificate",
+                this.OPENVIDU_SERVER_URL + "/accept-certificate"
               );
             }
           }
@@ -1970,7 +1704,7 @@ class VideoRoomComponent extends Component {
                 "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
               "Content-Type": "application/json",
             },
-          },
+          }
         )
         .then((response) => {
           resolve(response.data.token);

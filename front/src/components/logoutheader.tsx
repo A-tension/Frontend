@@ -6,12 +6,12 @@ import {
   Button,
   Popover,
   Dropdown,
-
+  Image,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
+import filler from "../assets/Memoji.png";
 const Logoutheader = () => {
-
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -75,8 +75,8 @@ const Logoutheader = () => {
         회의 참여
       </Nav.Link>
       <NavDropdown
-      as={Dropdown}
-      content="none"
+        as={Dropdown}
+        content="none"
         title={
           <div className="flex items-center  text-white gap-2">
             {loginUser.name}
@@ -85,7 +85,6 @@ const Logoutheader = () => {
         }
         style={{ borderRadius: "20px" }}
       >
-
         {/* <Dropdown.Toggle style={{ color: "white" }}>
           <div className="text-white">
             {loginUser.name}</div> style={{ maxWidth: "10px" }}
@@ -96,8 +95,7 @@ const Logoutheader = () => {
         </Dropdown.Item>
         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
         {/* </Dropdown.Menu> */}
-      </Dropdown>
-
+      </NavDropdown>
     </>
   );
 };
