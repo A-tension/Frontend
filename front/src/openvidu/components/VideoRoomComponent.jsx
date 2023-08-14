@@ -260,16 +260,10 @@ class VideoRoomComponent extends Component {
   // connectToSession: 세션 연결을 위한 토큰을 받아서 연결을 처리하는 함수
   connectToSession() {
     if (this.props.token !== undefined) {
-      // console.log("token received: ", this.props.token);
-      console.log("세션 연결 직전");
       this.connect(this.props.token);
-      console.log("세션 연결 직후");
     } else {
-      console.log("세션 연결 직전 엘스");
       this.getToken().then((token) => {
-        // console.log(token);
         this.connect(token);
-        console.log("세션 연결 직후 엘스");
       });
       // .catch((error) => {
       //   if (this.props.error) {
@@ -1603,6 +1597,9 @@ class VideoRoomComponent extends Component {
   };
 
   toggleTeacherMenu() {
+    console.log(
+      "this.state.teacherMenuDisplay : " + this.state.teacherMenuDisplay,
+    );
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
 
@@ -1627,7 +1624,6 @@ class VideoRoomComponent extends Component {
 
   // createSession: 세션 생성 함수 (주의! promise를 반환!!) - 서버에 세션아이디를 요청해서 세션을 생성해서 id값을 받아오는 함수
   createSession(sessionId) {
-    console.log("세션 만들기");
     return new Promise((resolve, reject) => {
       var data = JSON.stringify({ customSessionId: sessionId });
       axios
@@ -1672,7 +1668,6 @@ class VideoRoomComponent extends Component {
 
   // createToken: 특정 sessionId에 대해서 오픈비두 서버에 토큰을 요청해서 받아오는 함수 (주의! Promise 반환!)
   createToken(sessionId) {
-    console.log("토큰 만들기");
     return new Promise((resolve, reject) => {
       var data = JSON.stringify({});
       axios
@@ -1691,7 +1686,6 @@ class VideoRoomComponent extends Component {
           },
         )
         .then((response) => {
-          console.log("TOKEN", response);
           resolve(response.data.token);
         })
         .catch((error) => reject(error));
@@ -1952,8 +1946,6 @@ class VideoRoomComponent extends Component {
             videoLayout={this.state.videoLayout}
             toggleVideoLayout={this.toggleVideoLayout}
             toggleEmoji={this.toggleEmoji}
-            toggleTeacherMenu={this.toggleTeacherMenu}
-            teacherMenuDisplay={this.state.teacherMenuDisplay}
           />
         </div>
       </>

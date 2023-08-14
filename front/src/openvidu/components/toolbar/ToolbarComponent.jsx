@@ -36,6 +36,8 @@ export default class ToolbarComponent extends Component {
       fullscreen: false,
       randAvailable: true,
       stickerAvailable: true,
+      showTeacherMenuToggle: false,
+      teacherMenuToggle: false,
     };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
@@ -151,7 +153,7 @@ export default class ToolbarComponent extends Component {
   }
 
   toggleTeacherMenu() {
-    this.props.toggleTeacherMenu();
+    this.setState({ showTeacherMenuToggle: !this.state.showTeacherMenuToggle });
   }
 
   // name: 한준수
@@ -264,7 +266,7 @@ export default class ToolbarComponent extends Component {
             {this.props.whoami === "teacher" && (
               <div className="teacher-toolbar">
                 <TeachersToolbar
-                  display={this.props.teacherMenuDisplay}
+                  display={this.state.showTeacherMenuToggle}
                   randAvailable={this.state.randAvailable}
                   stickerAvailable={this.state.stickerAvailable}
                   pickRandomStudent={this.pickRandomStudent}

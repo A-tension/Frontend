@@ -16,10 +16,8 @@ function Header() {
 
   useEffect(() => {
     setToken(localStorage.getItem("accessToken"));
-    console.log("token : " + token);
     if (token) {
       setIsLogin(true);
-      console.log("isLogin : " + isLogin);
     }
   }, [token]);
   // 화면 전환해서 회의 참여시에 헤더 어떻게 숨길지 생각해보기? if true else return?
