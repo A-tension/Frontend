@@ -4,18 +4,26 @@ import draw from "../../assets/DrawCard.svg"; // 경로를 수정하여 import
 import { Button } from "react-bootstrap";
 import { useAppSelector } from "../../store/hooks";
 import { checkTickets } from "../../store/user";
-
+import { getRandomItem } from "../../api/item/itemApi";
 // <!-- import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import -->
 
 function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
     const tickets = useAppSelector(checkTickets);
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         // 버튼을 누르면 함수 실행
         setButtonClicked(true);
-        // 여기에 추가적인 동작을 수행
-    };
-
+    
+        try {
+          // getRandomItem 함수 호출
+          const response = await getRandomItem(); // getRandomItem 함수를 실행하고 응답을 받음
+          console.log(response);
+          // 추가적인 동작을 수행 (아이템 뽑기 성공 등)
+        } catch (error) {
+          console.error("Error while getting random item:", error);
+          // 실패 시에 대한 처리 (예: 오류 메시지 표시)
+        }
+      };
     return (
         <>
             <div style={{ textAlign: "center" }}>

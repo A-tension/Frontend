@@ -3,6 +3,7 @@ import type { RootState } from "./store";
 import { Team } from "./group";
 import { UUID } from "crypto";
 import {teamResponseDto} from "../api/team/types.tsx";
+import { Item } from "./item.ts";
 
 
 export interface User {
@@ -17,16 +18,6 @@ export interface User {
   myGroups?: Team[];
   isLoggedIn?: boolean | false;
 }
-
-export interface Item {
-  itemId? : number;
-  name : string;
-  image : string;
-  itemTypeId? : bigint;
-  itemTypeName? : string;
-  description? : string; 
-}
-
 
 const initialState: User = {
   userId: " - - - - ",
@@ -48,6 +39,10 @@ export const userSlice = createSlice({
       state.userId = "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
       state.email = "ssafy@ssafy.com";
       state.name = "김싸피";
+    },
+
+    addItem: (state, action: PayloadAction<Item>) => {
+      state.user.myItems.push(action.payload); // myItems 배열에 아이템 추가
     },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
@@ -105,7 +100,7 @@ export const userSlice = createSlice({
 });
 //action - dispatch
 
-export const { userLoginTest, userLogin, userLogout,isLoggedIn, getTeam } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
 
 //getters
 export const checkTickets = (state: RootState) => state.user.tickets;

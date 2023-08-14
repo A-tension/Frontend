@@ -11,8 +11,9 @@ import {forEach} from "react-bootstrap/ElementChildren";
 import {Team} from "../store/group.ts";
 import {findMyPlan} from "../api/plan/planApi.tsx";
 import {planResponseDto} from "../api/plan/types.tsx";
+import { Item, itemLoginTest } from '../store/item.ts';
 import {Plan, planCreateTest} from "../store/plan.ts";
-
+import {addItem} from "../store/item.ts";
 
 function OAuth2RedirectHandler() {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ function OAuth2RedirectHandler() {
     const dispatch = useAppDispatch();
 
     useEffect(()=>{
+        // 로그인 
         if (accessToken != null && refreshToken != null ) {
             console.log("accessToken : " + accessToken)
             console.log("refreshToken : " + refreshToken)
@@ -44,9 +46,21 @@ function OAuth2RedirectHandler() {
             // 내 아이템 조회 
             findMyItemList<FindMyItemResponseDto>()
             .then(response => {
-                console.log(response.data); // 출력하고자 하는 데이터
-                const myItem = response.data.data; 
-                console.log(myItem);               
+                const myItemList = response.data.data.myItemDtoList; 
+                console.log(myItemList);        
+                // myItem 돌면서 myItemDtoList
+                for (const myItemDto of myItemList) {
+                    
+                    const item : Item = {
+                        name : myItemDto.name,
+                        image : myItemDto.image,
+                        itemTypeId : myItemDto.itemTypeId,
+                        itemTypeName : myItemDto.itemTypeName,
+                        description : myItemDto.description,
+                    }
+                    console.log(item);
+                    dispatch(addItem(item))
+                }       
                 navigate('/');
             })
             .catch(error => {
@@ -55,7 +69,9 @@ function OAuth2RedirectHandler() {
             });
             navigate('/');
 
-            const myTeam =  findMyTeam<teamResponseDto>();
+
+            // 내 팀 찾기 : 팀id, 팀이름, 팀 프로필 이미지
+            const myTeam =  findMyTeam<teamResponseDto[]>();
             myTeam.then(function (result) {
                 console.log(result.data);
                 for (const teamResponseDto of result.data.data) {
