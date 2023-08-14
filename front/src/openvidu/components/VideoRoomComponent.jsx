@@ -68,14 +68,14 @@ class VideoRoomComponent extends Component {
     //   ':' +
     //   String(time.getSeconds()).padStart(2, '0');
 
-    if (this.props.whoami === "student")
-      userName = `[${this.props.grade}${String(this.props.classNum).padStart(
-        2,
-        "0"
-      )}${String(this.props.studentNum).padStart(2, "0")}]${
-        this.props.memberStore.name
-      }`;
-    if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
+    // if (this.props.whoami === "student")
+    //   userName = `[${this.props.grade}${String(this.props.classNum).padStart(
+    //     2,
+    //     "0"
+    //   )}${String(this.props.studentNum).padStart(2, "0")}]${
+    //     this.props.memberStore.name
+    //   }`;
+    // if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
 
     // remotes:
     this.remotes = [];
@@ -1498,6 +1498,7 @@ class VideoRoomComponent extends Component {
   // date: 2022/08/02
   // desc: 퀴즈 관련 함수 모아놓음
   toggleQuiz = (quiz) => {
+    console.log("토글 퀴즈 열기");
     if (quiz) {
       this.sendSignalUserChanged({ quizCreated: quiz });
       if (!quiz.result) {
@@ -1967,6 +1968,8 @@ class VideoRoomComponent extends Component {
             videoLayout={this.state.videoLayout}
             toggleVideoLayout={this.toggleVideoLayout}
             toggleEmoji={this.toggleEmoji}
+            conferenceCreateData={this.props.conferenceCreateData}
+            conferenceJoinData={this.props.conferenceJoinData}
           />
         </div>
       </>

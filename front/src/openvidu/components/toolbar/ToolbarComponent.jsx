@@ -39,6 +39,7 @@ export default class ToolbarComponent extends Component {
       stickerAvailable: true,
       showTeacherMenuToggle: false,
       teacherMenuToggle: false,
+      mySessionId: this.props.sessionId,
     };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
@@ -116,6 +117,10 @@ export default class ToolbarComponent extends Component {
     this.props.toggleQuestion();
   }
 
+  toggleQuiz() {
+    this.props.toggleQuiz();
+  }
+
   // name: 한준수
   // date: 2022/07/25
   // desc: 선생님이 랜덤한 학생을 지목하는 기능
@@ -134,10 +139,6 @@ export default class ToolbarComponent extends Component {
     setTimeout(() => {
       this.setState({ randAvailable: true });
     }, lockOutTime * 1000);
-  }
-
-  toggleQuiz() {
-    this.props.toggleQuiz();
   }
 
   // lockOutSticker: 호출 시 칭찬스티커 버튼을 지정된 시간 (30초) 동안 disabled 해주는 함수
@@ -202,11 +203,11 @@ export default class ToolbarComponent extends Component {
         id={this.props.whoami === "teacher" ? "teacher-header" : "header"}
       >
         <Toolbar className="toolbar">
-          {this.props.sessionId && (
+          {mySessionId && (
             <div id="titleContent">
               <span id="session-title">{mySessionId}</span>
               <span id="session-title">
-                {this.props.classTitle} - {this.props.teacherName}
+                {} - {}
               </span>
             </div>
           )}

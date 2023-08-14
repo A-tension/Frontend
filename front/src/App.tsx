@@ -26,7 +26,7 @@ import Draw from "./components/item/Draw.tsx";
 import OpenVidu from "./openvidu/App.jsx";
 
 import Create from "./components/meeting/Create.tsx";
-import CalendarView from "./components/plan/CalendarView.tsx";
+// import CalendarView from "./components/plan/CalendarView.tsx";
 import { useAppSelector } from "./store/hooks.ts";
 import { getPlanlist, loadListTest } from "./store/plan.ts";
 import { title } from "process";
@@ -49,7 +49,7 @@ function App() {
             <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
               //일정 추가는 그룹일정에서 추가하러 옴,,
-              <Route index element={<Month />}></Route>
+              {/* <Route index element={<Month />}></Route> */}
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<PlanView />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}
@@ -61,7 +61,7 @@ function App() {
               <Route path="start" element={<Start />}></Route>
               <Route path="create" element={<Create />}></Route>
               <Route path="manage" element={<Manage />}></Route>{" "}
-              {/* <Route path="wait" element={<OpenVidu />} /> */}
+              <Route path="wait" element={<OpenVidu />} />
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
               {/*<Route path="conference" element={<VideoRoomComponent />}></Route>*/}

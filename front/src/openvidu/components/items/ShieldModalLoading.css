@@ -13,12 +13,12 @@ body {
 body {
   margin: 0;
 }
-
+/* 
 img {
   max-width: 100%;
   width: 100%;
   vertical-align: bottom;
-}
+} */
 
 h1,
 h2,
@@ -643,7 +643,7 @@ animation05
 }
 
 .double_wrapper01::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background: #f2f3df;
@@ -651,7 +651,7 @@ animation05
 }
 
 .double_wrapper01::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background: #f2f3df;
