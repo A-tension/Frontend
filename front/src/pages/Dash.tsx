@@ -23,11 +23,13 @@ const Dash = () => {
   const menu = ["group", "calendar", "meeting", "item"];
   const label = ["그룹", "캘린더", "회의", "뽑기"];
 
-  const [selectedMenu, setSelectedMenu] = useState("회의");
+  const [selectedMenu, setSelectedMenu] = useState<string | null>();
   useEffect(() => {
     setToken(localStorage.getItem("accessToken"));
     if (token) {
       setSelectedMenu("그룹");
+    } else if (!token) {
+      setSelectedMenu("회의");
     }
   }, [token]);
 
