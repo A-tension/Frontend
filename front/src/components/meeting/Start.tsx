@@ -1,18 +1,19 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { Plan, planCreateTest } from "../../store/plan";
 import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
+import { Meeting, meetCreateTest } from "../../store/meeting";
 
-interface MeetCreateData extends Plan {
+interface MeetCreateData extends Meeting {
   // name:string;
   // members?: User[] | string[] | Team["teamId"]; // axios에서 생성 요청시 자동반환
   // name: string;
-  members:string[];//email 목록으로 일단 진행
+  members: string[]; //email 목록으로 일단 진행
   startdate: string;
   starttime: string;
+  startTime: string;
   // end?: string;
-  isPrivate:boolean;
+  isPrivate: boolean;
 }
 function Start() {
   const navigate = useNavigate();
@@ -21,14 +22,14 @@ function Start() {
     members: [""],
     startdate: "",
     starttime: "",
-    start:"",
-    isPrivate:false
+    startTime:"",
+    isPrivate: false,
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === 'members') {
-      const emailArray = value.split(',').map(email => email.trim());
+    if (name === "members") {
+      const emailArray = value.split(",").map((email) => email.trim());
       setMeetData((prevData) => ({
         ...prevData,
         [name]: emailArray,
@@ -40,13 +41,12 @@ function Start() {
       }));
     }
   };
-  const handleSubmitForm =(e: { preventDefault: () => void; })=>{
-e.preventDefault();
+  const handleSubmitForm = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     console.log(meetData);
-    dispatch(planCreateTest(meetData));
-    navigate("/dash/meeting/manage")
-
-  }
+    dispatch(meetCreateTest(meetData));
+    navigate("/dash/meeting/manage");
+  };
   return (
     <>
       {/* <h1>회의 개설 </h1>
@@ -110,8 +110,8 @@ e.preventDefault();
           </Form.Label>
           <Col sm={10}>
             <Form.Control
-            name="members"
-            value={meetData.members.join(',')}
+              name="members"
+              value={meetData.members.join(",")}
               size="lg"
               style={{ borderRadius: "20px" }}
               type="text"
@@ -124,13 +124,21 @@ e.preventDefault();
 
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Form.Check type="checkbox" checked={meetData.isPrivate} label="대기실" onChange={handleInputChange} name="isPrivate"/>
+            <Form.Check
+              type="checkbox"
+              checked={meetData.isPrivate}
+              label="대기실"
+              onChange={handleInputChange}
+              name="isPrivate"
+            />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
           <Col sm={{ span: 10 }}>
-            <Button type="submit" onClick={handleSubmitForm}>생성</Button>
+            <Button type="submit" onClick={handleSubmitForm}>
+              생성
+            </Button>
             <Button type="reset" variant="outline-primary">
               취소
             </Button>
