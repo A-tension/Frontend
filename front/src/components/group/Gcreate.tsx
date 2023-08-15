@@ -2,7 +2,7 @@ import { Form, Button, FloatingLabel } from "react-bootstrap";
 // import axios from "axios";
 import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
-import { Team, groupCreateTest } from "../../store/group";
+import { Team, groupCreateTest, loginload } from "../../store/group";
 import { User } from "../../store/user";
 import { searchUser } from "../../api/user/userApi.tsx";
 import { UserSearchResponseDto } from "../../api/user/types.tsx";
@@ -10,10 +10,9 @@ import { UUID } from "crypto";
 import { createTeam, findMyTeam } from "../../api/team/teamApi.tsx";
 import { createTeamRequestBody } from "../../api/team/types.tsx";
 
-interface GroupCreateData extends Team {
-  members: UserSearchResponseDto[];//string[] | User[];
+interface GroupCreateData {
+  members: UserSearchResponseDto[];
   description: string;
-  // id:string;
   name: string;
   // profileimg?:string;
 }
@@ -71,11 +70,10 @@ const Gcreate = (props: Props) => {
     setUserList([]); // userList 초기화
     console.log(selectedUsers);
   };
-  const [groupData, setGroupData] = useState<GroupCreateData>({
+  const [groupData, setGroupData] = useState<GroupCreateData|Team>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
     description: props.teamProp?.description ? props.teamProp.description : "",
-    teamId: 714,
   });
   const dispatch = useAppDispatch();
 
@@ -87,7 +85,7 @@ const Gcreate = (props: Props) => {
       search.then(function (result) {
         if (result.data.data !== undefined) {
           setUserList(result.data.data);
-          console.log(userList);
+          console.log("search userList"+userList);
         }
       });
       setGroupData((prevData) => ({
@@ -101,7 +99,7 @@ const Gcreate = (props: Props) => {
       }));
     }
   };
-  const handleCreate = () => {
+  const handleCreate = async() => {
     if (props.teamProp) {
       console.log("edit");
     } else {
@@ -112,12 +110,14 @@ const Gcreate = (props: Props) => {
       const createTeamRequestBody: createTeamRequestBody = {
         name: groupData.name,
         userIdList: userIdList,
+        description:groupData.description ?? "",
       };
-      createTeam(createTeamRequestBody);
+      await createTeam(createTeamRequestBody);
+      await findMyTeam().then((result)=>dispatch(loginload(result.data.data)))
+      
       // findMyTeam()
       // TODO
       //  groupData 변경 필요
-      dispatch(groupCreateTest(groupData));
     }
 
     console.log(groupData);
@@ -167,6 +167,7 @@ const Gcreate = (props: Props) => {
               onChange={handleInputChange}
             />
             <UserListComponent
+              memberlist={props.teamProp?.members}
               userList={userList}
               selectedUsers={selectedUsers} // 선택한 유저 목록 전달
               onUserSelect={handleItemClick} // 유저 선택 이벤트 핸들러 전달

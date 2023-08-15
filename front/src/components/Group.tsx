@@ -4,56 +4,28 @@ import { Tab, Nav, Row, Col, Button, Form } from "react-bootstrap";
 import Plans from "./group/Plans.tsx";
 import Members from "./group/Members.tsx";
 import { useAppDispatch, useAppSelector } from "../store/hooks.ts";
-import { addDetail, getGrouplist, loadListTest } from "../store/group.ts";
-import { User, checkAuthority } from "../store/user.ts";
+import { Team, addDetail, getGrouplist } from "../store/group.ts";
+import { checkAuthority } from "../store/user.ts";
 import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
-import { NavTab } from "./atoms/tab/NavTab.tsx";
 import { getTeamDetail } from "../api/team/teamApi.tsx";
-import { teamDetailResponseDto, userProfileDto } from "../api/team/types.tsx";
-import { AxiosResponse } from "axios";
-
-export interface Team {
-  //로그인시 받아오는 유저의 그룹 목록에 있는 정보
-  // id?:bigint|number;
-  teamId: number; // axios에서 생성 요청시 자동반환
+import { teamDetailResponseDto } from "../api/team/types.tsx";
+interface Selectable {
   name: string;
-  profileImg?: string;
-  //이후 그룹 특정 조회시 추가되는 정보
-  description?: string;
-  members: userProfileDto[] | string[] | User[];
 }
-export interface Item {
-  itemId: number;
-  name: string;
-  image: string;
-}
-interface LoginUser extends User {
-  userId?: string | "";
-  email?: string | "";
-  name?: string | "";
-  profileImage?: string;
-  tickets?: number; // 뽑기권
-  meetingUrl?: string;
-  myItems?: Item[];
-  myGroups?: Team[];
-  isLoggedIn?: boolean;
-}
-
 function Group() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const transfer = location.state?.group;
-  //어디서 그룹을 다시 전달받는 지?
-  const [selectedGroup, selectGroup] = useState<Team>({
-    teamId: transfer ? transfer.teamId : 0,
-    name: "",
-    profileImg: "",
-    members: [],
-    description: "",
-  });
+  //어디서 그룹을 다시 전달받는지?
+  const groups: Team[] = useAppSelector(getGrouplist);
+  // console.log(groups)
 
+  const [selectedGroup, selectGroup] = useState<Team>();
+  console.log(selectedGroup + " first usestate");
+  if (!selectedGroup) {
+    console.log("deselected");
+  }
   const [isCreate, setMenu] = useState(false); //그룹생성창 여부
   const [selectedTab, setSelectedTab] = useState("info"); // 기본값은 "chat"으로 설정
   const [hasAuth, getAuth] = useState<boolean>(false); //그룹짱의 권한 체크,,//teamParticipantAuthorityDto 에 해당하나?
@@ -64,17 +36,15 @@ function Group() {
 
   const handleGroupSelect = (group: Team) => {
     selectGroup(group);
+    console.log(selectedGroup?.name + "handle group select");
     //dispatch(hasAuthority());
     if (TF) getAuth(TF); // 실제로는 team participant has auth?
     else getAuth(false);
     console.log(hasAuth);
   };
 
-  const groups: Team[] = useAppSelector(getGrouplist);
-
   const grouplist = groups.map((group, index) => (
     <Nav.Link
-      href="#"
       eventKey={index}
       onClick={() => {
         handleGroupSelect(group);
@@ -91,8 +61,7 @@ function Group() {
   };
   const menuIndex = ["chat", "plans", "members", "manage"];
   const groupMenu = ["채팅", "일정", "구성원", "관리"];
-  // let menuList;
-  // if(groups.length)
+
   const menuList = groupMenu.map((menu, index) => (
     <Nav.Item
       onClick={() => {
@@ -106,7 +75,11 @@ function Group() {
           color: selectedTab == menuIndex[index] ? "#176DEE" : "#B9BEC6",
         }}
         active={selectedTab == menuIndex[index]}
-        disabled={(index == 3 && !hasAuth) || groups.length == 0}
+        disabled={
+          (index == 3 && !hasAuth) ||
+          groups.length == 0 ||
+          selectedGroup === undefined
+        }
         eventKey={menuIndex[index]}
       >
         {menu}
@@ -114,66 +87,34 @@ function Group() {
     </Nav.Item>
   ));
 
-  // const [selectedGroup, selectGroup] = useState("");
-
   useEffect(() => {
     const escapeCreate = () => {
+      // if (isCreate) 
       setMenu(false);
     };
-    //   const checkGroupAuth = ()=>{
-    //     const userWithAuthority = teamAuth.userAuthDtoList.find(
-    //       user => user.userId === curUserId
-    //     );
-
-    //     if (userWithAuthority) {
-    //       const hasAuthority = userWithAuthority.hasAuthority;
-    //       // return hasAuthority
-    //       getAuth(hasAuthority)
-    //   }
-    // loadGroupDetail();
     setSelectedTab("chat");
+    console.log(selectedGroup + " trying to close create view");
     escapeCreate();
-    // checkGroupAuth();,curUserId,teamAuth
   }, [selectedGroup]);
   useEffect(() => {
     const loadGroupDetail = () => {
-      const groupDetail = getTeamDetail<
-        teamDetailResponseDto,
-        AxiosResponse<teamDetailResponseDto>
-      >(selectedGroup.teamId);
-      groupDetail.then((result) => {
-        console.log(result.data);
-        const detailedGroup: teamDetailResponseDto = result.data.data;
-        dispatch(addDetail(detailedGroup));
-      });
-      const test = {
-        teamId: 456,
-        name: "Advanced Team",
-        profileImage: "team456.png",
-        description: "This is an advanced team with various features.",
-        userProfileDtoList: [
-          {
-            userId: "123e4567-e89b-12d3-a456-426655440000",
-            name: "John Doe",
-            profileImage: "john.jpg",
-          },
-          {
-            userId: "98765432-12ab-cdef-1234-567890abcdef",
-            name: "Jane Smith",
-            profileImage: "jane.jpg",
-          },
-        ],
-      };
-      console.log("use effect detail call by selected group dependency");
-      // dispatch(addDetail(test));
+      if (selectedGroup) {
+        getTeamDetail<teamDetailResponseDto>(selectedGroup.teamId).then(
+          (result) => {
+            console.log(
+              "got detail" + result.data.data.name + result.data.data.teamId
+            );
+            const detailedGroup: teamDetailResponseDto = result.data.data;
+            // selectGroup(detailedGroup);
+            dispatch(addDetail(detailedGroup));
+          }
+        );
+        console.log("use effect detail call by selected group dependency");
+      }
     };
     loadGroupDetail();
-  }, []);
-  const load = (e) => {
-    e.preventDefault();
-    console.log("불러오기");
-    dispatch(loadListTest);
-  };
+  }, [selectedGroup, dispatch]);
+
   return (
     <>
       <div>
@@ -241,13 +182,13 @@ function Group() {
                 {selectedTab === "info" && (
                   <div>
                     {/* 그룹 정보 컴포넌트를 렌더링 */}
-                    <h1>Group {selectedGroup.name}</h1>
+                    <h1>Group {selectedGroup?.name}</h1>
                   </div>
                 )}
                 {selectedTab === "chat" && (
                   <div>
                     {/* 채팅 컴포넌트를 렌더링 */}
-                    <h1>{selectedGroup.name} 그룹입니다</h1>
+                    <h1>{selectedGroup?.name} 그룹입니다</h1>
                   </div>
                 )}
                 {selectedTab === "plans" && (

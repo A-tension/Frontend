@@ -36,7 +36,7 @@ const handleMember=()=>{
   // if (typeof members[0] === "object") {
     //|userProfileDto[] |userProfileDto
 
-   memberList = (members as userProfileDto[]).map((member: userProfileDto, index: number) => (
+   memberList = (members as userProfileDto[])?.map((member: userProfileDto, index: number) => (
       <ListGroup.Item
         key={index}
         style={{

@@ -2,82 +2,43 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
-import { Plan, planCreateTest } from "../../store/plan";
+import { Plan, planCreateTest, reloadPlans } from "../../store/plan";
 import { Team } from "../../store/group";
 import back from "../../assets/arrow-left.svg";
 import { userProfileDto } from "../../api/team/types";
 import { createEventId } from "./event-utils";
+import { PlanRequestDto } from "../../api/plan/types";
+import { createTeamPlan, findMyPlan } from "../../api/plan/planApi";
 
 //시간 나면 할 것: 유효성 검사 -> 시작시간이 종료시간보다 늦을 수 없다
-interface PlanCreateData extends Plan {
-  // 현재 입력 받아올 수 있는 부분
-  name: string;
-  members?: string[] | string | userProfileDto[]; // 초대 인원은 사람들 추가, 나 혼자의 일정, 내가 속한 팀이름
-  startTime: string;
-  endTime: string;
-  description: string;
-}
+
 interface Props {
+  // planHandler: (selected: PlanRequestDto) => void;
+  navigate: (goto: string) => void;
   group?: Team;
   // selectTab:()=>void;
 }
 function Planner(props: Props) {
-  // function Start() {
-  //     if(props.isGroup){
-  // //axios로 그룹이면 groupId로 특정조회-?? 혹은 이미 받아온 특정조회 정보 가져오기
-  // //사용례 생각하면 대시보드 그룹상세에서 가져오는 거니까 이미 저장되어있음
-  //     }
   const location = useLocation();
-
   const propgroup = location.state?.group;
-  console.log(propgroup);
+
   const navigate = useNavigate();
-  // new Date().toISOString().replace(/T.*$/, '')
-  const today = new Date();
-  // const tdString = today.toISOString().replace(/\./g, " ");
-  const defaultDate = today.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  // console.log(defaultDate)
-  const defaultTime = today
-    .toLocaleTimeString("en-CA", {
-      hour12: true,
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-    .replace(/ /g, "\n");
-  // const defaultTime = `${today.getHours()}:${today.getMinutes()}`;
-  const randomId = Math.floor(10000 + Math.random() * 90000);
 
-  const [planData, setPlanData] = useState<PlanCreateData>({
+  const [planData, setPlanData] = useState<PlanRequestDto>({
     name: "",
-    members: propgroup?.members ? propgroup.members : [""], // 그룹일정추가라면 여기서 그룹멤버 정보를 받아옴
     startTime: "", //`${defaultDate}T${defaultTime}`,
-    endTime: `${defaultDate}T${defaultTime}`,
+    endTime: "",
     description: "",
-
-    id: randomId, //사용자 입력으로 받을 수 없는 것 //extendedProps.id
-    teamId:propgroup.teamId , //사용자 입력으로 받을 수 없는 것 //extendedProps.teamId
-    teamName: "5B1F", //groupId
-    profileImage: propgroup.profileImage, //extendedProps.profileImage
+    teamId: propgroup?.teamId, //사용자 입력으로 받을 수 없는 것 //extendedProps.teamId
   });
+
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === "members") {
-      const memberArray = value.split(",").map((email) => email.trim());
-      setPlanData((prevData) => ({
-        ...prevData,
-        [name]: memberArray,
-      }));
-    } else {
-      setPlanData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setPlanData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
   // const handleSubmitForm = (e: { preventDefault: () => void }) => {
   //   e.preventDefault();
@@ -97,34 +58,29 @@ function Planner(props: Props) {
   // };
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    await createTeamPlan(planData);
     console.log("now go to calendar and show planview");
-  
+
     console.log(planData);
-    dispatch(planCreateTest(planData));
+    // dispatch(planCreateTest(planData));
+
+    await findMyPlan().then((result) => {
+      dispatch(reloadPlans(result.data.data));
+    });
+    console.log("called submit actions, create and reload");
+    // props.navigate("planView");
+    props.navigate("calendar");
+    // navigate("/dash/calendar", { state: { tab: "calendar" } });
   };
-  
-  // Use the useEffect hook to navigate after the action is completed
-  useEffect(() => {
-    const navigateAfterAction = async () => {
-      // Wait for the action to complete before navigating
-      await dispatch(planCreateTest(planData));
-  
-      // Navigate after the action is completed
-      navigate("/dash/calendar", {
-        state: { plan: planData, propgroup: propgroup, tab: "planView" },
-      });
-    };
-  
-    navigateAfterAction();
-  }, [dispatch, navigate, planData, propgroup]);
-
-
 
   const handleBack = () => {
-    if (!location.state.group) {
-      navigate("/dash/calendar");
+    if (!location.state?.group) {
+      props.navigate("calendar");
     } else {
-      navigate(-1);
+      // navigate(-1);
+
+      navigate("/dash/group");
     }
   };
   return (

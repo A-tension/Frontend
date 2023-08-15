@@ -1,10 +1,10 @@
 import {apiInstance} from "../index.tsx";
 import {AxiosResponse} from "axios";
-import {planResponseDto} from "./types.tsx";
+import {PlanRequestDto, PlanResponseDto} from "./types.tsx";
 
 const api = apiInstance();
 
-export const findMyPlan = async <T = planResponseDto[], R = AxiosResponse<T>>() => {
+export const findMyPlan = async <T = PlanResponseDto[], R = AxiosResponse<T>>() => {
     try {
         return await api.get<T, R>("/plan");
     } catch (err) {
@@ -13,18 +13,48 @@ export const findMyPlan = async <T = planResponseDto[], R = AxiosResponse<T>>() 
     }
 }
 
-// @GetMapping("/{teamId}")
-// @Operation(summary = "팀 일정 조회", description = "팀의 일정 조회 요청 API 입니다.")
-// public ResponseEntity<MessageWithData> getAllTeamPlans(@PathVariable Long teamId) {
-//     List<PlanResponseDto> data = planService.getAllTeamPlans(teamId);
-//     return new ResponseEntity<>(new MessageWithData(("그룹의 일정을 가져왔습니다."), data), HttpStatus.OK);
-// }
-
-export const getTeamPlan = async <T = planResponseDto[], R = AxiosResponse<T>>(teamId:number):Promise<R> => {
+export const getTeamPlan = async <T = PlanResponseDto[], R = AxiosResponse<T>>(teamId:number):Promise<R> => {
     try {
-        return await api.get<T, R>(`/plan/${teamId}`);
+        console.log("trying to get team plan"+teamId)
+        return await api.get<T, R>(`/plan/team/${teamId}`);
     } catch (err) {
         console.log(err)
-        throw new Error('Failed to find My Plan')
+        throw new Error('Failed to find Team Plan')
+    }
+}
+
+export const getPlan = async <T = PlanResponseDto, R = AxiosResponse<T>>(planId:number):Promise<R> => {
+    try {
+        return await api.get<T, R>(`/plan/${planId}`);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to find Plan details')
+    }
+}
+export const createTeamPlan= async <T = PlanRequestDto, R = AxiosResponse<T>>(data?:PlanRequestDto):Promise<R> => {
+    try {
+        console.log("data = ", data);
+        console.log(data?.teamId);
+        return await api.post<T, R>("/plan", data);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to create Plan')
+    }
+}
+
+export const updatePlan= async <T = PlanRequestDto, R = AxiosResponse<T>>(planId?:number,data?:PlanRequestDto):Promise<R> => {
+    try {
+        return await api.put<T, R>(`/plan/${planId}`,data);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to update Plan')
+    }
+}
+export const deletePlan= async <T = PlanRequestDto, R = AxiosResponse<T>>(planId?:number,data?:PlanRequestDto):Promise<R> => {
+    try {
+        return await api.delete<T, R>(`/plan/${planId}`,data);
+    } catch (err) {
+        console.log(err)
+        throw new Error('Failed to update Plan')
     }
 }
