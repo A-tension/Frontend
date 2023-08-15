@@ -47,6 +47,7 @@ export default class FaceDetection extends Component {
     try {
       await faceApi.nets.tinyFaceDetector.load("/models");
       await faceApi.loadFaceExpressionModel(`/models`);
+      await faceApi.loadFaceLandmarkModel(`/models`);
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user" },
       });
@@ -76,9 +77,10 @@ export default class FaceDetection extends Component {
 
     const result = await faceApi
       .detectSingleFace(this.video.current, options)
+      .withFaceLandmarks()
       .withFaceExpressions();
-
     if (result) {
+      console.log(result);
       const happy = result.expressions.happy;
       let normal = this.state.normal;
       let smile = this.state.smile;
