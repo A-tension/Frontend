@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { useAppSelector } from "../../store/hooks";
 import { checkTickets } from "../../store/user";
 import { getRandomItem } from "../../api/item/itemApi";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user";
 // <!-- import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import -->
 
@@ -13,6 +13,7 @@ function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
     // const tickets = useAppSelector(checkTickets);
     const user = useSelector(selectUser);
+    console.log("user : ", user);
     const handleButtonClick = async () => {
         // 버튼을 누르면 함수 실행
         setButtonClicked(true);
@@ -65,7 +66,7 @@ function Draw() {
                         }}
                     >
                         <h4 style={{ marginTop:"20px",fontWeight: "bold", fontStyle: "italic" }}>
-                            × {user.tickets}
+                            × {user.ticket}
                         </h4>
                         <Button
                             style={{

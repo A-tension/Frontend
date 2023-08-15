@@ -33,7 +33,7 @@ interface LoginUser extends User {
   email?: string | "";
   name?: string | "";
   profileImage?: string;
-  tickets?: number; // 뽑기권
+  ticket?: number; // 뽑기권
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];

@@ -4,7 +4,6 @@ import { Team } from "./group";
 import { UUID } from "crypto";
 import {teamResponseDto} from "../api/team/types.tsx";
 import { Item } from "./item.ts";
-import { v4 as uuidv4 } from "uuid";
 
 
 export interface User {
@@ -13,7 +12,7 @@ export interface User {
   email?: string | "";
   name?: string | "";
   profileImage?: string;
-  tickets?: number; // 뽑기권
+  ticket?: number; // 뽑기권
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
@@ -21,11 +20,11 @@ export interface User {
 }
 
 const initialState: User = {
-  userId: uuidv4(),
+  userId: " - - - - ",
   email: "",
   name: "",
   profileImage: "",
-  tickets: 0,
+  ticket: 0,
   meetingUrl: "",
   myItems: [],
   myGroups: [],
@@ -42,11 +41,9 @@ export const userSlice = createSlice({
       state.name = "김싸피";
     },
 
-    // myItems에 추가하는 함순데 안됨 
     addItem: (state, action: PayloadAction<Item>) => {
       state.myItems.push(action.payload); // myItems 배열에 아이템 추가
     },
-
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
     //     teamId,
@@ -64,7 +61,6 @@ export const userSlice = createSlice({
     //   console.log("state")
     //   console.log(state)
     // },
-    
     userLogin: (state, action: PayloadAction<User>) => {
       //axios
       const {
@@ -72,7 +68,7 @@ export const userSlice = createSlice({
         email,
         name,
         profileImage,
-        tickets,
+        ticket,
         meetingUrl,
         myItems,
         myGroups,
@@ -81,12 +77,11 @@ export const userSlice = createSlice({
       state.email = email;
       state.name = name;
       state.profileImage = profileImage;
-      state.tickets = tickets;
+      state.ticket = ticket;
       state.meetingUrl = meetingUrl;
       state.myItems = myItems;
       state.myGroups = myGroups;
       state.isLoggedIn = true;
-      console.log("state.name = ", state.name)
     },
     userLogout: () => {
       console.log("log out call");
@@ -101,10 +96,6 @@ export const userSlice = createSlice({
     // hasAuthority: (state)=>{//  해당 그룹에
     //   return state.isLoggedIn;
     // }
-    addUser: (state, action: PayloadAction<User>) => {
-      state.push(action.payload); // 아이템을 배열에 추가
-      addItemToUser(action.payload); // 이게 왜 안되는지는 모르겠음 ㅠㅠ
-    },
   },
 });
 //action - dispatch
@@ -112,7 +103,7 @@ export const userSlice = createSlice({
 export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
 
 //getters
-export const checkTickets = (state: RootState) => state.user.tickets;
+export const checkTicket = (state: RootState) => state.user.ticket;
 export const getUserId = (state: RootState) => state.user.userId;
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState) => state.user.isLoggedIn;
