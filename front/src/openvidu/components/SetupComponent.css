@@ -207,13 +207,3 @@ select {
   justify-content: center;
   width: 420px;
 }
-
-.double-pongpong-toggle {
-  margin-bottom: 1rem;
-}
-
-.double-pongpong-toggle span {
-  color: var(--pink);
-  font-size: 1.25rem;
-  font-weight: 600;
-}

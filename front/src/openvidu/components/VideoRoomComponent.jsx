@@ -7,7 +7,6 @@ import { OpenVidu } from "openvidu-browser";
 import StreamComponent from "./stream/StreamComponent";
 import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import ChatComponent from "./chat/ChatComponent";
-// import ParticipantComponent from "./participant/ParticipantComponent";
 import QuestionComponent from "./question/QuestionComponent";
 // import FaceDetection from '../FaceDetection';
 import getCode from "../../utils/getCode";
@@ -96,7 +95,6 @@ class VideoRoomComponent extends Component {
       students: [],
       absentStudents: this.props.studentList,
       chatDisplay: "none",
-      participantDisplay: "none",
       questionDisplay: "none",
       quizDisplay: false,
       quizDisplayStudent: false,
@@ -121,13 +119,11 @@ class VideoRoomComponent extends Component {
       quizHistory: [],
       settingDisplay: false,
       videoLayout: "bigTeacher",
-      levelPng: this.props.levelPng,
       presentationCnt: 0,
       sortType: "all",
       emoji: "",
       emojiDisplay: false,
       isEmojiOn: false,
-      isPointDouble: this.props.isUsedDoublePongpong,
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
     };
@@ -149,9 +145,6 @@ class VideoRoomComponent extends Component {
     this.micStatusChanged = this.micStatusChanged.bind(this);
     // pickRandomStudent: 랜덤 학생 찍어주는 함수
     this.pickRandomStudent = this.pickRandomStudent.bind(this);
-    // upPoint, downPoint : 포인트 변경 함수
-    this.upPointChanged = this.upPointChanged.bind(this);
-    this.downPointChanged = this.downPointChanged.bind(this);
     // toggleFullscreen: 전체화면 처리 함수
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
     // screenShare: 화면 공유 함수
@@ -162,8 +155,6 @@ class VideoRoomComponent extends Component {
     this.closeDialogExtension = this.closeDialogExtension.bind(this);
     // toggleChat: 채팅 토글 버튼 함수
     this.toggleChat = this.toggleChat.bind(this);
-    // toggleParticipant: 참가자 목록 토글 버튼 함수
-    this.toggleParticipant = this.toggleParticipant.bind(this);
     // toggleQuestion: 질문 토글 버튼 함수
     this.toggleQuestion = this.toggleQuestion.bind(this);
     // toggleSetting: 설정 토글 버튼 함수
@@ -302,9 +293,6 @@ class VideoRoomComponent extends Component {
 
   // connect: 토큰을 매개변수로 받아서 실제 세션에 접속하게 해주는 함수
   connect(token) {
-    // name: 오석호
-    // date: 2022/07/28
-    // desc: 입장 시간을 저장해주는 로직
     const time = new Date();
     let attTime =
       String(time.getHours()).padStart(2, "0") +
@@ -313,12 +301,6 @@ class VideoRoomComponent extends Component {
       ":" +
       String(time.getSeconds()).padStart(2, "0");
     localUser.setAttendanceTime(attTime);
-
-    // 더블퐁퐁권 사용 여부
-    localUser.setIsPointDouble(this.props.isUsedDoublePongpong);
-
-    // 레벨 저장
-    localUser.setLevelPng(this.props.levelPng);
 
     // uid 저장
     localUser.setUid(this.props.userId);
@@ -454,9 +436,7 @@ class VideoRoomComponent extends Component {
         attTime: localUser.attendanceTime,
         randPick: this.state.randPick,
         uid: this.props.userId,
-        levelPng: this.props.levelPng,
         frameColor: localUser.frameColor,
-        isPointDouble: localUser.isPointDouble,
       })
       .then(() => {
         this.connectWebCam();
@@ -590,7 +570,6 @@ class VideoRoomComponent extends Component {
             isAudioActive: this.state.localUser.isAudioActive(),
             isVideoActive: this.state.localUser.isVideoActive(),
             nickname: this.state.localUser.getNickname(),
-            point: this.state.localUser.getPoint(),
             presentationCnt: this.state.localUser.getPresentationCnt(),
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
             frameColor: this.state.localUser.getFrameColor(),
@@ -726,9 +705,6 @@ class VideoRoomComponent extends Component {
     this.setState({ localUser: localUser });
   }
 
-  // name: 오석호
-  // date: 2022/08/15
-  // 발표 횟수 증가 함수
   upPresentationCnt() {
     this.state.localUser.upPresentationCnt();
     this.sendSignalUserChanged({
@@ -742,23 +718,6 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({
       presentationCnt: localUser.getPresentationCnt(),
     });
-    this.setState({ localUser: localUser });
-  }
-
-  // name: 오석호
-  // date: 2022/08/04
-  // 포인트 조작 함수
-  upPointChanged() {
-    let localUser = this.state.localUser;
-    localUser.upPoint();
-    this.sendSignalUserChanged({ point: localUser.getPoint() });
-    this.setState({ localUser: localUser });
-  }
-
-  downPointChanged() {
-    let localUser = this.state.localUser;
-    localUser.downPoint();
-    this.sendSignalUserChanged({ point: localUser.getPoint() });
     this.setState({ localUser: localUser });
   }
 
@@ -804,10 +763,6 @@ class VideoRoomComponent extends Component {
       newUser.setAttendanceTime(
         JSON.parse(event.stream.connection.data).attTime
       );
-      newUser.setIsPointDouble(
-        JSON.parse(event.stream.connection.data).isPointDouble
-      );
-      newUser.setLevelPng(JSON.parse(event.stream.connection.data).levelPng);
       newUser.setUid(JSON.parse(event.stream.connection.data).uid);
       const nickname = event.stream.connection.data.split("%")[0];
       newUser.setNickname(JSON.parse(nickname).clientData);
@@ -849,9 +804,6 @@ class VideoRoomComponent extends Component {
           }
           if (data.nickname !== undefined) {
             user.setNickname(data.nickname);
-          }
-          if (data.point !== undefined) {
-            user.setPoint(data.point);
           }
           if (data.presentationCnt != undefined) {
             user.setPresentationCnt(data.presentationCnt);
@@ -1193,24 +1145,6 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   }
 
-  // name: 오석호
-  // date: 2022/07/27
-  // desc: Participant를 확인하기 위한 버튼을 토글하는 기능
-  // todo: 버튼을 누르면 this.state.participantDisplay가 현재와 반대 상태가 된다.
-  toggleParticipant(property) {
-    let display = property;
-
-    if (display === undefined) {
-      display = this.state.participantDisplay === "none" ? "block" : "none";
-    }
-
-    if (display === "block")
-      this.setState({ participantDisplay: display, questionDisplay: "none" });
-    else this.setState({ participantDisplay: display });
-
-    this.updateLayout();
-  }
-
   toggleQuestion(property) {
     let display = property;
 
@@ -1221,7 +1155,6 @@ class VideoRoomComponent extends Component {
     if (display === "block") {
       // notify도 여기서 관리
       this.setState({
-        participantDisplay: "none",
         chatDisplay: "none",
         questionDisplay: display,
         questionReceived: false,
@@ -1254,7 +1187,6 @@ class VideoRoomComponent extends Component {
       !this.hasBeenUpdated
     ) {
       this.toggleChat("none");
-      this.toggleParticipant("none");
       this.hasBeenUpdated = true;
     }
     if (
@@ -1265,10 +1197,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // name: 한준수
-  // date: 2022/07/28
-  // desc: 선생님이 랜덤한 학생을 지목하는 기능
-  // todo: 호출 시 현재 참여자 중 랜덤한 1명을 지목하고, 추첨 결과를 전체 참여자에게 공유한다.
   pickRandomStudent(list, bool) {
     if (list.length > 0) {
       let studentList = [];
@@ -1313,10 +1241,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // name: 한준수
-  // date: 2022/07/26
-  // desc: frameChanged: 테두리 색깔 설정 변경
-  // todo: {type: "color", value: "#F8CBD3"} 형식으로 전달받은 값대로 현재 유저의 frameColor 값을 변경하고, 다른 유저들에게도 변경 사실을 전달한다.
   frameChanged(frameColor) {
     let localUser = this.state.localUser;
     localUser.setFrameColor(frameColor);
@@ -1326,10 +1250,6 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  // name: 한준수
-  // date: 2022/07/27
-  // desc: alertToChat: 채팅 창에 메세지를 보내는 기능
-  // todo: String 형식으로 전달받은 값대로 시스템 명의를 사용해서 채팅을 전송한다.
   alertToChat(message) {
     if (localUser && message) {
       if (message !== "" && message !== " ") {
@@ -1355,10 +1275,6 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   };
 
-  // name: 한준수
-  // date: 2022/08/17
-  // desc: checkUserHasItem: 아이템 소지 여부를 체크하는 함수
-  // todo: int 형식으로 전달받은 itemId값을 바탕으로 현재 유저의 아이템 소지여부를 확인해서 boolean값으로 반환하는 함수
   async checkUserHasItem(itemId) {
     if (this.props.whoami !== "teacher") {
       if (itemId !== -1) {
@@ -1385,10 +1301,6 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  // name: 한준수
-  // date: 2022/08/13
-  // desc: useItem: 아이템을 사용하는 함수
-  // todo: int 형식으로 전달받은 itemId값을 바탕으로 현재 유저가 소지한 아이템을 사용하고, 성공 여부를 boolean값으로 반환하는 함수.
   useItem = (itemId) => {
     InterceptedAxios.delete(`/items/${this.props.userId}/${itemId}`)
       .then(() => {
@@ -1400,10 +1312,6 @@ class VideoRoomComponent extends Component {
     return false;
   };
 
-  // name: 한준수
-  // date: 2022/07/28
-  // desc: startStickerEvent: 칭찬스티커 클릭이벤트를 발생시키는 함수
-  // todo: subscribers에게 sendSignalUserChanged를 통해 클릭이벤트를 발생시키는 함수
   startStickerEvent = () => {
     this.sendSignalUserChanged({
       clickEvent: 5,
@@ -1427,10 +1335,6 @@ class VideoRoomComponent extends Component {
     }, 4 * 1000);
   };
 
-  // addNewSticker: 호출 시 int값으로 주어진 cur을 키값으로 가지는 칭찬스티커를 전체 화면에 생성하는 함수
-  // name: 오석호
-  // date: 2022/07/29
-  // desc: 로직 일부 수정 - 채팅창이나 참여자 목록을 켰을 때 발생할 수 있는 30% 및 하단 툴바 고려
   addNewSticker = (current) => {
     let imgSize = 100;
     let margin = 8;
@@ -1487,16 +1391,10 @@ class VideoRoomComponent extends Component {
     }, 1.5 * 1000);
   };
 
-  // name: 오석호
-  // date: 2022/08/05
-  // desc: 설정창 켜고끄기
   toggleSetting() {
     this.setState({ settingDisplay: !this.state.settingDisplay });
   }
 
-  // name: 원재호
-  // date: 2022/08/02
-  // desc: 퀴즈 관련 함수 모아놓음
   toggleQuiz = (quiz) => {
     console.log("토글 퀴즈 열기");
     if (quiz) {
@@ -1569,9 +1467,6 @@ class VideoRoomComponent extends Component {
     });
   };
 
-  // name: 한준수
-  // date: 2022/08/17
-  // desc: 영상 레이아웃 토글 변경 함수
   toggleVideoLayout = () => {
     if (this.state.videoLayout === "bigTeacher") {
       this.setState({ videoLayout: "equalSize" });
@@ -1581,24 +1476,15 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   };
 
-  // name: 오석호
-  // date: 2022/08/15
-  // desc: 이모지창을 여닫는 함수
   toggleEmoji() {
     this.setState({ emojiDisplay: !this.state.emojiDisplay });
   }
 
-  // name: 오석호
-  // date: 2022/08/16
-  // desc: 접속자 정렬 기준 선정버튼
   partsSortChange(value) {
     this.setState({
       sortType: value,
     });
   }
-  // name: 오석호
-  // date: 2022/08/15
-  // desc: 이모지창을 여닫는 함수
   sendEmoji = (emoji) => {
     if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
     localUser.setEmoji(emoji);
@@ -1720,7 +1606,6 @@ class VideoRoomComponent extends Component {
     const localUser = this.state.localUser;
     const subscribers = this.state.subscribers;
     const chatDisplay = { display: this.state.chatDisplay };
-    const participantDisplay = { display: this.state.participantDisplay };
     const questionDisplay = { display: this.state.questionDisplay };
 
     return (
@@ -1807,7 +1692,6 @@ class VideoRoomComponent extends Component {
           id="layout"
           className={
             (this.state.chatDisplay === "block" ||
-            this.state.participantDisplay === "block" ||
             this.state.questionDisplay === "block"
               ? "sth_on_bounds"
               : "bounds") +
@@ -1866,7 +1750,6 @@ class VideoRoomComponent extends Component {
           className={
             "sth_component " +
             (this.state.chatDisplay === "none" &&
-            this.state.participantDisplay === "none" &&
             this.state.questionDisplay === "none"
               ? "display_none"
               : "")
@@ -1890,52 +1773,13 @@ class VideoRoomComponent extends Component {
             )}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div
-                className={
-                  "OT_root custom-class " +
-                  (this.state.chatDisplay === "block" &&
-                  this.state.participantDisplay === "block"
-                    ? "double_parti"
-                    : "parti")
-                }
-                style={participantDisplay}
-              >
-                {/* <ParticipantComponent
-                    whoami={this.props.whoami}
-                    user={localUser}
-                    subscribers={subscribers}
-                    participantDisplay={this.state.participantDisplay}
-                    close={this.toggleParticipant}
-                    upPointChanged={this.upPointChanged}
-                    downPointChanged={this.downPointChanged}
-                    absentStudents={this.state.absentStudents}
-                    teacher={this.state.teacher}
-                    student={this.state.students}
-                    partsSortChange={this.partsSortChange}
-                    type={this.state.sortType}
-                  /> */}
-              </div>
-            )}
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div
-                className={
-                  "OT_root custom-class " +
-                  (this.state.participantDisplay === "block" &&
-                  this.state.chatDisplay === "block"
-                    ? "double_chat"
-                    : "chat")
-                }
-                style={chatDisplay}
-              >
+              <div className="OT_root custom-class chat" style={chatDisplay}>
                 <ChatComponent
                   user={localUser}
                   subscribers={subscribers}
                   chatDisplay={this.state.chatDisplay}
                   close={this.toggleChat}
                   messageReceived={this.checkNotification}
-                  // levelPng={this.props.levelPng}
-                  // profile={this.props.memberStore.profileFullPath}
                 />
               </div>
             )}
@@ -1960,7 +1804,6 @@ class VideoRoomComponent extends Component {
             leaveSession={this.leaveSession}
             selfLeaveSession={this.selfLeaveSession}
             toggleChat={this.toggleChat}
-            toggleParticipant={this.toggleParticipant}
             toggleQuestion={this.toggleQuestion}
             toggleQuiz={this.toggleQuiz}
             toggleSetting={this.toggleSetting}
