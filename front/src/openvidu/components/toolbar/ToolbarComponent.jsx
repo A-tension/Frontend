@@ -28,6 +28,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import TeachersToolbar from "./TeachersToolbar";
+import WebcamDemo from "../../../components/faceAPI/src/WebcamDemo.jsx";
 
 export default class ToolbarComponent extends Component {
   constructor(props) {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SetupComponent from "./components/SetupComponent";
 import VideoRoomComponent from "./components/VideoRoomComponent";
 import ResultComponent from "./components/ResultComponent";
+import WebcamDemo from "../components/faceAPI/src/WebcamDemo.jsx";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import whoru from "../utils/whoru";

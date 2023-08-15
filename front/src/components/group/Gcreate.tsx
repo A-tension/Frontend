@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Team, groupCreateTest } from "../../store/group";
 import { User } from "../../store/user";
+import WebcamDemo from "../faceAPI/src/WebcamDemo.jsx";
 interface GroupCreateData extends Team {
   members: string[] | User[];
   description: string;
@@ -115,6 +116,7 @@ const handleEdit=()=>{
               value={groupData.members}
               onChange={handleInputChange}
             />
+              <WebcamDemo></WebcamDemo>
           </FloatingLabel>
           <FloatingLabel label="그룹 설명" className="mb-3">
             <Form.Control

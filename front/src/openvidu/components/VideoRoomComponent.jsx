@@ -24,6 +24,7 @@ import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import Setting from "./settings/Setting";
 import Emoji from "./emoji/Emoji";
+import WebcamDemo from "../../components/faceAPI/src/WebcamDemo.jsx";
 
 let localUser = new UserModel();
 let timeout;
@@ -203,6 +204,7 @@ class VideoRoomComponent extends Component {
     // 선생님 메뉴 토글버튼
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
   }
+
 
   // componentDidMount: 컴포넌트가 마운트 되었을 때 작동하는 리액트 컴포넌트 생명주기함수
   componentDidMount() {
@@ -1813,6 +1815,9 @@ class VideoRoomComponent extends Component {
             conferenceCreateData={this.props.conferenceCreateData}
             conferenceJoinData={this.props.conferenceJoinData}
           />
+        </div>
+        <div className="faceAPI">
+          <WebcamDemo></WebcamDemo>
         </div>
       </>
     );
