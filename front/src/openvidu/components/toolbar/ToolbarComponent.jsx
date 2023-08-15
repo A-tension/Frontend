@@ -230,7 +230,9 @@ export default class ToolbarComponent extends Component {
               )}
             </IconButton>
 
-            {this.props.whoami === "teacher" && (
+            {/* {this.props.whoami === "teacher" && ( */}
+            {(
+
               <IconButton
                 color="inherit"
                 className="navButton"

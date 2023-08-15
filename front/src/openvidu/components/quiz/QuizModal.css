@@ -10,6 +10,8 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
+  top: 0;
+  right: 0.5px;
 }
 
 .quizModal > .quizSection {
@@ -20,7 +22,6 @@
   min-height: min-content;
   max-height: 95%;
   background-color: #fff;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   display: flex;
   flex-direction: column;
@@ -89,8 +90,6 @@
 .quizModal.openQuizModal {
   display: flex;
   align-items: center;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-bg-show 0.3s;
 }
 @keyframes modal-show {
   from {

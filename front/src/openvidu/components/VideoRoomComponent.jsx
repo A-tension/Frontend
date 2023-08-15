@@ -1784,7 +1784,6 @@ class VideoRoomComponent extends Component {
               </div>
             )}
         </div>
-        하단 툴바
         <div className="toolbar">
           <ToolbarComponent
             teacherName={this.props.teacherName}

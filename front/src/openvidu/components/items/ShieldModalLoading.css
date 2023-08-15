@@ -2,18 +2,17 @@
 Basic style
 ==================*/
 
-html,
+/* html,
 body {
   position: relative;
   width: 100%;
   height: 100%;
-  /* 스크롤 막는 주범 */
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
-body {
+/* body {
   margin: 0;
-}
+} */
 /* 
 img {
   max-width: 100%;
@@ -21,11 +20,11 @@ img {
   vertical-align: bottom;
 } */
 
-h1,
+/* h1,
 h2,
 p {
   margin: 0;
-}
+} */
 
 /*===================
 animation01
