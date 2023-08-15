@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
@@ -16,10 +16,8 @@ import Manage from "./components/meeting/Manage";
 import Header from "./pages/Header";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
-import VideoRoomComponent from "./openvidu/components/VideoRoomComponent";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
-import Month from "./components/plan/Month";
 import Waiting from "./pages/Waiting";
 import List from "./components/item/List.tsx";
 import Draw from "./components/item/Draw.tsx";
@@ -34,8 +32,14 @@ import { createEventId } from "./components/plan/event-utils.tsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
+<<<<<<< HEAD
 import QuizModal from "./openvidu/components/quiz/QuizModal.jsx";
 import QuizForm from "./openvidu/components/quiz/QuizForm.jsx";
+=======
+
+
+
+>>>>>>> 085a34a96989d89053f029750a1ec20192522ba2
 function App() {
   //임시 props 테스트
 

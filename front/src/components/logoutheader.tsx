@@ -11,6 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
 import filler from "../assets/Memoji.png";
+
 const Logoutheader = () => {
   const loginUser = useAppSelector(selectUser);
   // const user = {
@@ -96,7 +97,27 @@ const Logoutheader = () => {
         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
         {/* </Dropdown.Menu> */}
       </NavDropdown>
-    </>
+
+
+/*         <NavDropdown.ItemText as={Nav.Link} to="/info">
+          <Nav.Link as={Link} to="/info">
+            <div className="dropdown-content flex flex-col items-center text-center">
+              <Image src={filler} roundedCircle style={{ width:"40px" }}/>
+              <b>{loginUser.name}</b>
+              {loginUser.email}
+            </div>
+          </Nav.Link>
+        </NavDropdown.ItemText>
+        <NavDropdown.Divider></NavDropdown.Divider>
+        <NavDropdown.Item
+          onClick={handleLogout}
+          className="flex flex-col text-center"
+        >
+          로그아웃
+        </NavDropdown.Item>
+      </NavDropdown>
+     </>
+*/
   );
 };
 export default Logoutheader;
