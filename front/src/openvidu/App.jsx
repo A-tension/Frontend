@@ -115,9 +115,6 @@ const App = () => {
           conferenceCreateData={conferenceCreateData}
           conferenceJoinData={conferenceJoinData}
           userId={4444}
-          grade={4}
-          classNum={4}
-          studentNum={2}
           studentList={studentList}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}

@@ -133,21 +133,20 @@ const TeacherResult = ({
   const COLORS = ["#759eff", "#ff9b89"];
 
   return (
-    <div css={BackgroundContainer}>
-      <div className="triangles">
-        <div className="triangle1" />
-        <div className="triangle2" />
+    <div>
+      <div className="">
+        <div className="" />
       </div>
-      <div className="parent">
-        <div className="child">
-          <div className="circles">
-            <div className="circle1" />
-            <div className="circle2" />
-            <div className="circle3" />
+      <div className="">
+        <div className="">
+          <div className="">
+            <div className="" />
+            <div className="" />
+            <div className="" />
           </div>
           <hr />
-          <div className="sideContainer">
-            <div css={TotalContainer}>
+          <div className="">
+            <div>
               <div css={ClassStatistic}>
                 <h1 style={{ margin: "0" }}>수업 통계</h1>
                 <div className="classContainer">
