@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './QuizForm.css';
+// import './QuizForm.css';
+import "../../../tailwind.css";
 
 class QuizForm extends Component {
   state = {
@@ -49,7 +50,7 @@ class QuizForm extends Component {
           <h1>OX 퀴즈</h1>
           <ul>
             <li>
-              <label htmlFor="question">질문</label>
+              <label htmlFor="question" >질문</label>
               <input
                 onChange={this.onChange}
                 type="text"

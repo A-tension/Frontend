@@ -1640,7 +1640,7 @@ class VideoRoomComponent extends Component {
           display={this.state.quizDisplay}
           toggleQuiz={this.toggleQuiz}
           toggleQuizStudent={this.toggleQuizStudent}
-          header="퀴즈"
+          header="Quiz"
           quiz={this.state.quiz}
           quizHistory={this.state.quizHistory}
         />

@@ -34,7 +34,8 @@ import { createEventId } from "./components/plan/event-utils.tsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
-
+import QuizModal from "./openvidu/components/quiz/QuizModal.jsx";
+import QuizForm from "./openvidu/components/quiz/QuizForm.jsx";
 function App() {
   //임시 props 테스트
 
@@ -43,6 +44,9 @@ function App() {
       <div className="font-SUIT">
         <Header></Header>
         <Routes>
+        <Route path="/test">
+        <QuizForm />
+      </Route>
           <Route path="/" element={<Landing />}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>

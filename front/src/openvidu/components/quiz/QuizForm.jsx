@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './QuizForm.css';
+import "../../../tailwind.css";
+// import './QuizForm.css';
 
 class QuizForm extends Component {
   state = {
@@ -59,8 +60,8 @@ class QuizForm extends Component {
   render() {
     return (
       <div className="quizFormContainer">
-        <div className="form-style-7">
-          <h1>4지선다 퀴즈</h1>
+        <div className="form-style-4">
+          <h1 className='font-pretendard text-blue text-2xl text-center'>4지선다 퀴즈</h1>
           <ul>
             <li>
               <label htmlFor="question">질문</label>
