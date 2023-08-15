@@ -8,7 +8,7 @@ import StreamComponent from "./stream/StreamComponent";
 import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import ChatComponent from "./chat/ChatComponent";
 import QuestionComponent from "./question/QuestionComponent";
-// import FaceDetection from '../FaceDetection';
+import FaceDetection from "../FaceDetection";
 import getCode from "../../utils/getCode";
 import EmojiFilter from "./items/EmojiFilter";
 import QuizModal from "./quiz/QuizModal";
@@ -63,19 +63,6 @@ class VideoRoomComponent extends Component {
       sessionName = conferenceJoinData.conferenceUrl;
       userName = conferenceJoinData.nickname;
     }
-
-    // String(time.getMinutes()).padStart(2, '0') +
-    //   ':' +
-    //   String(time.getSeconds()).padStart(2, '0');
-
-    // if (this.props.whoami === "student")
-    //   userName = `[${this.props.grade}${String(this.props.classNum).padStart(
-    //     2,
-    //     "0"
-    //   )}${String(this.props.studentNum).padStart(2, "0")}]${
-    //     this.props.memberStore.name
-    //   }`;
-    // if (this.props.whoami === "teacher") userName = "[선생님]김싸피";
 
     // remotes:
     this.remotes = [];
@@ -1718,12 +1705,12 @@ class VideoRoomComponent extends Component {
                 currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
                 emoji={this.state.emoji}
               />
-              {/* <FaceDetection
-                  autoPlay={localUser.isScreenShareActive() ? false : true}
-                  camera={localUser.isVideoActive() ? false : true}
-                  smile={this.smile}
-                  outAngle={this.outAngle}
-                /> */}
+              <FaceDetection
+                autoPlay={localUser.isScreenShareActive() ? false : true}
+                camera={localUser.isVideoActive() ? false : true}
+                smile={this.smile}
+                outAngle={this.outAngle}
+              />
             </div>
           ) : null}
           {this.state.subscribers.map((sub, i) => (
