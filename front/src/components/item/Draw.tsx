@@ -11,7 +11,7 @@ import { selectUser } from "../../store/user";
 
 function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
-    // const tickets = useAppSelector(checkTickets);
+    // const ticket = useAppSelector(checkTickets);
     const user = useSelector(selectUser);
     console.log("user : ", user);
     const handleButtonClick = async () => {
