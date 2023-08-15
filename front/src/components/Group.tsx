@@ -64,26 +64,27 @@ function Group() {
 
   const handleGroupSelect = (group: Team) => {
     selectGroup(group);
-    //dispatch(hasAuthority());
-    
-    if (TF) getAuth(TF); // 실제로는 team participant has auth?
-    else getAuth(false);
-    console.log("selected"+group.name);
+    //dispatch(hasAuthority()); 
+    if(TF)
+      getAuth(TF); // 실제로는 team participant has auth?
+    else
+      getAuth(false);
+    console.log(hasAuth);
   };
 
   const groups: Team[] = useAppSelector(getGrouplist);
 
   const grouplist = groups.map((group, index) => (
-    <Nav.Link
-      href="#"
-      eventKey={index}
-      onClick={() => {
-        handleGroupSelect(group);
-      }}
-      key={index}
-    >
-      {group.name}
-    </Nav.Link>
+      <Nav.Link
+          href="#"
+          eventKey={index}
+          onClick={() => {
+            handleGroupSelect(group);
+          }}
+          key={index}
+      >
+        {group.name}
+      </Nav.Link>
   ));
   const handleTabClick = (tab: string) => {
     if (groups.length > 0) {
@@ -95,24 +96,24 @@ function Group() {
   // let menuList;
   // if(groups.length)
   const menuList = groupMenu.map((menu, index) => (
-    <Nav.Item
-      onClick={() => {
-        if (index == 3 && !hasAuth) return;
-        else handleTabClick(menuIndex[index]);
-      }}
-      key={index}
-    >
-      <Nav.Link
-        style={{
-          color: selectedTab == menuIndex[index] ? "#176DEE" : "#B9BEC6",
-        }}
-        active={selectedTab == menuIndex[index]}
-        disabled={(index == 3 && !hasAuth) || groups.length == 0}
-        eventKey={menuIndex[index]}
+      <Nav.Item
+          onClick={() => {
+            if (index == 3 && !hasAuth) return;
+            else handleTabClick(menuIndex[index]);
+          }}
+          key={index}
       >
-        {menu}
-      </Nav.Link>
-    </Nav.Item>
+        <Nav.Link
+            style={{
+              color: selectedTab == menuIndex[index] ? "#176DEE" : "#B9BEC6",
+            }}
+            active={selectedTab == menuIndex[index]}
+            disabled={(index == 3 && !hasAuth) || groups.length == 0}
+            eventKey={menuIndex[index]}
+        >
+          {menu}
+        </Nav.Link>
+      </Nav.Item>
   ));
 
   // const [selectedGroup, selectGroup] = useState("");
@@ -173,148 +174,148 @@ function Group() {
     dispatch(loadListTest);
   }
   return (
-    <>
-      <div>
-        <Tab.Container activeKey={selectedGroup}>
-          <Row>
-            <Col sm={3} style={{ height: "450px" }}>
-              <div
-                style={{
-                  flex: "none",
-                  height: "300px",
-                  overflowY: "auto",
-                }}
-              >
-                <Nav variant="pills" className="flex-column">
-                  {grouplist}
-                </Nav>
-              </div>
-              <Nav.Item>
-                <Button
-                  style={{
-                    borderRadius: "10px",
-                    width: "100%",
-                  }}
-                  onClick={() => setMenu(true)}
-                >
-                  그룹 추가
-                </Button>
-              </Nav.Item>
-            </Col>
 
-            {isCreate && (
-              <Col>
-                <Gcreate></Gcreate>{" "}
-              </Col>
-            )}
-            {!isCreate && (
-              <Col>
-                <Nav
-                  variant="underline"
-                  className="pb-0"
-                  // defaultActiveKey={selectedTab}
-                  activeKey={selectedTab}
-                >
-                  {menuList}
+      <>
+        <div>
+          <Tab.Container defaultActiveKey="first">
+            <Row>
+              <Col sm={3} style={{ height: "450px" }}>
+                <div
+                    style={{
+                      flex: "none",
+                      height: "300px",
+                      overflowY: "auto",
+                    }}
 
-                  <Nav className="ms-auto">
-                    <Nav.Item as={Nav.Link} linkto="">
-                      <Button
-                        onClick={() =>
-                          navigate("/dash/meeting/join", {
-                            state: {
-                              group: selectedGroup,
-                              toMeeting: "fromGroup",
-                            },
-                          })
-                        }
-                      >
-                        회의 참여
-                      </Button>
-                    </Nav.Item>
+                >
+                  <Nav variant="pills" className="flex-column">
+                    {grouplist}
                   </Nav>
-                </Nav>
 
-                <hr className="solid" />
-                {selectedTab === "info" && (
-                  <div>
-                    {/* 화면 전환 시 잔상이 보이던 건 여기 때문  */}
-                    {/* 그룹 정보 컴포넌트를 렌더링 */}
-                    {/* <h1>Group {selectedGroup.name}</h1> */}
-                  </div>
-                )}
-                {selectedTab === "chat" && (
-                  <div>
-                    {/* 채팅 컴포넌트를 렌더링 */}
-                    <h1>{selectedGroup.name}야홍~~~</h1>
-                  </div>
-                )}
-                {selectedTab === "plans" && (
-                  <div>
-                    <Plans teamProp={selectedGroup} />
-                  </div>
-                )}
-                {selectedTab === "members" && (
-                  <div>
-                    {/* 멤버 컴포넌트를 렌더링 */}
-                    <Members teamProp={selectedGroup} />
-                  </div>
-                )}
-                {selectedTab === "manage" && (
-                  <div>
-                    <ManageGroup teamProp={selectedGroup} />
-                  </div>
-                )}
-                {selectedTab === "chat" && (
-                  <div style={{ marginTop: "20px" }}>
-                    {/* 채팅상자를 렌더링 */}
-                    <Form
+                </div>
+                <Nav.Item>
+                  <Button
+
                       style={{
-                        backgroundColor: "white",
                         borderRadius: "10px",
-                        padding: "10px",
+                        width: "100%",
                       }}
-                    >
-                      <Form.Group
-                        controlId="exampleForm.ControlTextarea1"
-                        style={{ marginBottom: "0" }}
-                      >
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          placeholder="메시지 입력..."
-                          style={{
-                            backgroundColor: "#f7f7f7",
-                            borderRadius: "10px",
-                            border: "none",
-                            resize: "none",
-                          }}
-                        />
-                      </Form.Group>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Button
-                          variant="primary"
-                          
-                          onClick={load}
-                        >
-                          전송
-                        </Button>
-                      </div>
-                    </Form>
-                  </div>
-                )}
-                {/* </Card> */}
+                      onClick={() => setMenu(true)}
+                  >
+                    그룹 추가
+                  </Button>
+                </Nav.Item>
+
               </Col>
-            )}
-          </Row>
-        </Tab.Container>
-      </div>
-    </>
+
+              {isCreate && (
+                  <Col>
+                    <Gcreate></Gcreate>{" "}
+                  </Col>
+              )}
+              {!isCreate && (
+                  <Col>
+                    <Nav
+                        variant="underline"
+                        className="pb-0"
+                        // defaultActiveKey={selectedTab}
+                        activeKey={selectedTab}
+                    >
+                      {menuList}
+
+                      <Nav className="ms-auto">
+                        <Nav.Item as={Nav.Link} linkto="">
+                          <Button
+                              onClick={() =>
+                                  navigate("/dash/meeting/join", {
+                                    state: {
+                                      group: selectedGroup,
+                                      toMeeting: "fromGroup",
+                                    },
+                                  })
+                              }
+                          >
+                            회의 참여
+                          </Button>
+                        </Nav.Item>
+                      </Nav>
+                    </Nav>
+
+                    <hr className="solid" />
+                    {selectedTab === "info" && (
+                        <div>
+                          {/* 그룹 정보 컴포넌트를 렌더링 */}
+                          <h1>Group {selectedGroup.name}</h1>
+                        </div>
+                    )}
+                    {selectedTab === "chat" && (
+                        <div>
+                          {/* 채팅 컴포넌트를 렌더링 */}
+                          <h1>{selectedGroup.name} 그룹입니다</h1>
+                        </div>
+                    )}
+                    {selectedTab === "plans" && (
+                        <div>
+                          <Plans teamProp={selectedGroup} />
+                        </div>
+                    )}
+                    {selectedTab === "members" && (
+                        <div>
+                          {/* 멤버 컴포넌트를 렌더링 */}
+                          <Members teamProp={selectedGroup} />
+                        </div>
+                    )}
+                    {selectedTab === "manage" && (
+                        <div>
+                          <ManageGroup teamProp={selectedGroup} />
+                        </div>
+                    )}
+                    {selectedTab === "chat" && (
+                        <div style={{ marginTop: "20px" }}>
+                          {/* 채팅상자를 렌더링 */}
+                          <Form
+                              style={{
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                padding: "10px",
+                              }}
+                          >
+                            <Form.Group
+                                controlId="exampleForm.ControlTextarea1"
+                                style={{ marginBottom: "0" }}
+                            >
+                              <Form.Control
+                                  as="textarea"
+                                  rows={3}
+                                  placeholder="메시지 입력..."
+                                  style={{
+                                    backgroundColor: "#f7f7f7",
+                                    borderRadius: "10px",
+                                    border: "none",
+                                    resize: "none",
+                                  }}
+                              />
+                            </Form.Group>
+                            <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "flex-end",
+                                }}
+                            >
+                              <Button variant="primary" type="submit">
+                                전송
+                              </Button>
+                            </div>
+                          </Form>
+                        </div>
+                    )}
+                    {/* </Card> */}
+                  </Col>
+              )}
+            </Row>
+          </Tab.Container>
+        </div>
+      </>
   );
 }
 
