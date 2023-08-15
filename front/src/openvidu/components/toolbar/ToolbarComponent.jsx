@@ -26,8 +26,7 @@ import ViewArray from "@material-ui/icons/ViewArray";
 import Share from "@material-ui/icons/Share";
 import SearchIcon from "@material-ui/icons/Search";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
-// import AutoAwesomeMotionIcon from "@material-ui/icons/AutoAwesome";
-import Tooltip from "@material-ui/core/Tooltip";
+import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import TeachersToolbar from "./TeachersToolbar";
 
 export default class ToolbarComponent extends Component {
@@ -48,7 +47,6 @@ export default class ToolbarComponent extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
-    this.toggleParticipant = this.toggleParticipant.bind(this);
     this.toggleQuiz = this.toggleQuiz.bind(this);
     this.pickRandomStudent = this.pickRandomStudent.bind(this);
     this.startStickerEvent = this.startStickerEvent.bind(this);
@@ -105,10 +103,6 @@ export default class ToolbarComponent extends Component {
     this.props.toggleSetting();
   }
 
-  toggleParticipant() {
-    this.props.toggleParticipant();
-  }
-
   toggleEmoji() {
     this.props.toggleEmoji();
   }
@@ -121,19 +115,11 @@ export default class ToolbarComponent extends Component {
     this.props.toggleQuiz();
   }
 
-  // name: 한준수
-  // date: 2022/07/25
-  // desc: 선생님이 랜덤한 학생을 지목하는 기능
-  // todo: 내 Subscribers 중 랜덤한 1명을 선택해 지목하고, 지목받은 학생의 테두리를 1.5초동안 빨간색으로 변경 시키고, 3초 동안 지목 버튼을 비활성화 시킨다.
   pickRandomStudent() {
     this.lockOut(6);
     this.props.pickRandomStudent(this.props.subscribers, false);
   }
 
-  // name: 한준수
-  // date: 2022/07/27
-  // desc: 랜덤 지목 버튼을 일정 시간동안 비활성화 시켜주는 함수
-  // Todo: 호출 시 해당 버튼을 지정된 시간동안 disabled 해주는 함수
   lockOut(lockOutTime) {
     this.setState({ randAvailable: false });
     setTimeout(() => {
@@ -158,10 +144,6 @@ export default class ToolbarComponent extends Component {
     this.setState({ showTeacherMenuToggle: !this.state.showTeacherMenuToggle });
   }
 
-  // name: 한준수
-  // date: 2022/08/13
-  // desc: 내 화면의 비디오 레이아웃을 변경시키는 기능.
-  // todo: 이전 상태를 바탕으로 비디오 레이아웃을 다음 상태로 변경시킨다.
   toggleVideoLayout() {
     this.props.toggleVideoLayout();
   }
@@ -206,9 +188,6 @@ export default class ToolbarComponent extends Component {
           {mySessionId && (
             <div id="titleContent">
               <span id="session-title">{mySessionId}</span>
-              <span id="session-title">
-                {} - {}
-              </span>
             </div>
           )}
 
@@ -361,19 +340,6 @@ export default class ToolbarComponent extends Component {
                   ))
                 : null}
             </IconButton>
-            <Tooltip title={mySessionId} placement="bottom">
-              <IconButton
-                color="inherit"
-                onClick={this.openModal}
-                className="navButton"
-                id="navShareCodeButton"
-              >
-                <div className="buttonStyle">
-                  <Share />
-                  <p>{mySessionId}</p>
-                </div>
-              </IconButton>
-            </Tooltip>
             {this.props.whoami !== "teacher" ? (
               <IconButton
                 color="secondary"
@@ -424,18 +390,6 @@ export default class ToolbarComponent extends Component {
                 )}
                 <SearchIcon />
                 <p>익명질문</p>
-              </div>
-            </IconButton>
-
-            <IconButton
-              color="inherit"
-              onClick={this.toggleParticipant}
-              className="navButton"
-              id="navParticipantButton"
-            >
-              <div className="buttonStyle">
-                <PeopleIcon />
-                <p>참여자 목록</p>
               </div>
             </IconButton>
 

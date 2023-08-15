@@ -6,7 +6,6 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import whoru from "../utils/whoru";
 import InterceptedAxios from "../utils/iAxios";
-import levelFunction from "../utils/levelFunction";
 
 const App = () => {
   const [tap, setTap] = useState("setup");
@@ -34,9 +33,6 @@ const App = () => {
   const [studentInfo, setStudentInfo] = useState({});
   // 내 레벨 확인
   const [levelPng, setLevelPng] = useState("/levels/rainbow.png");
-  // 더블퐁퐁권 확인
-  const [canUseDoublePongpong, setCanUseDoublePongpong] = useState(false);
-  const [isUsedDoublePongpong, setIsUsedDoublePongpong] = useState(false);
 
   // 라우팅용
   const navigate = useNavigate();
@@ -67,33 +63,6 @@ const App = () => {
     };
     if (whoami !== "teacher") getUserItems();
   });
-
-  //   // 학생셋 만들기
-  //   useEffect(() => {
-  //     const getMyLevel = async () => {
-  //       const myPoint = await InterceptedAxios.get(
-  //         `/items/totalsticker/${memberStore.userId}`
-  //       );
-  //       const pngUrl = levelFunction(myPoint.data);
-  //       setLevelPng(pngUrl);
-  //     };
-  //     const getStudentList = async () => {
-  //       const classStudents = await InterceptedAxios.get(
-  //         `/classes/student/${state.classId}`
-  //       );
-  //       const nameList = classStudents.data.participantsList.map(
-  //         (elem) => elem.studentNickname
-  //       );
-  //       const studentSets = {};
-  //       classStudents.data.participantsList.forEach((elem) => {
-  //         studentSets[elem.studentNickname] = elem.studentid;
-  //       });
-  //       setStudentList(nameList);
-  //       setStudentInfo(studentSets);
-  //     };
-  //     if (whoami !== "teacher") getMyLevel();
-  //     getStudentList();
-  //   }, []);
 
   //   // 만약 state 없이 한번에 url에 접근하려고 했다면
   if (!state) window.location.href = "/";
@@ -131,9 +100,6 @@ const App = () => {
           setDevices={setDevices}
           code={code}
           whoami={whoami}
-          canUseDoublePongpong={canUseDoublePongpong}
-          isUsedDoublePongpong={isUsedDoublePongpong}
-          setIsUsedDoublePongpong={setIsUsedDoublePongpong}
           userId={4444}
         />
       )}
@@ -141,7 +107,6 @@ const App = () => {
         <VideoRoomComponent
           setDevices={setDevices}
           code={code}
-          // memberStore={memberStore}
           whoami={whoami}
           setTap={setTap}
           setMyData={setMyData}
@@ -154,10 +119,8 @@ const App = () => {
           classNum={4}
           studentNum={2}
           studentList={studentList}
-          // levelPng={levelPng}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}
-          isUsedDoublePongpong={isUsedDoublePongpong}
         />
       )}
       {tap === "result" && (

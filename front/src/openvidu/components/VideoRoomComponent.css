@@ -98,10 +98,10 @@
   background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
-    #ffffff,
-    #0f27ff
+    #e4e4e4,
+    #44e3ff
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #ffffff, #130bff);
+  background: linear-gradient(to bottom, #f1f1f1, #006aff);
 }
 
 .sth_component {

@@ -56,7 +56,7 @@ const Emoji = (props) => {
           return (
             <img
               key={index}
-              src={"../reactions/" + e + ".gif"}
+              src={"../../public/reactions/" + e + ".gif"}
               onClick={() => {
                 onClickEmotion(e);
               }}

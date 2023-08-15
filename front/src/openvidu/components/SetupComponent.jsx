@@ -22,15 +22,7 @@ import InterceptedAxios from "../../utils/iAxios";
 const SetupComponent = (props) => {
   const location = useLocation();
   const { conferenceCreateData, conferenceJoinData } = location.state;
-  const {
-    setTap,
-    setDevices,
-    whoami,
-    canUseDoublePongpong,
-    isUsedDoublePongpong,
-    setIsUsedDoublePongpong,
-    userId,
-  } = props;
+  const { setTap, setDevices, whoami, userId } = props;
 
   const {
     videos,
@@ -189,10 +181,6 @@ const SetupComponent = (props) => {
     window.location.href = `/dash/meeting`;
   };
 
-  const onClickDoublePongpong = () => {
-    setIsUsedDoublePongpong(!isUsedDoublePongpong);
-  };
-
   return (
     <div className="">
       {/* {isLoading && <Loading whoami={whoami} />} */}
@@ -272,20 +260,6 @@ const SetupComponent = (props) => {
                   </select>
                 </div>
               </div>
-              {canUseDoublePongpong && (
-                <div className="double-pongpong-toggle">
-                  {isUsedDoublePongpong ? (
-                    <span>더블퐁퐁권 사용O</span>
-                  ) : (
-                    <span>더블퐁퐁권 사용X</span>
-                  )}
-                  <Switch
-                    checked={isUsedDoublePongpong}
-                    onClick={onClickDoublePongpong}
-                    color="error"
-                  />
-                </div>
-              )}
               <div className="next">
                 <button className="nextBtn" onClick={goNext}>
                   입장하기
