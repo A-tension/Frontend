@@ -64,7 +64,8 @@ function Header() {
             </Nav>
           )}
 
-          {isLogin && (
+
+          {!isLogin && (
             <Nav className="ms-auto text-white">
               <Loginheader />
             </Nav>

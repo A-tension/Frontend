@@ -29,7 +29,7 @@ export const statusSlice = createSlice({
     hideBackground: (state, action: PayloadAction<boolean>) => {
       state.inMeeting = action.payload;
     },
-    
+
     // planCreateTest: (state, action: PayloadAction<Plan>) => {
     //   const { members, name,start,starttime, startdate, isPrivate} = action.payload;
     //   state.push({

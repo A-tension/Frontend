@@ -22,15 +22,7 @@ import InterceptedAxios from "../../utils/iAxios";
 const SetupComponent = (props) => {
   const location = useLocation();
   const { conferenceCreateData, conferenceJoinData } = location.state;
-  const {
-    setTap,
-    setDevices,
-    whoami,
-    canUseDoublePongpong,
-    isUsedDoublePongpong,
-    setIsUsedDoublePongpong,
-    userId,
-  } = props;
+  const { setTap, setDevices, whoami, userId } = props;
 
   const {
     videos,
@@ -162,13 +154,6 @@ const SetupComponent = (props) => {
   };
 
   const goNext = async () => {
-    if (isUsedDoublePongpong) {
-      try {
-        await InterceptedAxios.delete(`/items/${userId}/4`);
-      } catch (e) {
-        console.error(e);
-      }
-    }
     setTap("class");
 
     // 여기서 필요한 데이터를 전달하고자 한다면 아래와 같이 작성
@@ -193,28 +178,15 @@ const SetupComponent = (props) => {
         console.error(e);
       }
     }
-    window.location.href = `/${whoami}`;
-  };
-
-  const onClickDoublePongpong = () => {
-    setIsUsedDoublePongpong(!isUsedDoublePongpong);
+    window.location.href = `/dash/meeting`;
   };
 
   return (
-    <div className="totalContainer">
-      {isLoading && <Loading whoami={whoami} />}
-      <div className="triangles">
-        <div className="triangle1" />
-        <div className="triangle2" />
-      </div>
-      <div className="parent">
-        <div className="child">
-          <div className="circles">
-            <div className="circle1" />
-            <div className="circle2" />
-            <div className="circle3" />
-          </div>
-          <hr />
+    <div className="">
+      {/* {isLoading && <Loading whoami={whoami} />} */}
+      <div className="">
+        <div className="">
+          {/* <hr /> */}
           <div className="sideContainer">
             <div className="main">
               <div className="RoomName title">
@@ -288,20 +260,6 @@ const SetupComponent = (props) => {
                   </select>
                 </div>
               </div>
-              {canUseDoublePongpong && (
-                <div className="double-pongpong-toggle">
-                  {isUsedDoublePongpong ? (
-                    <span>더블퐁퐁권 사용O</span>
-                  ) : (
-                    <span>더블퐁퐁권 사용X</span>
-                  )}
-                  <Switch
-                    checked={isUsedDoublePongpong}
-                    onClick={onClickDoublePongpong}
-                    color="error"
-                  />
-                </div>
-              )}
               <div className="next">
                 <button className="nextBtn" onClick={goNext}>
                   입장하기

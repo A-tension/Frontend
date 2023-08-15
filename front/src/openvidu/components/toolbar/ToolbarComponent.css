@@ -3,13 +3,13 @@
   background: #2b5876; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to left,
-    #4e4376,
-    #2b5876
+    #ffffff,
+    #0071f3
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
-    #4e4376,
-    #2b5876
+    #0794ff,
+    #ffffff
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   position: absolute;
@@ -21,16 +21,16 @@
 
 #teacher-header {
   color: #ffffff;
-  background: #8a3434; /* fallback for old browsers */
+  background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to left,
-    #8a3434,
-    #b81616,
+    #9e9c9c,
+    #0066ff
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
-    #8a3434,
-    #b81616,
+    #9f9f9f,
+    #017cff
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   padding: 0 14px 0 0;
@@ -98,17 +98,12 @@
 }
 
 #session-title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 #navEmoji {
   position: absolute;
   right: 13.5rem;
-}
-
-#navParticipantButton {
-  position: absolute;
-  right: 9rem;
 }
 
 #navQuestButton {

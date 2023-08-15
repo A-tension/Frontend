@@ -6,14 +6,13 @@ import {
   Button,
   Popover,
   Dropdown,
-  Image
-
+  Image,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectUser, userLogout } from "../store/user";
-import filler from "../assets/bwink_edu_04_single_04.jpg"
-const Logoutheader = () => {
+import filler from "../assets/Memoji.png";
 
+const Logoutheader = () => {
   const loginUser = useAppSelector(selectUser);
   // const user = {
   //   name: "Ssafy",
@@ -77,8 +76,8 @@ const Logoutheader = () => {
         회의 참여
       </Nav.Link>
       <NavDropdown
-      as={Dropdown}
-      content="none"
+        as={Dropdown}
+        content="none"
         title={
           <div className="flex items-center  text-white gap-2">
             {loginUser.name}
@@ -87,7 +86,20 @@ const Logoutheader = () => {
         }
         style={{ borderRadius: "20px" }}
       >
-        <NavDropdown.ItemText as={Nav.Link} to="/info">
+        {/* <Dropdown.Toggle style={{ color: "white" }}>
+          <div className="text-white">
+            {loginUser.name}</div> style={{ maxWidth: "10px" }}
+        </Dropdown.Toggle> */}
+        {/* <Dropdown.Menu> */}
+        <Dropdown.Item as={Link} to="/info">
+          마이페이지
+        </Dropdown.Item>
+        <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+        {/* </Dropdown.Menu> */}
+      </NavDropdown>
+
+
+/*         <NavDropdown.ItemText as={Nav.Link} to="/info">
           <Nav.Link as={Link} to="/info">
             <div className="dropdown-content flex flex-col items-center text-center">
               <Image src={filler} roundedCircle style={{ width:"40px" }}/>
@@ -105,6 +117,7 @@ const Logoutheader = () => {
         </NavDropdown.Item>
       </NavDropdown>
      </>
+*/
   );
 };
 export default Logoutheader;
