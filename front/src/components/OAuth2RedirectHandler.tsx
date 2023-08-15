@@ -10,6 +10,9 @@ import { Team } from "../store/group.ts";
 import { findMyPlan } from "../api/plan/planApi.tsx";
 import { planResponseDto } from "../api/plan/types.tsx";
 import { Plan, planCreateTest } from "../store/plan.ts";
+import { getUserProfile } from "../api/user/userApi.tsx";
+import { UserResponseDTO } from "../api/user/types.tsx";
+import { userLogin } from "../store/user.ts";
 
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
@@ -51,6 +54,10 @@ function OAuth2RedirectHandler() {
   };
 
   const getUserInfos = () => {
+    getUserProfile<UserResponseDTO>().then((response) => {
+      dispatch(userLogin(response.data.data));
+    });
+
     // 내 아이템 조회
     findMyItemList<FindMyItemResponseDto>()
       .then((response) => {
@@ -89,9 +96,6 @@ function OAuth2RedirectHandler() {
         dispatch(planCreateTest(plan));
       }
     });
-  };
-  const createMeetingUrl = (encodedSessionId: string): string => {
-    return import.meta.env.VITE_MEETING_BASE_URL + "/" + encodedSessionId;
   };
 
   return null; // Since we're doing redirects, there's nothing to render
