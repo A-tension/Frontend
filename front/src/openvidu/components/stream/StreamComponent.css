@@ -54,8 +54,8 @@ video {
 #statusIcons {
   display: flex;
   flex-direction: row-reverse;
-  background: #c71100;
-  width: 40px;
+  /* background: #c71100; */
+  width: 100px;
   height: fit-content;
   position: absolute;
   color: #ffffff;
@@ -65,7 +65,7 @@ video {
 
 #camIcon,
 #micIcon {
-  background: #c71100;
+  /* background: #c71100; */
   text-align: center;
   padding: 6px;
 }

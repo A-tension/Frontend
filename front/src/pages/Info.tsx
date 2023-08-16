@@ -81,7 +81,7 @@ function Info() {
           <Col className="d-flex flex-column  align-items-center  justify-content-center">
             <div>
               <Image
-                  src={data.profileImage}
+                  src={loginUser.profileImage}
                   fluid
                   roundedCircle
                   width={200}
@@ -100,36 +100,36 @@ function Info() {
                     name="name"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    // data로하면 받아지고 loginUser로하면 안받아짐 ㅋㅋ 킹받네
                     value={loginUser.name}
                 />
               </FloatingLabel>
-              <FloatingLabel label="프로필이미지">
-                <Form.Control
-                     name="profileImage"
-                    readOnly={!isEdit}
-                    onChange={handleInputChange}
-                    value={loginUser.profileImage}
-                    type="text"
-                />
-              </FloatingLabel>
-              <FloatingLabel label="meetingURL">
+                           
+{/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
+<FloatingLabel label="이메일" >
                 <Form.Control
                     readOnly
-                    disabled
-                    type="text"
-                    defaultValue={loginUser.meetingUrl}
-                />
-              </FloatingLabel>
-
-              <FloatingLabel label="이메일">
-                <Form.Control
-                    readOnly
-                    disabled
+                    // disabled 
                     type="email"
                     defaultValue={loginUser.email}
                 />
               </FloatingLabel>
+              
+
+{/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
+<FloatingLabel label="meetingURL">
+                <Form.Control
+                    readOnly
+                    // disabled  이거하면 회색됨 
+                    type="text"
+                    defaultValue={loginUser.meetingUrl}
+                />
+              </FloatingLabel>
+              
+              {/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
+
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 {isEdit ? (
                     <Button variant="outline-primary" onClick={handleEdit}>

@@ -764,7 +764,7 @@ class VideoRoomComponent extends Component {
   // toggleFullscreen: 전체화면을 토글하는 함수
   toggleFullscreen() {
     const document = window.document;
-    const fs = document.getElementById("container");
+    const fs = document.getElementById("root");
     if (
       !document.fullscreenElement &&
       !document.mozFullScreenElement &&
@@ -1170,6 +1170,7 @@ class VideoRoomComponent extends Component {
     return false;
   };
 
+  // 클릭 게임!!!
   startStickerEvent = () => {
     this.sendSignalUserChanged({
       clickEvent: 5,
@@ -1190,10 +1191,14 @@ class VideoRoomComponent extends Component {
     // this.setState({ stickers: this.state.stickers });
     setTimeout(() => {
       this.removeAllStickers();
-    }, 4 * 1000);
+    }, 100 * 1000);
+    // 수정해야돼 (현재 100초동안)
   };
 
   addNewSticker = (current) => {
+    console.log("totalHeight = ", this.state.totalHeight);
+    console.log("totalWidth = ", this.state.totalWidth);
+
     let imgSize = 100;
     let margin = 8;
     let xStart = margin + 140;
@@ -1205,6 +1210,8 @@ class VideoRoomComponent extends Component {
       top: this.between(yStart, yEnd),
       left: this.between(xStart, xEnd),
     };
+    console.log(newSticker.top);
+    console.log(newSticker.left);
 
     this.state.stickers.push(newSticker);
   };
@@ -1490,6 +1497,7 @@ class VideoRoomComponent extends Component {
 
     return (
       <>
+      <div style={{ overflow: 'hidden' }}>
         <Setting
           display={this.state.settingDisplay}
           toggleSetting={this.toggleSetting}
@@ -1696,6 +1704,7 @@ class VideoRoomComponent extends Component {
             conferenceCreateData={this.props.conferenceCreateData}
             conferenceJoinData={this.props.conferenceJoinData}
           />
+        </div>
         </div>
       </>
     );

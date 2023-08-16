@@ -3,8 +3,13 @@ import Shuffle from "@material-ui/icons/Shuffle";
 import Quiz from "@material-ui/icons/HelpOutline";
 import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
+import StretchingIcon from "./iconComponents/StretchingIcon";
+import GhostIcon from "./iconComponents/GhostIcon";
+import QuizIcon from "./iconComponents/QuizIcon";
+import RandomIcon from "./iconComponents/RandomIcon";
 import PieChart from "@material-ui/icons/PieChart";
 
+// 게임 누르면
 const TeachersToolbar = ({
   display,
   pickRandomStudent,
@@ -46,17 +51,18 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickRandomPick}
               disabled={!randAvailable}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {randAvailable ? (
-                  <Shuffle />
+                  <RandomIcon />
                 ) : (
-                  <Shuffle
+                  <RandomIcon
                     color="secondary"
                     style={{ animation: "cooldown 5s linear 1" }}
                   />
                 )}
-                <p>랜덤 학생 뽑기</p>
+                <p>발표자 뽑기</p>
               </div>
             </IconButton>
 
@@ -66,17 +72,18 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickStickerEvent}
               disabled={!stickerAvailable}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {stickerAvailable ? (
-                  <AccessTime />
+                  <GhostIcon />
                 ) : (
-                  <AccessTime
+                  <GhostIcon
                     color="secondary"
                     style={{ animation: "cooldown 30s linear 1" }}
                   />
                 )}
-                <p>집중 퐁퐁이</p>
+                <p>집중!!</p>
               </div>
             </IconButton>
             <IconButton
@@ -84,14 +91,35 @@ const TeachersToolbar = ({
               className="navButton"
               id="navRandButton"
               onClick={onClickToggleQuiz}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
-                <Quiz />
+                <QuizIcon />
                 <p>퀴즈 열기</p>
               </div>
             </IconButton>
 
             <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickRandomPick}
+              disabled={!randAvailable}
+              style={{ backgroundColor: 'white' }}
+            >
+              <div className="buttonStyle">
+                {randAvailable ? (
+                  <StretchingIcon />
+                ) : (
+                  <StretchingIcon
+                    color="secondary"
+                    style={{ animation: "cooldown 5s linear 1" }}
+                  />
+                )}
+                <p>스트레칭</p>
+              </div>
+           </IconButton>
+           <IconButton
               color="inherit"
               className="navButton"
               id="navRandButton"
