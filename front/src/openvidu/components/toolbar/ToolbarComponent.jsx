@@ -35,6 +35,7 @@ import OneIcon from "./iconComponents/OneIcon";
 import QuestionMarkIcon from "./iconComponents/QuestionMarkIcon";
 import SeperateIcon from "./iconComponents/SeperateIcon";
 import SettingIcon from "./iconComponents/SettingIcon";
+import ExitIcon from "./iconComponents/ExitIcon";
 
 import SoundIcon from "./iconComponents/SoundIcon";
 import MuteIcon from "./iconComponents/MuteIcon";
@@ -371,7 +372,7 @@ export default class ToolbarComponent extends Component {
                 id="navLeaveButton"
               >
                 <div className="buttonStyle">
-                  <PowerSettingsNew />
+                  <ExitIcon />
                   <p>수업 나가기</p>
                 </div>
               </IconButton>
@@ -383,7 +384,7 @@ export default class ToolbarComponent extends Component {
                 id="navLeaveButton"
               >
                 <div className="buttonStyle">
-                  <PowerSettingsNew />
+                  <ExitIcon />
                   <p>수업 나가기</p>
                 </div>
               </IconButton>

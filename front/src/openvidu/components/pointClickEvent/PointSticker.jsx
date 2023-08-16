@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import "./PointSticker.css";
+import ghostPng from "../toolbar/iconComponents/img/ghostIcon.png";
 
 // name: 김민석
 // date: 2023/08/09
@@ -44,7 +45,7 @@ const PointSticker = (props) => {
     <div id="pointSticker" css={stickerCSS}>
       <img
         alt="칭찬 스티커"
-        src="../levels/yellow.png"
+        src={ghostPng}
         onClick={addPoint}
         disabled={!visible}
       />
