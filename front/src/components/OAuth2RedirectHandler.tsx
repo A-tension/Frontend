@@ -8,15 +8,10 @@ import { addList } from "../store/group.ts";
 import { useAppDispatch } from "../store/hooks.ts";
 import { PlanResponseDto } from "../api/plan/types.tsx";
 import { reloadPlans } from "../store/plan.ts";
-import { Team } from "../store/group.ts";
-import { User, userLogin } from "../store/user.ts";
-import { Item } from "../store/item.ts";
+import { userLogin } from "../store/user.ts";
 import { findMyPlan } from "../api/plan/planApi.tsx";
-import { Plan, planCreateTest } from "../store/plan.ts";
 import { getUserProfile } from "../api/user/userApi.tsx";
 import { UserResponseDTO } from "../api/user/types.tsx";
-import { userLogin } from "../store/user.ts";
-import { addItem } from "../store/item.ts";
 
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
@@ -35,7 +30,9 @@ function OAuth2RedirectHandler() {
   useEffect(() => {
     if (accessToken) {
       saveTokenToLocalStorage().then(() => {
-        getUserInfos();
+        getUserInfos().then(()=>{
+          navigate("/");
+        });
       });
     }
   }, [accessToken, refreshToken]);
@@ -75,33 +72,26 @@ function OAuth2RedirectHandler() {
         // 에러 처리 로직 추가
       });
 
-    findMyTeam<teamResponseDto>().then(function (result) {
-      console.log(result.data);
+    // 내가 속한 모든 그룹 조회
+    findMyTeam<teamResponseDto[]>()
+      .then(function (result) {
+        console.log(result.data);
+        dispatch(addList(result.data.data));
+      })
+      .catch((error) => {
+        console.error(error);
+        // 에러 처리 로직 추가
+      });
 
-      for (const teamResponseDto of result.data.data) {
-        const team: Team = {
-          teamId: teamResponseDto.teamId,
-          name: teamResponseDto.name,
-          profileImg: teamResponseDto.profileImg,
-        };
-        dispatch(groupCreateTest(team));
-      }
-    });
-
-    findMyPlan<planResponseDto>().then(function (result) {
-      // console.log(result.data);
-      for (const planResponseDto of result.data.data) {
-        const plan: Plan = {
-          id: planResponseDto.id,
-          teamId: planResponseDto.teamId,
-          name: planResponseDto.name,
-          startTime: planResponseDto.startTime,
-          endTime: planResponseDto.endTime,
-        };
-        dispatch(planCreateTest(plan));
-
-      }
-    });
+    findMyPlan<PlanResponseDto[]>()
+      .then(function (result) {
+        console.log(result.data);
+        dispatch(reloadPlans(result.data.data));
+      })
+      .catch((error) => {
+        console.error(error);
+        // 에러 처리 로직 추가cd
+      });
   };
 
   return null; // Since we're doing redirects, there's nothing to render
