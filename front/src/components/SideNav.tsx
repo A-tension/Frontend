@@ -1,13 +1,11 @@
 import { Nav } from "react-bootstrap";
 import { NavTab } from "./atoms/tab/NavTab";
-import { useAppSelector } from "../store/hooks";
-import { checkAuthority } from "../store/user";
 
 interface Props {
   label: Array<string>;
   linkto: Array<string>;
   icons: Array<string>;
-  disable?:boolean|false;
+  disable?: boolean | false;
   style?: string;
   selectMenu: React.Dispatch<React.SetStateAction<string>>;
   selectedMenu: string;
@@ -38,13 +36,13 @@ const SideNav: React.FC<Props> = (props: Props) => {
       icon={icons[index]}
       onClick={() => handleSelect(label[index])}
       selectedMenu={props.selectedMenu}
-            key={index}
+      key={index}
     ></NavTab>
   ));
 
   return (
     <>
-      <div >
+      <div>
         <Nav className="flex-column pt-5">{navlinks}</Nav>
       </div>
     </>

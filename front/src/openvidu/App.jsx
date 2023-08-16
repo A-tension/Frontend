@@ -34,8 +34,10 @@ const App = () => {
   // 내 레벨 확인
   const [levelPng, setLevelPng] = useState("/levels/rainbow.png");
 
+
   // 라우팅용
   const navigate = useNavigate();
+
 
   // 입장코드
   const { code } = useParams();
@@ -43,9 +45,11 @@ const App = () => {
   const [conferenceCreateData, setConferenceCreateData] = useState(null);
   const [conferenceJoinData, setConferenceJoinData] = useState(null);
 
+
   // const memberStore = useAppSelector((state) => state.member);
   // const whoami = whoru(memberStore.userId);
   const whoami = whoru(4444);
+
   // conferenceJoinData와 conferenceCreateData를 결정하는 로직
   useEffect(() => {
     if (state.conferenceJoinData) {
@@ -115,9 +119,6 @@ const App = () => {
           conferenceCreateData={conferenceCreateData}
           conferenceJoinData={conferenceJoinData}
           userId={4444}
-          grade={4}
-          classNum={4}
-          studentNum={2}
           studentList={studentList}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}
