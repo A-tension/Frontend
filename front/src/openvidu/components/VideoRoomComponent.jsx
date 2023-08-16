@@ -15,6 +15,7 @@ import QuizModal from "./quiz/QuizModal";
 import QuizModalStudent from "./quiz/QuizModalStudent";
 import ShieldModal from "./items/ShieldModal";
 import ShieldModalLoading from "./items/ShieldModalLoading";
+import StretchModal from "./stretch/StretchModal.jsx";
 import Sticker from "./pointClickEvent/PointSticker";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
@@ -84,6 +85,8 @@ class VideoRoomComponent extends Component {
       questionDisplay: "none",
       quizDisplay: false,
       quizDisplayStudent: false,
+      randomStretch: Math.floor(Math.random() * 11) + 1,
+      stretchingDisplay: false,
       shieldDisplay: false,
       shieldLoadingDisplay: false,
       videos: this.props.setDevices.videos,
@@ -107,7 +110,6 @@ class VideoRoomComponent extends Component {
       videoLayout: "bigTeacher",
       presentationCnt: 0,
       sortType: "all",
-      emoji: "",
       emojiDisplay: false,
       isEmojiOn: false,
       teacherMenuDisplay: false,
@@ -166,6 +168,7 @@ class VideoRoomComponent extends Component {
     this.checkUserHasItem = this.checkUserHasItem.bind(this);
     // startStickerEvent: 칭찬스티커 클릭이벤트를 발생시키는 함수
     this.startStickerEvent = this.startStickerEvent.bind(this);
+    this.toggleStretching = this.toggleStretching.bind(this);
     // answerUpdate: 퀴즈 정답 수신해서 통계에 적용하는 함수
     this.answerUpdate = this.answerUpdate.bind(this);
     // 설정용 함수
@@ -860,6 +863,17 @@ class VideoRoomComponent extends Component {
           if (data.emojiUsed !== undefined) {
             user.setEmoji(data.emojiUsed);
           }
+          if (data.stretchCreated !== undefined) {
+            console.log("스트레칭 하자!!!");
+            if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
+            this.setState({
+              stretchingDisplay: !this.state.stretchingDisplay,
+              randomStretch: data.stretchCreated,
+            });
+            timeout = setTimeout(() => {
+              this.setState({ stretchingDisplay: false });
+            }, 5 * 1000);
+          }
         }
       });
       this.setState(
@@ -1383,7 +1397,6 @@ class VideoRoomComponent extends Component {
   }
 
   toggleQuiz = (quiz) => {
-    console.log("토글 퀴즈 열기");
     if (quiz) {
       this.sendSignalUserChanged({ quizCreated: quiz });
       if (!quiz.result) {
@@ -1395,6 +1408,20 @@ class VideoRoomComponent extends Component {
     } else {
       this.setState({ quizDisplay: !this.state.quizDisplay });
     }
+  };
+
+  toggleStretching = (emitType) => {
+    if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
+    if (emitType !== "close") {
+      this.sendSignalUserChanged({ stretchCreated: this.state.randomStretch });
+    }
+    this.setState({
+      stretchingDisplay: !this.state.stretchingDisplay,
+    });
+    timeout = setTimeout(() => {
+      this.setState({ stretchingDisplay: false });
+      this.setState({ randomStretch: Math.floor(Math.random() * 11) + 1 });
+    }, 5 * 1000);
   };
 
   toggleQuizStudent = (answer) => {
@@ -1635,6 +1662,12 @@ class VideoRoomComponent extends Component {
           header="퀴즈"
           quiz={this.state.quiz}
         />
+        <StretchModal
+          display={this.state.stretchingDisplay}
+          toggleStretching={this.toggleStretching}
+          header="스트레칭"
+          randomStretch={this.state.randomStretch}
+        />
         <ShieldModalLoading
           display={this.state.shieldLoadingDisplay}
           toggleShieldLoading={this.toggleShieldLoading}
@@ -1789,6 +1822,7 @@ class VideoRoomComponent extends Component {
             toggleChat={this.toggleChat}
             toggleQuestion={this.toggleQuestion}
             toggleQuiz={this.toggleQuiz}
+            toggleStretching={this.toggleStretching}
             toggleSetting={this.toggleSetting}
             startStickerEvent={this.startStickerEvent}
             videoLayout={this.state.videoLayout}

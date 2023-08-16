@@ -10,6 +10,7 @@ const TeachersToolbar = ({
   pickRandomStudent,
   randAvailable,
   startStickerEvent,
+  toggleStretching,
   stickerAvailable,
   toggleQuiz,
   toggleTeacherMenu,
@@ -25,14 +26,19 @@ const TeachersToolbar = ({
   };
 
   const onClickToggleQuiz = () => {
+    toggleTeacherMenu();
     toggleQuiz();
+  };
+
+  const onClickToggleStretCh = () => {
+    toggleStretching();
     toggleTeacherMenu();
   };
 
   return (
     <div css={TotalComponent}>
       {display && (
-        <div className="openModal">
+        <div style={{ backgroundColor: "white" }} className="openModal">
           <div className="buttonsContents">
             <IconButton
               color="inherit"
@@ -58,7 +64,7 @@ const TeachersToolbar = ({
               color="inherit"
               className="navButton"
               id="navRandButton"
-              onClick={onClickStickerEvent}
+              onClick={onClickToggleStretCh}
               disabled={!stickerAvailable}
             >
               <div className="buttonStyle">
