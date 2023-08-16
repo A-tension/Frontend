@@ -3,6 +3,7 @@ import Shuffle from "@material-ui/icons/Shuffle";
 import Quiz from "@material-ui/icons/HelpOutline";
 import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
+import PieChart from "@material-ui/icons/PieChart";
 
 const TeachersToolbar = ({
   display,
@@ -12,6 +13,7 @@ const TeachersToolbar = ({
   stickerAvailable,
   toggleQuiz,
   toggleTeacherMenu,
+  toggleConcentrationMenu,
 }) => {
   const onClickRandomPick = () => {
     pickRandomStudent();
@@ -25,6 +27,11 @@ const TeachersToolbar = ({
 
   const onClickToggleQuiz = () => {
     toggleQuiz();
+    toggleTeacherMenu();
+  };
+
+  const onClickToggleConcentrationMenu = () => {
+    toggleConcentrationMenu();
     toggleTeacherMenu();
   };
 
@@ -81,6 +88,18 @@ const TeachersToolbar = ({
               <div className="buttonStyle">
                 <Quiz />
                 <p>퀴즈 열기</p>
+              </div>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickToggleConcentrationMenu}
+            >
+              <div className="buttonStyle">
+                <PieChart />
+                <p>집중도 보기</p>
               </div>
             </IconButton>
           </div>

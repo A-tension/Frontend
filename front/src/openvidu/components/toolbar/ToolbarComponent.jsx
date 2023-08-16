@@ -56,6 +56,7 @@ export default class ToolbarComponent extends Component {
     this.toggleEmoji = this.toggleEmoji.bind(this);
     this.toggleQuestion = this.toggleQuestion.bind(this);
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
+    this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
   }
 
   // micStatusChanged: 마이크 상태변화 토글 함수
@@ -144,6 +145,10 @@ export default class ToolbarComponent extends Component {
     this.setState({ showTeacherMenuToggle: !this.state.showTeacherMenuToggle });
   }
 
+  toggleConcentrationMenu() {
+    this.props.toggleConcentrationMenu;
+  }
+
   toggleVideoLayout() {
     this.props.toggleVideoLayout();
   }
@@ -187,7 +192,7 @@ export default class ToolbarComponent extends Component {
         <Toolbar className="toolbar">
           {mySessionId && (
             // <div id="titleContent">
-              <span id="session-title">{mySessionId}</span>
+            <span id="session-title">{mySessionId}</span>
             // </div>
           )}
 
@@ -231,8 +236,7 @@ export default class ToolbarComponent extends Component {
             </IconButton>
 
             {/* {this.props.whoami === "teacher" && ( */}
-            {(
-
+            {
               <IconButton
                 color="inherit"
                 className="navButton"
@@ -244,7 +248,7 @@ export default class ToolbarComponent extends Component {
                   <p>선생님 메뉴</p>
                 </div>
               </IconButton>
-            )}
+            }
 
             {this.props.whoami === "teacher" && (
               <div className="teacher-toolbar">
@@ -256,6 +260,7 @@ export default class ToolbarComponent extends Component {
                   startStickerEvent={this.startStickerEvent}
                   toggleQuiz={this.toggleQuiz}
                   toggleTeacherMenu={this.toggleTeacherMenu}
+                  toggleConcentrationMenu={this.toggleConcentrationMenu}
                 />
               </div>
             )}

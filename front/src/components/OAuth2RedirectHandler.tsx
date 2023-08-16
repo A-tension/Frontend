@@ -54,7 +54,7 @@ function OAuth2RedirectHandler() {
     }
   };
 
-  const getUserInfos = () => {
+  const getUserInfos = async () => {
     getUserProfile<UserResponseDTO>().then((response) => {
       dispatch(userLogin(response.data.data));
     });
