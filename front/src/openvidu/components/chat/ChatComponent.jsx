@@ -3,9 +3,13 @@ import CloseBtn from "@material-ui/icons/Close";
 import Send from "../../assets/images/uil_message.png";
 // import defaultProfile from "@assets/images/defaultProfile.jpeg";
 import "./ChatComponent.css";
+// import { log } from "console";
+import user from "../../../store/user";
+import { selectUser } from "../../../store/user";
+import { connect } from 'react-redux';
 
 // ChatComponent: 채팅 관련 컴포넌트
-export default class ChatComponent extends Component {
+export class ChatComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +106,7 @@ export default class ChatComponent extends Component {
             nickname: this.props.user.getNickname(),
             streamId: this.props.user.getStreamManager().stream.streamId,
             levelPng: this.props.levelPng,
-            profile: this.props.profile,
+            profile: this.props.loginUser.profileImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -117,7 +121,7 @@ export default class ChatComponent extends Component {
             streamId: this.props.user.getStreamManager().stream.streamId,
             target: this.state.messageTarget.nickname,
             levelPng: this.props.levelPng,
-            profile: this.props.profile,
+            profile: this.props.loginUser.profileImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -172,8 +176,15 @@ export default class ChatComponent extends Component {
     return msg;
   }
 
+
+
   // render: 렌더링을 담당하는 함수
   render() {
+      // this.props.loginUser로 사용 가능
+      const { loginUser } = this.props;
+      console.log(loginUser);
+      const profileImage = loginUser.profileImage;
+
     const styleChat = { display: this.props.chatDisplay };
     return (
         <div id="chatContainer" ref={this.chatHeight}>
@@ -197,19 +208,18 @@ export default class ChatComponent extends Component {
                       }
                   >
                     <img
-                        src={
-                          data.nickname === "System"
-                              ? "/img/bot.png"
-                              : data.profile ===
-                              "https://test-ppc-bucket.s3.ap-northeast-2.amazonaws.com/null" ||
-                              data.profile ===
-                              "https://test-ppc-bucket.s3.ap-northeast-2.amazonaws.com/"
-                                  ? defaultProfile
-                                  : data.profile
-                        }
-                        className="user-img"
-                        alt="프로필사진"
-                    />
+  src={
+    data.nickname === "System"
+      ? "/img/bot.png"
+      : data.profile === profileImage ||
+        data.profile === profileImage
+      ? profileImage
+      : data.profile
+  }
+  className="user-img"
+  alt="프로필사진"
+/>
+
                     <div className="msg-detail">
                       <div
                           className={
@@ -275,4 +285,16 @@ export default class ChatComponent extends Component {
         </div>
     );
   }
+
+  
 }
+
+// mapStateToProps 함수를 사용하여 Redux store와 컴포넌트를 연결
+const mapStateToProps = (state) => {
+  return {
+    loginUser: selectUser(state),
+  };
+};
+
+// mapStateToProps 함수를 사용하여 Redux store와 컴포넌트를 연결하고 내보냅니다.
+export default connect(mapStateToProps)(ChatComponent);

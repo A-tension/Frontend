@@ -1299,6 +1299,7 @@ class VideoRoomComponent extends Component {
     return false;
   };
 
+  // 클릭 게임!!!
   startStickerEvent = () => {
     this.sendSignalUserChanged({
       clickEvent: 5,
@@ -1319,10 +1320,14 @@ class VideoRoomComponent extends Component {
     // this.setState({ stickers: this.state.stickers });
     setTimeout(() => {
       this.removeAllStickers();
-    }, 4 * 1000);
+    }, 100 * 1000);
+    // 수정해야돼 (현재 100초동안)
   };
 
   addNewSticker = (current) => {
+    console.log("totalHeight = ", this.state.totalHeight);
+    console.log("totalWidth = ", this.state.totalWidth);
+
     let imgSize = 100;
     let margin = 8;
     let xStart = margin + 140;
@@ -1334,6 +1339,8 @@ class VideoRoomComponent extends Component {
       top: this.between(yStart, yEnd),
       left: this.between(xStart, xEnd),
     };
+    console.log(newSticker.top);
+    console.log(newSticker.left);
 
     this.state.stickers.push(newSticker);
   };

@@ -149,7 +149,7 @@ export default class ToolbarComponent extends Component {
     }, lockOutTime * 1000);
   }
 
-  // lockOutSticker: 호출 시 칭찬스티커 버튼을 지정된 시간 (30초) 동안 disabled 해주는 함수
+  // lockOutSticker: 호출 시 칭찬스티커 버튼을 지정된 시간 (15초) 동안 disabled 해주는 함수
   lockOutSticker(lockOutTime) {
     this.setState({ stickerAvailable: false });
     setTimeout(() => {
@@ -159,7 +159,7 @@ export default class ToolbarComponent extends Component {
 
   startStickerEvent() {
     this.props.startStickerEvent();
-    this.lockOutSticker(31);
+    this.lockOutSticker(15);
   }
 
   toggleTeacherMenu() {
