@@ -25,7 +25,27 @@ import ViewAgenda from "@material-ui/icons/ViewAgenda";
 import ViewArray from "@material-ui/icons/ViewArray";
 import Share from "@material-ui/icons/Share";
 import SearchIcon from "@material-ui/icons/Search";
-import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+// import EmojiEmotions from "@material-ui/icons/EmojiEmotions";
+// 아이콘 by 형석
+import ChatIcon from "./iconComponents/ChatIcon";
+import EmojiIcon from "./iconComponents/EmojiIcon";
+import GameIcon from "./iconComponents/GameIcon";
+import MuteIcon from "./iconComponents/MuteIcon";
+import ScreenIcon from "./iconComponents/ScreenIcon";
+import NoVideoIcon from "./iconComponents/NoVideoIcon";
+import OneIcon from "./iconComponents/OneIcon";
+import QuestionMarkIcon from "./iconComponents/QuestionMarkIcon";
+import SeperateIcon from "./iconComponents/SeperateIcon";
+import SettingIcon from "./iconComponents/SettingIcon";
+import SoundIcon from "./iconComponents/SoundIcon";
+import VideoIcon from "./iconComponents/VideoIcon";
+
+
+
+
+
+
+
 import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import TeachersToolbar from "./TeachersToolbar";
 
@@ -166,7 +186,7 @@ export default class ToolbarComponent extends Component {
     } else if (this.props.videoLayout === "screenShareOn") {
       return (
         <div className="buttonStyle">
-          <ScreenShare />
+          <ScreenIcon />
           <p>화면공유</p>
         </div>
       );
@@ -200,12 +220,12 @@ export default class ToolbarComponent extends Component {
             >
               {localUser !== undefined && localUser.isAudioActive() ? (
                 <div className="buttonStyle">
-                  <Mic />
+                  <SoundIcon />
                   <p>음소거</p>
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <MicOff color="secondary" />
+                  <MuteIcon color="secondary" />
                   <p>음소거 해제</p>
                 </div>
               )}
@@ -219,12 +239,12 @@ export default class ToolbarComponent extends Component {
             >
               {localUser !== undefined && localUser.isVideoActive() ? (
                 <div className="buttonStyle">
-                  <Videocam />
+                  <VideoIcon />
                   <p>비디오 중지</p>
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <VideocamOff color="secondary" />
+                  <NoVideoIcon color="secondary" />
                   <p>비디오 시작</p>
                 </div>
               )}
@@ -240,7 +260,7 @@ export default class ToolbarComponent extends Component {
                 onClick={this.toggleTeacherMenu}
               >
                 <div className="buttonStyle">
-                  <EmojiEmotionsIcon />
+                  <GameIcon />
                   <p>게임</p>
                 </div>
               </IconButton>
@@ -272,7 +292,7 @@ export default class ToolbarComponent extends Component {
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <ScreenShare />
+                  <ScreenIcon />
                   <p>화면공유</p>
                 </div>
               )}
@@ -293,7 +313,7 @@ export default class ToolbarComponent extends Component {
               onClick={this.toggleSetting}
             >
               <div className="buttonStyle">
-                <SettingsIcon />
+                <SettingIcon />
                 <p>설정</p>
               </div>
             </IconButton>
@@ -324,13 +344,13 @@ export default class ToolbarComponent extends Component {
               {localUser !== undefined
                 ? (this.props.videoLayout === "bigTeacher" && (
                     <div className="buttonStyle">
-                      <ViewAgenda />
+                      <OneIcon />
                       <p>선생님 위주</p>
                     </div>
                   )) ||
                   (this.props.videoLayout === "equalSize" && (
                     <div className="buttonStyle">
-                      <ViewArray />
+                      <SeperateIcon />
                       <p>동등분할</p>
                     </div>
                   )) ||
@@ -375,7 +395,7 @@ export default class ToolbarComponent extends Component {
               id="navEmoji"
             >
               <div className="buttonStyle">
-                <EmojiEmotionsIcon />
+                <EmojiIcon />
                 <p>이모지</p>
               </div>
             </IconButton>
@@ -390,7 +410,7 @@ export default class ToolbarComponent extends Component {
                 {this.props.showQuestionNotification && (
                   <div id="questPoint" className="" />
                 )}
-                <SearchIcon />
+                <QuestionMarkIcon />
                 <p>익명질문</p>
               </div>
             </IconButton>
@@ -403,7 +423,7 @@ export default class ToolbarComponent extends Component {
             >
               <div className="buttonStyle">
                 {this.props.showNotification && <div id="point" className="" />}
-                <QuestionAnswer />
+                <ChatIcon />
                 <p>채팅</p>
               </div>
             </IconButton>
