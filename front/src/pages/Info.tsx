@@ -14,6 +14,7 @@ interface Edit {
 }
 function Info() {
   const loginUser = useAppSelector(selectUser);
+  console.log(loginUser);
   const [isEdit, setMode] = useState(false);
   const [data, setData] = useState<Edit>({
     name: loginUser.name || "",
@@ -28,6 +29,7 @@ function Info() {
     }));
   };
 
+  // 정보 수정 함수
   const handleEdit = async () => {
     try {
       const userProfileUpdateDto : UserProfileUpdateDTO = {
@@ -61,6 +63,7 @@ function Info() {
           name: userProfile.name,
           profileImage: userProfile.profileImage,
         });
+        console.log(" useEffect, userProfile = ", userProfile);
       } catch (error) {
         console.error(error);
       }
@@ -78,7 +81,7 @@ function Info() {
           <Col className="d-flex flex-column  align-items-center  justify-content-center">
             <div>
               <Image
-                  src={fillerImg}
+                  src={data.profileImage}
                   fluid
                   roundedCircle
                   width={200}
@@ -97,15 +100,16 @@ function Info() {
                     name="name"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    value={data.name}
+                    // data로하면 받아지고 loginUser로하면 안받아짐 ㅋㅋ 킹받네
+                    value={loginUser.name}
                 />
               </FloatingLabel>
               <FloatingLabel label="프로필이미지">
                 <Form.Control
-                    name="profileImage"
+                     name="profileImage"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    value={data.profileImage}
+                    value={loginUser.profileImage}
                     type="text"
                 />
               </FloatingLabel>
