@@ -3,6 +3,7 @@ import Shuffle from "@material-ui/icons/Shuffle";
 import Quiz from "@material-ui/icons/HelpOutline";
 import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
+import { FitnessCenter } from "@material-ui/icons";
 
 const TeachersToolbar = ({
   display,
@@ -62,14 +63,14 @@ const TeachersToolbar = ({
             >
               <div className="buttonStyle">
                 {stickerAvailable ? (
-                  <AccessTime />
+                  <FitnessCenter />
                 ) : (
-                  <AccessTime
+                  <FitnessCenter
                     color="secondary"
                     style={{ animation: "cooldown 30s linear 1" }}
                   />
                 )}
-                <p>집중 퐁퐁이</p>
+                <p>스트레칭</p>
               </div>
             </IconButton>
             <IconButton
