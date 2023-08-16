@@ -122,7 +122,7 @@ function Group() {
       <div>
         <Tab.Container defaultActiveKey="first">
           <Row>
-            <Col sm={3} style={{ height: "450px" }}>
+            <Col sm={3} style={{ height: "450px", marginTop:"20px" }}>
               <div
                 style={{
                   flex: "none",
@@ -148,7 +148,7 @@ function Group() {
             </Col>
 
             {isCreate && (
-              <Col>
+              <Col >
                 <Gcreate></Gcreate>{" "}
               </Col>
             )}
@@ -156,7 +156,7 @@ function Group() {
               <Col>
                 <Nav
                   variant="underline"
-                  className="pb-0"
+                  className="pb-0 mt-2"
                   // defaultActiveKey={selectedTab}
                   activeKey={selectedTab}
                 >
