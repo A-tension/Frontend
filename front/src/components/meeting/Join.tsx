@@ -42,7 +42,7 @@ function Join() {
       return;
     }
 
-    navigate("/dash/meeting/wait", {
+    navigate("/conference", {
 
       state: {
         conferenceJoinData: conferenceJoinData,

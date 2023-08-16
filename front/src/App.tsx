@@ -32,8 +32,7 @@ import { createEventId } from "./components/plan/event-utils.tsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
-
-
+import Concentration from "./openvidu/components/concentration/Concentration.jsx";
 
 function App() {
   //임시 props 테스트
@@ -43,6 +42,8 @@ function App() {
       <div className="font-SUIT">
         <Header></Header>
         <Routes>
+        <Route path="/test" element={<Concentration/>}></Route>
+          <Route path="/conference" element={<JoinMeeting />}></Route>
           <Route path="/" element={<Landing />}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
@@ -58,17 +59,10 @@ function App() {
             <Route path="meeting" element={<Meeting />}>
               <Route path="" element={<Navigate to="join" />}></Route>
               <Route path="join" element={<Join />}></Route>
-              <Route path="start" element={<Start />}></Route>
-              <Route path="create" element={<Create />}></Route>
-              <Route path="manage" element={<Manage />}></Route>{" "}
-              <Route path="wait" element={<OpenVidu />} />
+
               <Route path="joinmeeting" element={<JoinMeeting />}></Route>
               {/* <Route path="openvidu" element={<OpenVidu />}></Route> */}
               {/*<Route path="conference" element={<VideoRoomComponent />}></Route>*/}
-              <Route
-                path="conference1"
-                element={<Conference sessionId="" myUserName="" />}
-              ></Route>
             </Route>
             <Route path="item" element={<Item />}>
               <Route path="" element={<Navigate to="list" />}></Route>
@@ -76,16 +70,8 @@ function App() {
               <Route path="draw" element={<Draw />}></Route>
             </Route>
             <Route path="item" element={<Item />}></Route>
-            <Route
-              path="conference"
-              element={<Conference sessionId="" myUserName="" />}
-            ></Route>
           </Route>
           <Route path="join" element={<JoinMeeting />}></Route>//굳이?
-          <Route
-            path="conference"
-            element={<Conference sessionId="" myUserName="" />}
-          ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route
