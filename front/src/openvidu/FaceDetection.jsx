@@ -13,6 +13,7 @@ export default class FaceDetection extends Component {
     normal: 0,
     autoPlay: false,
     camera: true,
+    concentration: 0,
   };
 
   componentDidMount() {
@@ -26,6 +27,7 @@ export default class FaceDetection extends Component {
         face: 0,
         smile: 0,
         normal: 0,
+        concentration: 0,
       });
     }
     if (this.state.camera !== this.props.camera) {
@@ -34,6 +36,7 @@ export default class FaceDetection extends Component {
         face: 0,
         smile: 0,
         normal: 0,
+        concentration: 0,
       });
     }
   }
@@ -74,13 +77,41 @@ export default class FaceDetection extends Component {
       inputSize: 512,
       scoreThreshold: 0.5,
     });
-
+    
     const result = await faceApi
       .detectSingleFace(this.video.current, options)
       .withFaceLandmarks()
       .withFaceExpressions();
+    if (!result) {
+      console.log("사용자가 집중하지 않습니다.")
+      // this.props.concentration = 0;
+      this.setState(() => ({ concentration: 0}));
+
+    }
     if (result) {
       console.log(result);
+      const pitch = result.angle.pitch;
+      const yaw = result.angle.yaw;
+      if (pitch < -15 || Math.abs(yaw) > 90 || (yaw < 40 && pitch < -10)) {
+        console.log("사용자가 집중하지 않습니다.");
+        // this.props.concentration(0);
+        this.setState(() => ({ concentration: 0}));
+      }
+      // 0점 부여
+      else if (0 < pitch < 10 && yaw < 30) {
+        console.log("매우 잘 집중 중입니다.");
+        // this.props.concentration(2);
+        this.setState(() => ({ concentration: 2}));
+
+        // 2점 부여
+      } else {
+        console.log("집중 중입니다.");
+        // this.props.concentration(1);
+        this.setState(() => ({ concentration: 1}));
+
+        // 1점 부여
+      }
+
       const happy = result.expressions.happy;
       let normal = this.state.normal;
       let smile = this.state.smile;

@@ -18,6 +18,9 @@ class UserModel {
   profile; // 프로필 이미지 정보
   uid; // 유저 아이디
   presentationCnt; // 발표 횟수
+  concentration; // 집중도
+  concentrationList; // 집중도 임시 저장 리스트
+  total; // 집중도 총합
 
   constructor() {
     this.connectionId = "";
@@ -47,6 +50,9 @@ class UserModel {
     this.profile = "";
     this.levelPng = "";
     this.presentationCnt = 0;
+    this.concentration = 0;
+    this.concentrationList = [];
+    this.total = 0;
   }
   // 추가 함수
   isSmileActive() {
@@ -170,6 +176,24 @@ class UserModel {
   downPresentationCnt() {
     --this.presentationCnt;
   }
+
+  getConcentration() {
+    return this.concentration;
+  }
+
+  getConcentrationList(){
+    return this.concentrationList;
+  }
+
+  getTotal() {
+    return this.total;
+  }
+
+  setConcentration(concentration) {
+    this.concentration = concentration;
+  }
+
+
 }
 
 export default UserModel;
