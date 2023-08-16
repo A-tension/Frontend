@@ -5,6 +5,14 @@ import planReducer from "../store/plan";
 import meetingReducer from "../store/meeting";
 import itemReducer from "../store/item";
 import statusReducer from "../store/test";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root", // localStorage key
+  storage, // localStorage
+  whitelist: ["auth"], // target (reducer name)
+}
+
 
 export const store = configureStore({
   reducer: {
