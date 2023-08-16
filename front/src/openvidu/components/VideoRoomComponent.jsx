@@ -70,6 +70,9 @@ class VideoRoomComponent extends Component {
     let smile = this.props.smile;
     // 유저 out of angle
     let outAngle = this.props.outAngle;
+
+    let concentration = this.props.concentration;
+
     // 상태값들 (mySessionId: 접속중인 세션이름, myUserName: 내 이름, session: 세션에 대한 정보, localUser: 내 정보, subscribers: 같이 접속한 사람들, chatDisplay: 채팅창 on 여부, currentVideoDevice: 현재 비디오 출력장치)
     this.state = {
       mySessionId: sessionName,
@@ -112,7 +115,7 @@ class VideoRoomComponent extends Component {
       isEmojiOn: false,
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
-      concentration: 0,
+      concentration: concentration,
       concentrationList: [],
       total: 0,
     };
@@ -191,13 +194,7 @@ class VideoRoomComponent extends Component {
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
 
     // 집중도
-    this.concentrationCheck = this.concentrationCheck.bind(this);
-
-    // 집중도 리스트
-    this.concentrationListCheck = this.concentrationListCheck.bind(this);
-
-    // 집중도 총합
-    this.totalCheck = this.totalCheck.bind(this);
+    this.concentrationEvent = this.concentrationEvent.bind(this);
 
   }
 
@@ -1091,6 +1088,13 @@ class VideoRoomComponent extends Component {
     }
   }
 
+  concentrationEvent(concentration) {
+    localUser.setConcentration(concentration)
+    this.sendSignalUserChanged({
+      concentration: localUser.getConcentration()
+    });
+    this.setState({ localUser: localUser });
+  }
   frameChanged(frameColor) {
     let localUser = this.state.localUser;
     localUser.setFrameColor(frameColor);
@@ -1590,7 +1594,7 @@ class VideoRoomComponent extends Component {
                 smile={this.smile}
                 outAngle={this.outAngle}
                 // sendConcentration={this.concentration}
-                concentration={this.concentration}
+                concentrationEvent={this.concentrationEvent}
               />
             </div>
           ) : null}

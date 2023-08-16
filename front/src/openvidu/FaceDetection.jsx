@@ -85,7 +85,8 @@ export default class FaceDetection extends Component {
     if (!result) {
       console.log("사용자가 집중하지 않습니다.")
       // this.props.concentration = 0;
-      this.setState(() => ({ concentration: 0}));
+      this.props.concentrationEvent(0);
+      // this.setState(() => ({ concentration: 0}));
 
     }
     if (result) {
@@ -94,20 +95,20 @@ export default class FaceDetection extends Component {
       const yaw = result.angle.yaw;
       if (pitch < -15 || Math.abs(yaw) > 90 || (yaw < 40 && pitch < -10)) {
         console.log("사용자가 집중하지 않습니다.");
-        // this.props.concentration(0);
-        this.setState(() => ({ concentration: 0}));
+        this.props.concentrationEvent(0);
+        // this.setState(() => ({ concentration: 0}));
       }
       // 0점 부여
       else if (0 < pitch < 10 && yaw < 30) {
         console.log("매우 잘 집중 중입니다.");
-        // this.props.concentration(2);
-        this.setState(() => ({ concentration: 2}));
+        this.props.concentrationEvent(2);
+        // this.setState(() => ({ concentration: 2}));
 
         // 2점 부여
       } else {
         console.log("집중 중입니다.");
-        // this.props.concentration(1);
-        this.setState(() => ({ concentration: 1}));
+        this.props.concentrationEvent(1);
+        // this.setState(() => ({ concentration: 1}));
 
         // 1점 부여
       }
