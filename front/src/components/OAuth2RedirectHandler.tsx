@@ -88,7 +88,7 @@ function OAuth2RedirectHandler() {
       }
     });
 
-    findMyPlan<planResponseDto>().then(function (result) {
+    findMyPlan<PlanResponseDto>().then(function (result) {
       // console.log(result.data);
       for (const planResponseDto of result.data.data) {
         const plan: Plan = {

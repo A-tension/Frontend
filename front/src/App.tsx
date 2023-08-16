@@ -32,14 +32,9 @@ import { createEventId } from "./components/plan/event-utils.tsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
-<<<<<<< HEAD
-import QuizModal from "./openvidu/components/quiz/QuizModal.jsx";
-import QuizForm from "./openvidu/components/quiz/QuizForm.jsx";
-=======
 
 
 
->>>>>>> 085a34a96989d89053f029750a1ec20192522ba2
 function App() {
   //임시 props 테스트
 
