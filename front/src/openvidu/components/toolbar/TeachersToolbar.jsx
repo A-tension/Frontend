@@ -3,6 +3,7 @@ import Shuffle from "@material-ui/icons/Shuffle";
 import Quiz from "@material-ui/icons/HelpOutline";
 import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
+import StretchingIcon from "./iconComponents/StretchingIcon";
 
 // 게임 누르면
 const TeachersToolbar = ({
@@ -40,6 +41,7 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickRandomPick}
               disabled={!randAvailable}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {randAvailable ? (
@@ -60,6 +62,7 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickStickerEvent}
               disabled={!stickerAvailable}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {stickerAvailable ? (
@@ -78,6 +81,7 @@ const TeachersToolbar = ({
               className="navButton"
               id="navRandButton"
               onClick={onClickToggleQuiz}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 <Quiz />
@@ -91,12 +95,13 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickRandomPick}
               disabled={!randAvailable}
+              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {randAvailable ? (
-                  <Shuffle />
+                  <StretchingIcon />
                 ) : (
-                  <Shuffle
+                  <StretchingIcon
                     color="secondary"
                     style={{ animation: "cooldown 5s linear 1" }}
                   />

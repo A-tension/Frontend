@@ -55,7 +55,7 @@ video {
   display: flex;
   flex-direction: row-reverse;
   /* background: #c71100; */
-  width: 80px;
+  width: 100px;
   height: fit-content;
   position: absolute;
   color: #ffffff;
