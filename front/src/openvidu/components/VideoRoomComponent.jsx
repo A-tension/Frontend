@@ -116,7 +116,7 @@ class VideoRoomComponent extends Component {
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
       concentration: concentration,
-      concentrationList: [],
+      concentrationList: [0, 0, 0],
       total: 0,
     };
 
@@ -449,10 +449,11 @@ class VideoRoomComponent extends Component {
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
             concentration: this.state.localUser.getConcentration(),
-            concentrationList: this.state.concentrationList.push(this.state.localUser.getConcentration()),
-            total: 80,
+            // concentrationList: this.state.concentrationList.push(this.state.localUser.getConcentration()),
+            // total: this.state.concentrationList.reduce((a, b) => a + b, 0) / this.state.concentrationList.length,
           });
         }
+        console.log("!!!????")
         this.updateLayout();
         this.whoTeacherOrStudent();
       },
@@ -719,6 +720,9 @@ class VideoRoomComponent extends Component {
           }
           if (data.concentration !== undefined) {
             user.setConcentration(data.concentration);
+            user.setTotal(data.concentration);
+            console.log("subscriberToUser~")
+            console.log(user.getTotal());
           }
         }
       });
