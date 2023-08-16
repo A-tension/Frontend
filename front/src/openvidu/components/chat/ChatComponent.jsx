@@ -150,22 +150,16 @@ export default class ChatComponent extends Component {
     this.props.close(undefined);
   }
 
-  // name: 오석호
-  // date: 2022/08/04
-  // desc: 메시지 전송 대상을 변경하는 함수
   changeTarget(e) {
     if (e.target.value === "all") this.setState({ messageTarget: "all" });
     else {
       const target = this.props.subscribers.filter(
-        (elem) => elem.nickname === e.target.value,
+        (elem) => elem.nickname === e.target.value
       );
       this.setState({ messageTarget: target[0] });
     }
   }
 
-  // name: 오석호
-  // date: 2022/08/04
-  // desc: 시간 계산용 함수
   convert12() {
     const time = new Date();
     let hours = time.getHours();

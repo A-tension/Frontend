@@ -6,8 +6,7 @@ import {
   Button,
   Popover,
   Dropdown,
-  Image
-
+  Image,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { User, selectUser, userLogout } from "../store/user";
@@ -92,8 +91,8 @@ const Logoutheader = () => {
         회의 참여
       </Nav.Link>
       <NavDropdown
-      as={Dropdown}
-      content="none"
+        as={Dropdown}
+        content="none"
         title={
           <div className="flex items-center  text-white gap-2">
             {loginData.name}
@@ -102,6 +101,7 @@ const Logoutheader = () => {
         }
         style={{ borderRadius: "20px" }}
       >
+
         <NavDropdown.ItemText as={Nav.Link} to="/info">
           {/* <Nav.Link as={Link} to="/info"> */}
             <div className="dropdown-content flex flex-col items-center text-center" onClick={handleMyPage}>

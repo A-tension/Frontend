@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
-import { hideBackground } from "../../store/meeting";
 
 interface MeetingData {
   conferenceTitle: string;
@@ -16,34 +15,38 @@ function Create() {
       nickname: "",
     }
   );
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setConferenceCreateData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    console.log(conferenceCreateData);
   };
 
-  // const history = useHistory
-  const dispatch = useAppDispatch();
-  dispatch(hideBackground(false));
   const navigate = useNavigate();
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const dataObject = Object.fromEntries(formData);
-    // dispatch(meetingModeTest());
+
+    if (
+      !conferenceCreateData.conferenceTitle ||
+      !conferenceCreateData.nickname
+    ) {
+      setErrorMessage("회의 제목과 닉네임은 필수 입력값입니다.");
+      return;
+    }
+
     navigate("/dash/meeting/wait", {
       state: {
         conferenceCreateData: conferenceCreateData,
       },
     });
   };
+
   return (
     <>
-      {/* <h1>회의 참여</h1>
-      <a>회의 링크 입력</a> */}
       <Form onSubmit={handleSubmit} className="mt-5">
         <Form.Group lg as={Row} className="mb-3" controlId="meetinglink">
           <Form.Label column sm={2}>
@@ -75,14 +78,14 @@ function Create() {
             />
           </Col>
         </Form.Group>
-        {/* 대기창으로 가는법,,, onClick={()=><Navigate to={"/wait/:id"}></Navigate>} */}
+        {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
 
-        <Button type="submit" size="lg" variant="primary">
-          참여
-        </Button>
-        <Button type="reset" size="lg" variant="outline-secondary">
-          취소
-        </Button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button type="submit" size="lg" variant="primary">
+            생성
+          </Button>
+          <div style={{ marginLeft: "10px" }} />
+        </div>
       </Form>
     </>
   );

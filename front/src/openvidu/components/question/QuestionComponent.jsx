@@ -104,9 +104,6 @@ export default class QuestionComponent extends Component {
     this.props.close(undefined);
   }
 
-  // name: 오석호
-  // date: 2022/08/04
-  // desc: 시간 계산용 함수
   convert12() {
     const time = new Date();
     let hours = time.getHours();

@@ -6,7 +6,6 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import whoru from "../utils/whoru";
 import InterceptedAxios from "../utils/iAxios";
-import levelFunction from "../utils/levelFunction";
 
 const App = () => {
   const [tap, setTap] = useState("setup");
@@ -34,9 +33,7 @@ const App = () => {
   const [studentInfo, setStudentInfo] = useState({});
   // 내 레벨 확인
   const [levelPng, setLevelPng] = useState("/levels/rainbow.png");
-  // 더블퐁퐁권 확인
-  const [canUseDoublePongpong, setCanUseDoublePongpong] = useState(false);
-  const [isUsedDoublePongpong, setIsUsedDoublePongpong] = useState(false);
+
 
   // 라우팅용
   const navigate = useNavigate();
@@ -49,9 +46,9 @@ const App = () => {
   const [conferenceJoinData, setConferenceJoinData] = useState(null);
 
 
-//   const memberStore = useAppSelector((state) => state.member);
-  const whoami = whoru("ddddd");
-
+  // const memberStore = useAppSelector((state) => state.member);
+  // const whoami = whoru(memberStore.userId);
+  const whoami = whoru(4444);
 
   // conferenceJoinData와 conferenceCreateData를 결정하는 로직
   useEffect(() => {
@@ -71,40 +68,8 @@ const App = () => {
     if (whoami !== "teacher") getUserItems();
   });
 
-
-  // 학생셋 만들기
-  useEffect(() => {
-    const getMyLevel = async () => {
-      // const myPoint = await InterceptedAxios.get(
-      //   `/items/totalsticker/${memberStore.userId}`
-      // );
-      // const pngUrl = levelFunction(myPoint.data);
-      // setLevelPng(pngUrl);
-    };
-    const getStudentList = async () => {
-      // const classStudents = await InterceptedAxios.get(
-      //   `/classes/student/${state.classId}`
-      // );
-      // const nameList = classStudents.data.participantsList.map(
-      //   (elem) => elem.studentNickname
-      // );
-      const nameList = { studentNickname: "싸피1", studentNickname: "싸피2" };
-      const studentSets = {
-        싸피1: "123",
-        싸피2: "456",
-      };
-      // classStudents.data.participantsList.forEach((elem) => {
-      //   studentSets[elem.studentNickname] = elem.studentid;
-      // });
-      setStudentList(nameList);
-      setStudentInfo(studentSets);
-    };
-    // if (whoami !== "teacher") getMyLevel();
-    getStudentList();
-  }, []);
-
-  // 만약 state 없이 한번에 url에 접근하려고 했다면
-  // if (!state) window.location.href = "/";
+  //   // 만약 state 없이 한번에 url에 접근하려고 했다면
+  if (!state) window.location.href = "/";
 
   const setDevices = {
     videos,
@@ -129,50 +94,37 @@ const App = () => {
     setIsAudioOn,
   };
 
-
   return (
     <>
       {tap === "setup" && (
         <SetupComponent
-
-          teacherName={"kimkijeong"}
-          classTitle={"java"}
-          classId={"1234"}
-
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
           setTap={setTap}
           setDevices={setDevices}
           code={code}
           whoami={whoami}
-          canUseDoublePongpong={true}
-          isUsedDoublePongpong={true}
-          setIsUsedDoublePongpong={true}
-          userId={"fiqwieoasd"}
+          userId={4444}
         />
       )}
       {tap === "class" && (
         <VideoRoomComponent
           setDevices={setDevices}
           code={code}
-          memberStore={"memberStore"}
           whoami={whoami}
           setTap={setTap}
-
-          classId={"1234"}
           setMyData={setMyData}
           setOthersData={setOthersData}
           navigate={navigate}
-          teacherName={"김기정"}
-          classTitle={"자바 스프링"}
-          userId={"fiqwieoasd"}
-          grade={"memberStore.grade"}
-          classNum={"memberStore.classNum"}
-          studentNum={"memberStore.studentNum"}
-
+          conferenceCreateData={conferenceCreateData}
+          conferenceJoinData={conferenceJoinData}
+          userId={4444}
+          grade={4}
+          classNum={4}
+          studentNum={2}
           studentList={studentList}
-          levelPng={levelPng}
           setAbsentData={setAbsentData}
           setTeacherData={setTeacherData}
-          isUsedDoublePongpong={isUsedDoublePongpong}
         />
       )}
       {tap === "result" && (

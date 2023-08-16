@@ -6,12 +6,16 @@ import { findMyTeam } from "../api/team/teamApi.tsx";
 import { teamResponseDto } from "../api/team/types.tsx";
 import { addList } from "../store/group.ts";
 import { useAppDispatch } from "../store/hooks.ts";
-import { findMyPlan } from "../api/plan/planApi.tsx";
 import { PlanResponseDto } from "../api/plan/types.tsx";
 import { reloadPlans } from "../store/plan.ts";
-import { userLogin } from "../store/user.ts";
+import { Team } from "../store/group.ts";
+import { User, userLogin } from "../store/user.ts";
+import { Item } from "../store/item.ts";
+import { findMyPlan } from "../api/plan/planApi.tsx";
+import { Plan, planCreateTest } from "../store/plan.ts";
 import { getUserProfile } from "../api/user/userApi.tsx";
 import { UserResponseDTO } from "../api/user/types.tsx";
+import { addItem } from "../store/item.ts";
 
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
@@ -52,53 +56,59 @@ function OAuth2RedirectHandler() {
         // 내 아이템 조회
         findMyItemList<FindMyItemResponseDto>()
           .then((response) => {
-            console.log(response.data); // 출력하고자 하는 데이터
-            const myItem = response.data.data;
-            console.log(myItem);
-          })
+            console.log("myItemList = ", response.data.data);
+            const myItemList = response.data.data.myItemDtoList; 
+            // myItem 돌면서 myItemDtoList
+            for (const myItemDto of myItemList) {                
+                const item : Item = {
+                    name : myItemDto.name,
+                    image : myItemDto.image,
+                    itemTypeId : myItemDto.itemTypeId,
+                    itemTypeName : myItemDto.itemTypeName,
+                    description : myItemDto.description,
+                }
+                dispatch(addItem(item))
+            } })
           .catch((error) => {
             console.error(error);
             // 에러 처리 로직 추가
           });
+
+          // 아래처럼 비동기 처리하면 다 받아와짐!!!!
+          try {
+            const response = await getUserProfile<UserResponseDTO>();
+            console.log("response.data = ", response.data.data);
+            const userProfile = response.data.data;
+            console.log(userProfile);
+            dispatch(userLogin(userProfile));
+          } catch (error) {
+            console.error(error);
+            // 에러 처리 로직 추가
+          }
+          
         // 내가 속한 모든 그룹 조회
         findMyTeam<teamResponseDto[]>()
           .then(function (result) {
             console.log(result.data);
             dispatch(addList(result.data.data));
-            // for(const teamResponseDto of result.data.data) {
-            //   const team: Team = {
-            //     teamId: teamResponseDto.teamId,
-            //     name: teamResponseDto.name,
-            //     profileImage: teamResponseDto.profileImage,
-            //   };
-            //   // dispatch(groupCreateTest(team));
-            // }
           })
           .catch((error) => {
             console.error(error);
             // 에러 처리 로직 추가
           });
+        
         //내가 속한 그룹의 모든 일정 조회
         findMyPlan<PlanResponseDto[]>()
           .then(function (result) {
             console.log("myplans");
             console.log(result.data);
             dispatch(reloadPlans(result.data.data));
-            // for (const PlanResponseDto of result.data.data) {
-            //   const plan: Plan = {
-            //     id: PlanResponseDto.id,
-            //     teamId: PlanResponseDto.teamId,
-            //     name: PlanResponseDto.name,
-            //     startTime: PlanResponseDto.startTime,
-            //     endTime: PlanResponseDto.endTime,
-            //   };
-            //   dispatch(planCreateTest(plan));
-            // }
           })
           .catch((error) => {
             console.error(error);
             // 에러 처리 로직 추가
           });
+
       } else {
         navigate("/login", { state: { from: location, error: error } });
       }

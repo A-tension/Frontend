@@ -22,15 +22,7 @@ import InterceptedAxios from "../../utils/iAxios";
 const SetupComponent = (props) => {
   const location = useLocation();
   const { conferenceCreateData, conferenceJoinData } = location.state;
-  const {
-    setTap,
-    setDevices,
-    whoami,
-    canUseDoublePongpong,
-    isUsedDoublePongpong,
-    setIsUsedDoublePongpong,
-    userId,
-  } = props;
+  const { setTap, setDevices, whoami, userId } = props;
 
   const {
     videos,
@@ -162,13 +154,6 @@ const SetupComponent = (props) => {
   };
 
   const goNext = async () => {
-    if (isUsedDoublePongpong) {
-      try {
-        await InterceptedAxios.delete(`/items/${userId}/4`);
-      } catch (e) {
-        console.error(e);
-      }
-    }
     setTap("class");
 
     // 여기서 필요한 데이터를 전달하고자 한다면 아래와 같이 작성
@@ -193,12 +178,16 @@ const SetupComponent = (props) => {
         console.error(e);
       }
     }
-    window.location.href = `/${whoami}`;
-  };
 
+    window.location.href = `/dash/meeting`;
+  };
 
   return (
     <div className="">
+      {/* {isLoading && <Loading whoami={whoami} />} */}
+      <div className="">
+        <div className="">
+          {/* <hr /> */}
 
           <div className="sideContainer">
             <div className="main">

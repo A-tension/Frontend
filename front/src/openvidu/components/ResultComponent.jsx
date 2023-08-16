@@ -35,7 +35,7 @@ const Result = (props) => {
 
   return (
     <>
-      <div css={TotalContainer}>
+      <div>
         {whoami === "teacher" ? (
           <>
             <TeacherResult

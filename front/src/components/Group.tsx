@@ -10,9 +10,7 @@ import ManageGroup from "./group/ManageGroup.tsx";
 import Gcreate from "./group/Gcreate.tsx";
 import { getTeamDetail } from "../api/team/teamApi.tsx";
 import { teamDetailResponseDto } from "../api/team/types.tsx";
-interface Selectable {
-  name: string;
-}
+
 function Group() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

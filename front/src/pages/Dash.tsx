@@ -65,7 +65,7 @@ const Dash = () => {
       <div style={{ height: colHeight }} className="font-SUIT">
         <Container fluid>
           <Row style={{ height: colHeight }}>
-            <Col className="pt-5" sm={1} style={{minWidth:"200px"}} >
+            <Col className="pt-5" sm={1} style={{ minWidth: "200px" }}>
               <SideNav
                 icons={icons}
                 selectMenu={selectMenu}
@@ -106,7 +106,6 @@ const Dash = () => {
                     <Outlet></Outlet>
                   </div>
                 )}
-
               </div>
             </Col>
           </Row>
