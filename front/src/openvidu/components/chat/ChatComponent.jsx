@@ -236,13 +236,6 @@ export default class ChatComponent extends Component {
                         <span className="triangle" />
                       </div>
                     </div>
-                    {data.nickname !== "System" && (
-                        <img
-                            src={data.levelPng}
-                            alt="레벨짤"
-                            className="level-png"
-                        />
-                    )}
                   </div>
               ))}
             </div>
