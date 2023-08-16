@@ -80,7 +80,6 @@ export default class FaceDetection extends Component {
       .withFaceLandmarks()
       .withFaceExpressions();
     if (result) {
-      console.log(result);
       const happy = result.expressions.happy;
       let normal = this.state.normal;
       let smile = this.state.smile;

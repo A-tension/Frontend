@@ -1475,7 +1475,6 @@ class VideoRoomComponent extends Component {
   sendEmoji = (emoji) => {
     if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
     localUser.setEmoji(emoji);
-    this.setState({ emoji: emoji });
 
     // localUser.getStreamManager().publishVideo(localUser.isVideoActive());
     this.sendSignalUserChanged({ emojiUsed: emoji });
@@ -1619,7 +1618,6 @@ class VideoRoomComponent extends Component {
           toggleEmoji={this.toggleEmoji}
           sendEmoji={this.sendEmoji}
           header="Emoji"
-          emoji={this.state.emoji}
           whoami={this.props.whoami}
           id={this.props.userId}
         />
@@ -1701,7 +1699,6 @@ class VideoRoomComponent extends Component {
               <StreamComponent
                 user={this.state.localUser}
                 currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-                emoji={this.state.emoji}
               />
               <FaceDetection
                 autoPlay={localUser.isScreenShareActive() ? false : true}
