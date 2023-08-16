@@ -3134,6 +3134,11 @@
   dependencies:
     "loose-envify" "^1.1.0"
 
+"reactdom@^2.0.0":
+  "integrity" "sha512-uMNDdGgUECyHQwuVyt3HBAjFt07U+rKy1zFN56skgcPt7/PODbLN7OkMCevgwkX3LsGalA4/757DSVp6DX4dzA=="
+  "resolved" "https://registry.npmjs.org/reactdom/-/reactdom-2.0.0.tgz"
+  "version" "2.0.0"
+
 "read-cache@^1.0.0":
   "integrity" "sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA=="
   "resolved" "https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz"

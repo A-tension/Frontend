@@ -8,16 +8,16 @@
 #chatToolbar {
   position: relative;
   height: 30px;
-  background: #2b5876; /* fallback for old browsers */
+  background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
-    to left,
-    #4e4376,
-    #2b5876
+          to left,
+          #4e4376,
+          #2b5876
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    to left,
-    #4e4376,
-    #2b5876
+          to left,
+          #D4E5FA,
+          #D4E5FA
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   box-sizing: border-box;
@@ -27,7 +27,7 @@
   padding-top: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  color: #ffffff;
+  color: #000000;
 }
 
 #closeButton {
@@ -41,8 +41,13 @@
   cursor: pointer;
 }
 
+.message-divider {
+  border-top: 2px solid #ffffff; /* 흰색 얇은 실선 스타일 설정 */
+  margin: 10px 0; /* 적절한 간격 설정 */
+}
+
 #chatComponent {
-  background-color: rgba(192, 192, 192, 0.097);
+  background-color: #D4E5FA;
   position: absolute;
   z-index: 99999;
   top: 0;
@@ -234,7 +239,7 @@ span.triangle {
   height: 28px;
   width: 94%;
   background-color: white;
-  font-family: "NanumSquare";
+  font-family: 'NanumSquare';
   border-radius: 6px;
   padding: 0px 10px;
   font-weight: 300;
@@ -243,7 +248,7 @@ span.triangle {
 
 #whisper option {
   height: 0.5rem;
-  font-family: "NanumSquare";
+  font-family: 'NanumSquare';
   font-weight: 300;
   color: var(--text-dark);
 }
@@ -268,12 +273,12 @@ span.triangle {
   outline: none;
   font-size: 14px;
   margin-left: -6%;
-  color: #ffffff;
+  color: #000000;
   resize: none;
 }
 
 #messageInput textarea::placeholder {
-  color: #ffffff;
+  color: #000000;
 }
 
 #sendButton {
@@ -301,4 +306,24 @@ span.triangle {
 
 .chatComponentLight ::-webkit-scrollbar-thumb {
   background-color: #eeeeee !important;
+}
+
+.my-nickname {
+  color: red;
+  font-weight: bold;
+}
+
+.other-nickname {
+  color: blue;
+  font-weight: bold;
+}
+
+.my-message {
+  background-color: #d0eaff;
+  float: right;
+}
+
+.other-message {
+  background-color: #f0f0f0;
+  float: left;
 }

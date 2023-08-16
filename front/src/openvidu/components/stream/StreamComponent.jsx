@@ -51,7 +51,7 @@ export default class StreamComponent extends Component {
   // render: 렌더링 담당 함수
   render() {
     return (
-      <div className="OT_widget-container" style={this.state.frameColor.value}>
+      <div className="OT_widget-container">
         {this.props.user !== undefined && this.props.user.emoji ? (
           <img
             className="reaction-img"
