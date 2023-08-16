@@ -900,7 +900,7 @@ class VideoRoomComponent extends Component {
   // toggleFullscreen: 전체화면을 토글하는 함수
   toggleFullscreen() {
     const document = window.document;
-    const fs = document.getElementById("container");
+    const fs = document.getElementById("root");
     if (
       !document.fullscreenElement &&
       !document.mozFullScreenElement &&

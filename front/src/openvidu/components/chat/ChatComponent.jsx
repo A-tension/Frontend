@@ -243,7 +243,7 @@ export class ChatComponent extends Component {
                         </div>
                         <div className="msg-text">{data.message}</div>
                         <div className="msg-time">{data.time}</div>
-                        <span className="triangle" />
+                        {/* <span className="triangle" /> */}
                       </div>
                     </div>
                   </div>
