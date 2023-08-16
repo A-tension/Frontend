@@ -43,7 +43,7 @@ function Plans(props: Props) {
       key={index}
       style={{
         display: "flex",
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#ECF3FC",
         borderRadius: "6px",
         padding: "10px",
         marginBottom: "10px",
