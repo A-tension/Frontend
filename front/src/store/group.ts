@@ -22,7 +22,7 @@ export const groupSlice = createSlice({
   name: "groups",
   initialState: initialState,
   reducers: {
-    loginload: (state, action: PayloadAction<Team>) => {
+    loginload: (state, action: PayloadAction<teamResponseDto>) => {
       const { teamId, name, profileImage } = action.payload;
       state.push({
         name: name,
