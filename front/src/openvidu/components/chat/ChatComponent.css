@@ -234,7 +234,7 @@ span.triangle {
   height: 28px;
   width: 94%;
   background-color: white;
-  font-family: 'NanumSquare';
+  font-family: "NanumSquare";
   border-radius: 6px;
   padding: 0px 10px;
   font-weight: 300;
@@ -243,7 +243,7 @@ span.triangle {
 
 #whisper option {
   height: 0.5rem;
-  font-family: 'NanumSquare';
+  font-family: "NanumSquare";
   font-weight: 300;
   color: var(--text-dark);
 }

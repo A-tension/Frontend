@@ -40,7 +40,7 @@
 }
 .form-style-7 li {
   display: block;
-  padding: 9px;
+  padding: 2px, 5px, 30px, 5px;
   border: 1px solid #dddddd;
   margin-bottom: 30px;
   border-radius: 10px;
@@ -56,21 +56,21 @@
   margin-top: -19px;
   background: #ffffff;
   height: 14px;
-  padding: 2px 5px 2px 5px;
+  padding: 2px 5px 20px 5px;
   color: #2a69a6;
   font-size: 14px;
   overflow: hidden;
   font-weight: bold;
 }
-.form-style-7 input[type='text'],
-.form-style-7 input[type='date'],
-.form-style-7 input[type='datetime'],
-.form-style-7 input[type='email'],
-.form-style-7 input[type='number'],
-.form-style-7 input[type='search'],
-.form-style-7 input[type='time'],
-.form-style-7 input[type='url'],
-.form-style-7 input[type='password'],
+.form-style-7 input[type="text"],
+.form-style-7 input[type="date"],
+.form-style-7 input[type="datetime"],
+.form-style-7 input[type="email"],
+.form-style-7 input[type="number"],
+.form-style-7 input[type="search"],
+.form-style-7 input[type="time"],
+.form-style-7 input[type="url"],
+.form-style-7 input[type="password"],
 .form-style-7 textarea,
 .form-style-7 select {
   box-sizing: border-box;
@@ -90,7 +90,7 @@
 .form-style-7 li > span {
   display: block;
   padding: 3px;
-  margin: 0 -9px -9px -9px;
+  margin: -9 -9px -9px -9px;
   text-align: center;
   color: white;
   font-size: 11px;
@@ -100,16 +100,16 @@
 .form-style-7 textarea {
   resize: none;
 }
-.form-style-7 button[type='submit'],
-.form-style-7 button[type='button'] {
+.form-style-7 button[type="submit"],
+.form-style-7 button[type="button"] {
   background: #2471ff;
   border: none;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
   color: #d2e2ff;
 }
-.form-style-7 button[type='submit']:hover,
-.form-style-7 button[type='button']:hover {
+.form-style-7 button[type="submit"]:hover,
+.form-style-7 button[type="button"]:hover {
   background: #6b9fff;
   color: #fff;
   cursor: pointer;

@@ -17,40 +17,36 @@ class UserModel {
   attendanceTime; // 접속 시간
   profile; // 프로필 이미지 정보
   uid; // 유저 아이디
-  levelPng; // 레벨에 맞는 사진 경로
   presentationCnt; // 발표 횟수
-  isPointDouble; // 더블퐁퐁 사용여부
 
   constructor() {
-    this.connectionId = '';
+    this.connectionId = "";
     this.audioActive = true;
     this.videoActive = true;
-    this.uid = '';
+    this.uid = "";
     this.screenShareActive = false;
-    this.nickname = '';
+    this.nickname = "";
     this.streamManager = null;
-    this.type = 'local';
+    this.type = "local";
     this.picked = false;
-    this.point = 0;
-    this.emoji = '';
+    this.emoji = "";
     this.frameColor = {
-      type: 'style',
+      type: "style",
       value: {
-        border: '10px solid gray',
-        borderRadius: '15px',
-        backgroundImage: 'var(--gray)',
-        backgroundOrigin: 'border-box',
-        backgroundClip: 'content-box, border-box',
+        border: "10px solid gray",
+        borderRadius: "15px",
+        backgroundImage: "var(--gray)",
+        backgroundOrigin: "border-box",
+        backgroundClip: "content-box, border-box",
         // margin: '10px',
       },
     }; // {type: "style", value: {border: "8px solid #F8CBD3"}}; // { type: "color", value: "#F8CBD3" };
     this.smile = false;
     this.outAngle = false;
-    this.attendanceTime = '00:00:00';
-    this.profile = '';
-    this.levelPng = '';
+    this.attendanceTime = "00:00:00";
+    this.profile = "";
+    this.levelPng = "";
     this.presentationCnt = 0;
-    this.isPointDouble = false;
   }
   // 추가 함수
   isSmileActive() {
@@ -80,10 +76,6 @@ class UserModel {
 
   isScreenShareActive() {
     return this.screenShareActive;
-  }
-
-  getPoint() {
-    return this.point;
   }
 
   getPresentationCnt() {
@@ -116,13 +108,8 @@ class UserModel {
   getLevelPng() {
     return this.levelPng;
   }
-
-  getisPointDouble() {
-    return this.isPointDouble;
-  }
-
   isLocal() {
-    return this.type === 'local';
+    return this.type === "local";
   }
   isRemote() {
     return !this.isLocal();
@@ -150,9 +137,6 @@ class UserModel {
   setPicked(picked) {
     this.picked = picked;
   }
-  setPoint(point) {
-    this.point = point;
-  }
 
   setPresentationCnt(presentationCnt) {
     this.presentationCnt = presentationCnt;
@@ -166,7 +150,7 @@ class UserModel {
   }
 
   setType(type) {
-    if ((type === 'local') | (type === 'remote')) {
+    if ((type === "local") | (type === "remote")) {
       this.type = type;
     }
   }
@@ -177,22 +161,6 @@ class UserModel {
 
   setAttendanceTime(attendanceTime) {
     this.attendanceTime = attendanceTime;
-  }
-
-  setLevelPng(levelPng) {
-    this.levelPng = levelPng;
-  }
-
-  setIsPointDouble(isPointDouble) {
-    this.isPointDouble = isPointDouble;
-  }
-
-  upPoint() {
-    ++this.point;
-  }
-
-  downPoint() {
-    if (this.point > 0) --this.point;
   }
 
   upPresentationCnt() {

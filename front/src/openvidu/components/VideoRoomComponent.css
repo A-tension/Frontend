@@ -13,6 +13,7 @@
   position: absolute;
   top: auto;
   bottom: 0;
+  left: 0;
   min-height: 80px !important;
   width: 100vw;
 }
@@ -94,13 +95,13 @@
 }
 
 .teacher-layout {
-  background: #530c0c; /* fallback for old browsers */
+  background: #ffffff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
-    #530c0c,
-    #332828
+    #e4e4e4,
+    #44e3ff
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #530c0c, #332828);
+  background: linear-gradient(to bottom, #f1f1f1, #006aff);
 }
 
 .sth_component {

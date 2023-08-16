@@ -27,7 +27,6 @@ function Header() {
     dispatch(hideBackground(false));
   };
   // const loggedin =true;
-  // if(navBar)
   return (
     <>
       <div
@@ -60,7 +59,7 @@ function Header() {
           {/* , marginRight: "80px"  */}
 
           {isLogin && (
-            <Nav className="ms-auto text-white" style={{ color: "white" }}>
+            <Nav className="ms-auto flex items-center text-white" style={{ color: "white" }}>
               <Logoutheader />
             </Nav>
           )}

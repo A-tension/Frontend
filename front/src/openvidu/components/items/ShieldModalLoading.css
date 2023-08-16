@@ -2,7 +2,7 @@
 Basic style
 ==================*/
 
-html,
+/* html,
 body {
   position: relative;
   width: 100%;
@@ -10,9 +10,12 @@ body {
   overflow: hidden;
 }
 
-body {
+/* body {
   margin: 0;
-}
+
+} */
+/* 
+
 
 /*img {*/
 /*  max-width: 100%;*/
@@ -20,11 +23,15 @@ body {
 /*  vertical-align: bottom;*/
 /*}*/
 
-h1,
+
+} */
+
+/* h1,
+
 h2,
 p {
   margin: 0;
-}
+} */
 
 /*===================
 animation01
@@ -643,7 +650,7 @@ animation05
 }
 
 .double_wrapper01::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background: #f2f3df;
@@ -651,7 +658,7 @@ animation05
 }
 
 .double_wrapper01::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background: #f2f3df;

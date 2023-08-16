@@ -17,8 +17,15 @@ const Dash = () => {
   // Calculate the height for the columns and inner div
   const inMeeting = useAppSelector(getMode);
 
+  const [isLogin, setIsLogin] = useState(false);
   const [token, setToken] = useState<string | null>();
 
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [token]);
   const icons = [group, calendar, meeting, item];
   const menu = ["group", "calendar", "meeting", "item"];
   const label = ["그룹", "캘린더", "회의", "뽑기"];
@@ -32,6 +39,7 @@ const Dash = () => {
       setSelectedMenu("회의");
     }
   }, [token]);
+
 
   //대시보드 화면 구성
   // 왼쪽 오른쪽으로 나뉨

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Conference from "./pages/Conference";
 import Dash from "./pages/Dash";
 import Login from "./pages/Login";
@@ -16,17 +16,15 @@ import Manage from "./components/meeting/Manage";
 import Header from "./pages/Header";
 import OAuth2RedirectHandler from "./components/OAuth2RedirectHandler.tsx";
 // import Month from "./components/plan/Month";
-import VideoRoomComponent from "./openvidu/components/VideoRoomComponent";
 import "./App.css";
 import JoinMeeting from "./components/JoinMeeting";
-import Month from "./components/plan/Month";
 import Waiting from "./pages/Waiting";
 import List from "./components/item/List.tsx";
 import Draw from "./components/item/Draw.tsx";
 import OpenVidu from "./openvidu/App.jsx";
 
 import Create from "./components/meeting/Create.tsx";
-import CalendarView from "./components/plan/CalendarView.tsx";
+// import CalendarView from "./components/plan/CalendarView.tsx";
 import { useAppSelector } from "./store/hooks.ts";
 import { getPlanlist, loadListTest } from "./store/plan.ts";
 import { title } from "process";
@@ -34,6 +32,8 @@ import { createEventId } from "./components/plan/event-utils.tsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
+
+
 
 function App() {
   //임시 props 테스트
@@ -49,7 +49,7 @@ function App() {
             <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
               //일정 추가는 그룹일정에서 추가하러 옴,,
-              <Route index element={<Month />}></Route>
+              {/* <Route index element={<Month />}></Route> */}
               <Route path="add" element={<Planner />}></Route>
               <Route path="plan" element={<PlanView />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}

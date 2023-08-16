@@ -4,15 +4,19 @@ import { findMyItemList } from "../api/item/itemApi";
 import { FindMyItemResponseDto } from "../api/item/types";
 import { findMyTeam } from "../api/team/teamApi.tsx";
 import { teamResponseDto } from "../api/team/types.tsx";
-import { groupCreateTest } from "../store/group.ts";
+import { addList } from "../store/group.ts";
 import { useAppDispatch } from "../store/hooks.ts";
+import { PlanResponseDto } from "../api/plan/types.tsx";
+import { reloadPlans } from "../store/plan.ts";
 import { Team } from "../store/group.ts";
+import { User, userLogin } from "../store/user.ts";
+import { Item } from "../store/item.ts";
 import { findMyPlan } from "../api/plan/planApi.tsx";
-import { planResponseDto } from "../api/plan/types.tsx";
 import { Plan, planCreateTest } from "../store/plan.ts";
 import { getUserProfile } from "../api/user/userApi.tsx";
 import { UserResponseDTO } from "../api/user/types.tsx";
 import { userLogin } from "../store/user.ts";
+import { addItem } from "../store/item.ts";
 
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
@@ -58,6 +62,7 @@ function OAuth2RedirectHandler() {
       dispatch(userLogin(response.data.data));
     });
 
+
     // 내 아이템 조회
     findMyItemList<FindMyItemResponseDto>()
       .then((response) => {
@@ -94,6 +99,7 @@ function OAuth2RedirectHandler() {
           endTime: planResponseDto.endTime,
         };
         dispatch(planCreateTest(plan));
+
       }
     });
   };
