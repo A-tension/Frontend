@@ -56,7 +56,9 @@ function OAuth2RedirectHandler() {
 
   const getUserInfos = () => {
     getUserProfile<UserResponseDTO>().then((response) => {
-      dispatch(userLogin(response.data.data));
+      dispatch(userLogin(response.data.data))
+      }).then(()=>{
+        navigate("/");
     });
 
 

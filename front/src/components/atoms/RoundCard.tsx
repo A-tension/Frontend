@@ -14,7 +14,7 @@ interface Props {
 }
 const RoundCard: React.FC<Props> = (props: Props) => {
   const headerHeight = 53; // Change this value to match your actual header height
-  const colHeight = `calc(100vh - ${headerHeight}px)`;
+  const colHeight ="100vh";//`calc(100vh - ${headerHeight}px)`;//"100vh";
   return (
     <>
       <div
