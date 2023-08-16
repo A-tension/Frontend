@@ -12,7 +12,7 @@ export interface User {
   email?: string | "";
   name?: string | "";
   profileImage?: string;
-  tickets?: number; // 뽑기권
+  ticket?: number; // 뽑기권
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
@@ -24,7 +24,7 @@ const initialState: User = {
   email: "",
   name: "",
   profileImage: "",
-  tickets: 0,
+  ticket: 0,
   meetingUrl: "",
   myItems: [],
   myGroups: [],
@@ -42,7 +42,7 @@ export const userSlice = createSlice({
     },
 
     addItem: (state, action: PayloadAction<Item>) => {
-      state.user.myItems.push(action.payload); // myItems 배열에 아이템 추가
+      state.myItems.push(action.payload); // myItems 배열에 아이템 추가
     },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
@@ -68,7 +68,7 @@ export const userSlice = createSlice({
         email,
         name,
         profileImage,
-        tickets,
+        ticket,
         meetingUrl,
         myItems,
         myGroups,
@@ -77,7 +77,7 @@ export const userSlice = createSlice({
       state.email = email;
       state.name = name;
       state.profileImage = profileImage;
-      state.tickets = tickets;
+      state.ticket = ticket;
       state.meetingUrl = meetingUrl;
       state.myItems = myItems;
       state.myGroups = myGroups;
@@ -103,7 +103,7 @@ export const userSlice = createSlice({
 export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
 
 //getters
-export const checkTickets = (state: RootState) => state.user.tickets;
+export const checkTicket = (state: RootState) => state.user.ticket;
 export const getUserId = (state: RootState) => state.user.userId;
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState) => state.user.isLoggedIn;
