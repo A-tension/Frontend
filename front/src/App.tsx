@@ -88,7 +88,6 @@ function App() {
           ></Route>
           <Route path="/info" element={<Info />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          {/* <Route path="/wait" element={<OpenVidu />}></Route> */}
           <Route
             path="/oauth2/redirect"
             element={<OAuth2RedirectHandler />}

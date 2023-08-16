@@ -172,7 +172,7 @@ const SetupComponent = (props) => {
           `/classes/${classId}/close`,
           {
             classId: classId,
-          }
+          },
         );
       } catch (e) {
         console.error(e);

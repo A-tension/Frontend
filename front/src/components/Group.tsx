@@ -11,6 +11,7 @@ import Gcreate from "./group/Gcreate.tsx";
 import { getTeamDetail } from "../api/team/teamApi.tsx";
 import { teamDetailResponseDto } from "../api/team/types.tsx";
 
+
 function Group() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -36,9 +37,11 @@ function Group() {
     selectGroup(group);
     console.log(selectedGroup?.name + "handle group select");
     //dispatch(hasAuthority());
+
     if (TF) getAuth(TF); // 실제로는 team participant has auth?
     else getAuth(false);
-    console.log(hasAuth);
+    console.log("selected" + group.name);
+
   };
 
   const grouplist = groups.map((group, index) => (
@@ -96,6 +99,7 @@ function Group() {
   }, [selectedGroup]);
   useEffect(() => {
     const loadGroupDetail = () => {
+
       if (selectedGroup) {
         getTeamDetail<teamDetailResponseDto>(selectedGroup.teamId).then(
           (result) => {
