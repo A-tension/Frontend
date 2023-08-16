@@ -186,9 +186,9 @@ export default class ToolbarComponent extends Component {
       >
         <Toolbar className="toolbar">
           {mySessionId && (
-            <div id="titleContent">
+            // <div id="titleContent">
               <span id="session-title">{mySessionId}</span>
-            </div>
+            // </div>
           )}
 
           <div className="buttonsContent">
