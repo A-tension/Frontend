@@ -24,6 +24,7 @@ import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import Setting from "./settings/Setting";
 import Emoji from "./emoji/Emoji";
+import Concentration from "./concentration/Concentration";
 
 let localUser = new UserModel();
 let timeout;
@@ -450,8 +451,12 @@ class VideoRoomComponent extends Component {
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
             concentration: this.state.localUser.getConcentration(),
-            // concentrationList: this.state.concentrationList.push(this.state.localUser.getConcentration()),
-            // total: this.state.concentrationList.reduce((a, b) => a + b, 0) / this.state.concentrationList.length,
+            // concentrationList: this.state.concentrationList.push(
+            //   this.state.localUser.getConcentration()
+            // ),
+            // total:
+            //   this.state.concentrationList.reduce((a, b) => a + b, 0) /
+            //   this.state.concentrationList.length,
           });
         }
         console.log("!!!????");
@@ -722,7 +727,7 @@ class VideoRoomComponent extends Component {
             user.setConcentration(data.concentration);
             user.setTotal(data.concentration);
             console.log("subscriberToUser~");
-            console.log(user.getTotal());
+            console.log("get Total" + user.getTotal());
           }
         }
       });
@@ -1551,6 +1556,13 @@ class VideoRoomComponent extends Component {
           upPresentationCnt={this.upPresentationCnt}
           downPresentationCnt={this.downPresentationCnt}
         />
+        <Concentration
+          display={this.state.concentrationDisplay}
+          toggleConcentrationMenu={this.toggleConcentrationMenu}
+          concentrationList={this.state.concentrationList}
+          toal={this.state.total}
+        />
+
         {/* 다이얼로그 */}
         <DialogExtensionComponent
           showDialog={this.state.showExtensionDialog}
