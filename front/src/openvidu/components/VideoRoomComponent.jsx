@@ -1597,6 +1597,7 @@ class VideoRoomComponent extends Component {
 
     return (
       <>
+      <div style={{ overflow: 'hidden' }}>
         <Setting
           display={this.state.settingDisplay}
           toggleSetting={this.toggleSetting}
@@ -1800,6 +1801,7 @@ class VideoRoomComponent extends Component {
             conferenceCreateData={this.props.conferenceCreateData}
             conferenceJoinData={this.props.conferenceJoinData}
           />
+        </div>
         </div>
       </>
     );

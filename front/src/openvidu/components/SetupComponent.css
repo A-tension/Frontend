@@ -180,7 +180,7 @@ select {
 
 .main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
@@ -193,11 +193,9 @@ select {
 
 .RoomName {
   height: 10%;
-  /* text-align: end; */
 }
 .preview {
-  /* width: 449px; */
-  height: 40%;
+  height: 60%;
 }
 .setting-section {
   display: flex;

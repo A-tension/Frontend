@@ -30,15 +30,16 @@ import SearchIcon from "@material-ui/icons/Search";
 import ChatIcon from "./iconComponents/ChatIcon";
 import EmojiIcon from "./iconComponents/EmojiIcon";
 import GameIcon from "./iconComponents/GameIcon";
-import MuteIcon from "./iconComponents/MuteIcon";
 import ScreenIcon from "./iconComponents/ScreenIcon";
-import NoVideoIcon from "./iconComponents/NoVideoIcon";
 import OneIcon from "./iconComponents/OneIcon";
 import QuestionMarkIcon from "./iconComponents/QuestionMarkIcon";
 import SeperateIcon from "./iconComponents/SeperateIcon";
 import SettingIcon from "./iconComponents/SettingIcon";
+
 import SoundIcon from "./iconComponents/SoundIcon";
+import MuteIcon from "./iconComponents/MuteIcon";
 import VideoIcon from "./iconComponents/VideoIcon";
+import NoVideoIcon from "./iconComponents/NoVideoIcon";
 
 
 
