@@ -81,7 +81,7 @@ function Info() {
           <Col className="d-flex flex-column  align-items-center  justify-content-center">
             <div>
               <Image
-                  src={fillerImg}
+                  src={data.profileImage}
                   fluid
                   roundedCircle
                   width={200}

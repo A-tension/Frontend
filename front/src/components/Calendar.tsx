@@ -11,52 +11,54 @@ import { useDispatch } from "react-redux";
 import Planner from "./plan/Planner";
 import PlanView from "./plan/PlanView";
 import { createEventId } from "./plan/event-utils";
+import { PlanRequestDto, PlanResponseDto } from "../api/plan/types";
 
 function Calendar() {
-  //캘린더 :
-  // let dataObject:Plan[]=[];
-  // const navigate = useNavigate();
-  // const addPlan = () => {
-  //   console.log("outside function call");
-  //   navigate("/dash/calendar/add");
-  //   selectTab("add");
-  // };
-  // const [selectedTab, selectTab] = useState("calendar");
+  const navigate = useNavigate();
+
   const location = useLocation();
-  const propgroup =location.state?.propgroup;
+  const propgroup = location.state?.propgroup;
 
   // destination = location.state?.tab;
-  const tabFromState = useMemo(() => location.state?.tab, [location.state?.tab]);
-
+  const tabFromState = useMemo(
+    () => location.state?.tab,
+    [location.state?.tab]
+  );
+  const planFromGroup = location.state?.plan;
   const [selectedTab, selectTab] = useState(tabFromState || "calendar");
 
-  // const dataObject = useAppSelector(getPlanlist); // Use the selector to access the data
-  // const
-
-  const handleTest = () => {
-    dispatch(loadListTest());
-    // navigate("/dash/calendar/plan", { state: { data: dataObject } });
+  const [gotPlan, getPlan] = useState<PlanResponseDto>(planFromGroup);
+  const planTransfer = (sPlan:PlanResponseDto) => {
+    getPlan(sPlan);
   };
 
-  //  useEffect(() => {
-  //    first
-
-  //    return () => {
-  //      second
-  //    }
-  //  }, [selectedTab])
-  // const [show, setShow] = useState(false);
-
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  // const dataObject = useAppSelector(getPlanlist); // Use the selector to access the data
 
   const planData = useAppSelector(getPlanlist);
+  useEffect(() => {
+    console.log(planData)
+  
+  }, [])
+  
   // const dispatch = useDispatch();
-  const addPlan = () => {
-    console.log("outside function call");
+  const navigateSelector = (goto: string) => {
+    console.log("outside function call go to" + goto);
     // navigate("/dash/calendar/add");
-    selectTab("add");
+    // if (goto == "group") {
+    //   navigate("/dash/group");
+    // }
+    selectTab(goto);
+
+    // selectTab("add");
   };
+  useEffect(() => {
+ 
+ 
+  }, [selectedTab])
+  
+  // consst planHandler = (selected:PlanRequestDto)=>{
+  //   selectCreatedPlan(selected);
+  // }
   // This is where you process the data from Redux into EventInput format
   const eventData: EventInput[] = planData.map((plan) => ({
     id: plan.id || createEventId(), // Assuming plan.id is optional //사용자가 입력하는 부분이 아님
@@ -75,7 +77,7 @@ function Calendar() {
   }));
 
   // useEffect(() => {
-    // dispatch(loadListTest());
+  // dispatch(loadListTest());
   // }, [dispatch]);
   return (
     <>
@@ -83,15 +85,20 @@ function Calendar() {
       <a>
         {/* 달력화면에서 툴팁으로 일정 보여주기, 일정추가(뒤로가기 달력화면),
         일정상세 */}
-        {/* <button onClick={handleTest}>테스트 버튼</button> */}
       </a>
-      {/* {selectedTab=="calendar" &&  <Month navigate={addPlan}></Month>} */}
-      {/* {selectedTab=="calendar" &&  */}
       <div>
-        {selectedTab == "add" && <Planner></Planner>}
-        {selectedTab == "planView" && <PlanView></PlanView>}
+        {selectedTab == "add" && (
+          <Planner navigate={navigateSelector}></Planner>
+        )}
+        {selectedTab == "planView" && (
+          <PlanView planToView={gotPlan} navigate={navigateSelector}></PlanView>
+        )}
         {selectedTab === "calendar" && (
-          <Month navigate={addPlan} planData={eventData}></Month>
+          <Month
+            navigate={navigateSelector}
+            selectPlan={planTransfer}
+            planData={eventData}
+          ></Month>
         )}
 
         {/* <Link to="add">일정추가</Link>

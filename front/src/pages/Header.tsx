@@ -58,12 +58,11 @@ function Header() {
           </Nav.Link>
           {/* , marginRight: "80px"  */}
 
-          {!isLogin && (
+          {isLogin && (
             <Nav className="ms-auto flex items-center text-white" style={{ color: "white" }}>
               <Logoutheader />
             </Nav>
           )}
-
 
           {!isLogin && (
             <Nav className="ms-auto text-white">
