@@ -241,7 +241,7 @@ export default class ToolbarComponent extends Component {
               >
                 <div className="buttonStyle">
                   <EmojiEmotionsIcon />
-                  <p>선생님 메뉴</p>
+                  <p>게임</p>
                 </div>
               </IconButton>
             )}

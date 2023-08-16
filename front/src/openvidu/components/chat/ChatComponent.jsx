@@ -219,7 +219,7 @@ export default class ChatComponent extends Component {
                 <div className="msg-detail">
                   <div className="msg-info">
                     <p className="msg-nickname">
-                      <span>
+                      {/* <span>
                         {data.nickname !== "System" && (
                           <img
                             src={data.levelPng}
@@ -227,7 +227,7 @@ export default class ChatComponent extends Component {
                             className="level-png"
                           />
                         )}
-                      </span>
+                      </span> */}
                       {data.target
                         ? data.nickname + " ▶ " + data.target
                         : data.nickname}

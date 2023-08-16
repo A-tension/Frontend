@@ -4,6 +4,7 @@ import Quiz from "@material-ui/icons/HelpOutline";
 import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
 
+// 게임 누르면
 const TeachersToolbar = ({
   display,
   pickRandomStudent,
@@ -81,6 +82,26 @@ const TeachersToolbar = ({
               <div className="buttonStyle">
                 <Quiz />
                 <p>퀴즈 열기</p>
+              </div>
+            </IconButton>
+
+            <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickRandomPick}
+              disabled={!randAvailable}
+            >
+              <div className="buttonStyle">
+                {randAvailable ? (
+                  <Shuffle />
+                ) : (
+                  <Shuffle
+                    color="secondary"
+                    style={{ animation: "cooldown 5s linear 1" }}
+                  />
+                )}
+                <p>스트레칭</p>
               </div>
             </IconButton>
           </div>
