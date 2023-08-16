@@ -18,6 +18,9 @@ class UserModel {
   profile; // 프로필 이미지 정보
   uid; // 유저 아이디
   presentationCnt; // 발표 횟수
+  concentration; // 집중도
+  concentrationList; // 집중도 임시 저장 리스트
+  total; // 집중도 총합
 
   constructor() {
     this.connectionId = "";
@@ -47,6 +50,9 @@ class UserModel {
     this.profile = "";
     this.levelPng = "";
     this.presentationCnt = 0;
+    this.concentration = 0;
+    this.concentrationList = [0, 0, 0];
+    this.total = 0;
   }
   // 추가 함수
   isSmileActive() {
@@ -170,6 +176,49 @@ class UserModel {
   downPresentationCnt() {
     --this.presentationCnt;
   }
+
+  getConcentration() {
+    return this.concentration;
+  }
+
+  getConcentrationList(){
+    return this.concentrationList;
+  }
+
+  getTotal() {
+    return this.total;
+  }
+
+  setConcentration(concentration) {
+    this.concentration = concentration;
+  }
+
+  setTotal(concentration) {
+    // this.concentrationList.push(concentration);
+    this.concentrationList[concentration] ++;
+    // this.total = this.concentrationList.reduce((a, b) => a + b, 0) / this.concentrationList.length;
+
+    console.log(this.concentrationList);
+
+    // 집중하지 않는 인원 수
+    const con0 = this.concentrationList[0];
+
+    console.log("con0", con0)
+
+    // 집중하는 인원 수
+    const con1 = this.concentrationList[1];
+    console.log("con1", con1)
+
+    // 매우 집중하는 인원 수
+    const con2 = this.concentrationList[2];
+    console.log("con2", con2)
+
+    // 총 집중 수
+    const n = con0 + con1 + con2;
+
+    this.total = parseInt(50 + ((5 * n) - 5 * con0 - 3 * con1) * (10 / n));
+  }
+
 }
 
 export default UserModel;

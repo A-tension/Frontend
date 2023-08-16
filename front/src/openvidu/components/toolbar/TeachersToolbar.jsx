@@ -7,6 +7,7 @@ import StretchingIcon from "./iconComponents/StretchingIcon";
 import GhostIcon from "./iconComponents/GhostIcon";
 import QuizIcon from "./iconComponents/QuizIcon";
 import RandomIcon from "./iconComponents/RandomIcon";
+import PieChart from "@material-ui/icons/PieChart";
 
 // 게임 누르면
 const TeachersToolbar = ({
@@ -17,6 +18,7 @@ const TeachersToolbar = ({
   stickerAvailable,
   toggleQuiz,
   toggleTeacherMenu,
+  toggleConcentrationMenu,
 }) => {
   const onClickRandomPick = () => {
     pickRandomStudent();
@@ -30,6 +32,11 @@ const TeachersToolbar = ({
 
   const onClickToggleQuiz = () => {
     toggleQuiz();
+    toggleTeacherMenu();
+  };
+
+  const onClickToggleConcentrationMenu = () => {
+    toggleConcentrationMenu();
     toggleTeacherMenu();
   };
 
@@ -110,6 +117,17 @@ const TeachersToolbar = ({
                   />
                 )}
                 <p>스트레칭</p>
+              </div>
+           </IconButton>
+           <IconButton
+              color="inherit"
+              className="navButton"
+              id="navRandButton"
+              onClick={onClickToggleConcentrationMenu}
+            >
+              <div className="buttonStyle">
+                <PieChart />
+                <p>집중도 보기</p>
               </div>
             </IconButton>
           </div>
