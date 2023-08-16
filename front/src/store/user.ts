@@ -7,16 +7,15 @@ import { Item } from "./item.ts";
 
 
 export interface User {
-  userId: UUID | "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
-  nickname?: string | "";
-  email?: string | "";
-  name?: string | "";
+  userId?: UUID; //| "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
+  nickname?: string ;
+  email?: string;// | "";
+  name?: string;// | "";
   profileImage?: string;
   ticket?: number; // 뽑기권
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
-  isLoggedIn?: boolean | false;
 }
 
 const initialState: User = {
@@ -28,7 +27,6 @@ const initialState: User = {
   meetingUrl: "",
   myItems: [],
   myGroups: [],
-  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -42,7 +40,7 @@ export const userSlice = createSlice({
     },
 
     addItem: (state, action: PayloadAction<Item>) => {
-      state.myItems.push(action.payload); // myItems 배열에 아이템 추가
+      state.myItems?.push(action.payload); // myItems 배열에 아이템 추가
     },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
@@ -85,6 +83,9 @@ export const userSlice = createSlice({
     },
     userLogout: () => {
       console.log("log out call");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      
       return initialState; // 그냥 refresh/redirect to front page 가 나을 지도?
     },
     userRefresh: () => {

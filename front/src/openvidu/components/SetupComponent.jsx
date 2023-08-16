@@ -178,6 +178,7 @@ const SetupComponent = (props) => {
         console.error(e);
       }
     }
+
     window.location.href = `/dash/meeting`;
   };
 
@@ -187,6 +188,7 @@ const SetupComponent = (props) => {
       <div className="">
         <div className="">
           {/* <hr /> */}
+
           <div className="sideContainer">
             <div className="main">
               <div className="RoomName title">
@@ -260,6 +262,7 @@ const SetupComponent = (props) => {
                   </select>
                 </div>
               </div>
+
               <div className="next">
                 <button className="nextBtn" onClick={goNext}>
                   입장하기
@@ -270,8 +273,6 @@ const SetupComponent = (props) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
   );
 };

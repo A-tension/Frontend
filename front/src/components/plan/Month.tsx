@@ -17,6 +17,7 @@ import {
 
 import newPlanIcon from "../../assets/icons/newPlansButton.svg";
 import { Modal } from "react-bootstrap";
+import { PlanResponseDto } from "../../api/plan/types";
 
 interface DemoAppState {
   weekendsVisible: boolean;
@@ -50,7 +51,8 @@ interface Test {
   title: string;
 }
 interface Props {
-  navigate: () => void;
+  navigate: (goto: string) => void; // 캘린더 내부에서 일정추가 캘린더 일정상세 전환하는 용도
+  selectPlan: (sPlan: PlanResponseDto) => void;
   planData: EventInput[]; //string|Array<string>|PlanData|EventInput[];
 }
 export default class Month extends React.Component<Props, DemoAppState> {
@@ -59,10 +61,10 @@ export default class Month extends React.Component<Props, DemoAppState> {
     currentEvents: [],
   };
 
-  handleButtonClick = () => {
+  handleNavigate = () => {
     // Call the onClick prop when the button is clicked
     console.log("inside button");
-    this.props.navigate();
+    this.props.navigate("add");
   };
 
   render() {
@@ -77,7 +79,7 @@ export default class Month extends React.Component<Props, DemoAppState> {
               newPlan: {
                 // themeIcon: newPlanIcon,
                 text: "일정추가",
-                click: this.handleButtonClick,
+                click: this.handleNavigate,
               },
             }}
             headerToolbar={{
@@ -98,12 +100,10 @@ export default class Month extends React.Component<Props, DemoAppState> {
             views={{
               dayGridMonth: {
                 titleFormat: {
-                  month: 'numeric',
+                  month: "numeric",
                 },
-
-              }
+              },
             }}
-
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
@@ -184,18 +184,54 @@ export default class Month extends React.Component<Props, DemoAppState> {
   handleHover = (clickInfo: EventHoveringArg) => {};
   handleEventClick = (clickInfo: EventClickArg) => {
     // clickInfo.event.
-    if (
-      confirm(
-        `'${clickInfo.event.title}'\n
-        ${clickInfo.event.extendedProps.description}\n
-        시작: ${clickInfo.event.start}'\n
-        종료: ${clickInfo.event.end}'\n
-        그룸명: ${clickInfo.event.extendedProps.teamName}'\n
-                `
-      )
-    ) {
+    /*    source: EventSourceApi | null;
+    start: Date | null;
+    end: Date | null;
+    startStr: string;
+    endStr: string;
+    id: string;
+    groupId: string;
+    allDay: boolean;
+    title: string;
+    */
+    // if (
+    //   confirm(
+    //     `'${clickInfo.event.title}'\n
+    //     ${clickInfo.event.extendedProps.description}\n
+    //     시작: ${clickInfo.event.start}'\n
+    //     종료: ${clickInfo.event.end}'\n
+    //     그룹명: ${clickInfo.event.extendedProps.teamName}'\n
+    //             `
+    //   )
+    // ) {
+      const {
+        id,
+        title,
+        start,
+        end,
+        startStr,
+        endStr,
+        groupId,
+        extendedProps,
+      } = clickInfo.event;
+      const startTime = start?.toISOString().slice(0, 16);
+      const endTime = end?.toISOString().slice(0, 16);
+
+      this.props.navigate("planView");
+      const sendPlan: PlanResponseDto = {
+        id: parseInt(id),
+        name: title,
+        startTime: startTime,
+        endTime: endTime,
+        teamId: parseInt(groupId),
+        description: extendedProps.description,
+        teamName: extendedProps.teamName,
+        profileImage: extendedProps.profileImage,
+      };
+      console.log(sendPlan);
+      this.props.selectPlan(sendPlan);
       // clickInfo.event.remove();
-    }
+    // }
   };
 
   handleEvents = (events: EventApi[]) => {
@@ -208,11 +244,10 @@ export default class Month extends React.Component<Props, DemoAppState> {
 
 function renderEventContent(eventContent: EventContentArg) {
   return (
-    <><div className="">
-
-    
-      <b>{eventContent.timeText}</b>
-      <i>{eventContent.event.title}</i>
+    <>
+      <div className="">
+        <b>{eventContent.timeText}</b>
+        <i>{eventContent.event.title}</i>
       </div>
     </>
   );

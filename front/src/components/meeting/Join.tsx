@@ -31,12 +31,19 @@ function Join() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
+    //const formData = new FormData(e.target);
+    //const dataObject = Object.fromEntries(formData);
+    // dispatch(meetingModeTest());
+    //navigate("/dash/meeting", {
+
+
     if (!conferenceJoinData.conferenceUrl || !conferenceJoinData.nickname) {
       setErrorMessage("회의 코드와 닉네임은 필수 입력값입니다.");
       return;
     }
 
     navigate("/dash/meeting/wait", {
+
       state: {
         conferenceJoinData: conferenceJoinData,
       },

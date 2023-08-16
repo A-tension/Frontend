@@ -17,8 +17,17 @@ const Dash = () => {
   const colHeight = `calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
   const inMeeting = useAppSelector(getMode);
-  const isLoggedIn = useAppSelector(checkAuthority);
+  // const isLoggedIn = useAppSelector();
 
+  const [isLogin, setIsLogin] = useState(false);
+  const [token, setToken] = useState<string | null>();
+
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [token]);
   const icons = [group, calendar, meeting, item];
   const menu = ["group", "calendar", "meeting", "item"];
   const label = ["그룹", "캘린더", "회의", "뽑기"];
@@ -32,7 +41,7 @@ const Dash = () => {
   const [selectedMenu, selectMenu] = useState(firstMenu);
   useEffect(() => {
     const checkMenu = () => {
-      if (isLoggedIn) {
+      if (isLogin) {
         firstMenu = "그룹";
         if (toMeeting) {
           firstMenu = "회의";
