@@ -18,6 +18,8 @@
     "@material-ui/icons": "^4.11.3",
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tensorflow/tfjs-node": "^4.10.0",
+    "@vladmandic/face-api": "^1.7.12",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",

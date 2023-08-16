@@ -70,18 +70,4 @@ const Result = (props) => {
   );
 };
 
-const TotalContainer = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-
-  .btn-items {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
 export default Result;
