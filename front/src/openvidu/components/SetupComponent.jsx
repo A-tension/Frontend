@@ -273,6 +273,8 @@ const SetupComponent = (props) => {
               </div>
             </div>
           </div>
+          </div>
+        </div>
     </div>
   );
 };
