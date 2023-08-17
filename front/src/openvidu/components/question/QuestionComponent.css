@@ -8,7 +8,7 @@
 #questionToolbar {
   position: relative;
   height: 30px;
-  background: #D4E5FA; /* fallback for old browsers */
+  background: #d4e5fa; /* fallback for old browsers */
   /* background: -webkit-linear-gradient(
     to bottom,
     #ffffff,
@@ -29,7 +29,7 @@
   padding-top: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  color: #D4E5FA;
+  color: #d4e5fa;
 }
 
 #closeButton {
@@ -44,7 +44,7 @@
 }
 
 #questionComponent {
-  background-color: #D4E5FA;
+  background-color: #d4e5fa;
   position: absolute;
   z-index: 99999;
   top: 0;
@@ -61,7 +61,7 @@
   padding: 0 15px;
   height: calc(96% - 135px);
   overflow: auto;
-  background-color: #D4E5FA;
+  background-color: #d4e5fa;
 }
 
 .message {
@@ -151,11 +151,11 @@ span.triangle {
 
 .message.left .user-img {
   left: -5px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
 }
 
 .message.left .msg-detail .msg-content {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   float: left;
 }
 
@@ -170,7 +170,7 @@ span.triangle {
 }
 
 .message.left .msg-detail .msg-content span.triangle {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-width: 0;
   border-left-width: 0;
   left: -5px;
@@ -189,15 +189,15 @@ span.triangle {
 }
 .message.right .user-img {
   right: -5px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
 }
 
 .message.right .msg-detail .msg-content {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   float: right;
 }
 .message.right .msg-detail .msg-content span.triangle {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-width: 0;
   border-left-width: 0;
   right: -5px;
@@ -242,7 +242,7 @@ span.triangle {
   bottom: 1rem;
   width: 94%;
   height: 60px;
-  background-color: #;
+  background-color: #ffffff;
   text-align: center;
   padding: 10px 0px;
   border-radius: 1rem;
@@ -284,7 +284,7 @@ span.triangle {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #176DEE;
+  background-color: #176dee;
 }
 
 .chatComponentLight ::-webkit-scrollbar-thumb {

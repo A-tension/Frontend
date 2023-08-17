@@ -3,7 +3,7 @@ import CloseBtn from "@material-ui/icons/Close";
 import "./QuestionComponent.css";
 import QuestionMarkIcon from "../toolbar/iconComponents/img/questionMarkIcon.png";
 import "../../../tailwind.css";
-import SendImage from "../toolbar/iconComponents/img/SendIcon.png";
+import SendImage from "../toolbar/iconComponents/img/sendIcon.png";
 
 // QuestionComponent: 질문 관련 컴포넌트
 export default class QuestionComponent extends Component {
