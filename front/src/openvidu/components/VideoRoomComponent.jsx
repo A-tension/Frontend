@@ -494,26 +494,9 @@ class VideoRoomComponent extends Component {
   async leaveSession() {
     const mySession = this.state.session;
     mySession.unpublish(localUser.getStreamManager());
-    this.props.setMyData(this.state.localUser);
-    this.props.setOthersData(this.state.subscribers);
-    this.props.setAbsentData(this.state.absentStudents);
-
-    if (this.props.whoami === "teacher") {
-      try {
-        const result = await InterceptedAxios.patch(
-          `/classes/${this.props.classId}/close`,
-          {
-            classId: this.props.classId,
-          }
-        );
-      } catch (e) {
-        console.error(e);
-      }
-
       this.state.localUser.getStreamManager().stream.session.signal({
         type: "classClosed",
       });
-    }
 
     if (mySession) {
       mySession.disconnect();

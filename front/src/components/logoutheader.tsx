@@ -2,9 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     Nav,
     NavDropdown,
-    OverlayTrigger,
-    Button,
-    Popover,
     Dropdown,
     Image,
 } from "react-bootstrap";
@@ -51,19 +48,8 @@ const Logoutheader = () => {
   };
 
 
-    const popover = (
-        <Popover id="notification-popover" className="text-white">
-            <Popover.Header as="h3">알림</Popover.Header>
-            <Popover.Body>
-                알림도 원자 컴포넌트로 map 써서 현재 유저가 갖고있는 것 불러오기?
-            </Popover.Body>
-        </Popover>
-    );
     return (
         <>
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                <Button variant="success">알림</Button>
-            </OverlayTrigger>
 
       <Nav.Link
         as={Link}

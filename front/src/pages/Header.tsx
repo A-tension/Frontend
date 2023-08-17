@@ -13,7 +13,16 @@ interface Props {
   scrollToFeatures: () => void;
   scrollToIntro: () => void;
 }
+
+import { useLocation } from "react-router-dom";
 function Header(props: Props) {
+
+  const location = useLocation();
+  const isConferencePage = location.pathname === "/conference";
+  if (isConferencePage) {
+    return null;
+  }
+
   // NAV는 common에 들어가야 할까?
   // const [navBar, showNavBar] = useState(true);
   const isLogin = useAppSelector(checkAuthority)
