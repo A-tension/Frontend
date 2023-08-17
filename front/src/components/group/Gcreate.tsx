@@ -14,8 +14,16 @@ import { User } from "../../store/user";
 import { searchUser } from "../../api/user/userApi.tsx";
 import { UserSearchResponseDto } from "../../api/user/types.tsx";
 import { UUID } from "crypto";
-import { createTeam, findMyTeam } from "../../api/team/teamApi.tsx";
-import { createTeamRequestBody } from "../../api/team/types.tsx";
+import {
+  createTeam,
+  deleteTeam,
+  findMyTeam,
+  updateTeam,
+} from "../../api/team/teamApi.tsx";
+import {
+  createTeamRequestBody,
+  teamUpdateRequestDto,
+} from "../../api/team/types.tsx";
 
 interface GroupCreateData {
   members: UserSearchResponseDto[];
@@ -106,21 +114,22 @@ const Gcreate = (props: Props) => {
       }));
     }
   };
-  function simulateLoading() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({}); // Resolve the promise after 10 seconds
-      }, 3000); // 10 seconds in milliseconds
-    });
-  }
+  // function simulateLoading() {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve({}); // Resolve the promise after 10 seconds
+  //     }, 3000); // 10 seconds in milliseconds
+  //   });
+  // }
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [isError, setErrorMode] = useState();
   const handleCreate = async () => {
     if (props.teamProp) {
       // console.log("edit");
       setMode("edit");
     } else {
-      setMode("delete");
+      setMode("create");
       const userIdList: UUID[] = [];
       for (const user of selectedUsers) {
         userIdList.push(user.userId);
@@ -134,14 +143,14 @@ const Gcreate = (props: Props) => {
         setIsLoading(true);
         await createTeam(createTeamRequestBody).catch((error) => {
           console.log(error);
-          setMode("error");
+          setErrorMode(error);
         });
         setIsLoading(false);
         await findMyTeam()
           .then((result) => dispatch(loginload(result.data.data)))
           .catch((error) => {
             console.log(error);
-            setMode("error");
+            setErrorMode(error);
           });
         // await simulateLoading();
       } finally {
@@ -158,21 +167,72 @@ const Gcreate = (props: Props) => {
     // Navigate('/dash/group',{state:{data:dataObject}});
     //axios api put?placeholder="그룹명을 입력하세요"placeholder="그룹원을 추가하세요"
   };
-  const handledelete = () => {
-    // console.log("delete group");
+  const handledelete = async () => {
+    setMode("delete");
+    if (props.teamProp) {
+      try {
+        setIsLoading(true);
+
+        await deleteTeam(props.teamProp.teamId).catch((error) => {
+          // console.log(error);
+          setErrorMode(error);
+        });
+
+        setIsLoading(false);
+
+        await findMyTeam()
+          .then((result) => dispatch(loginload(result.data.data)))
+          .catch((error) => {
+            // console.log(error);
+            setErrorMode(error);
+          });
+        // await simulateLoading();
+      } finally {
+        setModalShow(true);
+        //적절한 게 아니라면 없애도 문제 없음, 예외상황,
+      }
+    }
   };
-  const handleEdit = () => {
+  const handleEdit = async () => {
     // console.log("edit");
+    setMode("edit");
+    const teamUpdateRequestDto: teamUpdateRequestDto = {
+      name: groupData.name,
+      profileImage: groupData.description ?? "",
+      description: groupData.description ?? "",
+    };
+    if (props.teamProp) {
+      try {
+        setIsLoading(true);
+        await updateTeam(props.teamProp?.teamId, teamUpdateRequestDto).catch(
+          (error) => {
+            // console.log(error);
+            setErrorMode(error);
+          }
+        );
+        setIsLoading(false);
+        await findMyTeam()
+          .then((result) => dispatch(loginload(result.data.data)))
+          .catch((error) => {
+            // console.log(error);
+            setErrorMode(error);
+          });
+        // await simulateLoading();
+      } finally {
+        setModalShow(true);
+        //적절한 게 아니라면 없애도 문제 없음, 예외상황,
+      }
+    }
   };
 
   const ConfirmModal = () => {
     let variant = "light";
-    if (mode == "edit") {
+    if (isError) {
+      variant = "warning";
+    } else if (mode == "edit") {
       variant = "primary";
     } else if (mode == "create") {
       variant = "light";
-    } else if (mode == "error") {
-      variant = "warning";
     } else {
       variant = "danger";
     }
@@ -186,7 +246,7 @@ const Gcreate = (props: Props) => {
           dismissible
         >
           그룹을 {mode == "create" ? "생성" : mode == "edit" ? "수정" : "삭제"}
-          {mode == "error" && "하지 못"}
+          {isError && "하지 못"}
           했습니다.
         </Alert>
       </>
