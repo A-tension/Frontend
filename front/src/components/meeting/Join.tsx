@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { hideBackground } from "../../store/test";
+import { selectUser } from "../../store/user";
 
 interface MeetingData {
   conferenceUrl: string;
@@ -10,9 +11,10 @@ interface MeetingData {
 }
 
 function Join() {
+  const loginUser = useAppSelector(selectUser);
   const [conferenceJoinData, setConferenceJoinData] = useState<MeetingData>({
     conferenceUrl: "",
-    nickname: "",
+    nickname: loginUser.name ?? "",
   });
   const [errorMessage, setErrorMessage] = useState<string>("");
 

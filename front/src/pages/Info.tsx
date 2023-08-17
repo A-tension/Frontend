@@ -1,10 +1,11 @@
 import { Col, FloatingLabel, Button, Form, Image } from "react-bootstrap";
 import RoundCard from "../components/atoms/RoundCard";
 import { useAppSelector } from "../store/hooks";
-import { selectUser } from "../store/user";
+import { editName, selectUser } from "../store/user";
 import { useState , useEffect} from "react";
 import { updateUserProfile , deleteUser, getUserProfile } from "../api/user/userApi.tsx";
 import {UserProfileUpdateDTO, UserResponseDTO} from "../api/user/types.tsx";
+import { useDispatch } from "react-redux";
 
 interface Edit {
   name: string;
@@ -13,6 +14,7 @@ interface Edit {
 
 }
 function Info() {
+  const dispatch = useDispatch();
   const loginUser = useAppSelector(selectUser);
   console.log(loginUser);
   const [isEdit, setMode] = useState(false);
@@ -41,7 +43,8 @@ function Info() {
       await updateUserProfile<UserResponseDTO>(
         userProfileUpdateDto
       );
-
+      
+        dispatch(editName(userProfileUpdateDto.name));
       setMode(false);
     } catch (error) {
       console.error(error);

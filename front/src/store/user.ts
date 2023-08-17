@@ -80,7 +80,7 @@ export const userSlice = createSlice({
       state.email = email;
       state.name = name;
       state.profileImage = profileImage;
-      state.ticket = ticket;
+      state.ticket = 20;
       state.meetingUrl = meetingUrl;
       state.myItems = myItems;
       state.myGroups = myGroups;
@@ -102,11 +102,13 @@ export const userSlice = createSlice({
     // hasAuthority: (state)=>{//  해당 그룹에
     //   return state.isLoggedIn;
     // }
+    editName:  (state, action: PayloadAction<string>) => {
+      state.name =action.payload;}
   },
 });
 //action - dispatch
 
-export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem, checkTickets } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem, checkTickets, editName } = userSlice.actions;
 
 //getters
 export const checkTicket = (state: RootState) => state.user.ticket;

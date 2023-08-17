@@ -681,6 +681,7 @@ class VideoRoomComponent extends Component {
             }
           }
           if (data.isSmileActive !== undefined) {
+            console.log(data.isSmileActive ? "웃음" : "안웃음")
             user.setSmileActive(data.isSmileActive);
           }
           if (data.isOutAngleActive !== undefined) {
