@@ -15,9 +15,9 @@ export default class FaceDetection extends Component {
     autoPlay: false,
     camera: true,
     concentration: 0,
-    good: 0,
-    normal: 0,
-    bad: 0,
+    emotion: 1,
+    // last : 0이면 good / 1이면 normal / 2이면 bad 
+    last: 1,
   };
 
   componentDidMount() {
@@ -32,9 +32,8 @@ export default class FaceDetection extends Component {
         smile: 0,
         normal: 0,
         concentration: 0,
-        good: 0,
-        normal: 0,
-        bad: 0,
+        emotion: 1,
+        last: 1,
       });
     }
     if (this.state.camera !== this.props.camera) {
@@ -44,9 +43,8 @@ export default class FaceDetection extends Component {
         smile: 0,
         normal: 0,
         concentration: 0,
-        good: 0,
-        normal: 0,
-        bad: 0,
+        emotion: 1,
+        last: 1,
       });
     }
   }
@@ -132,11 +130,22 @@ export default class FaceDetection extends Component {
         smile += 1;
         if (smile === 3) {
           this.props.smile(true);
+          this.props.emotionEvent(0);
+          // // 이 학생의 상태를 웃음으로 
+          // emotion[0] += 1;
+          // // 이 학생의 마지막 상태는 0으로 
+          // emotion[last] = -1;
+          // // 지금 상태 위치 기록 
+          // last = 0;
         }
       } else {
         smile = 0;
         normal += 1;
         if (normal === 3) {
+          this.props.emotionEvent(1);
+          // emotion[1] += 1;
+          // emotion[last] -= 1;
+          // last = 1;
           this.props.smile(false);
         }
       }
@@ -147,10 +156,17 @@ export default class FaceDetection extends Component {
       this.props.smile(false);
       this.setState(() => ({ smile: 0, normal: 0, expressions: 0, face: lv }));
       if (lv === 6) {
+        // 자리 비움 판정 
         this.props.outAngle(true);
+        this.props.emotionEvent(2);
+
+        // emotion[2] += 1;
+        // emotion[last] -= 1;
+        // last = 2;
       }
     }
-    setTimeout(() => this.onPlay(), 1000);
+    // 시간 줄임 1000 -> 100
+    setTimeout(() => this.onPlay(), 100);
   };
 
   render() {
@@ -194,6 +210,7 @@ export default class FaceDetection extends Component {
                 left: "2.5%",
                 fontSize: "500%",
               }}
+              // 자리비움 로직 
             >
               {this.state.face < 3 ? null : this.state.face > 5 ? (
                 <img

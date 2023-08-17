@@ -115,7 +115,8 @@ class VideoRoomComponent extends Component {
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
       concentration: concentration,
-      concentrationList: [0, 0, 0],
+      concentrationList: [0, 0, 0, 0, 0, 0, 0],
+      emotion: 1,
       total: 0,
       concentrationDisplay: false,
     };
@@ -195,6 +196,9 @@ class VideoRoomComponent extends Component {
     // 집중도
     this.concentrationEvent = this.concentrationEvent.bind(this);
     this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
+
+    // 학생들 감정상태
+    this.emotionEvent = this.emotionEvent.bind(this);
   }
 
   // componentDidMount: 컴포넌트가 마운트 되었을 때 작동하는 리액트 컴포넌트 생명주기함수
@@ -448,6 +452,7 @@ class VideoRoomComponent extends Component {
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
             concentration: this.state.localUser.getConcentration(),
+            emotion: this.state.localUser.getEmotion(),
             // concentrationList: this.state.concentrationList.push(
             //   this.state.localUser.getConcentration()
             // ),
@@ -702,6 +707,7 @@ class VideoRoomComponent extends Component {
           if (data.emojiUsed !== undefined) {
             user.setEmoji(data.emojiUsed);
           }
+          // 집중도 
           if (data.concentration !== undefined) {
             user.setConcentration(data.concentration);
             user.setTotal(data.concentration);
@@ -710,6 +716,14 @@ class VideoRoomComponent extends Component {
               concentration: user.getConcentration(),
             });
             console.log(user.getTotal());
+          }
+          // emotion 
+          if (data.emotion !== undefined) {
+            user.setEmotion(data.emotion);
+            this.setState({              
+              emotion: user.getEmotion(),
+            });
+            console.log("user.getEmotion = " , user.getEmotion());
           }
           if (data.stretchCreated !== undefined) {
             if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
@@ -1089,6 +1103,7 @@ class VideoRoomComponent extends Component {
     }
   }
 
+  // 집중도 props로 전달
   concentrationEvent(concentration) {
     localUser.setConcentration(concentration);
     this.sendSignalUserChanged({
@@ -1096,7 +1111,16 @@ class VideoRoomComponent extends Component {
     });
     this.setState({ localUser: localUser });
   }
-  
+
+  // emotion props로 전달
+  emotionEvent(emotion) {
+    localUser.setEmotion(emotion);
+    this.sendSignalUserChanged({
+      concentration: localUser.getConcentration(),
+    });
+    this.setState({ localUser: localUser });
+  }
+
   frameChanged(frameColor) {
     let localUser = this.state.localUser;
     localUser.setFrameColor(frameColor);

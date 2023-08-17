@@ -20,8 +20,9 @@ class UserModel {
   presentationCnt; // 발표 횟수
   concentration; // 집중도
   concentrationList; // 집중도 임시 저장 리스트
+  emotion;
   total; // 집중도 총합
-
+  
   constructor() {
     this.connectionId = "";
     this.audioActive = true;
@@ -51,7 +52,8 @@ class UserModel {
     this.levelPng = "";
     this.presentationCnt = 0;
     this.concentration = 0;
-    this.concentrationList = [0, 0, 0];
+    this.concentrationList = [0, 0, 0, 0, 0, 0, 0];
+    this.emotion = 0;
     this.total = 0;
   }
   // 추가 함수
@@ -87,7 +89,9 @@ class UserModel {
   getPresentationCnt() {
     return this.presentationCnt;
   }
-
+  getEmotion() {
+    return this.emotion;
+  }
   getEmoji() {
     return this.emoji;
   }
@@ -191,6 +195,15 @@ class UserModel {
 
   setConcentration(concentration) {
     this.concentration = concentration;
+  }
+
+  setEmotion(emotion) {
+    // 전달받은 감정 + 1
+    this.concentrationList[emotion + 3] += 1;
+    // 마지막 감정 - 1
+    this.concentrationList[this.concentrationList[6]] -= 1;
+    // 지금 전달받은 감정이 뭔지 저장 
+    this.concentrationList[6] = emotion + 3; 
   }
 
   setTotal(concentration) {

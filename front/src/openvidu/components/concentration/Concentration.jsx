@@ -37,7 +37,7 @@ const Concentration = (props) => {
         // setUp(false);
         toggleConcentrationMenu();
     };
-    
+
     const popupStyle = {
         zIndex: 99999,
         width: "500px!important",
@@ -138,7 +138,7 @@ const Concentration = (props) => {
     //544
     //
     const initialX = (window.innerWidth - 456) / 2; // Assuming toolbar width is 456px
-    const initialY = (window.innerHeight)*(0.75); // Assuming toolbar height is 76px
+    const initialY = (window.innerHeight) * (0.75); // Assuming toolbar height is 76px
 
     // const [toolbarPosition, setToolbarPosition] = useState({
     //   x: initialX,
@@ -181,14 +181,26 @@ const Concentration = (props) => {
                                     </div>
                                 }
                             </OverlayTrigger>
-                            {concentrationList.map((concentration, index) => (
-                                <div className="pills" key={index}>
-                                    <div className="pill-text">
-                                        <img className="icon-block" src={iconList[index]}></img>
-                                        {concentration}
-                                    </div>
+                            <div className="pills" key={0}>
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[0]}></img>
+                                    {concentrationList[3]}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="pills" key={1}>
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[1]}></img>
+                                    {concentrationList[4]}
+                                </div>
+                            </div>
+
+                            <div className="pills" key={2}>
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[2]}></img>
+                                    {concentrationList[5]}
+                                </div>
+                            </div>
                             <div className="pills" onClick={onClickConcentration}>
                                 <button className="pill-text">닫기</button>
                             </div>
