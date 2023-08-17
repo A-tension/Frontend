@@ -63,7 +63,7 @@ function Draw() {
         return "yellow";
       case "초록색":
         return "green";
-      case "파랑색":
+      case "파란색":
         return "blue";
       case "남색":
         return "indigo";
