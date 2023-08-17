@@ -198,6 +198,7 @@ class UserModel {
     this.concentrationList[concentration] ++;
     // this.total = this.concentrationList.reduce((a, b) => a + b, 0) / this.concentrationList.length;
 
+    // 집중도
     console.log(this.concentrationList);
 
     // 집중하지 않는 인원 수

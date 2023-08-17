@@ -37,6 +37,7 @@ const Concentration = (props) => {
         // setUp(false);
         toggleConcentrationMenu();
     };
+    
     const popupStyle = {
         zIndex: 99999,
         width: "500px!important",

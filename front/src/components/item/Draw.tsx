@@ -15,7 +15,7 @@ function Draw() {
     const dispatch = useDispatch();
     // const ticket = useAppSelector(checkTickets);
     const user = useSelector(selectUser);
-    console.log("user : ", user);
+    // console.log("user : ", user);
     const handleButtonClick = async () => {
         // 버튼을 누르면 함수 실행
         setButtonClicked(true);

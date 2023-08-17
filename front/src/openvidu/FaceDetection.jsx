@@ -15,6 +15,9 @@ export default class FaceDetection extends Component {
     autoPlay: false,
     camera: true,
     concentration: 0,
+    good: 0,
+    normal: 0,
+    bad: 0,
   };
 
   componentDidMount() {
@@ -29,6 +32,9 @@ export default class FaceDetection extends Component {
         smile: 0,
         normal: 0,
         concentration: 0,
+        good: 0,
+        normal: 0,
+        bad: 0,
       });
     }
     if (this.state.camera !== this.props.camera) {
@@ -38,6 +44,9 @@ export default class FaceDetection extends Component {
         smile: 0,
         normal: 0,
         concentration: 0,
+        good: 0,
+        normal: 0,
+        bad: 0,
       });
     }
   }
