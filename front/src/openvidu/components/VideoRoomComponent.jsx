@@ -23,6 +23,7 @@ import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 import Setting from "./settings/Setting";
 import Emoji from "./emoji/Emoji";
+import Concentration from "./concentration/Concentration";
 
 let localUser = new UserModel();
 let timeout;
@@ -447,8 +448,12 @@ class VideoRoomComponent extends Component {
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
             concentration: this.state.localUser.getConcentration(),
-            // concentrationList: this.state.concentrationList.push(this.state.localUser.getConcentration()),
-            // total: this.state.concentrationList.reduce((a, b) => a + b, 0) / this.state.concentrationList.length,
+            // concentrationList: this.state.concentrationList.push(
+            //   this.state.localUser.getConcentration()
+            // ),
+            // total:
+            //   this.state.concentrationList.reduce((a, b) => a + b, 0) /
+            //   this.state.concentrationList.length,
           });
         }
         this.updateLayout();
@@ -1561,6 +1566,13 @@ class VideoRoomComponent extends Component {
           header="스트레칭"
           randomStretch={this.state.randomStretch}
         />
+        <Concentration
+          display={this.state.concentrationDisplay}
+          toggleConcentrationMenu={this.toggleConcentrationMenu}
+          concentrationList={this.state.concentrationList}
+          toal={this.state.total}
+        />
+
         {/* 다이얼로그 */}
         <DialogExtensionComponent
           showDialog={this.state.showExtensionDialog}

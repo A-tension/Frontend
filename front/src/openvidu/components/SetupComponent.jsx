@@ -188,13 +188,17 @@ const SetupComponent = (props) => {
     window.location.href = `/dash/meeting`;
   };
 
-  return (
-    <div className="">
+  return (  
+    <div className="flex align-items-center justify-content-center" style={{height:"100vh", backgroundColor:"#ECF3FC"}} >
       {/* {isLoading && <Loading whoami={whoami} />} */}
 
-      <div className="sideContainer">
-        <div className="main">
-          {/* <div className="RoomName title">
+      <div className="child">
+        {/* <div className="d-flex align-items-center justify-content-center"  style={{backgroundColor: "white"}}> */}
+          {/* <hr /> */}
+
+          <div className="sideContainer">
+            <div className="main">
+              {/* <div className="RoomName title">
                 {conferenceCreateData &&
                   `[${conferenceCreateData.conferenceTitle}]`}{" "}
                 <span className="teacher-span">
@@ -202,83 +206,86 @@ const SetupComponent = (props) => {
                 </span>
               </div> */}
 
-          {/* 세팅창에서 비디오 부분 여긱 너무 작음 지금 */}
+              <div className="preview">
+                <video
+                  ref={previewFace}
+                  autoPlay
+                  style={{
+                    // backgroundColor: "white",
+                    borderRadius: "20px",
+                    // border: "solid 7px var(--bs-primary)",
+                    //화면 테두리
+                  }}
+                />
+              </div>
 
-          <div className="preview" style={{ position: "relative" , width : '70%', height : "auto"}}>
-            <video
-              ref={previewFace}
-              autoPlay
-              style={{
-                // width: "50%", // 변경된 부분
-                // height: "auto", // 변경된 부분
-                backgroundColor: "white",
-                borderRadius: "20px",
-              }}
-            />
-          </div>
-          <div className="right" style={{display: 'flex', flexDirection: 'column'}}>
-            <div className="setting-section">
-              <div className="settingVideo">
-                <p>비디오 </p>
-                <select onChange={selectVideo}>
-                  {videos.map((video, i) => (
-                    <option value={video.deviceId} key={i}>
-                      {video.label}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={toggleVideo}
-                  style={{
-                    border: "none",
-                    borderRadius: "5px",
-                    // background: "var(--yellow)",
-                  }}
-                >
-                  {isVideoOn ? <VideoIcon /> : <NoVideoIcon />}
-                </button>
-              </div>
-              <div className="settingAudio">
-                <p>마이크 </p>
-                <select onChange={selectAudio}>
-                  {audios.map((audio, i) => (
-                    <option value={audio.deviceId} key={i}>
-                      {audio.label}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={toggleAudio}
-                  style={{
-                    border: "none",
-                    borderRadius: "5px",
-                    // background: "var(--yellow)",
-                  }}
-                >
-                  {isAudioOn ? <SoundIcon /> : <MuteIcon />}
-                </button>
-              </div>
-              <div className="settingSpeaker">
-                <p>스피커 </p>
-                <select onChange={selectSpeaker}>
-                  {speakers.map((speaker, i) => (
-                    <option value={speaker.deviceId} key={i}>
-                      {speaker.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="setting-section">
+                <div className="settingVideo">
+                  <p style={{ margin: "0" }}>비디오 </p>
+                  <select onChange={selectVideo}>
+                    {videos.map((video, i) => (
+                      <option value={video.deviceId} key={i}>
+                        {video.label}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={toggleVideo}
+                    style={{
+                      border: "none",
+                      borderRadius: "5px",
+                      // background: "var(--bs-gray-500)",
+                    }}
+                  >
+                    {isVideoOn ? <Videocam /> : <VideocamOff />}
+                  </button>
+                </div>
+
+                <div className="settingAudio">
+                  <p style={{ margin: "0" }}>마이크 </p>
+                  <select onChange={selectAudio}>
+                    {audios.map((audio, i) => (
+                      <option value={audio.deviceId} key={i}>
+                        {audio.label}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={toggleAudio}
+                    style={{
+                      border: "none",
+                      borderRadius: "5px",
+                      // background: "var(--bs-primary)",
+                    }}
+                  >
+                    {isAudioOn ? <Mic /> : <MicOff />}
+                  </button>
+                </div>
+
+                <div className="settingSpeaker">
+                  <p style={{ margin: "0" }}>스피커 </p>
+                  <select onChange={selectSpeaker}>
+                    {speakers.map((speaker, i) => (
+                      <option value={speaker.deviceId} key={i}>
+                        {speaker.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
-
-            <div className="next">
-              <button className="nextBtn" onClick={goNext}>
-                입장하기
-              </button>
-              <button className="backBtn" onClick={goBack}>
-                돌아가기
-              </button>
+            {/* //flex-row justify-center items-center */}
+            <div className="next-row">
+              <div className="next">
+                <button className="nextBtn" onClick={goNext}>
+                  입장하기
+                </button>
+                <button className="backBtn" onClick={goBack}>
+                  돌아가기
+                </button>
+              </div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>

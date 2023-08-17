@@ -18,6 +18,9 @@
   z-index: 999999;
   min-width: 400px !important;
 }
+#teacher-header > div > div > div > div > div > div{
+  background-color: #eeeeee;
+}
 
 #teacher-header {
   color: #ffffff;
