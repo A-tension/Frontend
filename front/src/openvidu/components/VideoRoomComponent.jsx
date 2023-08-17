@@ -13,8 +13,8 @@ import getCode from "../../utils/getCode";
 import EmojiFilter from "./items/EmojiFilter";
 import QuizModal from "./quiz/QuizModal";
 import QuizModalStudent from "./quiz/QuizModalStudent";
-import ShieldModal from "./items/ShieldModal";
-import ShieldModalLoading from "./items/ShieldModalLoading";
+// import ShieldModal from "./items/ShieldModal";
+// import ShieldModalLoading from "./items/ShieldModalLoading";
 import Sticker from "./pointClickEvent/PointSticker";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
@@ -87,8 +87,8 @@ class VideoRoomComponent extends Component {
       questionDisplay: "none",
       quizDisplay: false,
       quizDisplayStudent: false,
-      shieldDisplay: false,
-      shieldLoadingDisplay: false,
+      // shieldDisplay: false,
+      // shieldLoadingDisplay: false,
       videos: this.props.setDevices.videos,
       audios: this.props.setDevices.audios,
       speakers: this.props.setDevices.speakers,
@@ -168,7 +168,7 @@ class VideoRoomComponent extends Component {
     // toggleQuizStudent: 내정답 저장
     this.toggleQuizStudent = this.toggleQuizStudent.bind(this);
     // toggleShield: 방어권창 토글 sendEmoji버튼 함수
-    this.toggleShield = this.toggleShield.bind(this);
+    // this.toggleShield = this.toggleShield.bind(this);
     // checkUserHasItem: 유저의 아이템 정보 체크 함수
     this.checkUserHasItem = this.checkUserHasItem.bind(this);
     // startStickerEvent: 칭찬스티커 클릭이벤트를 발생시키는 함수
@@ -673,7 +673,7 @@ class VideoRoomComponent extends Component {
               // alert(this.state.myUserName + "님이 뽑혔습니다!");
               this.alertToChat(this.state.myUserName + "님이 뽑혔습니다!");
               if (!data.picked) {
-                this.toggleShield();
+                // this.toggleShield();
               } else {
                 // this.tempFrameChange({ type: "color", value: "Red" });
                 this.upPresentationCnt();
@@ -690,7 +690,7 @@ class VideoRoomComponent extends Component {
             ) {
               // this.toggleShieldLoading();
               if (!data.picked) {
-                this.toggleShieldLoading();
+                // this.toggleShieldLoading();
               }
             }
           }
@@ -1123,15 +1123,15 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  toggleShield() {
-    this.setState({ shieldDisplay: !this.state.shieldDisplay });
-    this.updateLayout();
-  }
-
-  toggleShieldLoading = () => {
-    this.setState({ shieldLoadingDisplay: !this.state.shieldLoadingDisplay });
-    this.updateLayout();
-  };
+  // toggleShield() {
+  //   this.setState({ shieldDisplay: !this.state.shieldDisplay });
+  //   this.updateLayout();
+  // }
+  //
+  // toggleShieldLoading = () => {
+  //   this.setState({ shieldLoadingDisplay: !this.state.shieldLoadingDisplay });
+  //   this.updateLayout();
+  // };
 
   async checkUserHasItem(itemId) {
     if (this.props.whoami !== "teacher") {
@@ -1538,27 +1538,27 @@ class VideoRoomComponent extends Component {
           header="퀴즈"
           quiz={this.state.quiz}
         />
-        <ShieldModalLoading
-          display={this.state.shieldLoadingDisplay}
-          toggleShieldLoading={this.toggleShieldLoading}
-          timeOut={2.5}
-          header="발표 프리패스 대기중"
-        />
-        <ShieldModal
-          display={this.state.shieldDisplay}
-          user={localUser}
-          toggleShield={this.toggleShield}
-          alertToChat={this.alertToChat}
-          useItem={this.useItem}
-          checkUserHasItem={this.checkUserHasItem}
-          pickRandomStudent={this.pickRandomStudent}
-          tempFrameChange={this.tempFrameChange}
-          subscribers={subscribers}
-          timeOut={3}
-          header="발표 프리패스 사용"
-          upPresentationCnt={this.upPresentationCnt}
-          downPresentationCnt={this.downPresentationCnt}
-        />
+        {/*<ShieldModalLoading*/}
+        {/*  display={this.state.shieldLoadingDisplay}*/}
+        {/*  toggleShieldLoading={this.toggleShieldLoading}*/}
+        {/*  timeOut={2.5}*/}
+        {/*  header="발표 프리패스 대기중"*/}
+        {/*/>*/}
+        {/*<ShieldModal*/}
+        {/*  display={this.state.shieldDisplay}*/}
+        {/*  user={localUser}*/}
+        {/*  toggleShield={this.toggleShield}*/}
+        {/*  alertToChat={this.alertToChat}*/}
+        {/*  useItem={this.useItem}*/}
+        {/*  checkUserHasItem={this.checkUserHasItem}*/}
+        {/*  pickRandomStudent={this.pickRandomStudent}*/}
+        {/*  tempFrameChange={this.tempFrameChange}*/}
+        {/*  subscribers={subscribers}*/}
+        {/*  timeOut={3}*/}
+        {/*  header="발표 프리패스 사용"*/}
+        {/*  upPresentationCnt={this.upPresentationCnt}*/}
+        {/*  downPresentationCnt={this.downPresentationCnt}*/}
+        {/*/>*/}
         {/* 다이얼로그 */}
         <DialogExtensionComponent
           showDialog={this.state.showExtensionDialog}
