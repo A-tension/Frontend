@@ -28,5 +28,6 @@
     "src/store/*.ts",
     "build/**/*"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "files": ["./node_modules/redux-persist/types/storage/index.d.ts"]
 }

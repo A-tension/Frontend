@@ -33,14 +33,14 @@ class QuizComponent extends Component {
             <BoxContainer
               id="a1"
               select={this.select}
-              color="#D43959"
+              color="#2569e1"
               answer={this.state.A1}
               activate={this.state.select === 'a1' ? true : false}
             />
             <BoxContainer
               id="a2"
               select={this.select}
-              color="#029371"
+              color="#f37c7c"
               answer={this.state.A2}
               activate={this.state.select === 'a2' ? true : false}
             />
@@ -49,14 +49,14 @@ class QuizComponent extends Component {
             <BoxContainer
               id="a3"
               select={this.select}
-              color="#D28945"
+              color="#2569e1"
               answer={this.state.A3}
               activate={this.state.select === 'a3' ? true : false}
             />
             <BoxContainer
               id="a4"
               select={this.select}
-              color="#2A69A6"
+              color="#f37c7c"
               answer={this.state.A4}
               activate={this.state.select === 'a4' ? true : false}
             />

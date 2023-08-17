@@ -6,6 +6,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
 import whoru from "../utils/whoru";
 import InterceptedAxios from "../utils/iAxios";
+import Dash from "../pages/Dash";
 
 const App = () => {
   const [tap, setTap] = useState("setup");
@@ -125,17 +126,8 @@ const App = () => {
         />
       )}
       {tap === "result" && (
-        <ResultComponent
-          whoami={whoami}
-          myData={myData}
-          othersData={othersData}
-          nickname={state.nickname}
-          conferenceTitle={state.conferenceTitle}
-          studentList={studentList}
-          studentInfo={studentInfo}
-          absentData={absentData}
-          teacherData={teacherData}
-        />
+          <App>
+          </App>
       )}
     </>
   );

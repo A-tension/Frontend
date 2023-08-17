@@ -136,7 +136,7 @@ const Gcreate = (props: Props) => {
   };
   return (
     <>
-      <h1>이미지 업로드</h1>
+      {/*<h1>이미지 업로드</h1>*/}
       <div style={{ marginTop: "20px" }}>
         <Form onSubmit={handleCreate}>
           <FloatingLabel label="그룹명" className="mb-3">
@@ -144,7 +144,7 @@ const Gcreate = (props: Props) => {
               name="name"
               type="text"
               style={{
-                backgroundColor: "#f7f7f7",
+                backgroundColor: "#ECF3FC",
                 borderRadius: "10px",
                 border: "none",
                 resize: "none",
@@ -158,7 +158,7 @@ const Gcreate = (props: Props) => {
               name="members"
               type="text"
               style={{
-                backgroundColor: "#f7f7f7",
+                backgroundColor: "#ECF3FC",
                 borderRadius: "10px",
                 border: "none",
                 resize: "none",
@@ -198,7 +198,7 @@ const Gcreate = (props: Props) => {
               name="description"
               as="textarea"
               style={{
-                backgroundColor: "#f7f7f7",
+                backgroundColor: "#ECF3FC",
                 borderRadius: "10px",
                 border: "none",
                 resize: "none",

@@ -4,29 +4,14 @@ import "./ToolbarComponent.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
-import Mic from "@material-ui/icons/Mic";
-import MicOff from "@material-ui/icons/MicOff";
-import Videocam from "@material-ui/icons/Videocam";
-import VideocamOff from "@material-ui/icons/VideocamOff";
 import Fullscreen from "@material-ui/icons/Fullscreen";
 import FullscreenExit from "@material-ui/icons/FullscreenExit";
-import SettingsIcon from "@material-ui/icons/Settings";
 import PictureInPicture from "@material-ui/icons/PictureInPicture";
-import ScreenShare from "@material-ui/icons/ScreenShare";
 import StopScreenShare from "@material-ui/icons/StopScreenShare";
-import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
-import QuestionAnswer from "@material-ui/icons/QuestionAnswer";
-import PeopleIcon from "@material-ui/icons/People";
-import Shuffle from "@material-ui/icons/Shuffle";
-import Quiz from "@material-ui/icons/HelpOutline";
-import AccessTime from "@material-ui/icons/AccessTime";
 import IconButton from "@material-ui/core/IconButton";
 import ViewAgenda from "@material-ui/icons/ViewAgenda";
 import ViewArray from "@material-ui/icons/ViewArray";
 import Share from "@material-ui/icons/Share";
-import SearchIcon from "@material-ui/icons/Search";
-// import EmojiEmotions from "@material-ui/icons/EmojiEmotions";
-// 아이콘 by 형석
 import ChatIcon from "./iconComponents/ChatIcon";
 import EmojiIcon from "./iconComponents/EmojiIcon";
 import GameIcon from "./iconComponents/GameIcon";
@@ -36,20 +21,12 @@ import QuestionMarkIcon from "./iconComponents/QuestionMarkIcon";
 import SeperateIcon from "./iconComponents/SeperateIcon";
 import SettingIcon from "./iconComponents/SettingIcon";
 import ExitIcon from "./iconComponents/ExitIcon";
-
 import SoundIcon from "./iconComponents/SoundIcon";
 import MuteIcon from "./iconComponents/MuteIcon";
 import VideoIcon from "./iconComponents/VideoIcon";
 import NoVideoIcon from "./iconComponents/NoVideoIcon";
-
-
-
-
-
-
-
-import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import TeachersToolbar from "./TeachersToolbar";
+import ConcentrationIcon from "./iconComponents/ConcentrationIcon";
 
 export default class ToolbarComponent extends Component {
   constructor(props) {
@@ -79,6 +56,7 @@ export default class ToolbarComponent extends Component {
     this.toggleQuestion = this.toggleQuestion.bind(this);
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
     this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
+    this.toggleStretching = this.toggleStretching.bind(this);
   }
 
   // micStatusChanged: 마이크 상태변화 토글 함수
@@ -168,7 +146,11 @@ export default class ToolbarComponent extends Component {
   }
 
   toggleConcentrationMenu() {
-    this.props.toggleConcentrationMenu;
+    this.props.toggleConcentrationMenu();
+  }
+
+  toggleStretching() {
+    this.props.toggleStretching();
   }
 
   toggleVideoLayout() {
@@ -281,6 +263,7 @@ export default class ToolbarComponent extends Component {
                   stickerAvailable={this.state.stickerAvailable}
                   pickRandomStudent={this.pickRandomStudent}
                   startStickerEvent={this.startStickerEvent}
+                  toggleStretching={this.toggleStretching}
                   toggleQuiz={this.toggleQuiz}
                   toggleTeacherMenu={this.toggleTeacherMenu}
                   toggleConcentrationMenu={this.toggleConcentrationMenu}
@@ -405,6 +388,18 @@ export default class ToolbarComponent extends Component {
               <div className="buttonStyle">
                 <EmojiIcon />
                 <p>이모지</p>
+              </div>
+            </IconButton>
+
+            <IconButton
+                color="inherit"
+                onClick={this.toggleConcentrationMenu}
+                className="navButton"
+                id="navCon"
+            >
+              <div className="buttonStyle">
+                <ConcentrationIcon />
+                <p>집중도</p>
               </div>
             </IconButton>
 

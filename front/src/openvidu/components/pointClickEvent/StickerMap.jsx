@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Sticker from './PointSticker';
+import React, { useState } from "react";
+import Sticker from "./PointSticker";
 
 const PointSticker = (props) => {
   const { clickTimeOut, clickPoint, height, width } = props;
@@ -14,12 +14,19 @@ const PointSticker = (props) => {
   };
 
   const addNewSticker = (cur) => {
+    // let imgSize = 100;
+    // let margin = 8;
+    // let xStart = margin + 140;
+    // let xEnd = width - imgSize * 2;
+    // let yStart = margin;
+    // let yEnd = height - imgSize * 2;
+
     let imgSize = 100;
-    let margin = 8;
-    let xStart = margin + 140;
-    let xEnd = width - imgSize * 2;
-    let yStart = margin;
-    let yEnd = height - imgSize * 2;
+    let margin = 2;
+    let xStart = 150;
+    let xEnd = 150;
+    let yStart = 150;
+    let yEnd = 150;
 
     let newSticker = {
       key: cur,
@@ -36,7 +43,7 @@ const PointSticker = (props) => {
 
   const removeSticker = (current) => {
     setStickers((stickers) =>
-      stickers.filter((sticker, index) => index !== current),
+      stickers.filter((sticker, index) => index !== current)
     );
   };
 
