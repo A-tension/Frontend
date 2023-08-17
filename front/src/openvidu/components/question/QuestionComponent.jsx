@@ -127,6 +127,7 @@ export default class QuestionComponent extends Component {
           </div>
           {/* 메시지 */}
           <div className="message-wrap" ref={this.chatScroll}>
+          <div className="message-divider"></div>
             {this.state.questionList.map((data, i) => (
               <div
                 key={i}

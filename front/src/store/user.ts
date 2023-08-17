@@ -42,6 +42,8 @@ export const userSlice = createSlice({
     addItem: (state, action: PayloadAction<Item>) => {
       state.myItems?.push(action.payload); // myItems 배열에 아이템 추가
     },
+
+    // 티켓 봅기할 때 쓰는 함수 
     checkTickets: (state, action) => {
       state.ticket = action.payload;
     },

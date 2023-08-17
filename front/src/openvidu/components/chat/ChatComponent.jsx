@@ -193,6 +193,8 @@ export class ChatComponent extends Component {
           <div id="chatComponent" style={styleChat}>
             <div id="chatToolbar">
               <span>채팅창</span>
+            <CloseBtn id="closeButton" onClick={this.close} alt="채팅창 닫기" />
+
             </div>
             <div className="message-wrap" ref={this.chatScroll}>
               <div className="message-divider"></div>
