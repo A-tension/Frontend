@@ -81,8 +81,8 @@ const Logoutheader = () => {
         content="none"
         title={
           <div className="flex items-center  text-white gap-2">
+            <Image src={loginData.profileImage} style={{width:'40px', height:'40px', borderRadius:'30px'}} />
             {loginData.name}
-            <Image src={loginData.profileImage} roundedCircle width="40px" />
           </div>
         }
         style={{ borderRadius: "20px" }}

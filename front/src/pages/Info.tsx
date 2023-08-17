@@ -85,9 +85,14 @@ function Info() {
             <div>
               <Image
                   src={loginUser.profileImage}
-                  fluid
-                  roundedCircle
-                  width={200}
+                  style={{
+                    // fluid,
+                    // roundedCircle,
+                    width:'300px',
+                    height:'300px',
+                    borderRadius:'150px'
+                  }}
+
                   alt="profile picture"
               ></Image>
               {/* 사진 수정 */}
