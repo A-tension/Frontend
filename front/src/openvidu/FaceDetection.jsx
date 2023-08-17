@@ -141,7 +141,7 @@ export default class FaceDetection extends Component {
         this.props.outAngle(true);
       }
     }
-    setTimeout(() => this.onPlay(), 1000);
+    setTimeout(() => this.onPlay(), 100);
   };
 
   render() {
