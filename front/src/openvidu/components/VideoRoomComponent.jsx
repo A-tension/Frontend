@@ -494,9 +494,9 @@ class VideoRoomComponent extends Component {
   async leaveSession() {
     const mySession = this.state.session;
     mySession.unpublish(localUser.getStreamManager());
-      this.state.localUser.getStreamManager().stream.session.signal({
-        type: "classClosed",
-      });
+    this.state.localUser.getStreamManager().stream.session.signal({
+      type: "classClosed",
+    });
 
     if (mySession) {
       mySession.disconnect();
@@ -705,6 +705,10 @@ class VideoRoomComponent extends Component {
           if (data.concentration !== undefined) {
             user.setConcentration(data.concentration);
             user.setTotal(data.concentration);
+            this.setState({
+              total: user.getTotal(),
+              concentration: user.getConcentration(),
+            });
             console.log(user.getTotal());
           }
           if (data.stretchCreated !== undefined) {
@@ -1388,7 +1392,6 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({ concentration: concentration });
   };
 
-
   toggleConcentrationMenu = () => {
     this.setState({ concentrationDisplay: !this.state.concentrationDisplay });
   };
@@ -1503,88 +1506,88 @@ class VideoRoomComponent extends Component {
 
     return (
       <>
-      <div style={{ overflow: 'hidden' }}>
-        <Setting
-          display={this.state.settingDisplay}
-          toggleSetting={this.toggleSetting}
-          header="Setting"
-          setMyVideos={this.setMyVideos}
-          setMyAudios={this.setMyAudios}
-          setMySpeakers={this.setMySpeakers}
-          videos={this.state.videos}
-          audios={this.state.audios}
-          speakers={this.state.speakers}
-          setVideo={this.setVideo}
-          setAudio={this.setAudio}
-          setSpeaker={this.setSpeaker}
-          currentVideoDeviceId={this.state.currentVideoDeviceId}
-          currentAudioDeviceId={this.state.currentAudioDeviceId}
-          currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-        />
-        <Emoji
-          display={this.state.emojiDisplay}
-          toggleEmoji={this.toggleEmoji}
-          sendEmoji={this.sendEmoji}
-          header="Emoji"
-          whoami={this.props.whoami}
-          id={this.props.userId}
-        />
-        <QuizModal
-          display={this.state.quizDisplay}
-          toggleQuiz={this.toggleQuiz}
-          toggleQuizStudent={this.toggleQuizStudent}
-          header="퀴즈"
-          quiz={this.state.quiz}
-          quizHistory={this.state.quizHistory}
-        />
-        <QuizModalStudent
-          display={this.state.quizDisplayStudent}
-          toggleQuizStudent={this.toggleQuizStudent}
-          header="퀴즈"
-          quiz={this.state.quiz}
-        />
-        <StretchModal
-          display={this.state.stretchingDisplay}
-          toggleStretching={this.toggleStretching}
-          header="스트레칭"
-          randomStretch={this.state.randomStretch}
-        />
-        <Concentration
-          display={this.state.concentrationDisplay}
-          toggleConcentrationMenu={this.toggleConcentrationMenu}
-          concentrationList={this.state.concentrationList}
-          toal={this.state.total}
-        />
+        <div style={{ overflow: "hidden" }}>
+          <Setting
+            display={this.state.settingDisplay}
+            toggleSetting={this.toggleSetting}
+            header="Setting"
+            setMyVideos={this.setMyVideos}
+            setMyAudios={this.setMyAudios}
+            setMySpeakers={this.setMySpeakers}
+            videos={this.state.videos}
+            audios={this.state.audios}
+            speakers={this.state.speakers}
+            setVideo={this.setVideo}
+            setAudio={this.setAudio}
+            setSpeaker={this.setSpeaker}
+            currentVideoDeviceId={this.state.currentVideoDeviceId}
+            currentAudioDeviceId={this.state.currentAudioDeviceId}
+            currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+          />
+          <Emoji
+            display={this.state.emojiDisplay}
+            toggleEmoji={this.toggleEmoji}
+            sendEmoji={this.sendEmoji}
+            header="Emoji"
+            whoami={this.props.whoami}
+            id={this.props.userId}
+          />
+          <QuizModal
+            display={this.state.quizDisplay}
+            toggleQuiz={this.toggleQuiz}
+            toggleQuizStudent={this.toggleQuizStudent}
+            header="퀴즈"
+            quiz={this.state.quiz}
+            quizHistory={this.state.quizHistory}
+          />
+          <QuizModalStudent
+            display={this.state.quizDisplayStudent}
+            toggleQuizStudent={this.toggleQuizStudent}
+            header="퀴즈"
+            quiz={this.state.quiz}
+          />
+          <StretchModal
+            display={this.state.stretchingDisplay}
+            toggleStretching={this.toggleStretching}
+            header="스트레칭"
+            randomStretch={this.state.randomStretch}
+          />
+          <Concentration
+            display={this.state.concentrationDisplay}
+            toggleConcentrationMenu={this.toggleConcentrationMenu}
+            concentrationList={this.state.concentrationList}
+            total={this.state.total}
+          />
 
-        {/* 다이얼로그 */}
-        <DialogExtensionComponent
-          showDialog={this.state.showExtensionDialog}
-          cancelClicked={this.closeDialogExtension}
-        />
-        {/* 칭찬스티커 */}
-        {this.state.stickers.map((stickerKey) => (
-          <Sticker
-            key={stickerKey.key}
-            stikerKey={stickerKey.key}
-            top={stickerKey.top}
-            left={stickerKey.left}
-            removeSticker={this.removeSticker}
-            localUser={localUser}
-          ></Sticker>
-        ))}
-        {/* 유저 카메라 화면 */}
-        <div
-          id="layout"
-          className={
-            (this.state.chatDisplay === "block" ||
-            this.state.questionDisplay === "block"
-              ? "sth_on_bounds"
-              : "bounds") +
-            (this.props.whoami === "teacher" ? " teacher-layout" : "")
-          }
-        >
-        {/* 칭찬스티커 */}
+          {/* 다이얼로그 */}
+          <DialogExtensionComponent
+            showDialog={this.state.showExtensionDialog}
+            cancelClicked={this.closeDialogExtension}
+          />
+          {/* 칭찬스티커 */}
           {this.state.stickers.map((stickerKey) => (
+            <Sticker
+              key={stickerKey.key}
+              stikerKey={stickerKey.key}
+              top={stickerKey.top}
+              left={stickerKey.left}
+              removeSticker={this.removeSticker}
+              localUser={localUser}
+            ></Sticker>
+          ))}
+          {/* 유저 카메라 화면 */}
+          <div
+            id="layout"
+            className={
+              (this.state.chatDisplay === "block" ||
+              this.state.questionDisplay === "block"
+                ? "sth_on_bounds"
+                : "bounds") +
+              (this.props.whoami === "teacher" ? " teacher-layout" : "")
+            }
+          >
+            {/* 칭찬스티커 */}
+            {this.state.stickers.map((stickerKey) => (
               <Sticker
                 key={stickerKey.key}
                 stikerKey={stickerKey.key}
@@ -1594,126 +1597,126 @@ class VideoRoomComponent extends Component {
                 localUser={localUser}
               ></Sticker>
             ))}
-          {localUser !== undefined &&
-          localUser.getStreamManager() !== undefined ? (
-            <div
-              className={
-                (this.state.videoLayout === "bigTeacher" &&
-                  localUser.nickname.includes("[선생님]")) ||
-                (this.state.videoLayout === "screenShareOn" &&
-                  localUser.isScreenShareActive() === true)
-                  ? "OT_root OT_publisher custom-class OV_big"
-                  : "OT_root OT_publisher custom-class"
-              }
-              id="localUser"
-            >
-              <StreamComponent
-                user={this.state.localUser}
-                currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-              />
-              <FaceDetection
-                autoPlay={localUser.isScreenShareActive() ? false : true}
-                camera={localUser.isVideoActive() ? false : true}
-                smile={this.smile}
-                outAngle={this.outAngle}
-                // sendConcentration={this.concentration}
-                concentrationEvent={this.concentrationEvent}
-              />
-            </div>
-          ) : null}
-          {this.state.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              className={
-                (this.state.videoLayout === "bigTeacher" &&
-                  sub.nickname.includes("[선생님]")) ||
-                (this.state.videoLayout === "screenShareOn" &&
-                  sub.isScreenShareActive() === true)
-                  ? "OT_root OT_publisher custom-class OV_big"
-                  : "OT_root OT_publisher custom-class"
-              }
-              id="remoteUsers"
-            >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
-                currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-              />
-              <EmojiFilter user={sub} whoami={this.props.whoami} />
-            </div>
-          ))}
-        </div>
-        <div
-          className={
-            "sth_component " +
-            (this.state.chatDisplay === "none" &&
-            this.state.questionDisplay === "none"
-              ? "display_none"
-              : "")
-          }
-        >
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
+            {localUser !== undefined &&
+            localUser.getStreamManager() !== undefined ? (
               <div
-                className="OT_root custom-class quest"
-                style={questionDisplay}
+                className={
+                  (this.state.videoLayout === "bigTeacher" &&
+                    localUser.nickname.includes("[선생님]")) ||
+                  (this.state.videoLayout === "screenShareOn" &&
+                    localUser.isScreenShareActive() === true)
+                    ? "OT_root OT_publisher custom-class OV_big"
+                    : "OT_root OT_publisher custom-class"
+                }
+                id="localUser"
               >
-                <QuestionComponent
-                  user={localUser}
-                  subscribers={subscribers}
-                  questionDisplay={this.state.questionDisplay}
-                  close={this.toggleQuestion}
-                  messageReceived={this.checkQuestionNotification}
-                  whoami={this.props.whoami}
+                <StreamComponent
+                  user={this.state.localUser}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+                />
+                <FaceDetection
+                  autoPlay={localUser.isScreenShareActive() ? false : true}
+                  camera={localUser.isVideoActive() ? false : true}
+                  smile={this.smile}
+                  outAngle={this.outAngle}
+                  // sendConcentration={this.concentration}
+                  concentrationEvent={this.concentrationEvent}
                 />
               </div>
-            )}
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root custom-class chat" style={chatDisplay}>
-                <ChatComponent
-                  user={localUser}
-                  subscribers={subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
+            ) : null}
+            {this.state.subscribers.map((sub, i) => (
+              <div
+                key={i}
+                className={
+                  (this.state.videoLayout === "bigTeacher" &&
+                    sub.nickname.includes("[선생님]")) ||
+                  (this.state.videoLayout === "screenShareOn" &&
+                    sub.isScreenShareActive() === true)
+                    ? "OT_root OT_publisher custom-class OV_big"
+                    : "OT_root OT_publisher custom-class"
+                }
+                id="remoteUsers"
+              >
+                <StreamComponent
+                  user={sub}
+                  streamId={sub.streamManager.stream.streamId}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
                 />
+                <EmojiFilter user={sub} whoami={this.props.whoami} />
               </div>
-            )}
+            ))}
+          </div>
+          <div
+            className={
+              "sth_component " +
+              (this.state.chatDisplay === "none" &&
+              this.state.questionDisplay === "none"
+                ? "display_none"
+                : "")
+            }
+          >
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className="OT_root custom-class quest"
+                  style={questionDisplay}
+                >
+                  <QuestionComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    questionDisplay={this.state.questionDisplay}
+                    close={this.toggleQuestion}
+                    messageReceived={this.checkQuestionNotification}
+                    whoami={this.props.whoami}
+                  />
+                </div>
+              )}
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div className="OT_root custom-class chat" style={chatDisplay}>
+                  <ChatComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    chatDisplay={this.state.chatDisplay}
+                    close={this.toggleChat}
+                    messageReceived={this.checkNotification}
+                  />
+                </div>
+              )}
+          </div>
+          <div className="toolbar">
+            <ToolbarComponent
+              teacherName={this.props.teacherName}
+              classTitle={this.props.classTitle}
+              whoami={this.props.whoami}
+              sessionId={mySessionId}
+              user={localUser}
+              showNotification={this.state.messageReceived}
+              showQuestionNotification={this.state.questionReceived}
+              camStatusChanged={this.camStatusChanged}
+              micStatusChanged={this.micStatusChanged}
+              pickRandomStudent={this.pickRandomStudent}
+              subscribers={subscribers}
+              screenShare={this.screenShare}
+              stopScreenShare={this.stopScreenShare}
+              toggleFullscreen={this.toggleFullscreen}
+              leaveSession={this.leaveSession}
+              selfLeaveSession={this.selfLeaveSession}
+              toggleChat={this.toggleChat}
+              toggleQuestion={this.toggleQuestion}
+              toggleQuiz={this.toggleQuiz}
+              toggleConcentrationMenu={this.toggleConcentrationMenu}
+              toggleStretching={this.toggleStretching}
+              toggleSetting={this.toggleSetting}
+              startStickerEvent={this.startStickerEvent}
+              videoLayout={this.state.videoLayout}
+              toggleVideoLayout={this.toggleVideoLayout}
+              toggleEmoji={this.toggleEmoji}
+              conferenceCreateData={this.props.conferenceCreateData}
+              conferenceJoinData={this.props.conferenceJoinData}
+            />
+          </div>
         </div>
-        <div className="toolbar">
-          <ToolbarComponent
-            teacherName={this.props.teacherName}
-            classTitle={this.props.classTitle}
-            whoami={this.props.whoami}
-            sessionId={mySessionId}
-            user={localUser}
-            showNotification={this.state.messageReceived}
-            showQuestionNotification={this.state.questionReceived}
-            camStatusChanged={this.camStatusChanged}
-            micStatusChanged={this.micStatusChanged}
-            pickRandomStudent={this.pickRandomStudent}
-            subscribers={subscribers}
-            screenShare={this.screenShare}
-            stopScreenShare={this.stopScreenShare}
-            toggleFullscreen={this.toggleFullscreen}
-            leaveSession={this.leaveSession}
-            selfLeaveSession={this.selfLeaveSession}
-            toggleChat={this.toggleChat}
-            toggleQuestion={this.toggleQuestion}
-            toggleQuiz={this.toggleQuiz}
-            toggleConcentrationMenu={this.toggleConcentrationMenu}
-            toggleStretching={this.toggleStretching}
-            toggleSetting={this.toggleSetting}
-            startStickerEvent={this.startStickerEvent}
-            videoLayout={this.state.videoLayout}
-            toggleVideoLayout={this.toggleVideoLayout}
-            toggleEmoji={this.toggleEmoji}
-            conferenceCreateData={this.props.conferenceCreateData}
-            conferenceJoinData={this.props.conferenceJoinData}
-          />
-        </div>
-      </div>
       </>
     );
   }

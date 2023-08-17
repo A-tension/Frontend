@@ -1,8 +1,8 @@
 .nickname {
-  background: rgba(98, 98, 98, 0.7);
+  background: rgba(98, 98, 98, 0.3);
   padding: 10px !important;
   position: absolute;
-  border-radius : 8px;
+  border-radius: 8px;
   z-index: 999;
   color: #ffffff;
 }
