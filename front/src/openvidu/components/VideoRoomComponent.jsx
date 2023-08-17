@@ -13,8 +13,8 @@ import getCode from "../../utils/getCode";
 import EmojiFilter from "./items/EmojiFilter";
 import QuizModal from "./quiz/QuizModal";
 import QuizModalStudent from "./quiz/QuizModalStudent";
-import ShieldModal from "./items/ShieldModal";
-import ShieldModalLoading from "./items/ShieldModalLoading";
+// import ShieldModal from "./items/ShieldModal";
+// import ShieldModalLoading from "./items/ShieldModalLoading";
 import Sticker from "./pointClickEvent/PointSticker";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
@@ -87,8 +87,8 @@ class VideoRoomComponent extends Component {
       questionDisplay: "none",
       quizDisplay: false,
       quizDisplayStudent: false,
-      shieldDisplay: false,
-      shieldLoadingDisplay: false,
+      // shieldDisplay: false,
+      // shieldLoadingDisplay: false,
       videos: this.props.setDevices.videos,
       audios: this.props.setDevices.audios,
       speakers: this.props.setDevices.speakers,
@@ -168,7 +168,7 @@ class VideoRoomComponent extends Component {
     // toggleQuizStudent: 내정답 저장
     this.toggleQuizStudent = this.toggleQuizStudent.bind(this);
     // toggleShield: 방어권창 토글 sendEmoji버튼 함수
-    this.toggleShield = this.toggleShield.bind(this);
+    // this.toggleShield = this.toggleShield.bind(this);
     // checkUserHasItem: 유저의 아이템 정보 체크 함수
     this.checkUserHasItem = this.checkUserHasItem.bind(this);
     // startStickerEvent: 칭찬스티커 클릭이벤트를 발생시키는 함수
@@ -673,7 +673,7 @@ class VideoRoomComponent extends Component {
               // alert(this.state.myUserName + "님이 뽑혔습니다!");
               this.alertToChat(this.state.myUserName + "님이 뽑혔습니다!");
               if (!data.picked) {
-                this.toggleShield();
+                // this.toggleShield();
               } else {
                 // this.tempFrameChange({ type: "color", value: "Red" });
                 this.upPresentationCnt();
@@ -690,7 +690,7 @@ class VideoRoomComponent extends Component {
             ) {
               // this.toggleShieldLoading();
               if (!data.picked) {
-                this.toggleShieldLoading();
+                // this.toggleShieldLoading();
               }
             }
           }
@@ -1123,15 +1123,15 @@ class VideoRoomComponent extends Component {
     }
   }
 
-  toggleShield() {
-    this.setState({ shieldDisplay: !this.state.shieldDisplay });
-    this.updateLayout();
-  }
-
-  toggleShieldLoading = () => {
-    this.setState({ shieldLoadingDisplay: !this.state.shieldLoadingDisplay });
-    this.updateLayout();
-  };
+  // toggleShield() {
+  //   this.setState({ shieldDisplay: !this.state.shieldDisplay });
+  //   this.updateLayout();
+  // }
+  //
+  // toggleShieldLoading = () => {
+  //   this.setState({ shieldLoadingDisplay: !this.state.shieldLoadingDisplay });
+  //   this.updateLayout();
+  // };
 
   async checkUserHasItem(itemId) {
     if (this.props.whoami !== "teacher") {
@@ -1498,86 +1498,76 @@ class VideoRoomComponent extends Component {
 
     return (
       <>
-        <div style={{ overflow: "hidden" }}>
-          <Setting
-            display={this.state.settingDisplay}
-            toggleSetting={this.toggleSetting}
-            header="Setting"
-            setMyVideos={this.setMyVideos}
-            setMyAudios={this.setMyAudios}
-            setMySpeakers={this.setMySpeakers}
-            videos={this.state.videos}
-            audios={this.state.audios}
-            speakers={this.state.speakers}
-            setVideo={this.setVideo}
-            setAudio={this.setAudio}
-            setSpeaker={this.setSpeaker}
-            currentVideoDeviceId={this.state.currentVideoDeviceId}
-            currentAudioDeviceId={this.state.currentAudioDeviceId}
-            currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
-          />
-          <Emoji
-            display={this.state.emojiDisplay}
-            toggleEmoji={this.toggleEmoji}
-            sendEmoji={this.sendEmoji}
-            header="Emoji"
-            emoji={this.state.emoji}
-            whoami={this.props.whoami}
-            id={this.props.userId}
-          />
-          <QuizModal
-            display={this.state.quizDisplay}
-            toggleQuiz={this.toggleQuiz}
-            toggleQuizStudent={this.toggleQuizStudent}
-            header="퀴즈"
-            quiz={this.state.quiz}
-            quizHistory={this.state.quizHistory}
-          />
-          <QuizModalStudent
-            display={this.state.quizDisplayStudent}
-            toggleQuizStudent={this.toggleQuizStudent}
-            header="퀴즈"
-            quiz={this.state.quiz}
-          />
-          <ShieldModalLoading
-            display={this.state.shieldLoadingDisplay}
-            toggleShieldLoading={this.toggleShieldLoading}
-            timeOut={2.5}
-            header="발표 프리패스 대기중"
-          />
-          <ShieldModal
-            display={this.state.shieldDisplay}
-            user={localUser}
-            toggleShield={this.toggleShield}
-            alertToChat={this.alertToChat}
-            useItem={this.useItem}
-            checkUserHasItem={this.checkUserHasItem}
-            pickRandomStudent={this.pickRandomStudent}
-            tempFrameChange={this.tempFrameChange}
-            subscribers={subscribers}
-            timeOut={3}
-            header="발표 프리패스 사용"
-            upPresentationCnt={this.upPresentationCnt}
-            downPresentationCnt={this.downPresentationCnt}
-          />
-          {/* 다이얼로그 */}
-          <DialogExtensionComponent
-            showDialog={this.state.showExtensionDialog}
-            cancelClicked={this.closeDialogExtension}
-          />
-          {/* 유저 카메라 화면 */}
-          <div
-            id="layout"
-            className={
-              (this.state.chatDisplay === "block" ||
-              this.state.questionDisplay === "block"
-                ? "sth_on_bounds"
-                : "bounds") +
-              (this.props.whoami === "teacher" ? " teacher-layout" : "")
-            }
-          >
-            {/* 칭찬스티커 */}
-            {this.state.stickers.map((stickerKey) => (
+      <div style={{ overflow: 'hidden' }}>
+        <Setting
+          display={this.state.settingDisplay}
+          toggleSetting={this.toggleSetting}
+          header="Setting"
+          setMyVideos={this.setMyVideos}
+          setMyAudios={this.setMyAudios}
+          setMySpeakers={this.setMySpeakers}
+          videos={this.state.videos}
+          audios={this.state.audios}
+          speakers={this.state.speakers}
+          setVideo={this.setVideo}
+          setAudio={this.setAudio}
+          setSpeaker={this.setSpeaker}
+          currentVideoDeviceId={this.state.currentVideoDeviceId}
+          currentAudioDeviceId={this.state.currentAudioDeviceId}
+          currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+        />
+        <Emoji
+          display={this.state.emojiDisplay}
+          toggleEmoji={this.toggleEmoji}
+          sendEmoji={this.sendEmoji}
+          header="Emoji"
+          emoji={this.state.emoji}
+          whoami={this.props.whoami}
+          id={this.props.userId}
+        />
+        <QuizModal
+          display={this.state.quizDisplay}
+          toggleQuiz={this.toggleQuiz}
+          toggleQuizStudent={this.toggleQuizStudent}
+          header="퀴즈"
+          quiz={this.state.quiz}
+          quizHistory={this.state.quizHistory}
+        />
+        <QuizModalStudent
+          display={this.state.quizDisplayStudent}
+          toggleQuizStudent={this.toggleQuizStudent}
+          header="퀴즈"
+          quiz={this.state.quiz}
+        />
+        {/* 다이얼로그 */}
+        <DialogExtensionComponent
+          showDialog={this.state.showExtensionDialog}
+          cancelClicked={this.closeDialogExtension}
+        />
+        {/* 칭찬스티커 */}
+        {this.state.stickers.map((stickerKey) => (
+          <Sticker
+            key={stickerKey.key}
+            stikerKey={stickerKey.key}
+            top={stickerKey.top}
+            left={stickerKey.left}
+            removeSticker={this.removeSticker}
+            localUser={localUser}
+          ></Sticker>
+        ))}
+        {/* 유저 카메라 화면 */}
+        <div
+          id="layout"
+          className={
+            (this.state.chatDisplay === "block" ||
+            this.state.questionDisplay === "block"
+              ? "sth_on_bounds"
+              : "bounds") +
+            (this.props.whoami === "teacher" ? " teacher-layout" : "")
+          }
+        >           
+        {/* 칭찬스티커 */}
+          {this.state.stickers.map((stickerKey) => (
               <Sticker
                 key={stickerKey.key}
                 stikerKey={stickerKey.key}
@@ -1587,8 +1577,67 @@ class VideoRoomComponent extends Component {
                 localUser={localUser}
               ></Sticker>
             ))}
-            {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined ? (
+          {localUser !== undefined &&
+          localUser.getStreamManager() !== undefined ? (
+            <div
+              className={
+                (this.state.videoLayout === "bigTeacher" &&
+                  localUser.nickname.includes("[선생님]")) ||
+                (this.state.videoLayout === "screenShareOn" &&
+                  localUser.isScreenShareActive() === true)
+                  ? "OT_root OT_publisher custom-class OV_big"
+                  : "OT_root OT_publisher custom-class"
+              }
+              id="localUser"
+            >
+              <StreamComponent
+                user={this.state.localUser}
+                currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+                emoji={this.state.emoji}
+              />
+              <FaceDetection
+                autoPlay={localUser.isScreenShareActive() ? false : true}
+                camera={localUser.isVideoActive() ? false : true}
+                smile={this.smile}
+                outAngle={this.outAngle}
+                // sendConcentration={this.concentration}
+                concentrationEvent={this.concentrationEvent}
+              />
+            </div>
+          ) : null}
+          {this.state.subscribers.map((sub, i) => (
+            <div
+              key={i}
+              className={
+                (this.state.videoLayout === "bigTeacher" &&
+                  sub.nickname.includes("[선생님]")) ||
+                (this.state.videoLayout === "screenShareOn" &&
+                  sub.isScreenShareActive() === true)
+                  ? "OT_root OT_publisher custom-class OV_big"
+                  : "OT_root OT_publisher custom-class"
+              }
+              id="remoteUsers"
+            >
+              <StreamComponent
+                user={sub}
+                streamId={sub.streamManager.stream.streamId}
+                currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+              />
+              <EmojiFilter user={sub} whoami={this.props.whoami} />
+            </div>
+          ))}
+        </div>
+        <div
+          className={
+            "sth_component " +
+            (this.state.chatDisplay === "none" &&
+            this.state.questionDisplay === "none"
+              ? "display_none"
+              : "")
+          }
+        >
+          {localUser !== undefined &&
+            localUser.getStreamManager() !== undefined && (
               <div
                 className={
                   (this.state.videoLayout === "bigTeacher" &&

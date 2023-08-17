@@ -33,15 +33,15 @@ class QuizListCard extends Component {
               </div>
               {!this.props.quiz.type ? (
                 <div className="listItems">
-                  <p style={{ color: '#029371' }}>O</p>
-                  <p style={{ color: '#D43959' }}>X</p>
+                  <p style={{ color: '#2569e1' }}>O</p>
+                  <p style={{ color: '#f37c7c' }}>X</p>
                 </div>
               ) : (
                 <div className="listItems">
-                  <p style={{ color: '#D43959' }}>{this.props.quiz.A1}</p>
-                  <p style={{ color: '#D28945' }}>{this.props.quiz.A2}</p>
-                  <p style={{ color: '#029371' }}>{this.props.quiz.A3}</p>
-                  <p style={{ color: '#2A69A6' }}>{this.props.quiz.A4}</p>
+                  <p style={{ color: '#f37c7c' }}>{this.props.quiz.A1}</p>
+                  <p style={{ color: '#c47bd5' }}>{this.props.quiz.A2}</p>
+                  <p style={{ color: '#2569e1' }}>{this.props.quiz.A3}</p>
+                  <p style={{ color: '#c0efaf' }}>{this.props.quiz.A4}</p>
                 </div>
               )}
             </div>
