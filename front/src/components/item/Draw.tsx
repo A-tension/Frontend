@@ -82,15 +82,18 @@ function Draw() {
                             × {user.ticket}
                         </h4>
                         <Button
-                            style={{
-                                borderRadius: "80px",
-                                width: "150px",
-                                marginTop: "60px",
-                            }}
-                            onClick={handleButtonClick}
-                        >
-                            뽑기!&nbsp;&nbsp; ×1
-                        </Button>
+    style={{
+        borderRadius: "80px",
+        width: "150px",
+        marginTop: "60px",
+        background: "#FFCE1F",
+        border: "2px solid #FFCE1F", // 테두리 색상 변경
+    }}
+    onClick={handleButtonClick}
+>
+    뽑기!&nbsp;&nbsp; ×1
+</Button>
+
                     </div>
                 </div>
             </div>

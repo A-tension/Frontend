@@ -30,14 +30,15 @@
   transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
 }
 
-.btn:hover::before {
+/* 파란줄 원인 */
+/* .btn:hover::before {
   -webkit-transform-origin: right top;
   -ms-transform-origin: right top;
   transform-origin: right top;
   -webkit-transform: scale(1, 1);
   -ms-transform: scale(1, 1);
   transform: scale(1, 1);
-}
+} */
 
 /* Btn 10  */
 .btn10 {
