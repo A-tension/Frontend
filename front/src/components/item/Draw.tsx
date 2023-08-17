@@ -5,12 +5,13 @@ import { Button } from "react-bootstrap";
 import { useAppSelector } from "../../store/hooks";
 import { checkTickets } from "../../store/user";
 import { getRandomItem } from "../../api/item/itemApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/user";
 // <!-- import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import -->
 
 function Draw() {
     const [buttonClicked, setButtonClicked] = useState(false);
+    const dispatch = useDispatch();
     // const ticket = useAppSelector(checkTickets);
     const user = useSelector(selectUser);
     console.log("user : ", user);
@@ -23,6 +24,7 @@ function Draw() {
           const response = await getRandomItem(); // getRandomItem 함수를 실행하고 응답을 받음
           console.log(response);
           // 추가적인 동작을 수행 (아이템 뽑기 성공 등)
+          dispatch(checkTickets(user.ticket - 1));
         } catch (error) {
           console.error("Error while getting random item:", error);
           // 실패 시에 대한 처리 (예: 오류 메시지 표시)
