@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import SideNav from "../components/SideNav";
 import { useEffect, useState } from "react";
@@ -8,58 +8,51 @@ import meeting from "../assets/icons/icon_meeting.svg";
 import item from "../assets/icons/icon_item.svg";
 import SidebarButton from "../components/atoms/button/SidebarButton";
 import { useAppSelector } from "../store/hooks";
-import { checkAuthority, isLoggedIn } from "../store/user";
 import { getMode } from "../store/test";
 const Dash = () => {
   // sidenav selected 받아와서
 
   const headerHeight = 53; // Change this value to match your actual header height
-  const colHeight = `calc(100vh - ${headerHeight}px)`;
+  const colHeight ="100vh"; //`calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
   const inMeeting = useAppSelector(getMode);
-  const isLoggedIn = useAppSelector(checkAuthority);
 
+  const [isLogin, setIsLogin] = useState(false);
+  const [token, setToken] = useState<string | null>();
+
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [token]);
   const icons = [group, calendar, meeting, item];
   const menu = ["group", "calendar", "meeting", "item"];
   const label = ["그룹", "캘린더", "회의", "뽑기"];
-  const location = useLocation();
 
-  const prevPage = location.state?.prevPath;
-  const toMeeting = location.state?.toMeeting;
-
-  let firstMenu = toMeeting ? "" : "뽑기";
-
-  const [selectedMenu, selectMenu] = useState(firstMenu);
+  const [selectedMenu, setSelectedMenu] = useState<string | null>();
   useEffect(() => {
-    const checkMenu = () => {
-      if (isLoggedIn) {
-        firstMenu = "그룹";
-        if (toMeeting) {
-          firstMenu = "회의";
-        }
-        if (prevPage) {
-          firstMenu = "그룹";
-        }
-      } else {
-        firstMenu = "회의";
-      }
-      selectMenu(firstMenu);
-    };
+    setToken(localStorage.getItem("accessToken"));
+    if (token) {
+      setSelectedMenu("그룹");
+    } else if (!token) {
+      setSelectedMenu("회의");
+    }
+  }, [token]);
 
-    checkMenu();
-  }, [location.state]);
+
   //대시보드 화면 구성
   // 왼쪽 오른쪽으로 나뉨
   // 왼쪽은 SideNav 우측은 화면 표시
   return (
-    <>
+    <> 
       <div style={{ height: colHeight }} className="font-SUIT">
         <Container fluid>
-          <Row style={{ height: colHeight }}>
-            <Col className="pt-5" sm={1} style={{minWidth:"200px"}} >
+          <Row style={{ height: colHeight, borderTopWidth:"53px" }}>
+            <Col className="pt-5" sm={1} style={{ minWidth: "200px"}}>
               <SideNav
                 icons={icons}
-                selectMenu={selectMenu}
+                selectMenu={setSelectedMenu}
                 selectedMenu={selectedMenu}
                 label={label}
                 linkto={menu}
@@ -91,13 +84,14 @@ const Dash = () => {
                     style={{
                       background: "#FFF",
                       borderRadius: "20px",
-                      minHeight: "500px",
+                      minHeight: "520px",
+                      // maxHeight:"510px",
+                      // height:"510px"
                     }}
                   >
                     <Outlet></Outlet>
                   </div>
                 )}
-
               </div>
             </Col>
           </Row>

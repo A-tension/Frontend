@@ -8,7 +8,7 @@ import { teamDetail, userProfileDto } from "../../api/team/types";
 interface Props {
   groupId?: number;
   groupName?: string;
-  teamProp?: Team | teamDetail;
+  teamProp?:Team;
 }
 
 export const Members = (props: Props) => {
@@ -20,8 +20,8 @@ export const Members = (props: Props) => {
   // getAuth(true);
     // getAuth(auth);
   if (props.teamProp !== undefined) {
-  const group: Team| teamDetail = props.teamProp;
-  const members: User[] | string[] |userProfileDto[] = group.members ? group.members : group.userProfileDtoList;
+  const group: teamDetail = props.teamProp;
+  const members:userProfileDto[] = group.userProfileDtoList;
   
 
 const handleMember=()=>{
@@ -36,19 +36,30 @@ const handleMember=()=>{
   // if (typeof members[0] === "object") {
     //|userProfileDto[] |userProfileDto
 
-   memberList = (members as User[]|string[]).map((member: User|string, index: number) => (
+   memberList = (members as userProfileDto[])?.map((member: userProfileDto, index: number) => (
       <ListGroup.Item
         key={index}
         style={{
-          backgroundColor: "#f7f7f7",
-          borderRadius: "6px",
+          backgroundColor: "#ECF3FC",
+          borderRadius: "15px",
           padding: "10px",
           marginBottom: "10px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
         onClick={handleMember}
-      >{typeof member==typeof "g" && member}
-        {member.name}
+      >
+          <span style={{display:"flex", alignItems:"center"}}>
+              <img
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '35px',
+                    marginRight: '20px'
+                  }}
+                  src={member.profileImage}>
+              </img>
+                  {member.name}
+          </span>
       </ListGroup.Item>
     ));
 }
@@ -70,20 +81,20 @@ const handleMember=()=>{
       <Col md={4}>
         <div
           style={{
-            backgroundColor: "#f7f7f7",
+            backgroundColor: "#ECF3FC",
             borderRadius: "10px",
             width:"100%",
             padding: "10px",
             marginTop: "10px",
             marginBottom: "10px",
-            border: "0.5px solid black",
+            // border: "0.5px solid black",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           }}
         >
           <p>
             <strong>그룹 정보</strong>
             <br />
-            그룹에 대한 정보 
+            {/*그룹에 대한 정보 */}
             {props.teamProp?.description}
           </p>
         </div>

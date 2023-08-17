@@ -1,7 +1,3 @@
-// name: 오석호
-// date: 2022/08/07
-// desc: Device에 관련된 유틸 함수들을 한 군데 모아둠
-
 // 권한 가져오는 함수
 export const initStream = async () => {
   try {
@@ -15,7 +11,7 @@ export const initStream = async () => {
       track.stop();
       newStream.removeTrack(track);
     });
-    throw new Error('Got Permissioned!');
+    throw new Error("Got Permissioned!");
   } catch (e) {
     return true;
   }
@@ -33,7 +29,7 @@ export const createStream = async ({ audioTrack, videoTrack }) => {
 // 비디오 오디오 트랙 가져오는 함수들
 export const getVideoTrack = async (deviceId) => {
   try {
-    if (!deviceId) throw new Error('Get VideoTracks: No Device ID');
+    if (!deviceId) throw new Error("Get VideoTracks: No Device ID");
 
     const videoStream = await navigator.mediaDevices.getUserMedia({
       audio: false,
@@ -51,7 +47,7 @@ export const getVideoTrack = async (deviceId) => {
 
 export const getAudioTrack = async (deviceId) => {
   try {
-    if (!deviceId) throw new Error('Get AudioTracks: No Device ID');
+    if (!deviceId) throw new Error("Get AudioTracks: No Device ID");
 
     const audioTrack = await navigator.mediaDevices.getUserMedia({
       audio: { deviceId: { exact: deviceId } },
@@ -72,7 +68,7 @@ export const getVideos = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const videoDevices = devices.filter(
-      (device) => device.kind === 'videoinput',
+      (device) => device.kind === "videoinput"
     );
     return videoDevices;
   } catch (e) {
@@ -84,7 +80,7 @@ export const getAudios = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const audioDevices = devices.filter(
-      (device) => device.kind === 'audioinput',
+      (device) => device.kind === "audioinput"
     );
     return audioDevices;
   } catch (e) {
@@ -96,7 +92,7 @@ export const getSpeakers = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const speakerDevices = devices.filter(
-      (device) => device.kind === 'audiooutput',
+      (device) => device.kind === "audiooutput"
     );
     return speakerDevices;
   } catch (e) {

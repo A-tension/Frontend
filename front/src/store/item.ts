@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { User } from "./user";
 import { addItem as addItemToUser } from "./user"; // user Store의 addItem 액션을 가져옴
+import { useAppDispatch } from "../store/hooks.ts";
 
 export interface Item {
   name: string;
@@ -16,7 +17,6 @@ export const itemSlice = createSlice({
   initialState: initialState,
   reducers: {
     addItem: (state, action: PayloadAction<Item>) => {
-      console.log("state : ", state);
       state.push(action.payload); // 아이템을 배열에 추가
       addItemToUser(action.payload); // 이게 왜 안되는지는 모르겠음 ㅠㅠ
     },

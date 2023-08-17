@@ -80,7 +80,7 @@ class QuizForm extends Component {
                 name="a1"
                 maxLength="100"
               />
-              <span style={{ background: '#D43959' }}>
+              <span style={{ background: '#2569E1FF' }}>
                 첫번째 보기를 적어주세요
               </span>
             </li>
@@ -92,7 +92,7 @@ class QuizForm extends Component {
                 name="a2"
                 maxLength="100"
               />
-              <span style={{ background: '#029371' }}>
+              <span style={{ background: '#f37c7c' }}>
                 두번째 보기를 적어주세요
               </span>
             </li>

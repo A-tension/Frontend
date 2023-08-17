@@ -1,35 +1,45 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Nav,
-  NavDropdown,
-  OverlayTrigger,
-  Button,
-  Popover,
-  Dropdown,
-  Image
-
+    Nav,
+    NavDropdown,
+    Dropdown,
+    Image,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectUser, userLogout } from "../store/user";
-import filler from "../assets/bwink_edu_04_single_04.jpg"
-const Logoutheader = () => {
+import { User, selectUser, userLogout } from "../store/user";
+import { useEffect, useState } from "react";
 
-  const loginUser = useAppSelector(selectUser);
+const Logoutheader = () => {
+  const User = useAppSelector(selectUser);
+  const[loginData,setData]=useState(User);
+  useEffect(() => {
+    if(User){
+      setData(User);
+    }
+    
+  
+    return () => {
+    }
+  }, [User])
+  
   // const user = {
   //   name: "Ssafy",
   // };
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-
   const pathname = location.pathname;
   // console.log()
   const handleLogout = () => {
     console.log("logout button clicked");
     dispatch(userLogout());
-    navigate("/login");
+    navigate("/");
   };
-
+  const handleMyPage = () => {
+    console.log("mypage click")
+    navigate("/info");
+  };
+  
   const dropStyle: React.CSSProperties = {
     right: 0,
     // left: "auto", // Commented out since it's not being used
@@ -37,24 +47,14 @@ const Logoutheader = () => {
     color: "white",
   };
 
-  const popover = (
-    <Popover id="notification-popover" className="text-white">
-      <Popover.Header as="h3">알림</Popover.Header>
-      <Popover.Body>
-        알림도 원자 컴포넌트로 map 써서 현재 유저가 갖고있는 것 불러오기?
-      </Popover.Body>
-    </Popover>
-  );
-  return (
-    <>
-      <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-        <Button variant="success">알림</Button>
-      </OverlayTrigger>
+
+    return (
+        <>
 
       <Nav.Link
         as={Link}
         to="/dash"
-        state={{ prevPath: pathname }}
+        // state={{ prevPath: pathname }}
         className="text-white"
       >
         대시보드
@@ -63,7 +63,7 @@ const Logoutheader = () => {
       <Nav.Link
         as={Link}
         to="/dash/meeting/start"
-        state={{ toMeeting: pathname }}
+        state={{ tab: "미팅" , to: "start"}}
         style={{ color: "white" }}
       >
         회의 개설
@@ -71,30 +71,31 @@ const Logoutheader = () => {
       <Nav.Link
         as={Link}
         to="/dash/meeting/join"
-        state={{ toMeeting: pathname }}
+        state={{ tab: "미팅" ,to:"join"}}
         className="text-white"
       >
         회의 참여
       </Nav.Link>
       <NavDropdown
-      as={Dropdown}
-      content="none"
+        as={Dropdown}
+        content="none"
         title={
           <div className="flex items-center  text-white gap-2">
-            {loginUser.name}
-            <Image src={filler} roundedCircle width="40px" />
+            {loginData.name}
+            <Image src={loginData.profileImage} roundedCircle width="40px" />
           </div>
         }
         style={{ borderRadius: "20px" }}
       >
+
         <NavDropdown.ItemText as={Nav.Link} to="/info">
-          <Nav.Link as={Link} to="/info">
-            <div className="dropdown-content flex flex-col items-center text-center">
-              <Image src={filler} roundedCircle style={{ width:"40px" }}/>
-              <b>{loginUser.name}</b>
-              {loginUser.email}
+          {/* <Nav.Link as={Link} to="/info"> */}
+            <div className="dropdown-content flex flex-col items-center text-center" onClick={handleMyPage}>
+              <Image src={loginData.profileImage} roundedCircle style={{ width:"40px" }}/>
+              <b>{loginData.name}</b>
+              {loginData.email}
             </div>
-          </Nav.Link>
+          {/* </Nav.Link> */}
         </NavDropdown.ItemText>
         <NavDropdown.Divider></NavDropdown.Divider>
         <NavDropdown.Item
@@ -106,5 +107,6 @@ const Logoutheader = () => {
       </NavDropdown>
      </>
   );
+
 };
 export default Logoutheader;

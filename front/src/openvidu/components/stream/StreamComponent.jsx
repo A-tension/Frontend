@@ -8,6 +8,11 @@ import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeOff from "@material-ui/icons/VolumeOff";
 import IconButton from "@material-ui/core/IconButton";
 
+import SoundIcon from "../toolbar/iconComponents/SoundIcon";
+import MuteIcon from "../toolbar/iconComponents/MuteIcon";
+import VideoIcon from "../toolbar/iconComponents/VideoIcon";
+import NoVideoIcon from "../toolbar/iconComponents/NoVideoIcon";
+
 // StreamComponent: 스트림된 요소들을 컨트롤하는 요소들을 담은 컴포넌트
 export default class StreamComponent extends Component {
   constructor(props) {
@@ -41,10 +46,6 @@ export default class StreamComponent extends Component {
     }
   }
 
-  // name: 한준수
-  // date: 2022/07/27
-  // desc: VideoRoomComponent 에서 넘겨주는 Props에 변경이 발생할 때마다 호출되는 함수
-  // Todo: 호출 시 frameColor 값이 변화가 있는지 확인하고, 변화가 있으면 state에 반영한다.
   componentDidUpdate(prevProps) {
     if (this.state.frameColor !== prevProps.user.frameColor) {
       let tempColor = this.props.user.frameColor;
@@ -55,11 +56,11 @@ export default class StreamComponent extends Component {
   // render: 렌더링 담당 함수
   render() {
     return (
-      <div className="OT_widget-container" style={this.state.frameColor.value}>
+      <div className="OT_widget-container">
         {this.props.user !== undefined && this.props.user.emoji ? (
           <img
             className="reaction-img"
-            src={"../reactions/" + this.props.user.emoji + ".gif"}
+            src={"../../public/reactions/" + this.props.user.emoji + ".gif"}
           />
         ) : null}
         {/* 닉네임창 */}
@@ -80,13 +81,13 @@ export default class StreamComponent extends Component {
             <div id="statusIcons">
               {!this.props.user.isVideoActive() ? (
                 <div id="camIcon">
-                  <VideocamOff id="statusCam" />
+                  <NoVideoIcon id="statusCam" />
                 </div>
               ) : null}
 
               {!this.props.user.isAudioActive() ? (
                 <div id="micIcon">
-                  <MicOff id="statusMic" />
+                  <MuteIcon id="statusMic" />
                 </div>
               ) : null}
             </div>

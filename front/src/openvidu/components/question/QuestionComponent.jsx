@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CloseBtn from "@material-ui/icons/Close";
 import Send from "../../assets/images/uil_message.png";
 import "./QuestionComponent.css";
+import QuestionMarkIcon from "../toolbar/iconComponents/img/questionMarkIcon.png";
 
 // QuestionComponent: 질문 관련 컴포넌트
 export default class QuestionComponent extends Component {
@@ -32,7 +33,7 @@ export default class QuestionComponent extends Component {
         let questionList = this.state.questionList;
         questionList.push({
           connectionId: event.from.connectionId,
-          nickname: data.nickname,
+          nickname: "익명",
           time: this.convert12(),
           message: data.message,
           type: "question",
@@ -71,9 +72,8 @@ export default class QuestionComponent extends Component {
         // 전체전송
         const data = {
           message: question,
-          nickname: this.props.user.getNickname(),
+          nickname: "익명",
           streamId: this.props.user.getStreamManager().stream.streamId,
-          levelPng: this.props.levelPng,
         };
         this.props.user.getStreamManager().stream.session.signal({
           data: JSON.stringify(data),
@@ -104,9 +104,6 @@ export default class QuestionComponent extends Component {
     this.props.close(undefined);
   }
 
-  // name: 오석호
-  // date: 2022/08/04
-  // desc: 시간 계산용 함수
   convert12() {
     const time = new Date();
     let hours = time.getHours();
@@ -142,8 +139,8 @@ export default class QuestionComponent extends Component {
                 }
               >
                 <img
-                  src={"/img/anonymous1.png"}
-                  className={"user-img " + data.levelPng}
+                  src={QuestionMarkIcon}
+                  className="user-img"
                   alt=""
                 ></img>
                 {/* <canvas
@@ -166,7 +163,6 @@ export default class QuestionComponent extends Component {
                           : `msg-content`
                       }
                     >
-                      <span className="triangle" />
                       <p className="text">{data.message}</p>
                     </div>
                     <div className="msg-time">

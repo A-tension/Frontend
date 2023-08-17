@@ -18,6 +18,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
 import QuestionAnswer from "@material-ui/icons/QuestionAnswer";
 
+import SoundIcon from "../../openvidu/components/toolbar/iconComponents/SoundIcon";
+import MuteIcon from "../../openvidu/components/toolbar/iconComponents/MuteIcon";
+import VideoIcon from "../../openvidu/components/toolbar/iconComponents/VideoIcon";
+import NoVideoIcon from "../../openvidu/components/toolbar/iconComponents/NoVideoIcon";
+
 import IconButton from "@material-ui/core/IconButton";
 
 const logo = require("../../assets/images/openvidu_logo.png");
@@ -93,9 +98,9 @@ export default class ToolbarComponent extends Component {
               onClick={this.micStatusChanged}
             >
               {localUser !== undefined && localUser.isAudioActive() ? (
-                <Mic />
+                <SoundIcon />
               ) : (
-                <MicOff color="secondary" />
+                <MuteIcon color="secondary" />
               )}
             </IconButton>
 
@@ -106,9 +111,9 @@ export default class ToolbarComponent extends Component {
               onClick={this.camStatusChanged}
             >
               {localUser !== undefined && localUser.isVideoActive() ? (
-                <Videocam />
+                <VideoIcon />
               ) : (
-                <VideocamOff color="secondary" />
+                <NoVideoIcon color="secondary" />
               )}
             </IconButton>
 

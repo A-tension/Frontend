@@ -1,4 +1,4 @@
-export interface planResponseDto {
+export interface PlanResponseDto {
     id : number,
     teamId : number,
     name : string,
@@ -8,7 +8,13 @@ export interface planResponseDto {
     teamName : string,
     profileImage : string
 }
-
+export interface PlanRequestDto {
+    teamId : number,
+    name : string,
+    startTime : string,
+    endTime : string,
+    description : string,
+}
 // // 일정 ID
 // private Long id;
 // // 팀 ID

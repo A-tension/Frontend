@@ -55,6 +55,7 @@ export default class ToolbarComponent extends Component {
       stickerAvailable: true,
       showTeacherMenuToggle: false,
       teacherMenuToggle: false,
+      mySessionId: this.props.sessionId,
     };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
@@ -63,7 +64,6 @@ export default class ToolbarComponent extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
-    this.toggleParticipant = this.toggleParticipant.bind(this);
     this.toggleQuiz = this.toggleQuiz.bind(this);
     this.pickRandomStudent = this.pickRandomStudent.bind(this);
     this.startStickerEvent = this.startStickerEvent.bind(this);
@@ -73,6 +73,8 @@ export default class ToolbarComponent extends Component {
     this.toggleEmoji = this.toggleEmoji.bind(this);
     this.toggleQuestion = this.toggleQuestion.bind(this);
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
+    this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
+    this.toggleStretching = this.toggleStretching.bind(this);
   }
 
   // micStatusChanged: 마이크 상태변화 토글 함수
@@ -120,10 +122,6 @@ export default class ToolbarComponent extends Component {
     this.props.toggleSetting();
   }
 
-  toggleParticipant() {
-    this.props.toggleParticipant();
-  }
-
   toggleEmoji() {
     this.props.toggleEmoji();
   }
@@ -132,19 +130,15 @@ export default class ToolbarComponent extends Component {
     this.props.toggleQuestion();
   }
 
-  // name: 한준수
-  // date: 2022/07/25
-  // desc: 선생님이 랜덤한 학생을 지목하는 기능
-  // todo: 내 Subscribers 중 랜덤한 1명을 선택해 지목하고, 지목받은 학생의 테두리를 1.5초동안 빨간색으로 변경 시키고, 3초 동안 지목 버튼을 비활성화 시킨다.
+  toggleQuiz() {
+    this.props.toggleQuiz();
+  }
+
   pickRandomStudent() {
     this.lockOut(6);
     this.props.pickRandomStudent(this.props.subscribers, false);
   }
 
-  // name: 한준수
-  // date: 2022/07/27
-  // desc: 랜덤 지목 버튼을 일정 시간동안 비활성화 시켜주는 함수
-  // Todo: 호출 시 해당 버튼을 지정된 시간동안 disabled 해주는 함수
   lockOut(lockOutTime) {
     this.setState({ randAvailable: false });
     setTimeout(() => {
@@ -152,11 +146,7 @@ export default class ToolbarComponent extends Component {
     }, lockOutTime * 1000);
   }
 
-  toggleQuiz() {
-    this.props.toggleQuiz();
-  }
-
-  // lockOutSticker: 호출 시 칭찬스티커 버튼을 지정된 시간 (30초) 동안 disabled 해주는 함수
+  // lockOutSticker: 호출 시 칭찬스티커 버튼을 지정된 시간 (15초) 동안 disabled 해주는 함수
   lockOutSticker(lockOutTime) {
     this.setState({ stickerAvailable: false });
     setTimeout(() => {
@@ -166,7 +156,7 @@ export default class ToolbarComponent extends Component {
 
   startStickerEvent() {
     this.props.startStickerEvent();
-    this.lockOutSticker(31);
+    this.lockOutSticker(15);
   }
 
   toggleTeacherMenu() {
@@ -203,7 +193,7 @@ export default class ToolbarComponent extends Component {
     } else if (this.props.videoLayout === "screenShareOn") {
       return (
         <div className="buttonStyle">
-          <ScreenShare />
+          <ScreenIcon />
           <p>화면공유</p>
         </div>
       );
@@ -222,13 +212,10 @@ export default class ToolbarComponent extends Component {
         id={this.props.whoami === "teacher" ? "teacher-header" : "header"}
       >
         <Toolbar className="toolbar">
-          {this.props.sessionId && (
-            <div id="titleContent">
-              <span id="session-title">{mySessionId}</span>
-              <span id="session-title">
-                {this.props.classTitle} - {this.props.teacherName}
-              </span>
-            </div>
+          {mySessionId && (
+            // <div id="titleContent">
+            <span id="session-title">{mySessionId}</span>
+            // </div>
           )}
 
           <div className="buttonsContent">
@@ -240,12 +227,12 @@ export default class ToolbarComponent extends Component {
             >
               {localUser !== undefined && localUser.isAudioActive() ? (
                 <div className="buttonStyle">
-                  <Mic />
+                  <SoundIcon />
                   <p>음소거</p>
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <MicOff color="secondary" />
+                  <MuteIcon color="secondary" />
                   <p>음소거 해제</p>
                 </div>
               )}
@@ -259,18 +246,19 @@ export default class ToolbarComponent extends Component {
             >
               {localUser !== undefined && localUser.isVideoActive() ? (
                 <div className="buttonStyle">
-                  <Videocam />
+                  <VideoIcon />
                   <p>비디오 중지</p>
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <VideocamOff color="secondary" />
+                  <NoVideoIcon color="secondary" />
                   <p>비디오 시작</p>
                 </div>
               )}
             </IconButton>
 
-            {this.props.whoami === "teacher" && (
+            {/* {this.props.whoami === "teacher" && ( */}
+            {
               <IconButton
                 color="inherit"
                 className="navButton"
@@ -278,11 +266,11 @@ export default class ToolbarComponent extends Component {
                 onClick={this.toggleTeacherMenu}
               >
                 <div className="buttonStyle">
-                  <EmojiEmotionsIcon />
-                  <p>선생님 메뉴</p>
+                  <GameIcon />
+                  <p>게임</p>
                 </div>
               </IconButton>
-            )}
+            }
 
             {this.props.whoami === "teacher" && (
               <div className="teacher-toolbar">
@@ -292,8 +280,10 @@ export default class ToolbarComponent extends Component {
                   stickerAvailable={this.state.stickerAvailable}
                   pickRandomStudent={this.pickRandomStudent}
                   startStickerEvent={this.startStickerEvent}
+                  toggleStretching={this.toggleStretching}
                   toggleQuiz={this.toggleQuiz}
                   toggleTeacherMenu={this.toggleTeacherMenu}
+                  toggleConcentrationMenu={this.toggleConcentrationMenu}
                 />
               </div>
             )}
@@ -310,7 +300,7 @@ export default class ToolbarComponent extends Component {
                 </div>
               ) : (
                 <div className="buttonStyle">
-                  <ScreenShare />
+                  <ScreenIcon />
                   <p>화면공유</p>
                 </div>
               )}
@@ -331,7 +321,7 @@ export default class ToolbarComponent extends Component {
               onClick={this.toggleSetting}
             >
               <div className="buttonStyle">
-                <SettingsIcon />
+                <SettingIcon />
                 <p>설정</p>
               </div>
             </IconButton>
@@ -362,13 +352,13 @@ export default class ToolbarComponent extends Component {
               {localUser !== undefined
                 ? (this.props.videoLayout === "bigTeacher" && (
                     <div className="buttonStyle">
-                      <ViewAgenda />
+                      <OneIcon />
                       <p>선생님 위주</p>
                     </div>
                   )) ||
                   (this.props.videoLayout === "equalSize" && (
                     <div className="buttonStyle">
-                      <ViewArray />
+                      <SeperateIcon />
                       <p>동등분할</p>
                     </div>
                   )) ||
@@ -380,19 +370,6 @@ export default class ToolbarComponent extends Component {
                   ))
                 : null}
             </IconButton>
-            <Tooltip title={mySessionId} placement="bottom">
-              <IconButton
-                color="inherit"
-                onClick={this.openModal}
-                className="navButton"
-                id="navShareCodeButton"
-              >
-                <div className="buttonStyle">
-                  <Share />
-                  <p>{mySessionId}</p>
-                </div>
-              </IconButton>
-            </Tooltip>
             {this.props.whoami !== "teacher" ? (
               <IconButton
                 color="secondary"
@@ -401,7 +378,7 @@ export default class ToolbarComponent extends Component {
                 id="navLeaveButton"
               >
                 <div className="buttonStyle">
-                  <PowerSettingsNew />
+                  <ExitIcon />
                   <p>수업 나가기</p>
                 </div>
               </IconButton>
@@ -413,7 +390,7 @@ export default class ToolbarComponent extends Component {
                 id="navLeaveButton"
               >
                 <div className="buttonStyle">
-                  <PowerSettingsNew />
+                  <ExitIcon />
                   <p>수업 나가기</p>
                 </div>
               </IconButton>
@@ -426,7 +403,7 @@ export default class ToolbarComponent extends Component {
               id="navEmoji"
             >
               <div className="buttonStyle">
-                <EmojiEmotionsIcon />
+                <EmojiIcon />
                 <p>이모지</p>
               </div>
             </IconButton>
@@ -452,20 +429,8 @@ export default class ToolbarComponent extends Component {
                 {this.props.showQuestionNotification && (
                   <div id="questPoint" className="" />
                 )}
-                <SearchIcon />
+                <QuestionMarkIcon />
                 <p>익명질문</p>
-              </div>
-            </IconButton>
-
-            <IconButton
-              color="inherit"
-              onClick={this.toggleParticipant}
-              className="navButton"
-              id="navParticipantButton"
-            >
-              <div className="buttonStyle">
-                <PeopleIcon />
-                <p>참여자 목록</p>
               </div>
             </IconButton>
 
@@ -477,7 +442,7 @@ export default class ToolbarComponent extends Component {
             >
               <div className="buttonStyle">
                 {this.props.showNotification && <div id="point" className="" />}
-                <QuestionAnswer />
+                <ChatIcon />
                 <p>채팅</p>
               </div>
             </IconButton>

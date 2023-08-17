@@ -17,40 +17,42 @@ class UserModel {
   attendanceTime; // 접속 시간
   profile; // 프로필 이미지 정보
   uid; // 유저 아이디
-  levelPng; // 레벨에 맞는 사진 경로
   presentationCnt; // 발표 횟수
-  isPointDouble; // 더블퐁퐁 사용여부
+  concentration; // 집중도
+  concentrationList; // 집중도 임시 저장 리스트
+  total; // 집중도 총합
 
   constructor() {
-    this.connectionId = '';
+    this.connectionId = "";
     this.audioActive = true;
     this.videoActive = true;
-    this.uid = '';
+    this.uid = "";
     this.screenShareActive = false;
-    this.nickname = '';
+    this.nickname = "";
     this.streamManager = null;
-    this.type = 'local';
+    this.type = "local";
     this.picked = false;
-    this.point = 0;
-    this.emoji = '';
+    this.emoji = "";
     this.frameColor = {
-      type: 'style',
+      type: "style",
       value: {
-        border: '10px solid gray',
-        borderRadius: '15px',
-        backgroundImage: 'var(--gray)',
-        backgroundOrigin: 'border-box',
-        backgroundClip: 'content-box, border-box',
+        border: "10px solid gray",
+        borderRadius: "15px",
+        backgroundImage: "var(--gray)",
+        backgroundOrigin: "border-box",
+        backgroundClip: "content-box, border-box",
         // margin: '10px',
       },
     }; // {type: "style", value: {border: "8px solid #F8CBD3"}}; // { type: "color", value: "#F8CBD3" };
     this.smile = false;
     this.outAngle = false;
-    this.attendanceTime = '00:00:00';
-    this.profile = '';
-    this.levelPng = '';
+    this.attendanceTime = "00:00:00";
+    this.profile = "";
+    this.levelPng = "";
     this.presentationCnt = 0;
-    this.isPointDouble = false;
+    this.concentration = 0;
+    this.concentrationList = [0, 0, 0];
+    this.total = 0;
   }
   // 추가 함수
   isSmileActive() {
@@ -80,10 +82,6 @@ class UserModel {
 
   isScreenShareActive() {
     return this.screenShareActive;
-  }
-
-  getPoint() {
-    return this.point;
   }
 
   getPresentationCnt() {
@@ -116,13 +114,8 @@ class UserModel {
   getLevelPng() {
     return this.levelPng;
   }
-
-  getisPointDouble() {
-    return this.isPointDouble;
-  }
-
   isLocal() {
-    return this.type === 'local';
+    return this.type === "local";
   }
   isRemote() {
     return !this.isLocal();
@@ -150,9 +143,6 @@ class UserModel {
   setPicked(picked) {
     this.picked = picked;
   }
-  setPoint(point) {
-    this.point = point;
-  }
 
   setPresentationCnt(presentationCnt) {
     this.presentationCnt = presentationCnt;
@@ -166,7 +156,7 @@ class UserModel {
   }
 
   setType(type) {
-    if ((type === 'local') | (type === 'remote')) {
+    if ((type === "local") | (type === "remote")) {
       this.type = type;
     }
   }
@@ -179,22 +169,6 @@ class UserModel {
     this.attendanceTime = attendanceTime;
   }
 
-  setLevelPng(levelPng) {
-    this.levelPng = levelPng;
-  }
-
-  setIsPointDouble(isPointDouble) {
-    this.isPointDouble = isPointDouble;
-  }
-
-  upPoint() {
-    ++this.point;
-  }
-
-  downPoint() {
-    if (this.point > 0) --this.point;
-  }
-
   upPresentationCnt() {
     ++this.presentationCnt;
   }
@@ -202,6 +176,49 @@ class UserModel {
   downPresentationCnt() {
     --this.presentationCnt;
   }
+
+  getConcentration() {
+    return this.concentration;
+  }
+
+  getConcentrationList(){
+    return this.concentrationList;
+  }
+
+  getTotal() {
+    return this.total;
+  }
+
+  setConcentration(concentration) {
+    this.concentration = concentration;
+  }
+
+  setTotal(concentration) {
+    // this.concentrationList.push(concentration);
+    this.concentrationList[concentration] ++;
+    // this.total = this.concentrationList.reduce((a, b) => a + b, 0) / this.concentrationList.length;
+
+    console.log(this.concentrationList);
+
+    // 집중하지 않는 인원 수
+    const con0 = this.concentrationList[0];
+
+    console.log("con0", con0)
+
+    // 집중하는 인원 수
+    const con1 = this.concentrationList[1];
+    console.log("con1", con1)
+
+    // 매우 집중하는 인원 수
+    const con2 = this.concentrationList[2];
+    console.log("con2", con2)
+
+    // 총 집중 수
+    const n = con0 + con1 + con2;
+
+    this.total = parseInt(50 + ((5 * n) - 5 * con0 - 3 * con1) * (10 / n));
+  }
+
 }
 
 export default UserModel;

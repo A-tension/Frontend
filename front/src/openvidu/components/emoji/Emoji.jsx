@@ -4,7 +4,7 @@ import InterceptedAxios from "../../../utils/iAxios";
 import "./Emoji.css";
 
 const Emoji = (props) => {
-  const { display, toggleEmoji, sendEmoji, header, emoji, whoami, id } = props;
+  const { display, toggleEmoji, sendEmoji, header, whoami, id } = props;
 
   // let emotions = [];
   const [emotions, setEmotions] = useState([]);
@@ -56,7 +56,7 @@ const Emoji = (props) => {
           return (
             <img
               key={index}
-              src={"../reactions/" + e + ".gif"}
+              src={"../../public/reactions/" + e + ".gif"}
               onClick={() => {
                 onClickEmotion(e);
               }}

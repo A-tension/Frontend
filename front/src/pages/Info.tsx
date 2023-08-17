@@ -1,6 +1,5 @@
 import { Col, FloatingLabel, Button, Form, Image } from "react-bootstrap";
 import RoundCard from "../components/atoms/RoundCard";
-import fillerImg from "../assets/Memoji.png";
 import { useAppSelector } from "../store/hooks";
 import { selectUser } from "../store/user";
 import { useState , useEffect} from "react";
@@ -10,14 +9,17 @@ import {UserProfileUpdateDTO, UserResponseDTO} from "../api/user/types.tsx";
 interface Edit {
   name: string;
   profileImage: string;
+  email: string;
 
 }
 function Info() {
   const loginUser = useAppSelector(selectUser);
+  console.log(loginUser);
   const [isEdit, setMode] = useState(false);
   const [data, setData] = useState<Edit>({
     name: loginUser.name || "",
     profileImage: loginUser.profileImage || "",
+    email : loginUser.email || "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,11 +30,13 @@ function Info() {
     }));
   };
 
+  // 정보 수정 함수
   const handleEdit = async () => {
     try {
       const userProfileUpdateDto : UserProfileUpdateDTO = {
         name : data.name,
         profileImage : data.profileImage,
+        email : data.email,
       }
       await updateUserProfile<UserResponseDTO>(
         userProfileUpdateDto
@@ -60,7 +64,9 @@ function Info() {
         setData({
           name: userProfile.name,
           profileImage: userProfile.profileImage,
+          email : userProfile.email,
         });
+        console.log(" useEffect, userProfile = ", userProfile);
       } catch (error) {
         console.error(error);
       }
@@ -78,7 +84,7 @@ function Info() {
           <Col className="d-flex flex-column  align-items-center  justify-content-center">
             <div>
               <Image
-                  src={fillerImg}
+                  src={loginUser.profileImage}
                   fluid
                   roundedCircle
                   width={200}
@@ -100,16 +106,23 @@ function Info() {
                     value={data.name}
                 />
               </FloatingLabel>
-              <FloatingLabel label="프로필이미지">
+                           
+{/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
+<FloatingLabel label="이메일" >
                 <Form.Control
-                    name="profileImage"
-                    readOnly={!isEdit}
+                    name="email"
+                    readOnly
+                    disabled
                     onChange={handleInputChange}
-                    value={data.profileImage}
-                    type="text"
+                    value={data.email}
                 />
               </FloatingLabel>
-              <FloatingLabel label="meetingURL">
+              
+
+{/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
+<FloatingLabel label="meetingURL">
                 <Form.Control
                     readOnly
                     disabled
@@ -117,15 +130,10 @@ function Info() {
                     defaultValue={loginUser.meetingUrl}
                 />
               </FloatingLabel>
+              
+              {/* 빈 줄 추가 */}
+<div style={{ margin: "20px 0" }}></div>
 
-              <FloatingLabel label="이메일">
-                <Form.Control
-                    readOnly
-                    disabled
-                    type="email"
-                    defaultValue={loginUser.email}
-                />
-              </FloatingLabel>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 {isEdit ? (
                     <Button variant="outline-primary" onClick={handleEdit}>

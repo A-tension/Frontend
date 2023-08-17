@@ -7,16 +7,15 @@ import { Item } from "./item.ts";
 
 
 export interface User {
-  userId: UUID | "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
-  nickname?: string | "";
-  email?: string | "";
-  name?: string | "";
+  userId?: UUID; //| "c5e0d81b-9eef-4b8c-9f11-153be5b18c2c";
+  nickname?: string ;
+  email?: string;// | "";
+  name?: string;// | "";
   profileImage?: string;
-  tickets?: number; // 뽑기권
+  ticket?: number; // 뽑기권
   meetingUrl?: string;
   myItems?: Item[];
   myGroups?: Team[];
-  isLoggedIn?: boolean | false;
 }
 
 const initialState: User = {
@@ -24,11 +23,10 @@ const initialState: User = {
   email: "",
   name: "",
   profileImage: "",
-  tickets: 0,
+  ticket: 0,
   meetingUrl: "",
   myItems: [],
   myGroups: [],
-  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -42,7 +40,10 @@ export const userSlice = createSlice({
     },
 
     addItem: (state, action: PayloadAction<Item>) => {
-      state.user.myItems.push(action.payload); // myItems 배열에 아이템 추가
+      state.myItems?.push(action.payload); // myItems 배열에 아이템 추가
+    },
+    checkTickets: (state, action) => {
+      state.ticket = action.payload;
     },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
@@ -68,7 +69,7 @@ export const userSlice = createSlice({
         email,
         name,
         profileImage,
-        tickets,
+        ticket,
         meetingUrl,
         myItems,
         myGroups,
@@ -77,7 +78,7 @@ export const userSlice = createSlice({
       state.email = email;
       state.name = name;
       state.profileImage = profileImage;
-      state.tickets = tickets;
+      state.ticket = ticket;
       state.meetingUrl = meetingUrl;
       state.myItems = myItems;
       state.myGroups = myGroups;
@@ -85,6 +86,9 @@ export const userSlice = createSlice({
     },
     userLogout: () => {
       console.log("log out call");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      
       return initialState; // 그냥 refresh/redirect to front page 가 나을 지도?
     },
     userRefresh: () => {
@@ -100,10 +104,10 @@ export const userSlice = createSlice({
 });
 //action - dispatch
 
-export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem, checkTickets } = userSlice.actions;
 
 //getters
-export const checkTickets = (state: RootState) => state.user.tickets;
+export const checkTicket = (state: RootState) => state.user.ticket;
 export const getUserId = (state: RootState) => state.user.userId;
 export const selectUser = (state: RootState) => state.user;
 export const checkAuthority = (state: RootState) => state.user.isLoggedIn;

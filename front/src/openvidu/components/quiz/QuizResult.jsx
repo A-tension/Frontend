@@ -72,11 +72,11 @@ class QuizResult extends Component {
             <div className="resultContent">
               <div className="resultAnwerContent">
                 <div className="answerBox">
-                  <p style={{ color: '#029371' }}>O</p>
+                  <p style={{ color: '#2569E1FF' }}>O</p>
                   <p>{this.state.quiz.answerA1} 표</p>
                 </div>
                 <div className="answerBox">
-                  <p style={{ color: '#D43959' }}>X</p>
+                  <p style={{ color: '#f37c7c' }}>X</p>
                   <p>{this.state.quiz.answerA2} 표</p>
                 </div>
               </div>
@@ -89,19 +89,19 @@ class QuizResult extends Component {
             <div className="resultContent">
               <div className="resultAnwerContent">
                 <div className="answerBox">
-                  <p style={{ color: '#D43959' }}>{this.state.quiz.A1}</p>
+                  <p style={{ color: '#2569E1FF' }}>{this.state.quiz.A1}</p>
                   <p>{this.state.quiz.answerA1} 표</p>
                 </div>
                 <div className="answerBox">
-                  <p style={{ color: '#029371' }}>{this.state.quiz.A2}</p>
+                  <p style={{ color: '#f37c7c' }}>{this.state.quiz.A2}</p>
                   <p>{this.state.quiz.answerA2} 표</p>
                 </div>
                 <div className="answerBox">
-                  <p style={{ color: '#D28945' }}>{this.state.quiz.A3}</p>
+                  <p style={{ color: '#c47bd5' }}>{this.state.quiz.A3}</p>
                   <p>{this.state.quiz.answerA3} 표</p>
                 </div>
                 <div className="answerBox">
-                  <p style={{ color: '#2A69A6' }}>{this.state.quiz.A4}</p>
+                  <p style={{ color: '#c0efaf' }}>{this.state.quiz.A4}</p>
                   <p>{this.state.quiz.answerA4} 표</p>
                 </div>
               </div>

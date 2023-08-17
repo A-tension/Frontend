@@ -1,13 +1,11 @@
 import { Button, Card, Col } from "react-bootstrap";
 import { Team } from "../Group";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addPlans, getPlanlist, planCreateTest } from "../../store/plan";
-import { planResponseDto } from "../../api/plan/types";
-import { AxiosResponse } from "axios";
+import { useAppDispatch } from "../../store/hooks";
+import { addPlans, reloadPlans } from "../../store/plan";
+import { PlanResponseDto } from "../../api/plan/types";
 import { getTeamPlan } from "../../api/plan/planApi";
 import { useEffect, useState } from "react";
-import { addDetail } from "../../store/group";
 interface Props {
   teamProp?: Team;
 }
@@ -15,25 +13,21 @@ function Plans(props: Props) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const goCreate = () => {
-    navigate("/dash/calendar", { state: { group: props.teamProp,tab:"add" } });
+    navigate("/dash/calendar", { state: { group: props.teamProp, tab:"add" } });
   };
 
-  const thisTeamId =
-    typeof props.teamProp?.teamId === typeof BigInt
-      ? props.teamProp?.teamId
-      : 0n;
+  const thisTeamId = props.teamProp?.teamId;
 
-  const [groupPlan, setPlan] = useState<planResponseDto[]>([]);
+  const [groupPlan, setPlan] = useState<PlanResponseDto[]>([]);
   useEffect(() => {
     const loadGroupPlan = () => {
       if (thisTeamId) {
         //async await
-        const groupPlan = getTeamPlan<planResponseDto[]>(thisTeamId);
-        groupPlan.then((result) => {
+       getTeamPlan<PlanResponseDto[]>(thisTeamId).then((result) => {
           //result 에 await 붙이고 async는 그걸 실행하는 큰 함수에
           console.log(result.data);
           const loadedGroupPlan = result.data.data;
-          dispatch(addPlans(loadedGroupPlan));
+          dispatch(reloadPlans(loadedGroupPlan));
           setPlan(loadedGroupPlan);
         });
       }
@@ -43,13 +37,13 @@ function Plans(props: Props) {
 
   // const plans = useAppSelector(getPlanlist);
 
-  const planList = groupPlan.map((plan, index) => (
+  const planList = groupPlan?.map((plan, index) => (
     <div
       // onClick={}
       key={index}
       style={{
         display: "flex",
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#ECF3FC",
         borderRadius: "6px",
         padding: "10px",
         marginBottom: "10px",

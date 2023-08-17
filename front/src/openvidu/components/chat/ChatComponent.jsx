@@ -3,9 +3,15 @@ import CloseBtn from "@material-ui/icons/Close";
 import Send from "../../assets/images/uil_message.png";
 // import defaultProfile from "@assets/images/defaultProfile.jpeg";
 import "./ChatComponent.css";
+// import { log } from "console";
+import user from "../../../store/user";
+import { selectUser } from "../../../store/user";
+import { connect } from 'react-redux';
+import GhostImage from "../toolbar/iconComponents/img/ghostIcon.png";
+import RobotImage from "../toolbar/iconComponents/img/robotIcon.png";
 
 // ChatComponent: 채팅 관련 컴포넌트
-export default class ChatComponent extends Component {
+export class ChatComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,50 +34,50 @@ export default class ChatComponent extends Component {
     // 채팅이 날아올 때 메시지리스트에 들어온 요청 등록하기
     // 전체채팅
     this.props.user
-      .getStreamManager()
-      .stream.session.on("signal:chat", (event) => {
-        const data = JSON.parse(event.data);
-        let messageList = this.state.messageList;
-        messageList.push({
-          connectionId: event.from.connectionId,
-          nickname: data.nickname,
-          time: this.convert12(),
-          message: data.message,
-          type: "chat",
-          levelPng: data.levelPng,
-          profile: data.profile,
-        });
-        const document = window.document;
-        setTimeout(() => {
-          this.props.messageReceived();
-        }, 50);
-        this.setState({ messageList: messageList });
-        this.scrollToBottom();
+        .getStreamManager()
+        .stream.session.on("signal:chat", (event) => {
+      const data = JSON.parse(event.data);
+      let messageList = this.state.messageList;
+      messageList.push({
+        connectionId: event.from.connectionId,
+        nickname: data.nickname,
+        time: this.convert12(),
+        message: data.message,
+        type: "chat",
+        levelPng: data.levelPng,
+        profile: data.profile,
       });
+      const document = window.document;
+      setTimeout(() => {
+        this.props.messageReceived();
+      }, 50);
+      this.setState({ messageList: messageList });
+      this.scrollToBottom();
+    });
 
     // 귓속말
     this.props.user
-      .getStreamManager()
-      .stream.session.on("signal:private-chat", (event) => {
-        const data = JSON.parse(event.data);
-        let messageList = this.state.messageList;
-        messageList.push({
-          connectionId: event.from.connectionId,
-          nickname: data.nickname,
-          time: this.convert12(),
-          message: data.message,
-          type: "private-chat",
-          target: data.target,
-          levelPng: data.levelPng,
-          profile: data.profile,
-        });
-        const document = window.document;
-        setTimeout(() => {
-          this.props.messageReceived();
-        }, 50);
-        this.setState({ messageList: messageList });
-        this.scrollToBottom();
+        .getStreamManager()
+        .stream.session.on("signal:private-chat", (event) => {
+      const data = JSON.parse(event.data);
+      let messageList = this.state.messageList;
+      messageList.push({
+        connectionId: event.from.connectionId,
+        nickname: data.nickname,
+        time: this.convert12(),
+        message: data.message,
+        type: "private-chat",
+        target: data.target,
+        levelPng: data.levelPng,
+        profile: data.profile,
       });
+      const document = window.document;
+      setTimeout(() => {
+        this.props.messageReceived();
+      }, 50);
+      this.setState({ messageList: messageList });
+      this.scrollToBottom();
+    });
   }
 
   // handleChange: 메시지를 입력할 때마다 작동하는 현재 작성 메시지 변경 이벤트 핸들러
@@ -102,7 +108,7 @@ export default class ChatComponent extends Component {
             nickname: this.props.user.getNickname(),
             streamId: this.props.user.getStreamManager().stream.streamId,
             levelPng: this.props.levelPng,
-            profile: this.props.profile,
+            profile: this.props.loginUser.profileImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -117,7 +123,7 @@ export default class ChatComponent extends Component {
             streamId: this.props.user.getStreamManager().stream.streamId,
             target: this.state.messageTarget.nickname,
             levelPng: this.props.levelPng,
-            profile: this.props.profile,
+            profile: this.props.loginUser.profileImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -135,7 +141,7 @@ export default class ChatComponent extends Component {
     setTimeout(() => {
       try {
         this.chatScroll.current.scrollTop =
-          this.chatScroll.current.scrollHeight;
+            this.chatScroll.current.scrollHeight;
       } catch (err) {}
     }, 20);
   }
@@ -150,22 +156,18 @@ export default class ChatComponent extends Component {
     this.props.close(undefined);
   }
 
-  // name: 오석호
   // date: 2022/08/04
   // desc: 메시지 전송 대상을 변경하는 함수
   changeTarget(e) {
     if (e.target.value === "all") this.setState({ messageTarget: "all" });
     else {
       const target = this.props.subscribers.filter(
-        (elem) => elem.nickname === e.target.value,
+          (elem) => elem.nickname === e.target.value,
       );
       this.setState({ messageTarget: target[0] });
     }
   }
 
-  // name: 오석호
-  // date: 2022/08/04
-  // desc: 시간 계산용 함수
   convert12() {
     const time = new Date();
     let hours = time.getHours();
@@ -176,123 +178,125 @@ export default class ChatComponent extends Component {
     return msg;
   }
 
+
+
   // render: 렌더링을 담당하는 함수
   render() {
+      // this.props.loginUser로 사용 가능
+      const { loginUser } = this.props;
+      console.log(loginUser);
+      const profileImage = loginUser.profileImage;
+
     const styleChat = { display: this.props.chatDisplay };
     return (
-      <div id="chatContainer" ref={this.chatHeight}>
-        <div id="chatComponent" style={styleChat}>
-          {/* 툴바 */}
-          <div id="chatToolbar">
-            <span>채팅창</span>
-            <CloseBtn id="closeButton" onClick={this.close} alt="채팅창 닫기" />
-          </div>
-          {/* 메시지 */}
-          <div className="message-wrap" ref={this.chatScroll}>
-            {this.state.messageList.map((data, i) => (
-              <div
-                key={i}
-                id="remoteUsers"
-                className={
-                  "message" +
-                  (data.connectionId !== this.props.user.getConnectionId() ||
-                  data.nickname === "System"
-                    ? " left"
-                    : " right") +
-                  (data.type === "chat" ? "" : " whisper")
-                }
-              >
-                <img
-                  src={
-                    data.nickname === "System"
-                      ? "/img/bot.png"
-                      : data.profile ===
-                          "https://test-ppc-bucket.s3.ap-northeast-2.amazonaws.com/null" ||
-                        data.profile ===
-                          "https://test-ppc-bucket.s3.ap-northeast-2.amazonaws.com/"
-                      ? defaultProfile
-                      : data.profile
-                  }
-                  className="user-img"
-                  alt="프로필사진"
-                />
-                {/* <canvas
-                  id={'userImg-' + i}
-                  width="60"
-                  height="60"
-                  className="user-img"
-                /> */}
-                <div className="msg-detail">
-                  <div className="msg-info">
-                    <p className="msg-nickname">
-                      <span>
-                        {data.nickname !== "System" && (
-                          <img
-                            src={data.levelPng}
-                            alt="레벨짤"
-                            className="level-png"
-                          />
-                        )}
-                      </span>
-                      {data.target
-                        ? data.nickname + " ▶ " + data.target
-                        : data.nickname}
-                    </p>
-                  </div>
-                  <div className="msg-content-wrap">
-                    <div
+        <div id="chatContainer" ref={this.chatHeight}>
+          <div id="chatComponent" style={styleChat}>
+            <div id="chatToolbar">
+              <span>채팅창</span>
+            </div>
+            <div className="message-wrap" ref={this.chatScroll}>
+              <div className="message-divider"></div>
+              {this.state.messageList.map((data, i) => (
+                  <div
+                      key={i}
+                      id="remoteUsers"
                       className={
-                        data.nickname === "System"
-                          ? `msg-content system`
-                          : `msg-content`
+                          "message" +
+                          (data.connectionId !== this.props.user.getConnectionId() ||
+                          data.nickname === "System"
+                              ? " left"
+                              : " right") +
+                          (data.type === "chat" ? "" : " whisper")
                       }
-                    >
-                      <span className="triangle" />
-                      <p className="text">{data.message}</p>
-                    </div>
-                    <div className="msg-time">
-                      <span>{data.time}</span>
+                  >
+                    <img
+  src={
+    data.nickname === "System"
+      ? "../toolbar/iconComponents/img/robotIcon.png"
+      : data.profile === profileImage ||
+        data.profile === profileImage
+      ? profileImage
+      : GhostImage
+  }
+  className="user-img"
+  alt="프로필사진"
+/>
+
+                    <div className="msg-detail">
+                      <div
+                          className={
+                            data.connectionId === this.props.user.getConnectionId()
+                                ? "msg-content my-message"
+                                : "msg-content other-message"
+                          }
+                      >
+                        <div className="msg-nickname">
+                      <span
+                          className={
+                            data.connectionId === this.props.user.getConnectionId()
+                                ? "my-nickname"
+                                : "other-nickname"
+                          }
+                      >
+                        {data.target
+                            ? data.nickname + " ▶ " + data.target
+                            : data.nickname}
+                      </span>
+                        </div>
+                        <div className="msg-text">{data.message}</div>
+                        <div className="msg-time">{data.time}</div>
+                        {/* <span className="triangle" /> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div id="whisper">
-            <select
-              id="demo-simple-select-outlined"
-              className="select-box"
-              onChange={this.changeTarget}
-            >
-              <option defaultValue="all" className="menu-item-box">
-                all
-              </option>
-              {this.props.subscribers.map((sub, i) => (
-                <option value={sub.nickname} key={i}>
-                  {sub.nickname}
-                </option>
               ))}
-            </select>
-          </div>
-          {/* 메시지 입력창 */}
-          <div id="messageInput">
+            </div>
+            <div id="whisper">
+              <select
+                  id="demo-simple-select-outlined"
+                  className="select-box"
+                  onChange={this.changeTarget}
+              >
+                <option defaultValue="all" className="menu-item-box">
+                  all
+                </option>
+                {this.props.subscribers.map((sub, i) => (
+                    <option value={sub.nickname} key={i}>
+                      {sub.nickname}
+                    </option>
+                ))}
+              </select>
+            </div>
+            <div id="messageInput">
             <textarea
-              placeholder="채팅 메세지를 입력하세요."
-              id="chatInput"
-              onChange={this.handleChange}
-              onKeyPress={this.handlePressKey}
-              maxLength="200"
-              value={this.state.message}
+                placeholder="메세지를 입력해 주세요."
+                id="chatInput"
+                onChange={this.handleChange}
+                onKeyPress={this.handlePressKey}
+                maxLength="200"
+                value={this.state.message}
             />
-            <img
-              src={Send}
-              id="sendButton"
-              alt="전송버튼"
-              onClick={this.sendMessage}
-            />
+              <img
+                  src={Send}
+                  id="sendButton"
+                  alt="전송버튼"
+                  onClick={this.sendMessage}
+              />
+            </div>
           </div>
         </div>
-      </div>
     );
   }
+
+  
 }
+
+// mapStateToProps 함수를 사용하여 Redux store와 컴포넌트를 연결
+const mapStateToProps = (state) => {
+  return {
+    loginUser: selectUser(state),
+  };
+};
+
+// mapStateToProps 함수를 사용하여 Redux store와 컴포넌트를 연결하고 내보냅니다.
+export default connect(mapStateToProps)(ChatComponent);

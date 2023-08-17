@@ -20,12 +20,14 @@ export interface teamDetail{
 export interface createTeamRequestBody{
     name : string,
     userIdList : UUID[],
+    description:string,
 }
 
 export interface teamResponseDto {
     teamId : number,
     name : string,
     profileImage : string,
+    description : string,
 }
 
 
