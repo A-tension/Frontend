@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as faceApi from "@vladmandic/face-api";
 import LoadingBar from "./components/items/LoadingBar";
 import Smile from "./assets/images/giphy_smile.gif";
+import Warning from "./components/toolbar/iconComponents/img/warningIcon.png";
 
 export default class FaceDetection extends Component {
   video = React.createRef();
@@ -77,17 +78,16 @@ export default class FaceDetection extends Component {
       inputSize: 512,
       scoreThreshold: 0.5,
     });
-    
+
     const result = await faceApi
       .detectSingleFace(this.video.current, options)
       .withFaceLandmarks()
       .withFaceExpressions();
     if (!result) {
-      console.log("사용자가 집중하지 않습니다.")
+      console.log("사용자가 집중하지 않습니다.");
       // this.props.concentration = 0;
       this.props.concentrationEvent(0);
       // this.setState(() => ({ concentration: 0}));
-
     }
     if (result) {
       console.log(result);
@@ -175,7 +175,7 @@ export default class FaceDetection extends Component {
                   alt={"HI"}
                 ></img>
               ) : (
-                <LoadingBar msg={"😁 3초후 이모지 사용"} />
+                <div />
               )}
             </h1>
             <h1
@@ -187,16 +187,12 @@ export default class FaceDetection extends Component {
               }}
             >
               {this.state.face < 3 ? null : this.state.face > 5 ? (
-                <p
-                  style={{
-                    width: "10%",
-                    height: "10%",
-                  }}
-                >
-                  🚫
-                </p>
+                <img
+                  src={Warning}
+                  style={{ width: "100px", height: "100px" }}
+                />
               ) : (
-                <LoadingBar msg={"🚫 3초후 자리비움 설정"} />
+                <div />
               )}
             </h1>
             <div style={{ width: "0px", height: "0px" }}>
