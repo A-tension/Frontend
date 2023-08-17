@@ -96,6 +96,7 @@ const Gcreate = (props: Props) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "members") {
+      const memberArray = value.split(",").map((member) => member.trim());
       const search = searchUser<UserSearchResponseDto[]>(value);
       search.then(function (result) {
         if (result.data.data !== undefined) {
