@@ -8,17 +8,19 @@
 #questionToolbar {
   position: relative;
   height: 30px;
-  background: #2b5876; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
+  background: #D4E5FA; /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(
     to bottom,
     #ffffff,
     #ECF3FC
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
+  );  */
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: -webkit-linear-gradient(
     to bottom,
     #ffffff,
     #ECF3FC
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  );  */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   box-sizing: border-box;
   font-weight: bold;
@@ -27,7 +29,7 @@
   padding-top: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  color: #ffffff;
+  color: #D4E5FA;
 }
 
 #closeButton {
@@ -42,7 +44,7 @@
 }
 
 #questionComponent {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #D4E5FA;
   position: absolute;
   z-index: 99999;
   top: 0;
@@ -59,6 +61,7 @@
   padding: 0 15px;
   height: calc(96% - 135px);
   overflow: auto;
+  background-color: #D4E5FA;
 }
 
 .message {
@@ -148,11 +151,11 @@ span.triangle {
 
 .message.left .user-img {
   left: -5px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #FFFFFF;
 }
 
 .message.left .msg-detail .msg-content {
-  background-color: #f0f0f0;
+  background-color: #FFFFFF;
   float: left;
 }
 
@@ -167,7 +170,7 @@ span.triangle {
 }
 
 .message.left .msg-detail .msg-content span.triangle {
-  background-color: #f0f0f0;
+  background-color: #FFFFFF;
   border-bottom-width: 0;
   border-left-width: 0;
   left: -5px;
@@ -186,15 +189,15 @@ span.triangle {
 }
 .message.right .user-img {
   right: -5px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #FFFFFF;
 }
 
 .message.right .msg-detail .msg-content {
-  background-color: #f0f0f0;
+  background-color: #FFFFFF;
   float: right;
 }
 .message.right .msg-detail .msg-content span.triangle {
-  background-color: #f0f0f0;
+  background-color: #FFFFFF;
   border-bottom-width: 0;
   border-left-width: 0;
   right: -5px;
@@ -239,7 +242,7 @@ span.triangle {
   bottom: 1rem;
   width: 94%;
   height: 60px;
-  background-color: rgba(255, 255, 255, 0.73);
+  background-color: #;
   text-align: center;
   padding: 10px 0px;
   border-radius: 1rem;
@@ -281,7 +284,7 @@ span.triangle {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #696969;
+  background-color: #176DEE;
 }
 
 .chatComponentLight ::-webkit-scrollbar-thumb {
