@@ -17,15 +17,15 @@ interface Props {
 import { useLocation } from "react-router-dom";
 
 function Header(props: Props) {
+
   const location = useLocation();
   const isConferencePage = location.pathname === "/conference";
   if (isConferencePage) {
     return null;
   }
-  // NAV는 common에 들어가야 할까?
+  
   // const [navBar, showNavBar] = useState(true);
   const isLogin = useAppSelector(checkAuthority);
-  // 화면 전환해서 회의 참여시에 헤더 어떻게 숨길지 생각해보기? if true else return?
   const dispatch = useAppDispatch();
 
   const handleMain = () => {
