@@ -11,6 +11,7 @@ import { Item, addItem } from "../../store/item";
 import choose from "../../assets/choose.png";
 import colors from "../../assets/rainbow.png";
 import pass from "../../assets/pass.png";
+
 // <!-- import draw from "../../assets/draw_ticket.png"; // 경로를 수정하여 import -->
 
 function Draw() {
@@ -26,15 +27,15 @@ function Draw() {
   const handleButtonClick = async () => {
     // 버튼을 누르면 함수 실행
     setButtonClicked(true);
-    setShow(true);
+    // setShow(true);
     try {
       // getRandomItem 함수 호출
       const response = await getRandomItem(); // getRandomItem 함수를 실행하고 응답을 받음
       console.log(response);
       // 추가적인 동작을 수행 (아이템 뽑기 성공 등)
       dispatch(checkTickets(user.ticket - 1));
-      console.log("response = ", response);
-      console.log(response.data);
+    //   console.log("response = ", response);
+    //   console.log(response.data);
       const newItem = response.data.data;
       const item: Item = {
         name: newItem.name,
@@ -47,7 +48,7 @@ function Draw() {
       pick(item);
       handleShow();
     } catch (error) {
-      console.error("Error while getting random item:", error);
+    //   console.error("Error while getting random item:", error);
       // 실패 시에 대한 처리 (예: 오류 메시지 표시)
     }
   };
@@ -199,10 +200,11 @@ function Draw() {
           </div>
         </div>
       </div>
+      <DrawModal></DrawModal>
       {buttonClicked && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           {/* <p>아이템 뽑기 성공!</p> */}
-          <DrawModal></DrawModal>
+          
           {/* 추가적인 내용을 여기에 추가가능 */}
         </div>
       )}
