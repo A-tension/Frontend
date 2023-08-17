@@ -3,6 +3,7 @@ import CloseBtn from "@material-ui/icons/Close";
 import Send from "../../assets/images/uil_message.png";
 import "./QuestionComponent.css";
 import QuestionMarkIcon from "../toolbar/iconComponents/img/questionMarkIcon.png";
+import SendImage from "../toolbar/iconComponents/img/SendIcon.png";
 
 // QuestionComponent: 질문 관련 컴포넌트
 export default class QuestionComponent extends Component {
@@ -138,11 +139,7 @@ export default class QuestionComponent extends Component {
                     : " right")
                 }
               >
-                <img
-                  src={QuestionMarkIcon}
-                  className="user-img"
-                  alt=""
-                ></img>
+                <img src={QuestionMarkIcon} className="user-img" alt=""></img>
                 {/* <canvas
                   id={'userImg-' + i}
                   width="60"
@@ -177,7 +174,7 @@ export default class QuestionComponent extends Component {
           {/* 메시지 입력창 */}
           <div id="messageInput">
             <textarea
-              placeholder="채팅 메세지를 입력하세요."
+              placeholder="질문을 입력하세요."
               id="chatInput"
               onChange={this.handleChange}
               onKeyPress={this.handlePressKey}
@@ -185,7 +182,7 @@ export default class QuestionComponent extends Component {
               value={this.state.question}
             />
             <img
-              src={Send}
+              src={SendImage}
               id="sendButton"
               alt="전송버튼"
               onClick={this.sendQuestion}
