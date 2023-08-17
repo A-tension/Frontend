@@ -51,7 +51,7 @@ class UserModel {
     this.levelPng = "";
     this.presentationCnt = 0;
     this.concentration = 0;
-    this.concentrationList = [0, 0, 0];
+    this.concentrationList = [0, 0, 0, 0, 0, 0];
     this.total = 0;
   }
   // 추가 함수
@@ -61,6 +61,18 @@ class UserModel {
 
   setSmileActive(isSmile) {
     this.smile = isSmile;
+    if (isSmile) {
+      this.concentrationList[3]++;
+      this.concentrationList[4]--;
+      console.log("smile")
+      console.log(this.concentrationList)
+    }
+    else {
+      this.concentrationList[3]--;
+      this.concentrationList[4]++;
+      console.log("smile x")
+      console.log(this.concentrationList)
+    }
   }
 
   isOutAngleActive() {
@@ -125,6 +137,16 @@ class UserModel {
   }
   setVideoActive(isVideoActive) {
     this.videoActive = isVideoActive;
+    if (isVideoActive) {
+      this.concentrationList[4]++;
+      console.log("참가자 추가")
+      console.log(this.concentrationList)
+    }
+    else {
+      this.concentrationList[4]--;
+      console.log("참가자 나가기")
+      console.log(this.concentrationList)
+    }
   }
   setScreenShareActive(isScreenShareActive) {
     this.screenShareActive = isScreenShareActive;

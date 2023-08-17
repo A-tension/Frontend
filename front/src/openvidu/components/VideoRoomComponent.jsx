@@ -115,7 +115,7 @@ class VideoRoomComponent extends Component {
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
       concentration: concentration,
-      concentrationList: [0, 0, 0],
+      concentrationList: [0, 0, 0, 0, 0, 0],
       total: 0,
       concentrationDisplay: false,
     };
@@ -679,7 +679,6 @@ class VideoRoomComponent extends Component {
             }
           }
           if (data.isSmileActive !== undefined) {
-            console.log(data.isSmileActive ? "웃음" : "안웃음")
             user.setSmileActive(data.isSmileActive);
           }
           if (data.isOutAngleActive !== undefined) {
