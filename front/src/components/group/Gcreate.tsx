@@ -70,7 +70,7 @@ const Gcreate = (props: Props) => {
     setUserList([]); // userList 초기화
     console.log(selectedUsers);
   };
-  const [groupData, setGroupData] = useState<GroupCreateData|Team>({
+  const [groupData, setGroupData] = useState<GroupCreateData | Team>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
     description: props.teamProp?.description ? props.teamProp.description : "",
@@ -85,7 +85,7 @@ const Gcreate = (props: Props) => {
       search.then(function (result) {
         if (result.data.data !== undefined) {
           setUserList(result.data.data);
-          console.log("search userList"+userList);
+          console.log("search userList" + userList);
         }
       });
       setGroupData((prevData) => ({
@@ -99,7 +99,7 @@ const Gcreate = (props: Props) => {
       }));
     }
   };
-  const handleCreate = async() => {
+  const handleCreate = async () => {
     if (props.teamProp) {
       console.log("edit");
     } else {
@@ -110,11 +110,14 @@ const Gcreate = (props: Props) => {
       const createTeamRequestBody: createTeamRequestBody = {
         name: groupData.name,
         userIdList: userIdList,
-        description:groupData.description ?? "",
+        description: groupData.description ?? "",
       };
       await createTeam(createTeamRequestBody);
-      await findMyTeam().then((result)=>dispatch(loginload(result.data.data)))
+      await findMyTeam().then((result) =>
+        dispatch(loginload(result.data.data))
+      );
       
+
       // findMyTeam()
       // TODO
       //  groupData 변경 필요
@@ -136,125 +139,139 @@ const Gcreate = (props: Props) => {
   };
   return (
     <>
-      <h1>이미지 업로드</h1>
-      <div style={{ marginTop: "20px" }}>
-        <Form onSubmit={handleCreate}>
-          <FloatingLabel label="그룹명" className="mb-3">
-            <Form.Control
-              name="name"
-              type="text"
-              style={{
-                backgroundColor: "#f7f7f7",
-                borderRadius: "10px",
-                border: "none",
-                resize: "none",
-              }}
-              value={groupData.name}
-              onChange={handleInputChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel label="그룹원" className="mb-3">
-            <Form.Control
-              name="members"
-              type="text"
-              style={{
-                backgroundColor: "#f7f7f7",
-                borderRadius: "10px",
-                border: "none",
-                resize: "none",
-              }}
-              value={groupData.members}
-              onChange={handleInputChange}
-            />
-            <UserListComponent
-              memberlist={props.teamProp?.members}
-              userList={userList}
-              selectedUsers={selectedUsers} // 선택한 유저 목록 전달
-              onUserSelect={handleItemClick} // 유저 선택 이벤트 핸들러 전달
-            />
-            <div>
-              <div>초대된 유저</div>
-              {selectedUsers.length > 0 ? (
-                // {userList.map((user) => (
-                //         <li key={user.userId}
-                <ul>
-                  {selectedUsers.map((user) => (
-                    <li
-                      key={user.userId}
-                      style={{ display: "flex", borderRadius: "5px" }}
-                    >
-                      <img src={user.profileImage} style={{ height: "30px" }} />
-                      {user.name}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <ul></ul>
-              )}
-            </div>
-          </FloatingLabel>
-          <FloatingLabel label="그룹 설명" className="mb-3">
-            <Form.Control
-              name="description"
-              as="textarea"
-              style={{
-                backgroundColor: "#f7f7f7",
-                borderRadius: "10px",
-                border: "none",
-                resize: "none",
-              }}
-              value={groupData.description}
-              onChange={handleInputChange}
-              cols={10}
-            />
-          </FloatingLabel>
-
-          {props.teamProp && (
-            <div style={{ display: "flex", width: "100%" }}>
-              {/* <div style={{display:"flex"}}> */}
-              <Button
-                onClick={handleEdit}
+      <div
+        style={{
+          overflowY: "auto",
+          height:"450px"
+        }}
+      >
+        <h1>그룹 생성</h1>
+        <div style={{ marginTop: "20px" }}>
+          <Form onSubmit={handleCreate}>
+            <FloatingLabel label="그룹명" className="mb-3">
+              <Form.Control
+                name="name"
+                type="text"
                 style={{
+                  backgroundColor: "#f7f7f7",
                   borderRadius: "10px",
-                  // width: "20%",
-                  justifySelf: "flex-end",
+                  border: "none",
+                  resize: "none",
                 }}
-                variant="outline-primary"
-              >
-                그룹 수정
-              </Button>
-              <Button
-                onClick={handledelete}
+                value={groupData.name}
+                onChange={handleInputChange}
+              />
+            </FloatingLabel>
+            <FloatingLabel label="그룹원" className="mb-3">
+              <Form.Control
+                name="members"
+                type="text"
                 style={{
+                  backgroundColor: "#f7f7f7",
                   borderRadius: "10px",
-                  // width: "20%",
-                  justifySelf: "flex-end",
+                  border: "none",
+                  resize: "none",
                 }}
-                variant="danger"
-              >
-                그룹 삭제
-              </Button>
-            </div>
-          )}
-
-          {!props.teamProp && (
-            <div style={{ display: "flex", width: "100%" }}>
-              <Button
-                onClick={handleCreate}
+                value={groupData.members}
+                onChange={handleInputChange}
+              />
+              <UserListComponent
+                memberlist={props.teamProp?.members}
+                userList={userList}
+                selectedUsers={selectedUsers} // 선택한 유저 목록 전달
+                onUserSelect={handleItemClick} // 유저 선택 이벤트 핸들러 전달
+              />
+              <div>
+                <div>초대된 유저</div>
+                {selectedUsers.length > 0 ? (
+                  // {userList.map((user) => (
+                  //         <li key={user.userId}
+                  <ul style={{ display: "flex" }}>
+                    {selectedUsers.map((user) => (
+                      <li
+                        key={user.userId}
+                        style={{
+                          display: "flex",
+                          borderRadius: "5px",
+                          marginRight: "10px",
+                        }}
+                      >
+                        <img
+                          src={user.profileImage}
+                          style={{ height: "30px" }}
+                        />
+                        {user.name}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul></ul>
+                )}
+              </div>
+            </FloatingLabel>
+            <FloatingLabel label="그룹 설명" className="mb-3">
+              <Form.Control
+                name="description"
+                as="textarea"
                 style={{
+                  backgroundColor: "#f7f7f7",
                   borderRadius: "10px",
-                  width: "20%",
-                  justifySelf: "flex-start",
+                  border: "none",
+                  resize: "none",
                 }}
-                variant="outline-primary"
-              >
-                그룹 생성
-              </Button>{" "}
-            </div>
-          )}
+                value={groupData.description}
+                onChange={handleInputChange}
+                cols={10}
+              />
+            </FloatingLabel>
 
-          {/* <Form.Control type="button"readOnly defaultValue="" /> */}
-        </Form>
+            {props.teamProp && (
+              <div style={{ display: "flex", width: "100%", gap: "6.6px" }}>
+                {/* <div style={{display:"flex"}}> */}
+                <Button
+                  onClick={handleEdit}
+                  style={{
+                    borderRadius: "20px",
+                    width: "100px",
+                    height: "40px",
+                  }}
+                  variant="outline-primary"
+                >
+                  그룹 수정
+                </Button>
+                <Button
+                  onClick={handledelete}
+                  style={{
+                    borderRadius: "20px",
+                    width: "100px",
+                    height: "40px",
+                  }}
+                  variant="danger"
+                >
+                  그룹 삭제
+                </Button>
+              </div>
+            )}
+
+            {!props.teamProp && (
+              <div style={{ display: "flex", width: "100%" }}>
+                <Button
+                  onClick={handleCreate}
+                  style={{
+                    borderRadius: "10px",
+                    width: "20%",
+                    justifySelf: "flex-start",
+                  }}
+                  variant="outline-primary"
+                >
+                  그룹 생성
+                </Button>{" "}
+              </div>
+            )}
+
+            {/* <Form.Control type="button"readOnly defaultValue="" /> */}
+          </Form>
+        </div>{" "}
       </div>
     </>
   );
