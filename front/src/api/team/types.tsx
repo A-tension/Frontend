@@ -27,6 +27,7 @@ export interface teamResponseDto {
     teamId : number,
     name : string,
     profileImage : string,
+    description : string,
 }
 
 
