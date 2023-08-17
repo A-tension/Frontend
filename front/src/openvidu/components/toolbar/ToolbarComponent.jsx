@@ -79,6 +79,7 @@ export default class ToolbarComponent extends Component {
     this.toggleQuestion = this.toggleQuestion.bind(this);
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
     this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
+    this.toggleStretching = this.toggleStretching.bind(this);
   }
 
   // micStatusChanged: 마이크 상태변화 토글 함수
@@ -169,6 +170,10 @@ export default class ToolbarComponent extends Component {
 
   toggleConcentrationMenu() {
     this.props.toggleConcentrationMenu;
+  }
+
+  toggleStretching() {
+    this.props.toggleStretching();
   }
 
   toggleVideoLayout() {
@@ -280,6 +285,7 @@ export default class ToolbarComponent extends Component {
                   stickerAvailable={this.state.stickerAvailable}
                   pickRandomStudent={this.pickRandomStudent}
                   startStickerEvent={this.startStickerEvent}
+                  toggleStretching={this.toggleStretching}
                   toggleQuiz={this.toggleQuiz}
                   toggleTeacherMenu={this.toggleTeacherMenu}
                   toggleConcentrationMenu={this.toggleConcentrationMenu}

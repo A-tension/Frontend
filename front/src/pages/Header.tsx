@@ -6,8 +6,10 @@ import logo from "../assets/logo_white.svg"; //../assets/LOGO.png";
 import { Navbar, Nav } from "react-bootstrap";
 import Loginheader from "../components/loginheader";
 import Logoutheader from "../components/logoutheader";
-import { useAppDispatch } from "../store/hooks";
+import {useAppDispatch, useAppSelector} from "../store/hooks";
 import { hideBackground } from "../store/test";
+import {checkAuthority} from "../store/user.ts";
+function Header() {
 interface Props {
   scrollToFeatures: () => void;
   scrollToIntro: () => void;
@@ -15,15 +17,7 @@ interface Props {
 function Header(props: Props) {
   // NAV는 common에 들어가야 할까?
   // const [navBar, showNavBar] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
-  const [token, setToken] = useState<string | null>();
-
-  useEffect(() => {
-    setToken(localStorage.getItem("accessToken"));
-    if (token) {
-      setIsLogin(true);
-    }
-  }, [token]);
+  const isLogin = useAppSelector(checkAuthority)
   // 화면 전환해서 회의 참여시에 헤더 어떻게 숨길지 생각해보기? if true else return?
   const dispatch = useAppDispatch();
 
@@ -38,7 +32,7 @@ function Header(props: Props) {
       <div
         className="font-SUIT text-white"
         style={{ backgroundColor: "#176DEE" }}
-        
+
       >
         {/* fixed="top" */}
         <Navbar className="me-auto flex p-2" style={{ height: "53px",backgroundColor: "#176DEE"}} fixed="top" >
@@ -60,23 +54,21 @@ function Header(props: Props) {
           </Nav.Link>
           {/* , marginRight: "80px"  */}
 
-          {isLogin && (
-            <Nav
-              className="ms-auto flex items-center text-white"
-              style={{ color: "white" }}
-            >
-              <Logoutheader />
-            </Nav>
-          )}
-
-          {!isLogin && (
-            <Nav className="ms-auto text-white">
-              <Loginheader />
-            </Nav>
-          )}
-        </Navbar>
-      </div>
-    </>
+            {/* Render different components based on login state */}
+            { isLogin ? (
+                <Nav className="ms-auto flex items-center text-white"
+                     style={{ color: "white" }}
+                >
+                  <Logoutheader />
+                </Nav>
+            ) : (
+                <Nav className="ms-auto text-white">
+                  <Loginheader />
+                </Nav>
+            )}
+          </Navbar>
+        </div>
+      </>
   );
 }
 
