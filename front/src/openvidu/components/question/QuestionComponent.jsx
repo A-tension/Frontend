@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CloseBtn from "@material-ui/icons/Close";
 import "./QuestionComponent.css";
 import QuestionMarkIcon from "../toolbar/iconComponents/img/questionMarkIcon.png";
-import "../../../tailwind.css"
+import "../../../tailwind.css";
 import SendImage from "../toolbar/iconComponents/img/SendIcon.png";
 
 // QuestionComponent: 질문 관련 컴포넌트
@@ -127,7 +127,7 @@ export default class QuestionComponent extends Component {
           </div>
           {/* 메시지 */}
           <div className="message-wrap" ref={this.chatScroll}>
-          <div className="message-divider"></div>
+            <div className="message-divider"></div>
             {this.state.questionList.map((data, i) => (
               <div
                 key={i}

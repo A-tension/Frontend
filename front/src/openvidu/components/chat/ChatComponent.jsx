@@ -8,7 +8,7 @@ import { selectUser } from "../../../store/user";
 import { connect } from "react-redux";
 import GhostImage from "../toolbar/iconComponents/img/ghostIcon.png";
 import RobotImage from "../toolbar/iconComponents/img/robotIcon.png";
-import SendImage from "../toolbar/iconComponents/img/SendIcon.png";
+import SendImage from "../toolbar/iconComponents/img/sendIcon.png";
 
 // ChatComponent: 채팅 관련 컴포넌트
 export class ChatComponent extends Component {
@@ -34,18 +34,25 @@ export class ChatComponent extends Component {
     // 채팅이 날아올 때 메시지리스트에 들어온 요청 등록하기
     // 전체채팅
     this.props.user
-        .getStreamManager()
-        .stream.session.on("signal:chat", (event) => {
-      const data = JSON.parse(event.data);
-      let messageList = this.state.messageList;
-      messageList.push({
-        connectionId: event.from.connectionId,
-        nickname: data.nickname,
-        time: this.convert12(),
-        message: data.message,
-        type: "chat",
-        levelPng: data.levelPng,
-        profile: data.profile,
+      .getStreamManager()
+      .stream.session.on("signal:chat", (event) => {
+        const data = JSON.parse(event.data);
+        let messageList = this.state.messageList;
+        messageList.push({
+          connectionId: event.from.connectionId,
+          nickname: data.nickname,
+          time: this.convert12(),
+          message: data.message,
+          type: "chat",
+          levelPng: data.levelPng,
+          profile: data.profile,
+        });
+        const document = window.document;
+        setTimeout(() => {
+          this.props.messageReceived();
+        }, 50);
+        this.setState({ messageList: messageList });
+        this.scrollToBottom();
       });
 
     // 귓속말
@@ -101,7 +108,9 @@ export class ChatComponent extends Component {
             nickname: this.props.user.getNickname(),
             streamId: this.props.user.getStreamManager().stream.streamId,
             levelPng: this.props.levelPng,
-            profile: this.props.loginUser.profileImage ? this.props.loginUser.profileImage : GhostImage, // 수정된 부분
+            profile: this.props.loginUser.profileImage
+              ? this.props.loginUser.profileImage
+              : GhostImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -116,7 +125,9 @@ export class ChatComponent extends Component {
             streamId: this.props.user.getStreamManager().stream.streamId,
             target: this.state.messageTarget.nickname,
             levelPng: this.props.levelPng,
-            profile: this.props.loginUser.profileImage ? this.props.loginUser.profileImage : GhostImage, // 수정된 부분
+            profile: this.props.loginUser.profileImage
+              ? this.props.loginUser.profileImage
+              : GhostImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -173,22 +184,21 @@ export class ChatComponent extends Component {
 
   // render: 렌더링을 담당하는 함수
   render() {
-      // this.props.loginUser로 사용 가능
-      const { loginUser } = this.props;
-      console.log("loginUser : ", loginUser);
-      const profileImage = loginUser.profileImage;
-      console.log("profileImage : ", profileImage);
+    // this.props.loginUser로 사용 가능
+    const { loginUser } = this.props;
+    console.log("loginUser : ", loginUser);
+    const profileImage = loginUser.profileImage;
+    console.log("profileImage : ", profileImage);
     const styleChat = { display: this.props.chatDisplay };
     return (
-        <div id="chatContainer" ref={this.chatHeight}>
-          <div id="chatComponent" style={styleChat}>
-            <div id="chatToolbar">
-              <span className="font-pretendard">채팅창</span>
-
-            </div>
-            <div className="message-wrap" ref={this.chatScroll}>
-              <div className="message-divider"></div>
-              {this.state.messageList.map((data, i) => (
+      <div id="chatContainer" ref={this.chatHeight}>
+        <div id="chatComponent" style={styleChat}>
+          <div id="chatToolbar">
+            <span className="font-pretendard">채팅창</span>
+          </div>
+          <div className="message-wrap" ref={this.chatScroll}>
+            <div className="message-divider"></div>
+            {this.state.messageList.map((data, i) => (
               <div
                 key={i}
                 id="remoteUsers"
@@ -202,14 +212,7 @@ export class ChatComponent extends Component {
                 }
               >
                 <img
-                  src={
-                    data.nickname === "System"
-                      ? "../toolbar/iconComponents/img/robotIcon.png"
-                      : data.profile === profileImage ||
-                        data.profile === profileImage
-                      ? profileImage
-                      : GhostImage
-                  }
+                  src={data.nickname === "System" ? RobotImage : data.profile}
                   className="user-img"
                   alt="프로필사진"
                 />
@@ -222,28 +225,7 @@ export class ChatComponent extends Component {
                         : "msg-content other-message"
                     }
                   >
-                    <img
-  src={
-    data.nickname === "System"
-      ? RobotImage
-      : data.profile
-      // ? 
-      // profileImage : GhostImage
-
-  }
-  className="user-img"
-  alt="프로필사진"
-/>
-
-                    <div className="msg-detail">
-                      <div
-                          className={
-                            data.connectionId === this.props.user.getConnectionId()
-                                ? "msg-content my-message"
-                                : "msg-content other-message"
-                          }
-                      >
-                        <div className="msg-nickname">
+                    <div className="msg-nickname">
                       <span
                         className={
                           data.connectionId ===
