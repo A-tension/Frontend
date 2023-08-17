@@ -1,6 +1,13 @@
-import { Form, Button, FloatingLabel } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  FloatingLabel,
+  Modal,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 // import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Team, groupCreateTest, loginload } from "../../store/group";
 import { User } from "../../store/user";
@@ -60,6 +67,7 @@ function UserListComponent({
   );
 }
 const Gcreate = (props: Props) => {
+  const [mode, setMode] = useState("create");
   const [userList, setUserList] = useState<UserSearchResponseDto[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<UserSearchResponseDto[]>(
     []
@@ -70,7 +78,7 @@ const Gcreate = (props: Props) => {
     setUserList([]); // userList 초기화
     console.log(selectedUsers);
   };
-  const [groupData, setGroupData] = useState<GroupCreateData|Team>({
+  const [groupData, setGroupData] = useState<GroupCreateData | Team>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
     description: props.teamProp?.description ? props.teamProp.description : "",
@@ -80,12 +88,11 @@ const Gcreate = (props: Props) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "members") {
-      const memberArray = value.split(",").map((member) => member.trim());
       const search = searchUser<UserSearchResponseDto[]>(value);
       search.then(function (result) {
         if (result.data.data !== undefined) {
           setUserList(result.data.data);
-          console.log("search userList"+userList);
+          console.log("search userList" + userList);
         }
       });
       setGroupData((prevData) => ({
@@ -99,10 +106,21 @@ const Gcreate = (props: Props) => {
       }));
     }
   };
-  const handleCreate = async() => {
+  function simulateLoading() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({}); // Resolve the promise after 10 seconds
+      }, 3000); // 10 seconds in milliseconds
+    });
+  }
+  const [isLoading, setIsLoading] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const handleCreate = async () => {
     if (props.teamProp) {
-      console.log("edit");
+      // console.log("edit");
+      setMode("edit");
     } else {
+      setMode("delete");
       const userIdList: UUID[] = [];
       for (const user of selectedUsers) {
         userIdList.push(user.userId);
@@ -110,17 +128,29 @@ const Gcreate = (props: Props) => {
       const createTeamRequestBody: createTeamRequestBody = {
         name: groupData.name,
         userIdList: userIdList,
-        description:groupData.description ?? "",
+        description: groupData.description ?? "",
       };
-      await createTeam(createTeamRequestBody);
-      await findMyTeam().then((result)=>dispatch(loginload(result.data.data)))
-      
-      // findMyTeam()
-      // TODO
-      //  groupData 변경 필요
+      try {
+        setIsLoading(true);
+        await createTeam(createTeamRequestBody).catch((error) => {
+          console.log(error);
+          setMode("error");
+        });
+        setIsLoading(false);
+        await findMyTeam()
+          .then((result) => dispatch(loginload(result.data.data)))
+          .catch((error) => {
+            console.log(error);
+            setMode("error");
+          });
+        // await simulateLoading();
+      } finally {
+        setModalShow(true);
+        //적절한 게 아니라면 없애도 문제 없음, 예외상황,
+      }
     }
 
-    console.log(groupData);
+    // console.log(groupData);
     // 생성시 그룹 조회 호출/ 특정그룹 정보 호출
     // e.preventDefault();
     // const formData = new FormDataEvent(e.target);
@@ -129,15 +159,46 @@ const Gcreate = (props: Props) => {
     //axios api put?placeholder="그룹명을 입력하세요"placeholder="그룹원을 추가하세요"
   };
   const handledelete = () => {
-    console.log("delete group");
+    // console.log("delete group");
   };
   const handleEdit = () => {
-    console.log("edit");
+    // console.log("edit");
   };
+
+  const ConfirmModal = () => {
+    let variant = "light";
+    if (mode == "edit") {
+      variant = "primary";
+    } else if (mode == "create") {
+      variant = "light";
+    } else if (mode == "error") {
+      variant = "warning";
+    } else {
+      variant = "danger";
+    }
+
+    return (
+      <>
+        <Alert
+          key={variant}
+          variant={variant}
+          onClose={() => setModalShow(false)}
+          dismissible
+        >
+          그룹을 {mode == "create" ? "생성" : mode == "edit" ? "수정" : "삭제"}
+          {mode == "error" && "하지 못"}
+          했습니다.
+        </Alert>
+      </>
+    );
+  };
+
   return (
     <>
       {/*<h1>이미지 업로드</h1>*/}
       <div style={{ marginTop: "20px" }}>
+        {modalShow && <ConfirmModal />}
+
         <Form onSubmit={handleCreate}>
           <FloatingLabel label="그룹명" className="mb-3">
             <Form.Control
@@ -208,8 +269,8 @@ const Gcreate = (props: Props) => {
               cols={10}
             />
           </FloatingLabel>
-
-          {props.teamProp && (
+          {isLoading && <Spinner animation="border" variant="primary" />}
+          {!isLoading && props.teamProp && (
             <div style={{ display: "flex", width: "100%" }}>
               {/* <div style={{display:"flex"}}> */}
               <Button
@@ -237,7 +298,7 @@ const Gcreate = (props: Props) => {
             </div>
           )}
 
-          {!props.teamProp && (
+          {!isLoading && !props.teamProp && (
             <div style={{ display: "flex", width: "100%" }}>
               <Button
                 onClick={handleCreate}
