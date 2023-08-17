@@ -3,7 +3,7 @@
   z-index: 99998;
   /* z-index: 9999; */
   /* background-color: rgb(62 76 118); */
-  width:456px;
+  width: 456px;
   position: absolute;
   /* top: 120px; */
   /* right: 544px; */
@@ -18,7 +18,6 @@
 }
 
 .reaction-modal {
-
 }
 .reaction-modal.openModal {
   display: grid;
@@ -33,8 +32,8 @@
   height: 50px;
   justify-content: center;
   align-items: center;
-  gap: 5px!important;
-  justify-content:  space-evenly;
+  gap: 5px !important;
+  justify-content: space-evenly;
   /* flex-shrink: 1; */
 }
 
@@ -66,8 +65,9 @@
   justify-content: center;
   align-items: center;
 }
-.popover-info{
-  z-index: 99999!important;
-  width: 400px!important;
+.popover-info {
+  z-index: 99999 !important;
+  width: 400px !important;
   max-height: 300px;
+  max-width: 335px !important;
 }
