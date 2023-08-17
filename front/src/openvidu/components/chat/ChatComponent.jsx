@@ -216,9 +216,6 @@ export class ChatComponent extends Component {
     data.nickname === "System"
       ? RobotImage
       : data.profile
-      // ? 
-      // profileImage : GhostImage
-
   }
   className="user-img"
   alt="프로필사진"

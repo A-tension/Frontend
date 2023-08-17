@@ -1376,6 +1376,19 @@ class VideoRoomComponent extends Component {
     }, 3 * 1000);
   };
 
+  sendItem = (emoji) => {
+    if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
+    localUser.setItem(emoji);
+    this.setState({ emoji: emoji });
+
+    // localUser.getStreamManager().publishVideo(localUser.isVideoActive());
+    this.sendSignalUserChanged({ emojiUsed: emoji });
+    timeout = setTimeout(() => {
+      localUser.setItem("");
+      this.setState({ emoji: "" });
+      this.sendSignalUserChanged({ emojiUsed: "" });
+    }, 3 * 1000);
+  };
   sendConcentration = (concentration) => {
     localUser.setConcentration(concentration);
     this.setState({ concentration: concentration });

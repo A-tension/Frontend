@@ -271,6 +271,7 @@ export default class ToolbarComponent extends Component {
                 </div>
               </IconButton>
             }
+            
 
             {this.props.whoami === "teacher" && (
               <div className="teacher-toolbar">

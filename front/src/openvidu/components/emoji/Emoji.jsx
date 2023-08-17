@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import InterceptedAxios from "../../../utils/iAxios";
 import "./Emoji.css";
+import passImage from "../../../assets/pass.png";
+import chooseImage from "../../../assets/choose.png";
 
 const Emoji = (props) => {
   const { display, toggleEmoji, sendEmoji, header, emoji, whoami, id } = props;
 
   // let emotions = [];
   const [emotions, setEmotions] = useState([]);
+  const [items, setItems] = useState([]);
 
   const onClickEmotion = (emoji) => {
     toggleEmoji();
@@ -29,7 +32,8 @@ const Emoji = (props) => {
           "100",
           "disappointed",
           "question",
-        ]);
+        ]),
+          setItems(["choose", "pass"]);
       } else {
         //학생이면 보유리액션
         InterceptedAxios.get(`/items/reaction/${id}`)
@@ -63,6 +67,19 @@ const Emoji = (props) => {
             />
           );
         })}
+
+        {items.map((i, index) => {
+          return (
+            <img
+            key={index}
+              src={"/src/assets/" + i + ".png"}
+              onClick={() => {
+                onClickEmotion(i);
+              }}
+            />
+          );
+        })}
+ 
       </div>
     </div>
   );
