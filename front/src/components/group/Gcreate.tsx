@@ -86,7 +86,7 @@ const Gcreate = (props: Props) => {
     setUserList([]); // userList 초기화
     console.log(selectedUsers);
   };
-  const [groupData, setGroupData] = useState<GroupCreateData | Team>({
+  const [groupData, setGroupData] = useState<GroupCreateData|Team>({
     name: props.teamProp ? props.teamProp.name : "",
     members: props.teamProp?.members ? props.teamProp.members : [""],
     description: props.teamProp?.description ? props.teamProp.description : "",
@@ -101,7 +101,7 @@ const Gcreate = (props: Props) => {
       search.then(function (result) {
         if (result.data.data !== undefined) {
           setUserList(result.data.data);
-          console.log("search userList" + userList);
+          console.log("search userList"+userList);
         }
       });
       setGroupData((prevData) => ({
@@ -115,22 +115,14 @@ const Gcreate = (props: Props) => {
       }));
     }
   };
-  // function simulateLoading() {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve({}); // Resolve the promise after 10 seconds
-  //     }, 3000); // 10 seconds in milliseconds
-  //   });
-  // }
+
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [isError, setErrorMode] = useState();
-  const handleCreate = async () => {
+  const handleCreate = async() => {
     if (props.teamProp) {
-      // console.log("edit");
-      setMode("edit");
+      console.log("edit");
     } else {
-      setMode("create");
       const userIdList: UUID[] = [];
       for (const user of selectedUsers) {
         userIdList.push(user.userId);
@@ -138,26 +130,14 @@ const Gcreate = (props: Props) => {
       const createTeamRequestBody: createTeamRequestBody = {
         name: groupData.name,
         userIdList: userIdList,
-        description: groupData.description ?? "",
+        description:groupData.description ?? "",
       };
-      try {
-        setIsLoading(true);
-        await createTeam(createTeamRequestBody).catch((error) => {
-          console.log(error);
-          setErrorMode(error);
-        });
-        setIsLoading(false);
-        await findMyTeam()
-          .then((result) => dispatch(loginload(result.data.data)))
-          .catch((error) => {
-            console.log(error);
-            setErrorMode(error);
-          });
-        // await simulateLoading();
-      } finally {
-        setModalShow(true);
-        //적절한 게 아니라면 없애도 문제 없음, 예외상황,
-      }
+      await createTeam(createTeamRequestBody);
+      await findMyTeam().then((result)=>dispatch(loginload(result.data.data)))
+      
+      // findMyTeam()
+      // TODO
+      //  groupData 변경 필요
     }
 
     // console.log(groupData);
@@ -197,6 +177,7 @@ const Gcreate = (props: Props) => {
   const handleEdit = async () => {
     // console.log("edit");
     setMode("edit");
+
     const teamUpdateRequestDto: teamUpdateRequestDto = {
       name: groupData.name,
       profileImage: groupData.description ?? "",
