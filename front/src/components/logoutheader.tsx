@@ -10,11 +10,9 @@ import {
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { User, selectUser, userLogout } from "../store/user";
-import filler from "../assets/bwink_edu_04_single_04.jpg"
 import { useEffect, useState } from "react";
+
 const Logoutheader = () => {
-
-
   const User = useAppSelector(selectUser);
   const[loginData,setData]=useState(User);
   useEffect(() => {
@@ -38,7 +36,7 @@ const Logoutheader = () => {
   const handleLogout = () => {
     console.log("logout button clicked");
     dispatch(userLogout());
-    navigate("/login");
+    navigate("/");
   };
   const handleMyPage = () => {
     console.log("mypage click")

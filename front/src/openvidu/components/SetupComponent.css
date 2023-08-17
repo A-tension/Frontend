@@ -9,8 +9,6 @@
 }
 body{
   overflow: hidden;
-
-  /* flex: auto; */
 }
 .child {
   /* position: absolute; */
@@ -159,7 +157,6 @@ select {
 
 .RoomName {
   height: 10%;
-  /* text-align: end; */
 }
 .preview {
   /* width: 449px; */

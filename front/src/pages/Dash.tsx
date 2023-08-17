@@ -13,7 +13,7 @@ const Dash = () => {
   // sidenav selected 받아와서
 
   const headerHeight = 53; // Change this value to match your actual header height
-  const colHeight = `calc(100vh - ${headerHeight}px)`;
+  const colHeight ="100vh"; //`calc(100vh - ${headerHeight}px)`;
   // Calculate the height for the columns and inner div
   const inMeeting = useAppSelector(getMode);
 
@@ -45,11 +45,11 @@ const Dash = () => {
   // 왼쪽 오른쪽으로 나뉨
   // 왼쪽은 SideNav 우측은 화면 표시
   return (
-    <>
+    <> 
       <div style={{ height: colHeight }} className="font-SUIT">
         <Container fluid>
-          <Row style={{ height: colHeight }}>
-            <Col className="pt-5" sm={1} style={{ minWidth: "200px" }}>
+          <Row style={{ height: colHeight, borderTopWidth:"53px" }}>
+            <Col className="pt-5" sm={1} style={{ minWidth: "200px"}}>
               <SideNav
                 icons={icons}
                 selectMenu={setSelectedMenu}
@@ -84,7 +84,9 @@ const Dash = () => {
                     style={{
                       background: "#FFF",
                       borderRadius: "20px",
-                      minHeight: "500px",
+                      minHeight: "520px",
+                      // maxHeight:"510px",
+                      // height:"510px"
                     }}
                   >
                     <Outlet></Outlet>

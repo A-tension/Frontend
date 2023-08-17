@@ -11,7 +11,7 @@
   transition: all 0.1s ease-in-out;
   margin: 0px auto;
   overflow: hidden;
-  border: 1px solid grey;
+  border: 1px solid #ecf3fc;
   border-radius: 5px;
 }
 .box:hover {
@@ -36,7 +36,7 @@
   border-radius: 5px;
   transform: scale(1.04);
   cursor: pointer;
-  outline: 4px solid #ff3366 !important;
+  outline: 4px solid #176dee !important;
 }
 
 .answer {

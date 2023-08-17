@@ -16,13 +16,15 @@
   flex-direction: column;
   align-items: center;
   margin: 0px;
+
 }
 
 .form-style-7 {
   width: 80%;
-  background: #fff;
+  background: #ECF3FC;
   border-radius: 2px;
   padding: 40px;
+
 }
 
 .form-style-7 h1 {
@@ -32,6 +34,7 @@
   margin: 0px 0px 20px 0px;
   color: black;
   font-size: x-large;
+
 }
 .form-style-7 ul {
   list-style: none;
@@ -41,7 +44,7 @@
 .form-style-7 li {
   display: block;
   padding: 2px, 5px, 30px, 5px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ECF3FC;
   margin-bottom: 30px;
   border-radius: 10px;
 }
@@ -57,7 +60,7 @@
   background: #ffffff;
   height: 14px;
   padding: 2px 5px 20px 5px;
-  color: #2a69a6;
+  color: #176dee;
   font-size: 14px;
   overflow: hidden;
   font-weight: bold;
@@ -85,6 +88,7 @@
   font-size: 16px;
   padding: 0;
   margin: 0;
+
 }
 
 .form-style-7 li > span {
@@ -95,14 +99,14 @@
   color: white;
   font-size: 11px;
   border-radius: 0px 0px 10px 10px;
-  background: gray;
+  background: #da91e1;
 }
 .form-style-7 textarea {
   resize: none;
 }
 .form-style-7 button[type="submit"],
 .form-style-7 button[type="button"] {
-  background: #2471ff;
+  background: #176dee;
   border: none;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
@@ -110,7 +114,7 @@
 }
 .form-style-7 button[type="submit"]:hover,
 .form-style-7 button[type="button"]:hover {
-  background: #6b9fff;
+  background: #176DEE;
   color: #fff;
   cursor: pointer;
 }

@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import './QuizModal.css';
-import QuizForm from './QuizForm';
-import QuizForm2 from './QuizForm2';
-import QuizListCard from './QuizListCard';
-import QuizResult from './QuizResult';
+import React, { Component } from "react";
+import "./QuizModal.css";
+import QuizForm from "./QuizForm";
+import QuizForm2 from "./QuizForm2";
+import QuizListCard from "./QuizListCard";
+import QuizResult from "./QuizResult";
 
 class QuizModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       display: this.props.display,
-      content: 'two',
+      content: "two",
       quiz: this.props.quiz,
       idx: 0,
     };
@@ -37,7 +37,7 @@ class QuizModal extends Component {
 
   quizCreate = (quiz) => {
     this.props.toggleQuiz(quiz);
-    this.setState({ quiz: quiz, content: 'results' });
+    this.setState({ content: "results" });
   };
 
   contentChange = (e) => {
@@ -51,7 +51,7 @@ class QuizModal extends Component {
   render() {
     return (
       <div
-        className={this.state.display ? 'quizModal openQuizModal' : 'quizModal'}
+        className={this.state.display ? "quizModal openQuizModal" : "quizModal"}
       >
         {this.state.display ? (
           <section className="quizSection">
@@ -83,18 +83,18 @@ class QuizModal extends Component {
             </div>
             <footer>
               <button
-                onClick={() => this.contentChange('two')}
+                onClick={() => this.contentChange("two")}
                 className="current"
               >
                 OX 퀴즈
               </button>
               <button
                 className="current"
-                onClick={() => this.contentChange('four')}
+                onClick={() => this.contentChange("four")}
               >
                 4지선다 퀴즈
               </button>
-              <button onClick={() => this.contentChange('list')}>
+              <button onClick={() => this.contentChange("list")}>
                 퀴즈 목록
               </button>
               <button onClick={this.sendResult}>퀴즈결과 보여주기</button>

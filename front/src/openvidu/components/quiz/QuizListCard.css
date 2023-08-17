@@ -65,7 +65,7 @@
   min-height: 45px;
   line-height: 45px;
   border-radius: 7px;
-  background-color: #0070f3;
+  background-color: #176DEE;
   color: white;
   font-weight: 400;
   font-size: 16px;
@@ -73,6 +73,6 @@
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .quizListContainer button :hover {
-  background: rgba(0, 118, 255, 0.9);
+  background: rgb(23, 109, 238);
   box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
 }

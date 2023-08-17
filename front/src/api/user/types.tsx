@@ -3,6 +3,7 @@ import {UUID} from "crypto";
 export interface UserProfileUpdateDTO {
     name: string;
     profileImage: string;
+    email : string;
 }
 
 export interface UserResponseDTO {

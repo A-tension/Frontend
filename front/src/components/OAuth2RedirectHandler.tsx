@@ -12,6 +12,8 @@ import { userLogin } from "../store/user.ts";
 import { findMyPlan } from "../api/plan/planApi.tsx";
 import { getUserProfile } from "../api/user/userApi.tsx";
 import { UserResponseDTO } from "../api/user/types.tsx";
+import { Item } from "../store/item.ts";
+import { addItem } from "../store/item.ts";
 
 function OAuth2RedirectHandler() {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ function OAuth2RedirectHandler() {
   useEffect(() => {
     if (accessToken) {
       saveTokenToLocalStorage().then(() => {
-        getUserInfos().then(()=>{
+        getUserInfos().then(() => {
           navigate("/");
         });
       });
@@ -56,21 +58,32 @@ function OAuth2RedirectHandler() {
 
   const getUserInfos = async () => {
     getUserProfile<UserResponseDTO>().then((response) => {
-      dispatch(userLogin(response.data.data));
+      dispatch(userLogin(response.data.data))
+      }).then(()=>{
+        navigate("/");
     });
-
 
     // 내 아이템 조회
     findMyItemList<FindMyItemResponseDto>()
-      .then((response) => {
-        console.log(response.data); // 출력하고자 하는 데이터
-        const myItem = response.data.data;
-        console.log(myItem);
-      })
-      .catch((error) => {
-        console.error(error);
-        // 에러 처리 로직 추가
-      });
+    .then((response) => {
+      console.log("myItemList = ", response.data.data);
+      const myItemList = response.data.data.myItemDtoList; 
+      // myItem 돌면서 myItemDtoList
+      for (const myItemDto of myItemList) {                
+          const item : Item = {
+              name : myItemDto.name,
+              image : myItemDto.image,
+              itemTypeId : myItemDto.itemTypeId,
+              itemTypeName : myItemDto.itemTypeName,
+              description : myItemDto.description,
+          }
+          // console.log(item);
+          dispatch(addItem(item))
+      } })
+    .catch((error) => {
+      console.error(error);
+      // 에러 처리 로직 추가
+    });
 
     // 내가 속한 모든 그룹 조회
     findMyTeam<teamResponseDto[]>()
@@ -85,7 +98,7 @@ function OAuth2RedirectHandler() {
 
     findMyPlan<PlanResponseDto[]>()
       .then(function (result) {
-        console.log(result.data);
+        console.log(result.data);``
         dispatch(reloadPlans(result.data.data));
       })
       .catch((error) => {

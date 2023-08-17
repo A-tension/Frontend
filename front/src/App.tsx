@@ -29,30 +29,39 @@ import { useAppSelector } from "./store/hooks.ts";
 import { getPlanlist, loadListTest } from "./store/plan.ts";
 import { title } from "process";
 import { createEventId } from "./components/plan/event-utils.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { EventInput } from "@fullcalendar/core/index.js";
-import Concentration from "./openvidu/components/concentration/Concentration.jsx";
+
 
 function App() {
   //임시 props 테스트
-
+  //요소 스크롤
+  const featureRef = useRef(null);
+  const introRef = useRef(null);
+  const scrollTo = (ref: React.RefObject<HTMLImageElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+  // tab으로 전환 시키기 위한 function
+  
   return (
     <>
       <div className="font-SUIT">
-        <Header></Header>
+        <Header scrollToFeatures={()=>scrollTo(featureRef)} scrollToIntro={()=>scrollTo(introRef)}></Header>
         <Routes>
-        <Route path="/test" element={<Concentration/>}></Route>
           <Route path="/conference" element={<JoinMeeting />}></Route>
-          <Route path="/" element={<Landing />}></Route>
+          <Route path="/" element={<Landing featureRef={featureRef} introRef={introRef}/>}></Route>
           <Route path="/dash" element={<Dash />}>
             <Route path="" element={<Navigate to="group" />}></Route>
             <Route path="group" element={<Group />}></Route>
             <Route path="calendar" element={<Calendar />}>
               //일정 추가는 그룹일정에서 추가하러 옴,,
               {/* <Route index element={<Month />}></Route> */}
-              <Route path="add" element={<Planner />}></Route>
-              <Route path="plan" element={<PlanView />}></Route>
               {/* <Route path="month" element={<Month />}></Route> */}
             </Route>
 

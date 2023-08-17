@@ -35,7 +35,13 @@ function List() {
       }
     }
   });
-  
+
+  const listStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "flex-start",
+    gap: "28px",
+    marginTop:"20px"
+  };
   const grayBoxStyle: React.CSSProperties = {
     backgroundColor: "#ffffff",
     borderRadius: "10px",
@@ -45,8 +51,10 @@ function List() {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "40%",
-    height: "80%",
+    width: "150px",
+    height: "150px",
+  flexShrink: "0",
+    
   };
 
   const imageStyle: React.CSSProperties = {
@@ -61,42 +69,41 @@ function List() {
     fontWeight: "bold",
   };
 
-
   return (
     <Container>
-      <Row>
+      <Row style={listStyle}>
         {/* 발표 지목권 */}
-        <Col style={{ marginTop: "10px", marginRight: "-200px" }}>
+        {/* <Col style={{ marginTop: "10px" }}> */}
           <div style={grayBoxStyle}>
             <img src={choose} alt="발표 지목권" style={imageStyle} />
             <p style={textStyle}>발표 지목권</p>
             <p style={textStyle}>{itemTypesCount[1] || 0}개</p>
           </div>
-        </Col>
+        {/* </Col> */}
         {/* 발표 패스권 */}
-        <Col style={{ marginTop: "10px", marginRight: "-200px" }}>
+        {/* <Col style={{ marginTop: "10px" }} sm={3}> */}
           <div style={grayBoxStyle}>
             <img src={pass} alt="발표 패스권" style={imageStyle} />
             <p style={textStyle}>발표 패스권</p>
             <p style={textStyle}>{itemTypesCount[2] || 0}개</p>
           </div>
-        </Col>
+        {/* </Col> */}
         {/* 이모티콘 */}
-        <Col style={{ marginTop: "10px", marginRight: "-200px" }}>
+        {/* <Col style={{ marginTop: "10px" }} sm={3}> */}
           <div style={grayBoxStyle}>
             <img src={imoticon} alt="이모티콘" style={imageStyle} />
             <p style={textStyle}>이모티콘</p>
             <p style={textStyle}>{itemTypesCount[3] || 0}개</p>
           </div>
-        </Col>
+        {/* </Col> */}
         {/* 글씨 색상 */}
-        <Col style={{ marginTop: "10px", marginRight: "-200px" }}>
+        {/* <Col style={{ marginTop: "10px" }} sm={3}> */}
           <div style={grayBoxStyle}>
             <img src={rainbow} alt="글씨 색상" style={imageStyle} />
             <p style={textStyle}>글씨 색상</p>
             <p style={textStyle}>{itemTypesCount[4] || 0}개</p>
           </div>
-        </Col>
+        {/* </Col> */}
       </Row>
     </Container>
   );

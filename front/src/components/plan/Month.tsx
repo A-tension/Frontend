@@ -69,8 +69,9 @@ export default class Month extends React.Component<Props, DemoAppState> {
 
   render() {
     // const navigate = useNavigate();
+    //style={{overflowY:"auto",height:"500px"}}
     return (
-      <div className="demo-app font-SUIT">
+      <div className="demo-app font-SUIT py-4" >
         {/* {this.renderSidebar()} */}
         <div className="demo-app-main font-SUIT">
           <FullCalendar

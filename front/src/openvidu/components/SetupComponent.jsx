@@ -16,6 +16,12 @@ import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
+
+import SoundIcon from "./toolbar/iconComponents/SoundIcon";
+import MuteIcon from "./toolbar/iconComponents/MuteIcon";
+import VideoIcon from "./toolbar/iconComponents/VideoIcon";
+import NoVideoIcon from "./toolbar/iconComponents/NoVideoIcon";
+
 import Switch from "@material-ui/core/Switch";
 import InterceptedAxios from "../../utils/iAxios";
 
@@ -185,6 +191,7 @@ const SetupComponent = (props) => {
   return (  
     <div className="flex align-items-center justify-content-center" style={{height:"100vh", backgroundColor:"#ECF3FC"}} >
       {/* {isLoading && <Loading whoami={whoami} />} */}
+
       <div className="child">
         {/* <div className="d-flex align-items-center justify-content-center"  style={{backgroundColor: "white"}}> */}
           {/* <hr /> */}

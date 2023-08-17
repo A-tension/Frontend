@@ -8,6 +8,11 @@ import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeOff from "@material-ui/icons/VolumeOff";
 import IconButton from "@material-ui/core/IconButton";
 
+import SoundIcon from "../toolbar/iconComponents/SoundIcon";
+import MuteIcon from "../toolbar/iconComponents/MuteIcon";
+import VideoIcon from "../toolbar/iconComponents/VideoIcon";
+import NoVideoIcon from "../toolbar/iconComponents/NoVideoIcon";
+
 // StreamComponent: 스트림된 요소들을 컨트롤하는 요소들을 담은 컴포넌트
 export default class StreamComponent extends Component {
   constructor(props) {
@@ -76,13 +81,13 @@ export default class StreamComponent extends Component {
             <div id="statusIcons">
               {!this.props.user.isVideoActive() ? (
                 <div id="camIcon">
-                  <VideocamOff id="statusCam" />
+                  <NoVideoIcon id="statusCam" />
                 </div>
               ) : null}
 
               {!this.props.user.isAudioActive() ? (
                 <div id="micIcon">
-                  <MicOff id="statusMic" />
+                  <MuteIcon id="statusMic" />
                 </div>
               ) : null}
             </div>

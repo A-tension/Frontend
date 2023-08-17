@@ -36,14 +36,12 @@ function Join() {
     // dispatch(meetingModeTest());
     //navigate("/dash/meeting", {
 
-
     if (!conferenceJoinData.conferenceUrl || !conferenceJoinData.nickname) {
       setErrorMessage("회의 코드와 닉네임은 필수 입력값입니다.");
       return;
     }
 
     navigate("/conference", {
-
       state: {
         conferenceJoinData: conferenceJoinData,
       },
@@ -54,7 +52,16 @@ function Join() {
     <>
       <Form onSubmit={handleSubmit} className="mt-5">
         <Form.Group lg as={Row} className="mb-3" controlId="conferenceUrl">
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={2}
+            style={{
+              display: "flex",
+              // justifyContent: "end",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             회의 코드
           </Form.Label>
           <Col sm={10}>
@@ -69,7 +76,16 @@ function Join() {
           </Col>
         </Form.Group>
         <Form.Group lg as={Row} className="mb-3" controlId="nickname">
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={2}
+            style={{
+              display: "flex",
+              // justifyContent: "end",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             닉네임
           </Form.Label>
           <Col sm={10}>
@@ -86,7 +102,15 @@ function Join() {
         {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
 
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button type="submit" size="lg" variant="primary">
+          <Button
+            type="submit"
+            variant="primary"
+            style={{
+              borderRadius: "20px",
+              width: "100px",
+              height: "40px",
+            }}
+          >
             참여
           </Button>
           <div style={{ marginLeft: "10px" }} />

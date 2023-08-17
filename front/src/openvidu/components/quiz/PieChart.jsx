@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 
-const COLORS = ['#D43959', '#029371', '#D28945', '#2A69A6'];
+const COLORS = ['#f37c7c', '#2569e1', '#c47bd5', '#c0efaf'];
 const RADIAN = Math.PI / 180;
 
 export default class Example extends PureComponent {
