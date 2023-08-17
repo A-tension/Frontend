@@ -116,6 +116,7 @@ class VideoRoomComponent extends Component {
       isCodeModalOpen: false,
       concentration: concentration,
       concentrationList: [0, 0, 0],
+      people: 0,
       total: 0,
       concentrationDisplay: false,
     };
@@ -183,7 +184,7 @@ class VideoRoomComponent extends Component {
     this.whoTeacherOrStudent = this.whoTeacherOrStudent.bind(this);
     // 이모지
     this.toggleEmoji = this.toggleEmoji.bind(this);
-
+    // this.people = this.people.bind(this);
     // 발표 횟수 체크
     this.upPresentationCnt = this.upPresentationCnt.bind(this);
     this.downPresentationCnt = this.downPresentationCnt.bind(this);
@@ -622,6 +623,7 @@ class VideoRoomComponent extends Component {
   subscribeToUserChanged() {
     this.state.session.on("signal:userChanged", (event) => {
       let remoteUsers = this.state.subscribers;
+      let size = remoteUsers.length;
       remoteUsers.forEach((user) => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
@@ -704,6 +706,7 @@ class VideoRoomComponent extends Component {
           }
           if (data.concentration !== undefined) {
             user.setConcentration(data.concentration);
+            this.state.people = size;
             user.setTotal(data.concentration);
             this.setState({
               total: user.getTotal(),
@@ -1553,8 +1556,12 @@ class VideoRoomComponent extends Component {
             randomStretch={this.state.randomStretch}
           />
           <Concentration
+            people = {this.state.people}
+            smile = {this.state.smile}
+            outAngle = {this.state.outAngle}
             display={this.state.concentrationDisplay}
             toggleConcentrationMenu={this.toggleConcentrationMenu}
+            concentration = {this.state.concentration}
             concentrationList={this.state.concentrationList}
             total={this.state.total}
           />

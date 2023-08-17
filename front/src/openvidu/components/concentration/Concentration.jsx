@@ -15,7 +15,39 @@ import meh from "../../assets/icons/meh_emoji.svg";
 import sleep from "../../assets/icons/sleep_emoji.svg";
 import info from "../../assets/icons/info_icon.svg";
 const Concentration = (props) => {
-    const { display, toggleConcentrationMenu, total, concentrationList } = props;
+    const { people, display, toggleConcentrationMenu, total, concentration, concentrationList, smile, outAngle } = props;
+    let good = 0;
+    let normal = props.people;
+    let bad = 0;
+    switch (concentration) {
+        case 3: // normal => smile
+            normal -= 1;
+            good += 1;
+            break;
+        case 4: // 자리비움 => smile
+            bad -= 1;
+            good += 1;
+            break;
+        case 5: // smile => normal
+            good -= 1;
+            normal += 1;
+            break;
+        case 6: // 자리비움 => normal
+            bad -= 1;
+            normal += 1;
+            break;
+        case 7: // normal => 자리비움 
+            normal -= 1;
+            bad += 1;
+            break;
+        case 8: // smile => 자리비움 
+            good -= 1;
+            bad += 1;
+            break;
+        default:
+            break;
+    }
+
     // if (!total) {
     //   total = 0;
     //   // display = true;
@@ -137,7 +169,7 @@ const Concentration = (props) => {
     //544
     //
     const initialX = (window.innerWidth - 456) / 2; // Assuming toolbar width is 456px
-    const initialY = (window.innerHeight)*(0.75); // Assuming toolbar height is 76px
+    const initialY = (window.innerHeight) * (0.75); // Assuming toolbar height is 76px
 
     // const [toolbarPosition, setToolbarPosition] = useState({
     //   x: initialX,
@@ -180,14 +212,27 @@ const Concentration = (props) => {
                                     </div>
                                 }
                             </OverlayTrigger>
-                            {concentrationList.map((concentration, index) => (
-                                <div className="pills" key={index}>
-                                    <div className="pill-text">
-                                        <img className="icon-block" src={iconList[index]}></img>
-                                        {concentration}
-                                    </div>
+                            <div className="pills">
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[0]} alt="Icon 0" />
+                                    {good}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="pills">
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[1]} alt="Icon 1" />
+                                    {normal}
+                                </div>
+                            </div>
+
+                            <div className="pills">
+                                <div className="pill-text">
+                                    <img className="icon-block" src={iconList[2]} alt="Icon 2" />
+                                    {bad}
+                                </div>
+                            </div>
+
                             <div className="pills" onClick={onClickConcentration}>
                                 <button className="pill-text">닫기</button>
                             </div>
