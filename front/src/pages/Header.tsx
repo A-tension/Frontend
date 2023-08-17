@@ -9,7 +9,6 @@ import Logoutheader from "../components/logoutheader";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import { hideBackground } from "../store/test";
 import {checkAuthority} from "../store/user.ts";
-function Header() {
 interface Props {
   scrollToFeatures: () => void;
   scrollToIntro: () => void;
@@ -71,5 +70,4 @@ function Header(props: Props) {
       </>
   );
 }
-
 export default Header;
