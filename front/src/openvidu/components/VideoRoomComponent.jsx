@@ -70,6 +70,9 @@ class VideoRoomComponent extends Component {
     let smile = this.props.smile;
     // 유저 out of angle
     let outAngle = this.props.outAngle;
+
+    let concentration = this.props.concentration;
+
     // 상태값들 (mySessionId: 접속중인 세션이름, myUserName: 내 이름, session: 세션에 대한 정보, localUser: 내 정보, subscribers: 같이 접속한 사람들, chatDisplay: 채팅창 on 여부, currentVideoDevice: 현재 비디오 출력장치)
     this.state = {
       mySessionId: sessionName,
@@ -112,6 +115,10 @@ class VideoRoomComponent extends Component {
       isEmojiOn: false,
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
+      concentration: concentration,
+      concentrationList: [0, 0, 0],
+      total: 0,
+      concentrationDisplay: false,
     };
 
     // 메서드 바인딩 과정
@@ -175,8 +182,6 @@ class VideoRoomComponent extends Component {
     this.setVideo = this.setVideo.bind(this);
     this.setAudio = this.setAudio.bind(this);
     this.setSpeaker = this.setSpeaker.bind(this);
-    // 결석학생 잡기
-    // this.whoAbsent = this.whoAbsent.bind(this);
     this.whoTeacherOrStudent = this.whoTeacherOrStudent.bind(this);
     // 이모지
     this.toggleEmoji = this.toggleEmoji.bind(this);
@@ -188,6 +193,10 @@ class VideoRoomComponent extends Component {
     this.partsSortChange = this.partsSortChange.bind(this);
     // 선생님 메뉴 토글버튼
     this.toggleTeacherMenu = this.toggleTeacherMenu.bind(this);
+
+    // 집중도
+    this.concentrationEvent = this.concentrationEvent.bind(this);
+    this.toggleConcentrationMenu = this.toggleConcentrationMenu.bind(this);
   }
 
   // componentDidMount: 컴포넌트가 마운트 되었을 때 작동하는 리액트 컴포넌트 생명주기함수
@@ -209,7 +218,7 @@ class VideoRoomComponent extends Component {
     // 초기 화면 설정
     this.layout.initLayoutContainer(
       document.getElementById("layout"),
-      openViduLayoutOptions,
+      openViduLayoutOptions
     );
 
     // 화면 크기 변경 및 종료시 발생하는 이벤트핸들러 달아두기
@@ -246,7 +255,7 @@ class VideoRoomComponent extends Component {
       () => {
         this.subscribeToStreamCreated();
         this.connectToSession();
-      },
+      }
     );
   }
 
@@ -308,112 +317,6 @@ class VideoRoomComponent extends Component {
       },
     };
     localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 2) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #f87f93, #eba448, #f2e286)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 3) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #bfd596, #52deea, #a687e3)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 4) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #573dd5, #9b5aeb)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 5) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #79c3d6, #5a94eb)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 6) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #cbce67, #de9931)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 7) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #43c8c7, #3fb15d)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
-
-    // if (this.props.memberStore.borderColor === 8) {
-    //   const frameColor = {
-    //     type: "style",
-    //     value: {
-    //       border: "10px solid transparent",
-    //       borderRadius: "15px",
-    //       backgroundImage:
-    //         "linear-gradient(#ffffff, #e1e1e1), linear-gradient(to right, #464646, #14002c)",
-    //       backgroundOrigin: "border-box",
-    //       backgroundClip: "content-box, border-box",
-    //     },
-    //   };
-    //   localUser.setFrameColor(frameColor);
-    // }
 
     // 유저끼리 데이터 교환
     this.state.session
@@ -428,7 +331,6 @@ class VideoRoomComponent extends Component {
         this.connectWebCam();
       })
       .then(() => {
-        // this.whoAbsent();
         this.whoTeacherOrStudent();
       })
       .catch((error) => {
@@ -444,7 +346,7 @@ class VideoRoomComponent extends Component {
         console.log(
           "There was an error connecting to the session:",
           error.code,
-          error.message,
+          error.message
         );
       });
   }
@@ -455,32 +357,19 @@ class VideoRoomComponent extends Component {
     if (this.props.whoami === "teacher") updateTeacher = localUser;
     else
       updateTeacher = this.remotes.filter(
-        (elem) => elem.nickname.substr(1, 3) === "선생님",
+        (elem) => elem.nickname.substr(1, 3) === "선생님"
       );
 
     if (this.props.whoami === "teacher") updateStudents = this.remotes;
     else
       updateStudents = this.remotes.filter(
-        (elem) => elem.nickname.substr(1, 3) !== "선생님",
+        (elem) => elem.nickname.substr(1, 3) !== "선생님"
       );
     this.setState({
       teacher: updateTeacher,
       students: updateStudents,
     });
   }
-
-  // whoAbsent() {
-  //   let students = this.props.studentList.filter(
-  //     (elem) => elem !== this.state.myUserName
-  //   );
-  //   this.state.subscribers.forEach((elem) => {
-  //     if (students.includes(elem.nickname))
-  //       students = students.filter((stu) => stu !== elem.nickname);
-  //   });
-  //   this.setState({
-  //     absentStudents: students,
-  //   });
-  // }
 
   // connectWebCam: 웹캠을 연결하는 함수 (실제 WebRTC와 연관된 내부 메서드들과 유사)
   async connectWebCam() {
@@ -536,10 +425,10 @@ class VideoRoomComponent extends Component {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           this.updateLayout();
           publisher.videos[0].video.parentElement.classList.remove(
-            "custom-class",
+            "custom-class"
           );
         });
-      },
+      }
     );
   }
 
@@ -560,12 +449,15 @@ class VideoRoomComponent extends Component {
             isScreenShareActive: this.state.localUser.isScreenShareActive(),
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
+            concentration: this.state.localUser.getConcentration(),
+            // concentrationList: this.state.concentrationList.push(this.state.localUser.getConcentration()),
+            // total: this.state.concentrationList.reduce((a, b) => a + b, 0) / this.state.concentrationList.length,
           });
         }
+        console.log("!!!????");
         this.updateLayout();
-        // this.whoAbsent();
         this.whoTeacherOrStudent();
-      },
+      }
     );
     // console.log('하ㅔ앟멯ㅇㅎ', subscribers);
   }
@@ -611,7 +503,7 @@ class VideoRoomComponent extends Component {
           `/classes/${this.props.classId}/close`,
           {
             classId: this.props.classId,
-          },
+          }
         );
       } catch (e) {
         console.error(e);
@@ -641,38 +533,6 @@ class VideoRoomComponent extends Component {
       this.props.leaveSession();
     }
     this.props.setTap("result");
-
-    // if (this.props.whoami === 'teacher') {
-    //   this.props.user.getStreamManager().stream.session.signal({
-    //     type: 'private-chat',
-    //   });
-    //   // await axios.delete(
-    //   //   `https://i7a403.p.ssafy.io/openvidu/api/sessions/${this.props.code}`,
-    //   //   {
-    //   //     headers: {
-    //   //       Authorization:
-    //   //         `Basic ` +
-    //   //         btoa(
-    //   //           unescape(
-    //   //             encodeURIComponent(
-    //   //               `OPENVIDUAPP:${process.env.REACT_APP_OPENVIDU_SERVER_SECRET}`,
-    //   //             ),
-    //   //           ),
-    //   //         ),
-    //   //     },
-    //   //   },
-    //   // );
-    //   if (this.props.leaveSession) {
-    //     this.props.leaveSession();
-    //   }
-    //   this.props.setTap('result');
-    // } else {
-    //   console.log('wow');
-    //   if (this.props.leaveSession) {
-    //     this.props.leaveSession();
-    //   }
-    //   this.props.setTap('result');
-    // }
   }
 
   // camStatusChanged: 캠 설정 변경
@@ -711,7 +571,7 @@ class VideoRoomComponent extends Component {
   deleteSubscriber(stream) {
     const remoteUsers = this.state.subscribers;
     const userStream = remoteUsers.filter(
-      (user) => user.getStreamManager().stream === stream,
+      (user) => user.getStreamManager().stream === stream
     )[0];
     this.props.setTeacherData(userStream);
     let index = remoteUsers.indexOf(userStream, 0);
@@ -721,7 +581,6 @@ class VideoRoomComponent extends Component {
         subscribers: remoteUsers,
       });
     }
-    // this.whoAbsent();
     this.whoTeacherOrStudent();
   }
 
@@ -735,7 +594,7 @@ class VideoRoomComponent extends Component {
       subscriber.on("streamPlaying", (e) => {
         this.checkSomeoneShareScreen();
         subscriber.videos[0].video.parentElement.classList.remove(
-          "custom-class",
+          "custom-class"
         );
       });
       // 새로운 유저 껍데기를 만들어서 거기에 이벤트로 받은 stream정보를 넣은 후에 내 remotes에 등록
@@ -747,7 +606,7 @@ class VideoRoomComponent extends Component {
       newUser.setVideoActive(event.stream.videoActive);
 
       newUser.setAttendanceTime(
-        JSON.parse(event.stream.connection.data).attTime,
+        JSON.parse(event.stream.connection.data).attTime
       );
 
       newUser.setUid(JSON.parse(event.stream.connection.data).uid);
@@ -758,7 +617,6 @@ class VideoRoomComponent extends Component {
         this.props.setTeacherData(newUser);
       if (this.localUserAccessAllowed) {
         this.updateSubscribers();
-        // this.whoAbsent();
       }
     });
   }
@@ -860,13 +718,19 @@ class VideoRoomComponent extends Component {
           if (data.emojiUsed !== undefined) {
             user.setEmoji(data.emojiUsed);
           }
+          if (data.concentration !== undefined) {
+            user.setConcentration(data.concentration);
+            user.setTotal(data.concentration);
+            console.log("subscriberToUser~");
+            console.log(user.getTotal());
+          }
         }
       });
       this.setState(
         {
           subscribers: remoteUsers,
         },
-        () => this.checkSomeoneShareScreen(),
+        () => this.checkSomeoneShareScreen()
       );
     });
   }
@@ -947,7 +811,7 @@ class VideoRoomComponent extends Component {
   async setVideo(deviceId, devices) {
     try {
       const newVideoDevice = devices.filter(
-        (device) => deviceId === device.deviceId,
+        (device) => deviceId === device.deviceId
       );
 
       // 새로운 디바이스가 존재한다면
@@ -966,7 +830,7 @@ class VideoRoomComponent extends Component {
         //newPublisher.once("accessAllowed", () => {
         // 현재 스트림매니저가 관리하는 값들을 publish 해제하고 위에서 만든 새로운 Publisher를 발행 후 localUser에 등록
         await this.state.session.unpublish(
-          this.state.localUser.getStreamManager(),
+          this.state.localUser.getStreamManager()
         );
         await this.state.session.publish(newPublisher);
         this.state.localUser.setStreamManager(newPublisher);
@@ -985,7 +849,7 @@ class VideoRoomComponent extends Component {
   async setAudio(deviceId, devices) {
     try {
       const newAudioDevice = devices.filter(
-        (device) => deviceId === device.deviceId,
+        (device) => deviceId === device.deviceId
       );
 
       // 새로운 디바이스가 존재한다면
@@ -1004,7 +868,7 @@ class VideoRoomComponent extends Component {
         //newPublisher.once("accessAllowed", () => {
         // 현재 스트림매니저가 관리하는 값들을 publish 해제하고 위에서 만든 새로운 Publisher를 발행 후 localUser에 등록
         await this.state.session.unpublish(
-          this.state.localUser.getStreamManager(),
+          this.state.localUser.getStreamManager()
         );
         await this.state.session.publish(newPublisher);
         this.state.localUser.setStreamManager(newPublisher);
@@ -1051,7 +915,7 @@ class VideoRoomComponent extends Component {
         } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
           alert("화면 공유를 취소합니다.");
         }
-      },
+      }
     );
 
     // 접근 허용이 되어있다면 스크린쉐어를 위한 상태값 변경
@@ -1228,6 +1092,13 @@ class VideoRoomComponent extends Component {
     }
   }
 
+  concentrationEvent(concentration) {
+    localUser.setConcentration(concentration);
+    this.sendSignalUserChanged({
+      concentration: localUser.getConcentration(),
+    });
+    this.setState({ localUser: localUser });
+  }
   frameChanged(frameColor) {
     let localUser = this.state.localUser;
     localUser.setFrameColor(frameColor);
@@ -1267,7 +1138,7 @@ class VideoRoomComponent extends Component {
       if (itemId !== -1) {
         // 1안 axios 요청으로 아이템 정보 획득
         const result = await InterceptedAxios.get(
-          `/items/${this.props.userId}`,
+          `/items/${this.props.userId}`
         );
         const list = result.data;
         // 2안 memberStore에 저장된 정보 가져오기
@@ -1354,7 +1225,7 @@ class VideoRoomComponent extends Component {
   removeSticker = (current) => {
     this.setState({
       stickers: this.state.stickers.filter(
-        (sticker) => sticker.key !== current,
+        (sticker) => sticker.key !== current
       ),
     });
   };
@@ -1474,6 +1345,18 @@ class VideoRoomComponent extends Component {
     this.setState({ emojiDisplay: !this.state.emojiDisplay });
   }
 
+  concentrationCheck() {
+    this.setState({ concentration: this.state.concentration });
+  }
+
+  concentrationListCheck() {
+    this.setState({ concentrationList: this.state.concentrationList });
+  }
+
+  totalCheck() {
+    this.setState({ total: this.state.total });
+  }
+
   partsSortChange(value) {
     this.setState({
       sortType: value,
@@ -1491,6 +1374,16 @@ class VideoRoomComponent extends Component {
       this.setState({ emoji: "" });
       this.sendSignalUserChanged({ emojiUsed: "" });
     }, 3 * 1000);
+  };
+
+  sendConcentration = (concentration) => {
+    localUser.setConcentration(concentration);
+    this.setState({ concentration: concentration });
+    this.sendSignalUserChanged({ concentration: concentration });
+  };
+
+  toggleConcentrationMenu = () => {
+    this.setState({ concentrationDisplay: true });
   };
 
   toggleTeacherMenu() {
@@ -1520,7 +1413,7 @@ class VideoRoomComponent extends Component {
   // getToken: 현재 내 세션아이디를 이용해서 세션을 생성하고 토큰을 발급하는 함수
   getToken() {
     return this.createSession(this.state.mySessionId).then((sessionId) =>
-      this.createToken(sessionId),
+      this.createToken(sessionId)
     );
   }
 
@@ -1547,7 +1440,7 @@ class VideoRoomComponent extends Component {
             console.log(error);
             console.warn(
               "No connection to OpenVidu Server. This may be a certificate error at " +
-                this.OPENVIDU_SERVER_URL,
+                this.OPENVIDU_SERVER_URL
             );
             if (
               window.confirm(
@@ -1556,11 +1449,11 @@ class VideoRoomComponent extends Component {
                   '"\n\nClick OK to navigate and accept it. ' +
                   'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
                   this.OPENVIDU_SERVER_URL +
-                  '"',
+                  '"'
               )
             ) {
               window.location.assign(
-                this.OPENVIDU_SERVER_URL + "/accept-certificate",
+                this.OPENVIDU_SERVER_URL + "/accept-certificate"
               );
             }
           }
@@ -1585,7 +1478,7 @@ class VideoRoomComponent extends Component {
                 "Basic " + btoa("OPENVIDUAPP:" + this.OPENVIDU_SERVER_SECRET),
               "Content-Type": "application/json",
             },
-          },
+          }
         )
         .then((response) => {
           resolve(response.data.token);
@@ -1716,6 +1609,8 @@ class VideoRoomComponent extends Component {
                 camera={localUser.isVideoActive() ? false : true}
                 smile={this.smile}
                 outAngle={this.outAngle}
+                // sendConcentration={this.concentration}
+                concentrationEvent={this.concentrationEvent}
               />
             </div>
           ) : null}
@@ -1800,6 +1695,7 @@ class VideoRoomComponent extends Component {
             toggleChat={this.toggleChat}
             toggleQuestion={this.toggleQuestion}
             toggleQuiz={this.toggleQuiz}
+            toggleConcentrationMenu={this.toggleConcentrationMenu}
             toggleSetting={this.toggleSetting}
             startStickerEvent={this.startStickerEvent}
             videoLayout={this.state.videoLayout}
