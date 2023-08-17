@@ -1228,6 +1228,7 @@ class VideoRoomComponent extends Component {
         (sticker) => sticker.key !== current
       ),
     });
+    this.updateLayout();
   };
 
   // between: min과 max 사이의 랜덤한 int값을 반환하는 함수
@@ -1538,27 +1539,6 @@ class VideoRoomComponent extends Component {
           header="퀴즈"
           quiz={this.state.quiz}
         />
-        {/*<ShieldModalLoading*/}
-        {/*  display={this.state.shieldLoadingDisplay}*/}
-        {/*  toggleShieldLoading={this.toggleShieldLoading}*/}
-        {/*  timeOut={2.5}*/}
-        {/*  header="발표 프리패스 대기중"*/}
-        {/*/>*/}
-        {/*<ShieldModal*/}
-        {/*  display={this.state.shieldDisplay}*/}
-        {/*  user={localUser}*/}
-        {/*  toggleShield={this.toggleShield}*/}
-        {/*  alertToChat={this.alertToChat}*/}
-        {/*  useItem={this.useItem}*/}
-        {/*  checkUserHasItem={this.checkUserHasItem}*/}
-        {/*  pickRandomStudent={this.pickRandomStudent}*/}
-        {/*  tempFrameChange={this.tempFrameChange}*/}
-        {/*  subscribers={subscribers}*/}
-        {/*  timeOut={3}*/}
-        {/*  header="발표 프리패스 사용"*/}
-        {/*  upPresentationCnt={this.upPresentationCnt}*/}
-        {/*  downPresentationCnt={this.downPresentationCnt}*/}
-        {/*/>*/}
         {/* 다이얼로그 */}
         <DialogExtensionComponent
           showDialog={this.state.showExtensionDialog}
@@ -1585,7 +1565,18 @@ class VideoRoomComponent extends Component {
               : "bounds") +
             (this.props.whoami === "teacher" ? " teacher-layout" : "")
           }
-        >
+        >           
+        {/* 칭찬스티커 */}
+          {this.state.stickers.map((stickerKey) => (
+              <Sticker
+                key={stickerKey.key}
+                stikerKey={stickerKey.key}
+                top={200}
+                left={120}
+                removeSticker={this.removeSticker}
+                localUser={localUser}
+              ></Sticker>
+            ))}
           {localUser !== undefined &&
           localUser.getStreamManager() !== undefined ? (
             <div
@@ -1648,63 +1639,122 @@ class VideoRoomComponent extends Component {
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div
-                className="OT_root custom-class quest"
-                style={questionDisplay}
+                className={
+                  (this.state.videoLayout === "bigTeacher" &&
+                    localUser.nickname.includes("[선생님]")) ||
+                  (this.state.videoLayout === "screenShareOn" &&
+                    localUser.isScreenShareActive() === true)
+                    ? "OT_root OT_publisher custom-class OV_big"
+                    : "OT_root OT_publisher custom-class"
+                }
+                id="localUser"
               >
-                <QuestionComponent
-                  user={localUser}
-                  subscribers={subscribers}
-                  questionDisplay={this.state.questionDisplay}
-                  close={this.toggleQuestion}
-                  messageReceived={this.checkQuestionNotification}
-                  whoami={this.props.whoami}
+                <StreamComponent
+                  user={this.state.localUser}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
+                  emoji={this.state.emoji}
+                />
+                <FaceDetection
+                  autoPlay={localUser.isScreenShareActive() ? false : true}
+                  camera={localUser.isVideoActive() ? false : true}
+                  smile={this.smile}
+                  outAngle={this.outAngle}
+                  // sendConcentration={this.concentration}
+                  concentrationEvent={this.concentrationEvent}
                 />
               </div>
-            )}
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root custom-class chat" style={chatDisplay}>
-                <ChatComponent
-                  user={localUser}
-                  subscribers={subscribers}
-                  chatDisplay={this.state.chatDisplay}
-                  close={this.toggleChat}
-                  messageReceived={this.checkNotification}
+            ) : null}
+            {this.state.subscribers.map((sub, i) => (
+              <div
+                key={i}
+                className={
+                  (this.state.videoLayout === "bigTeacher" &&
+                    sub.nickname.includes("[선생님]")) ||
+                  (this.state.videoLayout === "screenShareOn" &&
+                    sub.isScreenShareActive() === true)
+                    ? "OT_root OT_publisher custom-class OV_big"
+                    : "OT_root OT_publisher custom-class"
+                }
+                id="remoteUsers"
+              >
+                <StreamComponent
+                  user={sub}
+                  streamId={sub.streamManager.stream.streamId}
+                  currentSpeakerDeviceId={this.state.currentSpeakerDeviceId}
                 />
+                <EmojiFilter user={sub} whoami={this.props.whoami} />
               </div>
-            )}
-        </div>
-        <div className="toolbar">
-          <ToolbarComponent
-            teacherName={this.props.teacherName}
-            classTitle={this.props.classTitle}
-            whoami={this.props.whoami}
-            sessionId={mySessionId}
-            user={localUser}
-            showNotification={this.state.messageReceived}
-            showQuestionNotification={this.state.questionReceived}
-            camStatusChanged={this.camStatusChanged}
-            micStatusChanged={this.micStatusChanged}
-            pickRandomStudent={this.pickRandomStudent}
-            subscribers={subscribers}
-            screenShare={this.screenShare}
-            stopScreenShare={this.stopScreenShare}
-            toggleFullscreen={this.toggleFullscreen}
-            leaveSession={this.leaveSession}
-            selfLeaveSession={this.selfLeaveSession}
-            toggleChat={this.toggleChat}
-            toggleQuestion={this.toggleQuestion}
-            toggleQuiz={this.toggleQuiz}
-            toggleConcentrationMenu={this.toggleConcentrationMenu}
-            toggleSetting={this.toggleSetting}
-            startStickerEvent={this.startStickerEvent}
-            videoLayout={this.state.videoLayout}
-            toggleVideoLayout={this.toggleVideoLayout}
-            toggleEmoji={this.toggleEmoji}
-            conferenceCreateData={this.props.conferenceCreateData}
-            conferenceJoinData={this.props.conferenceJoinData}
-          />
-        </div>
+            ))}
+          </div>
+          <div
+            className={
+              "sth_component " +
+              (this.state.chatDisplay === "none" &&
+              this.state.questionDisplay === "none"
+                ? "display_none"
+                : "")
+            }
+          >
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  className="OT_root custom-class quest"
+                  style={questionDisplay}
+                >
+                  <QuestionComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    questionDisplay={this.state.questionDisplay}
+                    close={this.toggleQuestion}
+                    messageReceived={this.checkQuestionNotification}
+                    whoami={this.props.whoami}
+                  />
+                </div>
+              )}
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div className="OT_root custom-class chat" style={chatDisplay}>
+                  <ChatComponent
+                    user={localUser}
+                    subscribers={subscribers}
+                    chatDisplay={this.state.chatDisplay}
+                    close={this.toggleChat}
+                    messageReceived={this.checkNotification}
+                  />
+                </div>
+              )}
+          </div>
+          <div className="toolbar">
+            <ToolbarComponent
+              teacherName={this.props.teacherName}
+              classTitle={this.props.classTitle}
+              whoami={this.props.whoami}
+              sessionId={mySessionId}
+              user={localUser}
+              showNotification={this.state.messageReceived}
+              showQuestionNotification={this.state.questionReceived}
+              camStatusChanged={this.camStatusChanged}
+              micStatusChanged={this.micStatusChanged}
+              pickRandomStudent={this.pickRandomStudent}
+              subscribers={subscribers}
+              screenShare={this.screenShare}
+              stopScreenShare={this.stopScreenShare}
+              toggleFullscreen={this.toggleFullscreen}
+              leaveSession={this.leaveSession}
+              selfLeaveSession={this.selfLeaveSession}
+              toggleChat={this.toggleChat}
+              toggleQuestion={this.toggleQuestion}
+              toggleQuiz={this.toggleQuiz}
+              toggleConcentrationMenu={this.toggleConcentrationMenu}
+              toggleSetting={this.toggleSetting}
+              startStickerEvent={this.startStickerEvent}
+              videoLayout={this.state.videoLayout}
+              toggleVideoLayout={this.toggleVideoLayout}
+              toggleEmoji={this.toggleEmoji}
+              conferenceCreateData={this.props.conferenceCreateData}
+              conferenceJoinData={this.props.conferenceJoinData}
+            />
+          </div>
         </div>
       </>
     );
