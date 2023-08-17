@@ -7,6 +7,8 @@ import "./ChatComponent.css";
 import user from "../../../store/user";
 import { selectUser } from "../../../store/user";
 import { connect } from 'react-redux';
+import GhostImage from "../toolbar/iconComponents/img/ghostIcon.png";
+import RobotImage from "../toolbar/iconComponents/img/robotIcon.png";
 
 // ChatComponent: 채팅 관련 컴포넌트
 export class ChatComponent extends Component {
@@ -210,11 +212,11 @@ export class ChatComponent extends Component {
                     <img
   src={
     data.nickname === "System"
-      ? "/img/bot.png"
+      ? "../toolbar/iconComponents/img/robotIcon.png"
       : data.profile === profileImage ||
         data.profile === profileImage
       ? profileImage
-      : data.profile
+      : GhostImage
   }
   className="user-img"
   alt="프로필사진"

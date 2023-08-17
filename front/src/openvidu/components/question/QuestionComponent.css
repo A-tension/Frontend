@@ -10,14 +10,14 @@
   height: 30px;
   background: #2b5876; /* fallback for old browsers */
   background: -webkit-linear-gradient(
-    to left,
-    #4e4376,
-    #2b5876
+    to bottom,
+    #ffffff,
+    #ECF3FC
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    #4e4376,
-    #2b5876
+  background: -webkit-linear-gradient(
+    to bottom,
+    #ffffff,
+    #ECF3FC
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   box-sizing: border-box;
