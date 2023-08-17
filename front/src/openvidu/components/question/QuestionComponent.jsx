@@ -3,6 +3,7 @@ import CloseBtn from "@material-ui/icons/Close";
 import Send from "../../assets/images/uil_message.png";
 import "./QuestionComponent.css";
 import QuestionMarkIcon from "../toolbar/iconComponents/img/questionMarkIcon.png";
+import "../../../tailwind.css"
 
 // QuestionComponent: 질문 관련 컴포넌트
 export default class QuestionComponent extends Component {
@@ -122,8 +123,7 @@ export default class QuestionComponent extends Component {
         <div id="questionComponent" style={styleChat}>
           {/* 툴바 */}
           <div id="chatToolbar">
-            <span>익명질문</span>
-            <CloseBtn id="closeButton" onClick={this.close} alt="채팅창 닫기" />
+            <span className="font-pretendard">익명질문</span>
           </div>
           {/* 메시지 */}
           <div className="message-wrap" ref={this.chatScroll}>

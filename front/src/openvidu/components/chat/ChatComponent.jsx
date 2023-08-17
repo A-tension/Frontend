@@ -46,6 +46,7 @@ export class ChatComponent extends Component {
         type: "chat",
         levelPng: data.levelPng,
         profile: data.profile,
+        
       });
       const document = window.document;
       setTimeout(() => {
@@ -108,7 +109,7 @@ export class ChatComponent extends Component {
             nickname: this.props.user.getNickname(),
             streamId: this.props.user.getStreamManager().stream.streamId,
             levelPng: this.props.levelPng,
-            profile: this.props.loginUser.profileImage, // 수정된 부분
+            profile: this.props.loginUser.profileImage ? this.props.loginUser.profileImage : GhostImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -123,7 +124,7 @@ export class ChatComponent extends Component {
             streamId: this.props.user.getStreamManager().stream.streamId,
             target: this.state.messageTarget.nickname,
             levelPng: this.props.levelPng,
-            profile: this.props.loginUser.profileImage, // 수정된 부분
+            profile: this.props.loginUser.profileImage ? this.props.loginUser.profileImage : GhostImage, // 수정된 부분
           };
           this.props.user.getStreamManager().stream.session.signal({
             data: JSON.stringify(data),
@@ -184,16 +185,15 @@ export class ChatComponent extends Component {
   render() {
       // this.props.loginUser로 사용 가능
       const { loginUser } = this.props;
-      console.log(loginUser);
+      console.log("loginUser : ", loginUser);
       const profileImage = loginUser.profileImage;
-
+      console.log("profileImage : ", profileImage);
     const styleChat = { display: this.props.chatDisplay };
     return (
         <div id="chatContainer" ref={this.chatHeight}>
           <div id="chatComponent" style={styleChat}>
             <div id="chatToolbar">
-              <span>채팅창</span>
-            <CloseBtn id="closeButton" onClick={this.close} alt="채팅창 닫기" />
+              <span className="font-pretendard">채팅창</span>
 
             </div>
             <div className="message-wrap" ref={this.chatScroll}>
@@ -214,11 +214,11 @@ export class ChatComponent extends Component {
                     <img
   src={
     data.nickname === "System"
-      ? "../toolbar/iconComponents/img/robotIcon.png"
-      : data.profile === profileImage ||
-        data.profile === profileImage
-      ? profileImage
-      : GhostImage
+      ? RobotImage
+      : data.profile
+      // ? 
+      // profileImage : GhostImage
+
   }
   className="user-img"
   alt="프로필사진"
