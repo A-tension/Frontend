@@ -4,7 +4,7 @@ import InterceptedAxios from "../../../utils/iAxios";
 import "./Emoji.css";
 
 const Emoji = (props) => {
-  const { display, toggleEmoji, sendEmoji, header, emoji, whoami, id } = props;
+  const { display, toggleEmoji, sendEmoji, header, whoami, id } = props;
 
   // let emotions = [];
   const [emotions, setEmotions] = useState([]);

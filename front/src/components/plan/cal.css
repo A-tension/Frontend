@@ -140,18 +140,11 @@ tr {
 
 .fc .fc-daygrid-day-events {
   /* width: 150px; */
-    overflow: hidden;
+  overflow: hidden;
   /* white-space: nowrap; */
   text-overflow: ellipsis;
 }
-  html,
-body,
-body > div {
-  /* the react root */
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
+
 
 h2 {
   margin: 0;

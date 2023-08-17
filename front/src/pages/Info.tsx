@@ -1,6 +1,5 @@
 import { Col, FloatingLabel, Button, Form, Image } from "react-bootstrap";
 import RoundCard from "../components/atoms/RoundCard";
-import fillerImg from "../assets/Memoji.png";
 import { useAppSelector } from "../store/hooks";
 import { selectUser } from "../store/user";
 import { useState , useEffect} from "react";
@@ -10,6 +9,7 @@ import {UserProfileUpdateDTO, UserResponseDTO} from "../api/user/types.tsx";
 interface Edit {
   name: string;
   profileImage: string;
+  email: string;
 
 }
 function Info() {
@@ -19,6 +19,7 @@ function Info() {
   const [data, setData] = useState<Edit>({
     name: loginUser.name || "",
     profileImage: loginUser.profileImage || "",
+    email : loginUser.email || "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +36,7 @@ function Info() {
       const userProfileUpdateDto : UserProfileUpdateDTO = {
         name : data.name,
         profileImage : data.profileImage,
+        email : data.email,
       }
       await updateUserProfile<UserResponseDTO>(
         userProfileUpdateDto
@@ -62,6 +64,7 @@ function Info() {
         setData({
           name: userProfile.name,
           profileImage: userProfile.profileImage,
+          email : userProfile.email,
         });
         console.log(" useEffect, userProfile = ", userProfile);
       } catch (error) {
@@ -100,7 +103,7 @@ function Info() {
                     name="name"
                     readOnly={!isEdit}
                     onChange={handleInputChange}
-                    value={loginUser.name}
+                    value={data.name}
                 />
               </FloatingLabel>
                            
@@ -108,10 +111,11 @@ function Info() {
 <div style={{ margin: "20px 0" }}></div>
 <FloatingLabel label="이메일" >
                 <Form.Control
+                    name="email"
                     readOnly
-                    // disabled 
-                    type="email"
-                    defaultValue={loginUser.email}
+                    disabled
+                    onChange={handleInputChange}
+                    value={data.email}
                 />
               </FloatingLabel>
               
@@ -121,7 +125,7 @@ function Info() {
 <FloatingLabel label="meetingURL">
                 <Form.Control
                     readOnly
-                    // disabled  이거하면 회색됨 
+                    disabled
                     type="text"
                     defaultValue={loginUser.meetingUrl}
                 />

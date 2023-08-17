@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import CloseBtn from "@material-ui/icons/Close";
-import Send from "../../assets/images/uil_message.png";
 // import defaultProfile from "@assets/images/defaultProfile.jpeg";
 import "./ChatComponent.css";
 // import { log } from "console";
 import user from "../../../store/user";
 import { selectUser } from "../../../store/user";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import GhostImage from "../toolbar/iconComponents/img/ghostIcon.png";
 import RobotImage from "../toolbar/iconComponents/img/robotIcon.png";
+import SendImage from "../toolbar/iconComponents/img/SendIcon.png";
 
 // ChatComponent: 채팅 관련 컴포넌트
 export class ChatComponent extends Component {
@@ -46,39 +46,31 @@ export class ChatComponent extends Component {
         type: "chat",
         levelPng: data.levelPng,
         profile: data.profile,
-        
       });
-      const document = window.document;
-      setTimeout(() => {
-        this.props.messageReceived();
-      }, 50);
-      this.setState({ messageList: messageList });
-      this.scrollToBottom();
-    });
 
     // 귓속말
     this.props.user
-        .getStreamManager()
-        .stream.session.on("signal:private-chat", (event) => {
-      const data = JSON.parse(event.data);
-      let messageList = this.state.messageList;
-      messageList.push({
-        connectionId: event.from.connectionId,
-        nickname: data.nickname,
-        time: this.convert12(),
-        message: data.message,
-        type: "private-chat",
-        target: data.target,
-        levelPng: data.levelPng,
-        profile: data.profile,
+      .getStreamManager()
+      .stream.session.on("signal:private-chat", (event) => {
+        const data = JSON.parse(event.data);
+        let messageList = this.state.messageList;
+        messageList.push({
+          connectionId: event.from.connectionId,
+          nickname: data.nickname,
+          time: this.convert12(),
+          message: data.message,
+          type: "private-chat",
+          target: data.target,
+          levelPng: data.levelPng,
+          profile: data.profile,
+        });
+        const document = window.document;
+        setTimeout(() => {
+          this.props.messageReceived();
+        }, 50);
+        this.setState({ messageList: messageList });
+        this.scrollToBottom();
       });
-      const document = window.document;
-      setTimeout(() => {
-        this.props.messageReceived();
-      }, 50);
-      this.setState({ messageList: messageList });
-      this.scrollToBottom();
-    });
   }
 
   // handleChange: 메시지를 입력할 때마다 작동하는 현재 작성 메시지 변경 이벤트 핸들러
@@ -142,7 +134,7 @@ export class ChatComponent extends Component {
     setTimeout(() => {
       try {
         this.chatScroll.current.scrollTop =
-            this.chatScroll.current.scrollHeight;
+          this.chatScroll.current.scrollHeight;
       } catch (err) {}
     }, 20);
   }
@@ -163,7 +155,7 @@ export class ChatComponent extends Component {
     if (e.target.value === "all") this.setState({ messageTarget: "all" });
     else {
       const target = this.props.subscribers.filter(
-          (elem) => elem.nickname === e.target.value,
+        (elem) => elem.nickname === e.target.value
       );
       this.setState({ messageTarget: target[0] });
     }
@@ -178,8 +170,6 @@ export class ChatComponent extends Component {
     const msg = apm + hours + ":" + minutes;
     return msg;
   }
-
-
 
   // render: 렌더링을 담당하는 함수
   render() {
@@ -199,17 +189,38 @@ export class ChatComponent extends Component {
             <div className="message-wrap" ref={this.chatScroll}>
               <div className="message-divider"></div>
               {this.state.messageList.map((data, i) => (
+              <div
+                key={i}
+                id="remoteUsers"
+                className={
+                  "message" +
+                  (data.connectionId !== this.props.user.getConnectionId() ||
+                  data.nickname === "System"
+                    ? " left"
+                    : " right") +
+                  (data.type === "chat" ? "" : " whisper")
+                }
+              >
+                <img
+                  src={
+                    data.nickname === "System"
+                      ? "../toolbar/iconComponents/img/robotIcon.png"
+                      : data.profile === profileImage ||
+                        data.profile === profileImage
+                      ? profileImage
+                      : GhostImage
+                  }
+                  className="user-img"
+                  alt="프로필사진"
+                />
+
+                <div className="msg-detail">
                   <div
-                      key={i}
-                      id="remoteUsers"
-                      className={
-                          "message" +
-                          (data.connectionId !== this.props.user.getConnectionId() ||
-                          data.nickname === "System"
-                              ? " left"
-                              : " right") +
-                          (data.type === "chat" ? "" : " whisper")
-                      }
+                    className={
+                      data.connectionId === this.props.user.getConnectionId()
+                        ? "msg-content my-message"
+                        : "msg-content other-message"
+                    }
                   >
                     <img
   src={
@@ -234,63 +245,62 @@ export class ChatComponent extends Component {
                       >
                         <div className="msg-nickname">
                       <span
-                          className={
-                            data.connectionId === this.props.user.getConnectionId()
-                                ? "my-nickname"
-                                : "other-nickname"
-                          }
+                        className={
+                          data.connectionId ===
+                          this.props.user.getConnectionId()
+                            ? "my-nickname"
+                            : "other-nickname"
+                        }
                       >
                         {data.target
-                            ? data.nickname + " ▶ " + data.target
-                            : data.nickname}
+                          ? data.nickname + " ▶ " + data.target
+                          : data.nickname}
                       </span>
-                        </div>
-                        <div className="msg-text">{data.message}</div>
-                        <div className="msg-time">{data.time}</div>
-                        {/* <span className="triangle" /> */}
-                      </div>
                     </div>
+                    <div className="msg-text">{data.message}</div>
+                    <div className="msg-time">{data.time}</div>
+                    {/* <span className="triangle" /> */}
                   </div>
-              ))}
-            </div>
-            <div id="whisper">
-              <select
-                  id="demo-simple-select-outlined"
-                  className="select-box"
-                  onChange={this.changeTarget}
-              >
-                <option defaultValue="all" className="menu-item-box">
-                  all
+                </div>
+              </div>
+            ))}
+          </div>
+          <div id="whisper">
+            <select
+              id="demo-simple-select-outlined"
+              className="select-box"
+              onChange={this.changeTarget}
+            >
+              <option defaultValue="all" className="menu-item-box">
+                all
+              </option>
+              {this.props.subscribers.map((sub, i) => (
+                <option value={sub.nickname} key={i}>
+                  {sub.nickname}
                 </option>
-                {this.props.subscribers.map((sub, i) => (
-                    <option value={sub.nickname} key={i}>
-                      {sub.nickname}
-                    </option>
-                ))}
-              </select>
-            </div>
-            <div id="messageInput">
+              ))}
+            </select>
+          </div>
+          <div id="messageInput">
             <textarea
-                placeholder="메세지를 입력해 주세요."
-                id="chatInput"
-                onChange={this.handleChange}
-                onKeyPress={this.handlePressKey}
-                maxLength="200"
-                value={this.state.message}
+              placeholder="메세지를 입력해 주세요."
+              id="chatInput"
+              onChange={this.handleChange}
+              onKeyPress={this.handlePressKey}
+              maxLength="200"
+              value={this.state.message}
             />
-              <img
-                  src={Send}
-                  id="sendButton"
-                  alt="전송버튼"
-                  onClick={this.sendMessage}
-              />
-            </div>
+            <img
+              src={SendImage}
+              id="sendButton"
+              alt="전송버튼"
+              onClick={this.sendMessage}
+            />
           </div>
         </div>
+      </div>
     );
   }
-
-  
 }
 
 // mapStateToProps 함수를 사용하여 Redux store와 컴포넌트를 연결

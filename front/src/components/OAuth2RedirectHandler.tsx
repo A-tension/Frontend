@@ -32,7 +32,7 @@ function OAuth2RedirectHandler() {
   useEffect(() => {
     if (accessToken) {
       saveTokenToLocalStorage().then(() => {
-        getUserInfos().then(()=>{
+        getUserInfos().then(() => {
           navigate("/");
         });
       });
@@ -58,9 +58,10 @@ function OAuth2RedirectHandler() {
 
   const getUserInfos = async () => {
     getUserProfile<UserResponseDTO>().then((response) => {
-      dispatch(userLogin(response.data.data));
+      dispatch(userLogin(response.data.data))
+      }).then(()=>{
+        navigate("/");
     });
-
 
     // 내 아이템 조회
     findMyItemList<FindMyItemResponseDto>()

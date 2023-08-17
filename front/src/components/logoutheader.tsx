@@ -2,19 +2,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     Nav,
     NavDropdown,
-    OverlayTrigger,
-    Button,
-    Popover,
     Dropdown,
     Image,
 } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { User, selectUser, userLogout } from "../store/user";
-import filler from "../assets/bwink_edu_04_single_04.jpg"
 import { useEffect, useState } from "react";
+
 const Logoutheader = () => {
-
-
   const User = useAppSelector(selectUser);
   const[loginData,setData]=useState(User);
   useEffect(() => {
@@ -38,7 +33,7 @@ const Logoutheader = () => {
   const handleLogout = () => {
     console.log("logout button clicked");
     dispatch(userLogout());
-    navigate("/login");
+    navigate("/");
   };
   const handleMyPage = () => {
     console.log("mypage click")
@@ -53,19 +48,8 @@ const Logoutheader = () => {
   };
 
 
-    const popover = (
-        <Popover id="notification-popover" className="text-white">
-            <Popover.Header as="h3">알림</Popover.Header>
-            <Popover.Body>
-                알림도 원자 컴포넌트로 map 써서 현재 유저가 갖고있는 것 불러오기?
-            </Popover.Body>
-        </Popover>
-    );
     return (
         <>
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                <Button variant="success">알림</Button>
-            </OverlayTrigger>
 
       <Nav.Link
         as={Link}

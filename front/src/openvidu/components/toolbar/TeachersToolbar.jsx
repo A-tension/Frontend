@@ -15,6 +15,7 @@ const TeachersToolbar = ({
   pickRandomStudent,
   randAvailable,
   startStickerEvent,
+  toggleStretching,
   stickerAvailable,
   toggleQuiz,
   toggleTeacherMenu,
@@ -35,6 +36,11 @@ const TeachersToolbar = ({
     toggleTeacherMenu();
   };
 
+  const onClickToggleStretCh = () => {
+    toggleStretching();
+    toggleTeacherMenu();
+  };
+
   const onClickToggleConcentrationMenu = () => {
     toggleConcentrationMenu();
     toggleTeacherMenu();
@@ -43,7 +49,7 @@ const TeachersToolbar = ({
   return (
     <div css={TotalComponent}>
       {display && (
-        <div className="openModal">
+        <div style={{ backgroundColor: "white" }} className="openModal">
           <div className="buttonsContents">
             <IconButton
               color="inherit"
@@ -51,7 +57,6 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickRandomPick}
               disabled={!randAvailable}
-              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {randAvailable ? (
@@ -72,7 +77,6 @@ const TeachersToolbar = ({
               id="navRandButton"
               onClick={onClickStickerEvent}
               disabled={!stickerAvailable}
-              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 {stickerAvailable ? (
@@ -91,43 +95,29 @@ const TeachersToolbar = ({
               className="navButton"
               id="navRandButton"
               onClick={onClickToggleQuiz}
-              style={{ backgroundColor: 'white' }}
             >
               <div className="buttonStyle">
                 <QuizIcon />
                 <p>퀴즈 열기</p>
               </div>
             </IconButton>
-
             <IconButton
               color="inherit"
               className="navButton"
               id="navRandButton"
-              onClick={onClickRandomPick}
-              disabled={!randAvailable}
-              style={{ backgroundColor: 'white' }}
+              onClick={onClickToggleStretCh}
+              disabled={!stickerAvailable}
             >
               <div className="buttonStyle">
-                {randAvailable ? (
+                {stickerAvailable ? (
                   <StretchingIcon />
                 ) : (
                   <StretchingIcon
                     color="secondary"
-                    style={{ animation: "cooldown 5s linear 1" }}
+                    style={{ animation: "cooldown 30s linear 1" }}
                   />
                 )}
                 <p>스트레칭</p>
-              </div>
-           </IconButton>
-           <IconButton
-              color="inherit"
-              className="navButton"
-              id="navRandButton"
-              onClick={onClickToggleConcentrationMenu}
-            >
-              <div className="buttonStyle">
-                <PieChart />
-                <p>집중도 보기</p>
               </div>
             </IconButton>
           </div>

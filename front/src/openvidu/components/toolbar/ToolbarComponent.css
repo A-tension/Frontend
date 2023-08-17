@@ -18,6 +18,9 @@
   z-index: 999999;
   min-width: 400px !important;
 }
+#teacher-header > div > div > div > div > div > div{
+  background-color: #eeeeee;
+}
 
 #teacher-header {
   color: #ffffff;
@@ -104,7 +107,12 @@
 
 #navEmoji {
   position: absolute;
-  right: 13.5rem;
+  right: 9.5rem;
+}
+
+#navCon{
+  position:absolute;
+  right: 14.5rem;
 }
 
 #navQuestButton {

@@ -22,7 +22,7 @@ function Start() {
     members: [""],
     startdate: "",
     starttime: "",
-    startTime:"",
+    startTime: "",
     isPrivate: false,
   });
   const dispatch = useAppDispatch();
@@ -55,10 +55,19 @@ function Start() {
       </a> */}
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalText">
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={1}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             제목
           </Form.Label>
-          <Col sm={10}>
+          <Col sm={11}>
             <Form.Control
               name="name"
               value={meetData.name}
@@ -72,10 +81,19 @@ function Start() {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalDate">
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={1}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             날짜
           </Form.Label>
-          <Col sm={4}>
+          <Col sm={5}>
             <Form.Control
               name="startdate"
               value={meetData.startdate}
@@ -88,10 +106,19 @@ function Start() {
               onChange={handleInputChange}
             />
           </Col>
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={1}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             시간
           </Form.Label>
-          <Col sm={4}>
+          <Col sm={5}>
             <Form.Control
               name="starttime"
               value={meetData.starttime}
@@ -105,10 +132,19 @@ function Start() {
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-          <Form.Label column sm={2}>
+          <Form.Label
+            column
+            sm={1}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+          >
             초대
           </Form.Label>
-          <Col sm={10}>
+          <Col sm={11}>
             <Form.Control
               name="members"
               value={meetData.members.join(",")}
@@ -123,7 +159,7 @@ function Start() {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-          <Col sm={{ span: 10, offset: 2 }}>
+          <Col sm={{ span: 11, offset: 1 }}>
             <Form.Check
               type="checkbox"
               checked={meetData.isPrivate}
@@ -135,11 +171,34 @@ function Start() {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Col sm={{ span: 10 }}>
-            <Button type="submit" onClick={handleSubmitForm}>
+          <Col sm={{ span: 11, offset:1 }}           style={{
+            display: "flex",
+            // padding: "8.012px 40.063px",
+            justifyContent: "left",
+            alignItems: "center",
+            gap: "6.6px",
+          }}>
+            <Button
+              type="submit"
+              onClick={handleSubmitForm}
+              style={{
+                borderRadius: "20px",
+                width: "100px",
+                height: "40px",
+                // marginRight:"10px"
+              }}
+            >
               생성
             </Button>
-            <Button type="reset" variant="outline-primary">
+            <Button
+              type="reset"
+              variant="outline-primary"
+              style={{
+                borderRadius: "20px",
+                width: "100px",
+                height: "40px",
+              }}
+            >
               취소
             </Button>
           </Col>
