@@ -1615,8 +1615,9 @@ class VideoRoomComponent extends Component {
 
   toggleTeacherMenu() {
 
-    console.log(
-      "this.state.teacherMenuDisplay : " + this.state.teacherMenuDisplay,
+  toggleConcentrationMenu = () => {
+    this.setState({ concentrationDisplay: !this.state.concentrationDisplay });
+  };
 
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
@@ -2036,20 +2037,12 @@ class VideoRoomComponent extends Component {
           timeOut={2.5}
           header="발표 프리패스 대기중"
         />
-        <ShieldModal
-          display={this.state.shieldDisplay}
-          user={localUser}
-          toggleShield={this.toggleShield}
-          alertToChat={this.alertToChat}
-          useItem={this.useItem}
-          checkUserHasItem={this.checkUserHasItem}
-          pickRandomStudent={this.pickRandomStudent}
-          tempFrameChange={this.tempFrameChange}
-          subscribers={subscribers}
-          timeOut={3}
-          header="발표 프리패스 사용"
-          upPresentationCnt={this.upPresentationCnt}
-          downPresentationCnt={this.downPresentationCnt}
+        <Concentration
+          header="집중도"
+          display={this.state.concentrationDisplay}
+          toggleConcentrationMenu={this.toggleConcentrationMenu}
+          concentrationList={this.state.concentrationList}
+          toal={this.state.total}
         />
         {/* 다이얼로그 */}
         <DialogExtensionComponent

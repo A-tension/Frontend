@@ -103,7 +103,12 @@
 
 #navEmoji {
   position: absolute;
-  right: 13.5rem;
+  right: 9.5rem;
+}
+
+#navCon{
+  position:absolute;
+  right: 14.5rem;
 }
 
 #navParticipantButton {

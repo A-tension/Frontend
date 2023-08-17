@@ -25,9 +25,25 @@ import ViewAgenda from "@material-ui/icons/ViewAgenda";
 import ViewArray from "@material-ui/icons/ViewArray";
 import Share from "@material-ui/icons/Share";
 import SearchIcon from "@material-ui/icons/Search";
-import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
-// import AutoAwesomeMotionIcon from "@material-ui/icons/AutoAwesome";
-import Tooltip from "@material-ui/core/Tooltip";
+// import EmojiEmotions from "@material-ui/icons/EmojiEmotions";
+// 아이콘 by 형석
+import ConcentrationIcon from "./iconComponents/ConcentrationIcon";
+import ChatIcon from "./iconComponents/ChatIcon";
+import EmojiIcon from "./iconComponents/EmojiIcon";
+import GameIcon from "./iconComponents/GameIcon";
+import ScreenIcon from "./iconComponents/ScreenIcon";
+import OneIcon from "./iconComponents/OneIcon";
+import QuestionMarkIcon from "./iconComponents/QuestionMarkIcon";
+import SeperateIcon from "./iconComponents/SeperateIcon";
+import SettingIcon from "./iconComponents/SettingIcon";
+import ExitIcon from "./iconComponents/ExitIcon";
+
+import SoundIcon from "./iconComponents/SoundIcon";
+import MuteIcon from "./iconComponents/MuteIcon";
+import VideoIcon from "./iconComponents/VideoIcon";
+import NoVideoIcon from "./iconComponents/NoVideoIcon";
+
+import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import TeachersToolbar from "./TeachersToolbar";
 
 export default class ToolbarComponent extends Component {
@@ -157,10 +173,14 @@ export default class ToolbarComponent extends Component {
     this.setState({ showTeacherMenuToggle: !this.state.showTeacherMenuToggle });
   }
 
-  // name: 한준수
-  // date: 2022/08/13
-  // desc: 내 화면의 비디오 레이아웃을 변경시키는 기능.
-  // todo: 이전 상태를 바탕으로 비디오 레이아웃을 다음 상태로 변경시킨다.
+  toggleConcentrationMenu() {
+    this.props.toggleConcentrationMenu();
+  }
+
+  toggleStretching() {
+    this.props.toggleStretching();
+  }
+
   toggleVideoLayout() {
     this.props.toggleVideoLayout();
   }
@@ -408,6 +428,17 @@ export default class ToolbarComponent extends Component {
               <div className="buttonStyle">
                 <EmojiEmotionsIcon />
                 <p>이모지</p>
+              </div>
+            </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={this.toggleConcentrationMenu}
+              className="navButton"
+              id="navCon"
+            >
+              <div className="buttonStyle">
+                <ConcentrationIcon />
+                <p>집중도</p>
               </div>
             </IconButton>
 
