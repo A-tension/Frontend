@@ -1388,9 +1388,10 @@ class VideoRoomComponent extends Component {
     this.sendSignalUserChanged({ concentration: concentration });
   };
 
-    console.log(
-      "this.state.teacherMenuDisplay : " + this.state.teacherMenuDisplay,
 
+  toggleConcentrationMenu = () => {
+    this.setState({ concentrationDisplay: !this.state.concentrationDisplay });
+  };
   toggleTeacherMenu() {
     this.setState({ teacherMenuDisplay: !this.state.teacherMenuDisplay });
   }
