@@ -119,6 +119,7 @@ function Group() {
   }, [selectedGroup, dispatch]);
 
   return (
+
       <>
         <div>
           <Tab.Container defaultActiveKey="first">
@@ -130,6 +131,37 @@ function Group() {
                       height: "300px",
                       overflowY: "auto",
                     }}
+              >
+                <Nav variant="pills" className="flex-column">
+                  {grouplist}
+                </Nav>
+              </div>
+              <Nav.Item>
+                <Button
+                  style={{
+                    borderRadius: "10px",
+                    width: "100%",
+                  }}
+                  onClick={() => setMenu(true)}
+                >
+                  그룹 추가
+                </Button>
+              </Nav.Item>
+            </Col>
+
+            {isCreate && (
+              <Col >
+                <Gcreate></Gcreate>{" "}
+              </Col>
+            )}
+            {!isCreate && (
+              <Col>
+                <Nav
+                  variant="underline"
+                  className="pb-0 mt-2"
+                  // defaultActiveKey={selectedTab}
+                  activeKey={selectedTab}
+
                 >
                   <Nav variant="pills" className="flex-column">
                     {grouplist}

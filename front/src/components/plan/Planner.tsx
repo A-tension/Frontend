@@ -87,7 +87,7 @@ function Planner(props: Props) {
     <>
       <img
         src={back}
-        style={{ width: "30px", marginBottom: "1rem" }}
+        style={{ width: "30px", marginBottom: "1rem", marginTop:"1rem" }}
         onClick={handleBack}
       ></img>
       <Form>
@@ -249,7 +249,7 @@ function Planner(props: Props) {
         </Form.Group>
 
         <Col
-          sm={{ span: 10 }}
+          sm={{ span: 11,offset:1 }}
           style={{
             display: "flex",
             // padding: "8.012px 40.063px",
