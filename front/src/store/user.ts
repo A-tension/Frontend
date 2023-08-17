@@ -42,6 +42,9 @@ export const userSlice = createSlice({
     addItem: (state, action: PayloadAction<Item>) => {
       state.myItems?.push(action.payload); // myItems 배열에 아이템 추가
     },
+    checkTickets: (state, action) => {
+      state.ticket = action.payload;
+    },
     // getTeam: (state, action : PayloadAction<teamResponseDto>) => {
     //   const {
     //     teamId,
@@ -101,7 +104,7 @@ export const userSlice = createSlice({
 });
 //action - dispatch
 
-export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem } = userSlice.actions;
+export const { userLoginTest, userLogin, userLogout,isLoggedIn, addItem, checkTickets } = userSlice.actions;
 
 //getters
 export const checkTicket = (state: RootState) => state.user.ticket;
