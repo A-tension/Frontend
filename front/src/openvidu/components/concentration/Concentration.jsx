@@ -10,7 +10,7 @@ import {
 import Screen from "../../../components/stream/Screen";
 import "../../../components/stream/toolbar.scss";
 import focus from "../../assets/icons/focus_icon.png";
-import smile from "../../assets/icons/smile_emoji.svg";
+import smileIcon from "../../assets/icons/smile_emoji.svg";
 import meh from "../../assets/icons/meh_emoji.svg";
 import sleep from "../../assets/icons/sleep_emoji.svg";
 import info from "../../assets/icons/info_icon.svg";
@@ -62,7 +62,7 @@ const Concentration = (props) => {
     //   }
     // }, [display]);
 
-    const iconList = [smile, meh, sleep];
+    const iconList = [smileIcon, meh, sleep];
 
     const onClickConcentration = () => {
         console.log("clicked");
