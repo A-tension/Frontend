@@ -171,7 +171,7 @@ export default class FaceDetection extends Component {
         // }
       }
     }
-    setTimeout(() => this.onPlay(), 3000);
+    setTimeout(() => this.onPlay(), 300);
   };
 
   render() {
