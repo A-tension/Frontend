@@ -43,8 +43,10 @@ function Group() {
         console.log("selected" + group.name);
 
     };
+    const reversedGroups = [...groups].reverse();
 
-    const grouplist = groups.map((group, index) => (
+    const grouplist = reversedGroups.map((group, index) => (
+    // const grouplist = groups.toReversed().map((group, index) => (
         <Nav.Link
             eventKey={index}
             onClick={() => {

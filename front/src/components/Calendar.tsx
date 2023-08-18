@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { getPlanlist, loadListTest } from "../store/plan";
+import { getPlanlist, loadListTest, reloadPlans } from "../store/plan";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import "../components/plan/cal.css";
 import { useEffect, useMemo, useState } from "react";
@@ -12,10 +12,11 @@ import Planner from "./plan/Planner";
 import PlanView from "./plan/PlanView";
 import { createEventId } from "./plan/event-utils";
 import { PlanRequestDto, PlanResponseDto } from "../api/plan/types";
+import { findMyPlan } from "../api/plan/planApi";
 
 function Calendar() {
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const propgroup = location.state?.propgroup;
 
@@ -26,8 +27,23 @@ function Calendar() {
   );
   const planFromGroup = location.state?.plan;
   const [selectedTab, selectTab] = useState(tabFromState || "calendar");
-
-  const [gotPlan, getPlan] = useState<PlanResponseDto>(planFromGroup);
+  let loadplans;
+  if(planFromGroup){
+    loadplans = planFromGroup;
+  }else{
+    findMyPlan<PlanResponseDto[]>()
+    .then(function (result) {
+      loadplans=result.data.data;
+      console.log(result.data);``
+      dispatch(reloadPlans(result.data.data));
+    })
+    .catch((error) => {
+      console.error(error);
+      // 에러 처리 로직 추가cd
+    });
+    // loadplans=useAppSelector()
+  } 
+  const [gotPlan, getPlan] = useState<PlanResponseDto>(loadplans);
   const planTransfer = (sPlan:PlanResponseDto) => {
     getPlan(sPlan);
   };

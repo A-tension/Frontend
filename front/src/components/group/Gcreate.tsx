@@ -132,12 +132,15 @@ const Gcreate = (props: Props) => {
         userIdList: userIdList,
         description:groupData.description ?? "",
       };
+      setIsLoading(true);
+
       await createTeam(createTeamRequestBody);
-      await findMyTeam().then((result)=>dispatch(loginload(result.data.data)))
-      
+      await findMyTeam().then((result)=>dispatch(loginload(result.data.data))).catch((e)=>setErrorMode(e))
+      setIsLoading(false);
       // findMyTeam()
       // TODO
       //  groupData 변경 필요
+      setModalShow(true);
     }
 
     // console.log(groupData);
