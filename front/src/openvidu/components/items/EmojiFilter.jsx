@@ -35,7 +35,7 @@ export default class EmojiFilter extends Component {
                   fontSize: "500%",
                 }}
               >
-                {this.state.user.outAngle ? { Warning } : null}
+                {this.state.user.outAngle ? "🚫" : null}
               </h1>
             )}
           </>
