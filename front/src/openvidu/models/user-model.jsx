@@ -51,7 +51,7 @@ class UserModel {
     this.levelPng = "";
     this.presentationCnt = 0;
     this.concentration = 0;
-    this.concentrationList = [0, 0, 0];
+    this.concentrationList = [0, 0, 0, 0, 0, 0];
     this.total = 0;
   }
   // 추가 함수
@@ -125,6 +125,12 @@ class UserModel {
   }
   setVideoActive(isVideoActive) {
     this.videoActive = isVideoActive;
+    if (isVideoActive) {
+      this.setConcentration(6)
+    }
+    else {
+      this.setConcentration(7)
+    }
   }
   setScreenShareActive(isScreenShareActive) {
     this.screenShareActive = isScreenShareActive;
@@ -193,30 +199,57 @@ class UserModel {
     this.concentration = concentration;
   }
 
+  // setConcentrationList(concentrationList) {
+  //   this.concentrationList = concentrationList;
+  // }
+
   setTotal(concentration) {
     // this.concentrationList.push(concentration);
-    this.concentrationList[concentration] ++;
-    // this.total = this.concentrationList.reduce((a, b) => a + b, 0) / this.concentrationList.length;
+    if (concentration < 3) {
+      this.concentrationList[concentration]++;
+      // this.total = this.concentrationList.reduce((a, b) => a + b, 0) / this.concentrationList.length;
 
-    console.log(this.concentrationList);
+      console.log("??????????????")
+      console.log(this.concentrationList);
 
-    // 집중하지 않는 인원 수
-    const con0 = this.concentrationList[0];
+      // 집중하지 않는 인원 수
+      const con0 = this.concentrationList[0];
 
-    console.log("con0", con0)
+      // console.log("con0", con0)
 
-    // 집중하는 인원 수
-    const con1 = this.concentrationList[1];
-    console.log("con1", con1)
+      // 집중하는 인원 수
+      const con1 = this.concentrationList[1];
+      // console.log("con1", con1)
 
-    // 매우 집중하는 인원 수
-    const con2 = this.concentrationList[2];
-    console.log("con2", con2)
+      // 매우 집중하는 인원 수
+      const con2 = this.concentrationList[2];
+      // console.log("con2", con2)
 
-    // 총 집중 수
-    const n = con0 + con1 + con2;
+      // 총 집중 수
+      const n = con0 + con1 + con2;
 
-    this.total = parseInt(50 + ((5 * n) - 5 * con0 - 3 * con1) * (10 / n));
+      this.total = parseInt(50 + ((5 * n) - 5 * con0 - 3 * con1) * (10 / n));
+    }
+    else {
+      if (concentration === 3) {
+        this.concentrationList[3]++;
+        // this.concentrationList[4]--;
+      }
+      else if (concentration === 4) {
+        // this.concentrationList[3]--;
+        this.concentrationList[4]++;
+      }
+      else if (concentration === 5) {
+        // this.concentrationList[4]--;
+        this.concentrationList[5]++;
+      }
+      else if (concentration === 6) {
+        this.concentrationList[4]++;
+      }
+      else if (concentration === 7) {
+        this.concentrationList[4]--;
+      }
+    }
   }
 
 }
