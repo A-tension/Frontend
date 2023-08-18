@@ -681,7 +681,7 @@ class VideoRoomComponent extends Component {
             }
           }
           if (data.isSmileActive !== undefined) {
-            console.log(data.isSmileActive ? "웃음" : "안웃음")
+            console.log(data.isSmileActive ? "웃음" : "안웃음");
             user.setSmileActive(data.isSmileActive);
           }
           if (data.isOutAngleActive !== undefined) {
@@ -1557,12 +1557,12 @@ class VideoRoomComponent extends Component {
             randomStretch={this.state.randomStretch}
           />
           <Concentration
-            people = {this.state.people}
-            smile = {this.state.smile}
-            outAngle = {this.state.outAngle}
+            people={this.state.people}
+            smile={this.state.smile}
+            outAngle={this.state.outAngle}
             display={this.state.concentrationDisplay}
             toggleConcentrationMenu={this.toggleConcentrationMenu}
-            concentration = {this.state.concentration}
+            concentration={this.state.concentration}
             concentrationList={this.state.concentrationList}
             total={this.state.total}
           />
@@ -1572,17 +1572,6 @@ class VideoRoomComponent extends Component {
             showDialog={this.state.showExtensionDialog}
             cancelClicked={this.closeDialogExtension}
           />
-          {/* 칭찬스티커 */}
-          {this.state.stickers.map((stickerKey) => (
-            <Sticker
-              key={stickerKey.key}
-              stikerKey={stickerKey.key}
-              top={stickerKey.top}
-              left={stickerKey.left}
-              removeSticker={this.removeSticker}
-              localUser={localUser}
-            ></Sticker>
-          ))}
           {/* 유저 카메라 화면 */}
           <div
             id="layout"

@@ -162,7 +162,7 @@ export default class ToolbarComponent extends Component {
       return (
         <div className="buttonStyle">
           <ViewAgenda />
-          <p>선생님 위주</p>
+          <p>발표자 위주</p>
         </div>
       );
     } else if (this.props.videoLayout === "bigTeacher") {
@@ -335,7 +335,7 @@ export default class ToolbarComponent extends Component {
                 ? (this.props.videoLayout === "bigTeacher" && (
                     <div className="buttonStyle">
                       <OneIcon />
-                      <p>선생님 위주</p>
+                      <p>발표자 위주</p>
                     </div>
                   )) ||
                   (this.props.videoLayout === "equalSize" && (
@@ -391,10 +391,10 @@ export default class ToolbarComponent extends Component {
             </IconButton>
 
             <IconButton
-                color="inherit"
-                onClick={this.toggleConcentrationMenu}
-                className="navButton"
-                id="navCon"
+              color="inherit"
+              onClick={this.toggleConcentrationMenu}
+              className="navButton"
+              id="navCon"
             >
               <div className="buttonStyle">
                 <ConcentrationIcon />
