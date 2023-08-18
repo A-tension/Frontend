@@ -73,6 +73,8 @@ class VideoRoomComponent extends Component {
 
     let concentration = this.props.concentration;
 
+    let concentrationList = this.props.concentrationList;
+
     // 상태값들 (mySessionId: 접속중인 세션이름, myUserName: 내 이름, session: 세션에 대한 정보, localUser: 내 정보, subscribers: 같이 접속한 사람들, chatDisplay: 채팅창 on 여부, currentVideoDevice: 현재 비디오 출력장치)
     this.state = {
       mySessionId: sessionName,
@@ -115,7 +117,7 @@ class VideoRoomComponent extends Component {
       teacherMenuDisplay: false,
       isCodeModalOpen: false,
       concentration: concentration,
-      concentrationList: [0, 0, 0],
+      concentrationList: concentrationList,
       people: 0,
       total: 0,
       concentrationDisplay: false,
@@ -406,6 +408,7 @@ class VideoRoomComponent extends Component {
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setScreenShareActive(false);
     localUser.setStreamManager(publisher);
+    this.concentrationEvent(6)
 
     // 이벤트 등록
     if (this.props.whoami !== "teacher") this.subscribeToSessionClosed();
@@ -709,11 +712,14 @@ class VideoRoomComponent extends Component {
             user.setConcentration(data.concentration);
             this.state.people = size;
             user.setTotal(data.concentration);
+            // user.setConcentrationList(data.concentration)
+            console.log("!!!!!!!!!!!!!")
+            console.log(user.getConcentrationList())
             this.setState({
               total: user.getTotal(),
               concentration: user.getConcentration(),
+              concentrationList: user.getConcentrationList(),
             });
-            console.log(user.getTotal());
           }
           if (data.stretchCreated !== undefined) {
             if (timeout) clearTimeout(timeout); // 쓰로틀링을 사용했습니다.
@@ -1197,8 +1203,6 @@ class VideoRoomComponent extends Component {
   };
 
   addNewSticker = (current) => {
-    console.log("totalHeight = ", this.state.totalHeight);
-    console.log("totalWidth = ", this.state.totalWidth);
 
     let imgSize = 100;
     let margin = 8;
@@ -1211,8 +1215,6 @@ class VideoRoomComponent extends Component {
       top: this.between(yStart, yEnd),
       left: this.between(xStart, xEnd),
     };
-    console.log(newSticker.top);
-    console.log(newSticker.left);
 
     this.state.stickers.push(newSticker);
   };

@@ -19,6 +19,23 @@ const Concentration = (props) => {
     let good = 0;
     let normal = props.people;
     let bad = 0;
+
+    // console.log(concentrationList)
+    if (concentrationList !== undefined) {
+        // if (concentrationList[3] === 0 &&
+        //     concentrationList[4] === 0 &&
+        //     concentrationList[5] === 0
+        // )
+        //     concentrationList[4]++;
+        if (concentrationList[3] < 0) {
+            concentrationList[3]++;
+            concentrationList[4]--;
+        }
+        else if (concentrationList[4] < 0) {
+            concentrationList[3]--;
+            concentrationList[4]++;
+        }
+    }
     switch (concentration) {
         case 3: // normal => smile
             normal -= 1;
@@ -66,6 +83,7 @@ const Concentration = (props) => {
 
     const onClickConcentration = () => {
         console.log("clicked");
+
         // setUp(false);
         toggleConcentrationMenu();
     };
@@ -215,21 +233,21 @@ const Concentration = (props) => {
                             <div className="pills">
                                 <div className="pill-text">
                                     <img className="icon-block" src={iconList[0]} alt="Icon 0" />
-                                    {good}
+                                    {concentrationList === undefined ? 0 : concentrationList[3]}
                                 </div>
                             </div>
 
                             <div className="pills">
                                 <div className="pill-text">
                                     <img className="icon-block" src={iconList[1]} alt="Icon 1" />
-                                    {normal}
+                                    {concentrationList === undefined ? 0 : concentrationList[4]}
                                 </div>
                             </div>
 
                             <div className="pills">
                                 <div className="pill-text">
                                     <img className="icon-block" src={iconList[2]} alt="Icon 2" />
-                                    {bad}
+                                    {concentrationList === undefined ? 0 : concentrationList[5]}
                                 </div>
                             </div>
 

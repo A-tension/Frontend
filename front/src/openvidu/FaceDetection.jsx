@@ -126,28 +126,31 @@ export default class FaceDetection extends Component {
       if (happy > 0.8) {
         normal = 0;
         smile += 1;
-        if (smile === 1) {
+        if (smile === 3) {
           this.props.smile(true);
           this.state.last = 0;
-          if (last === 1) { // normal에서 웃음
-            this.props.concentrationEvent(3);
-          }
-          else { // 자리비움에서 웃음
-            this.props.concentrationEvent(4);
-          }
+          this.props.concentrationEvent(3);
+          // if (last === 1) { // normal에서 웃음
+          //   this.props.concentrationEvent(3);
+          // }
+          // else { // 자리비움에서 웃음
+          //   this.props.concentrationEvent(4);
+          // }
         }
       } else {
         smile = 0;
         normal += 1;
-        if (normal === 1) {
+        if (normal === 3) {
           this.props.smile(false);
           this.state.last = 1;
-          if (last === 0) { // 웃다가 normal 
-            this.props.concentrationEvent(5);
-          }
-          else { // 자리비웠다가 normal 
-            this.props.concentrationEvent(6);
-          }
+          this.props.concentrationEvent(4);
+
+          // if (last === 0) { // 웃다가 normal
+          //   this.props.concentrationEvent(5);
+          // }
+          // else { // 자리비웠다가 normal
+          //   this.props.concentrationEvent(6);
+          // }
         }
       }
       this.props.outAngle(false);
@@ -155,19 +158,20 @@ export default class FaceDetection extends Component {
     } else {
       const lv = this.state.face + 1;
       this.props.smile(false);
-      this.setState(() => ({ smile: 0, normal: 0, expressions: 0, face: lv }));
+      this.setState(() => ({ expressions: 0, face: lv }));
       if (lv === 6) {
         this.props.outAngle(true);
         this.state.last = 2;
-        if (last === 0) { // 웃다가 자리비움 
-          this.props.concentrationEvent(7);
-        }
-        else { // normal에서 자리비움
-          this.props.concentrationEvent(8);
-        }
+        this.props.concentrationEvent(5);
+        // if (last === 0) { // 웃다가 자리비움
+        //   this.props.concentrationEvent(7);
+        // }
+        // else { // normal에서 자리비움
+        //   this.props.concentrationEvent(8);
+        // }
       }
     }
-    setTimeout(() => this.onPlay(), 1500);
+    setTimeout(() => this.onPlay(), 3000);
   };
 
   render() {
