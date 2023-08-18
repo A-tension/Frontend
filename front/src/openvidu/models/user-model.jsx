@@ -215,6 +215,10 @@ class UserModel {
     this.concentration = concentration;
   }
 
+  setConcentrationList(concentrationList) {
+    this.concentration = concentrationList;
+  }
+
   setTotal(concentration) {
     // this.concentrationList.push(concentration);
     this.concentrationList[concentration] ++;

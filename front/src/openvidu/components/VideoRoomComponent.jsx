@@ -448,7 +448,7 @@ class VideoRoomComponent extends Component {
             frameColor: this.state.localUser.getFrameColor(),
             emojiUsed: this.state.localUser.getEmoji(),
             concentration: this.state.localUser.getConcentration(),
-            // concentrationList: this.state.concentrationList.push(
+            concentrationList: this.state.localUser.getConcentrationList(),
             //   this.state.localUser.getConcentration()
             // ),
             // total:
@@ -630,6 +630,9 @@ class VideoRoomComponent extends Component {
           }
           if (data.isVideoActive !== undefined) {
             user.setVideoActive(data.isVideoActive);
+            this.state({
+              concentrationList: user.getConcentrationList()
+            })
           }
           if (data.nickname !== undefined) {
             user.setNickname(data.nickname);
@@ -680,6 +683,9 @@ class VideoRoomComponent extends Component {
           }
           if (data.isSmileActive !== undefined) {
             user.setSmileActive(data.isSmileActive);
+            this.state({
+              concentrationList: user.getConcentrationList()
+            })
           }
           if (data.isOutAngleActive !== undefined) {
             user.setOutAngleActive(data.isOutAngleActive);
@@ -720,6 +726,12 @@ class VideoRoomComponent extends Component {
             timeout = setTimeout(() => {
               this.setState({ stretchingDisplay: false });
             }, 5 * 1000);
+          }
+          if (data.concentrationList !== undefined) {
+            user.setConcentrationList(data.concentrationList);
+            this.setState({
+              concentrationList: user.getConcentrationList()
+            })
           }
         }
       });
@@ -1072,7 +1084,10 @@ class VideoRoomComponent extends Component {
     if (event !== localUser.isSmileActive()) {
       localUser.setSmileActive(!localUser.isSmileActive());
       localUser.getStreamManager().publishVideo(localUser.isVideoActive());
-      this.sendSignalUserChanged({ isSmileActive: localUser.isSmileActive() });
+      this.sendSignalUserChanged({
+        isSmileActive: localUser.isSmileActive(),
+        concentrationList: localUser.getConcentrationList()}
+      );
       this.setState({ localUser: localUser });
     }
   }

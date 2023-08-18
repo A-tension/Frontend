@@ -180,11 +180,11 @@ const Concentration = (props) => {
                                     </div>
                                 }
                             </OverlayTrigger>
-                            {concentrationList.map((concentration, index) => (
+                            {concentrationList.slice(3,6).map((concentration, index) => (
                                 <div className="pills" key={index}>
                                     <div className="pill-text">
                                         <img className="icon-block" src={iconList[index]}></img>
-                                        {concentration}
+                                        {concentrationList[index]}
                                     </div>
                                 </div>
                             ))}

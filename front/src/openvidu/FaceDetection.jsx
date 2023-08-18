@@ -15,6 +15,7 @@ export default class FaceDetection extends Component {
     autoPlay: false,
     camera: true,
     concentration: 0,
+    concentrationList: [0, 0, 0, 0, 0, 0]
   };
 
   componentDidMount() {
@@ -141,7 +142,7 @@ export default class FaceDetection extends Component {
         this.props.outAngle(true);
       }
     }
-    setTimeout(() => this.onPlay(), 500);
+    setTimeout(() => this.onPlay(), 2000);
   };
 
   render() {
