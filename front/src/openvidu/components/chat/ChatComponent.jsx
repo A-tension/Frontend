@@ -166,7 +166,7 @@ export class ChatComponent extends Component {
     if (e.target.value === "all") this.setState({ messageTarget: "all" });
     else {
       const target = this.props.subscribers.filter(
-        (elem) => elem.nickname === e.target.value
+        (elem) => elem.nickname === e.target.value,
       );
       this.setState({ messageTarget: target[0] });
     }
@@ -186,9 +186,7 @@ export class ChatComponent extends Component {
   render() {
     // this.props.loginUser로 사용 가능
     const { loginUser } = this.props;
-    console.log("loginUser : ", loginUser);
     const profileImage = loginUser.profileImage;
-    console.log("profileImage : ", profileImage);
     const styleChat = { display: this.props.chatDisplay };
     return (
       <div id="chatContainer" ref={this.chatHeight}>

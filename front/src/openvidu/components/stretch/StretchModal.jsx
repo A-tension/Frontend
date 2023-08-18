@@ -11,8 +11,6 @@ class StretchModal extends Component {
   }
 
   componentDidUpdate() {
-    console.log("this.state.randomStretch : " + this.state.randomStretch);
-
     if (this.state.display !== this.props.display) {
       this.setState({ display: this.props.display });
     }
